@@ -393,7 +393,7 @@ section {
 
 #navbar.scrolled {
     padding: 12px 0;
-    background: #000000;
+    background: rgba(7, 16, 30, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(201, 168, 76, 0.08);
