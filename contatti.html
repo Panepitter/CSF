@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contatti — CSF Consulting | Latina e Territorio Pontino</title>
+    <meta name="description" content="Contatta CSF Consulting per una consulenza d'impresa d'eccellenza. Sede nel territorio pontino, supporto fiscale, societario e innovazione.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-logo">CSF</div>
+            <div class="preloader-line"></div>
+            <div class="preloader-text">CONSULTING</div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" aria-hidden="true"></div>
+    <div class="cursor-outline" aria-hidden="true"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="scrolled">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-csf">CSF</span>
+                <span class="logo-divider"></span>
+                <span class="logo-consulting">CONSULTING</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="chi-siamo.html" class="nav-link">Chi Siamo</a>
+                <a href="servizi.html" class="nav-link">Servizi</a>
+                <a href="innova.html" class="nav-link">Innova</a>
+                <a href="contatti.html" class="nav-link nav-link-cta active">Contatti</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Apri menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-inner">
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="chi-siamo.html" class="mobile-link">Chi Siamo</a>
+            <a href="servizi.html" class="mobile-link">Servizi</a>
+            <a href="innova.html" class="mobile-link">Innova</a>
+            <a href="contatti.html" class="mobile-link">Contatti</a>
+        </div>
+    </div>
+
+    <main>
+        <!-- Hero Contatti -->
+        <section class="internal-hero" style="padding: 180px 0 100px; background: var(--navy-900); text-align: center;">
+            <div class="container">
+                <div class="hero-badge reveal">
+                    <span class="hero-badge-line"></span>
+                    <span class="hero-badge-text">Connettiamoci</span>
+                    <span class="hero-badge-line"></span>
+                </div>
+                <h1 class="reveal">Inizia la tua <span class="text-gold">Evoluzione</span></h1>
+                <p class="section-subtitle reveal" style="margin-top: 24px;">Siamo pronti ad ascoltare le tue esigenze e a costruire insieme il futuro della tua impresa.</p>
+            </div>
+        </section>
+
+        <!-- Form & Info -->
+        <section style="padding: 100px 0; background: var(--navy-800);">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-info reveal">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            </div>
+                            <div>
+                                <h4>Sede</h4>
+                                <p>Territorio Pontino, Italia</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            </div>
+                            <div>
+                                <h4>Email</h4>
+                                <p>info@csfconsulting.it</p>
+                            </div>
+                        </div>
+                        <div class="contact-quote">
+                            <span class="quote-mark">“</span>
+                            <blockquote>La nostra forza è la vicinanza al cliente, supportata da una visione globale e tecnologica.</blockquote>
+                        </div>
+                    </div>
+
+                    <div class="contact-form reveal">
+                        <form id="mainContactForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" id="name" placeholder=" " required>
+                                    <label for="name">Nome e Cognome</label>
+                                    <div class="form-line"></div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" id="email" placeholder=" " required>
+                                    <label for="email">Email</label>
+                                    <div class="form-line"></div>
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-top: 20px;">
+                                <div class="select-wrapper">
+                                    <select id="interest" required>
+                                        <option value="" disabled selected>Area di Interesse</option>
+                                        <option value="fiscale">Consulenza Fiscale & Contabile</option>
+                                        <option value="societaria">Consulenza Societaria</option>
+                                        <option value="lavoro">Consulenza del Lavoro</option>
+                                        <option value="innova">Innova (Innovation Management)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-top: 20px;">
+                                <textarea id="message" placeholder=" " required></textarea>
+                                <label for="message">Come possiamo aiutarti?</label>
+                                <div class="form-line"></div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-submit" style="margin-top: 30px;">
+                                <span>Invia Messaggio</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-info">
+                    <div class="footer-logo">
+                        <span class="logo-csf">CSF</span>
+                        <span class="logo-consulting">CONSULTING</span>
+                    </div>
+                    <p class="footer-tagline">Tradizione e Innovazione dal 1970. La tua impresa, la nostra missione.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Studio</h4>
+                    <a href="index.html">Home</a>
+                    <a href="chi-siamo.html">Chi Siamo</a>
+                    <a href="contatti.html">Contatti</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Servizi</h4>
+                    <a href="servizi.html">Consulenza Core</a>
+                    <a href="innova.html">Innovation Management</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Contatti</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Territorio Pontino, Italia<br>info@csfconsulting.it</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 CSF Consulting. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

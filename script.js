@@ -313,6 +313,9 @@
         var counters = document.querySelectorAll('.stat-number');
         if (counters.length === 0) return;
 
+        var statsSection = document.getElementById('stats');
+        if (!statsSection) return;
+
         if (!('IntersectionObserver' in window)) {
             counters.forEach(function (el) {
                 el.textContent = el.getAttribute('data-target');
@@ -393,7 +396,7 @@
        Contact Form
        -------------------------- */
     function setupContactForm() {
-        var form = document.getElementById('contactForm');
+        var form = document.getElementById('contactForm') || document.getElementById('mainContactForm');
         if (!form) return;
 
         form.addEventListener('submit', function (e) {
