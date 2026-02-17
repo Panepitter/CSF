@@ -7,7 +7,7 @@
     <meta name="description" content="Innova: la divisione di CSF Consulting dedicata a Branding, Digital Marketing, Sviluppo Software, AI e Data Management per l'impresa del futuro.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <style>
         /* Innova Page - Tech Masterclass */
         :root {
@@ -71,7 +71,7 @@
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            grid-template-rows: repeat(2, 450px);
+            grid-auto-rows: minmax(400px, auto);
             gap: 30px;
         }
 
@@ -88,6 +88,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
+            min-height: 400px;
         }
 
         .bento-item:hover {
@@ -98,7 +99,7 @@
 
         .bento-item.large { grid-column: span 8; }
         .bento-item.medium { grid-column: span 4; }
-        .bento-item.full { grid-column: span 12; height: 500px; margin-top: 30px; }
+        .bento-item.full { grid-column: span 12; min-height: 500px; }
 
         .pillar-tag {
             font-size: 0.7rem;
@@ -131,8 +132,14 @@
             right: 0;
             width: 60%;
             height: 100%;
-            z-index: -1;
+            z-index: 0;
             opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .bento-item > * {
+            position: relative;
+            z-index: 1;
         }
 
         .data-viz-mockup {
@@ -179,9 +186,29 @@
             background-size: 50px 50px;
         }
 
+        .method-flow-container {
+            padding: 60px;
+            border: 1px dashed var(--electric);
+            text-align: center;
+            color: var(--electric-light);
+            background: rgba(59, 130, 246, 0.02);
+            backdrop-filter: blur(10px);
+            border-radius: 4px;
+        }
+
+        .method-step {
+            display: inline-block;
+            padding: 10px 20px;
+            border: 1px solid var(--electric);
+            margin: 10px;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
         @media (max-width: 1024px) {
             .bento-grid { display: flex; flex-direction: column; }
-            .bento-item { height: 450px; padding: 30px; }
+            .bento-item { height: auto; min-height: 400px; padding: 30px; }
             .pillar-title { font-size: 2rem; }
             .bento-item.full { height: auto; min-height: 450px; }
         }
@@ -312,9 +339,12 @@
                 </div>
                 
                 <div class="method-flow reveal">
-                    <!-- Flowchart placeholder - can be enhanced with JS -->
-                    <div style="padding: 60px; border: 1px dashed var(--electric); text-align: center; color: var(--electric-light);">
-                        <p>DATA INPUT (1970) > AI PROCESSING > STRATEGIC OUTPUT</p>
+                    <div class="method-flow-container">
+                        <div class="method-step">Data Input (1970)</div>
+                        <span style="color: var(--electric); opacity: 0.5;">&rarr;</span>
+                        <div class="method-step">AI Processing</div>
+                        <span style="color: var(--electric); opacity: 0.5;">&rarr;</span>
+                        <div class="method-step">Strategic Output</div>
                     </div>
                 </div>
             </div>

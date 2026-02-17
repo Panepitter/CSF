@@ -75,6 +75,52 @@
     --glass-tech-border: rgba(59, 130, 246, 0.2);
     --glow-gold: 0 0 20px rgba(184, 150, 46, 0.15);
     --glow-electric: 0 0 25px rgba(59, 130, 246, 0.25);
+    
+    /* Global Classes for Sections */
+    --white: #F8F6F0;
+}
+
+.section-label {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold-400);
+    margin-bottom: 16px;
+    position: relative;
+}
+
+.section-label-electric {
+    color: var(--electric-light);
+}
+
+.section-title {
+    margin-bottom: 16px;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.2;
+    color: var(--text-primary);
+}
+
+.section-subtitle {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s var(--ease-expo);
+}
+
+.reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 
