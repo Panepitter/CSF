@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percorsi — CSF Consulting | Visione d'Insieme</title>
+    <meta name="description" content="Scegli il tuo percorso con CSF Consulting: dalla creazione di startup innovative alla trasformazione strategica di aziende consolidate.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --split-bg-left: var(--navy-950);
+            --split-bg-right: var(--navy-900);
+        }
+
+        .percorsi-hero {
+            padding: 180px 0 80px;
+            background: var(--navy-950);
+            text-align: center;
+            position: relative;
+        }
+
+        .split-container {
+            display: flex;
+            width: 100%;
+            min-height: 70vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .split-side {
+            flex: 1;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            transition: flex 0.8s var(--ease-expo), filter 0.5s ease;
+            cursor: pointer;
+            text-decoration: none;
+            overflow: hidden;
+        }
+
+        .split-side::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            filter: grayscale(1);
+            transition: transform 1.2s var(--ease-expo), opacity 0.8s ease;
+        }
+
+        .side-startup::before { background-image: url('https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=1000'); }
+        .side-transform::before { background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1000'); }
+
+        .split-side:hover {
+            flex: 1.5;
+        }
+
+        .split-side:hover::before {
+            opacity: 0.3;
+            transform: scale(1.05);
+            filter: grayscale(0);
+        }
+
+        .side-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .side-icon {
+            font-size: 3rem;
+            color: var(--gold-400);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .side-title {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            color: var(--white);
+            margin-bottom: 20px;
+            line-height: 1;
+        }
+
+        .side-description {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        .side-cta {
+            display: inline-block;
+            padding: 15px 35px;
+            border: 1px solid var(--gold-500);
+            color: var(--gold-300);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 0.8rem;
+            transition: all 0.4s ease;
+        }
+
+        .split-side:hover .side-cta {
+            background: var(--gold-500);
+            color: var(--navy-950);
+        }
+
+        .side-transform .side-icon, .side-transform .side-cta { color: var(--electric-light); border-color: var(--electric); }
+        .side-transform:hover .side-cta { background: var(--electric); color: var(--white); }
+
+        .vision-section {
+            padding: 120px 0;
+            background: var(--navy-950);
+            text-align: center;
+        }
+
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 80px;
+        }
+
+        .vision-item h3 {
+            color: var(--gold-400);
+            margin-bottom: 15px;
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+        }
+
+        @media (max-width: 1024px) {
+            .split-container { flex-direction: column; }
+            .split-side { min-height: 50vh; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-logo">CSF</div>
+            <div class="preloader-line"></div>
+            <div class="preloader-text">CONSULTING</div>
+        </div>
+    </div>
+
+    <nav id="navbar" class="scrolled">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-csf">CSF</span>
+                <span class="logo-divider"></span>
+                <span class="logo-consulting">CONSULTING</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="chi-siamo.html" class="nav-link">Chi Siamo</a>
+                <a href="servizi.html" class="nav-link">Servizi</a>
+                <a href="percorsi.html" class="nav-link active">Percorsi</a>
+                <a href="innova.html" class="nav-link">Innova</a>
+                <a href="contatti.html" class="nav-link nav-link-cta">Contatti</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="percorsi-hero">
+            <div class="container">
+                <div class="hero-badge reveal">
+                    <span class="hero-badge-line"></span>
+                    <span class="hero-badge-text">Consulenza a 360°</span>
+                    <span class="hero-badge-line"></span>
+                </div>
+                <h1 class="reveal">Scegli la tua <span class="text-gold">Evoluzione</span></h1>
+                <p class="section-subtitle reveal" style="max-width: 800px; margin: 24px auto 0;">
+                    Dalla scintilla iniziale di una startup alla ristrutturazione di un impero consolidato. 
+                    CSF Consulting offre la visione d'insieme necessaria per ogni fase della vita aziendale.
+                </p>
+            </div>
+        </section>
+
+        <section class="split-container">
+            <!-- Percorso A: Startup -->
+            <a href="contatti.html?path=startup" class="split-side side-startup reveal">
+                <div class="side-content">
+                    <span class="side-icon">✧</span>
+                    <h2 class="side-title">Inizia una <br>Start-up</h2>
+                    <p class="side-description">Dall'idea al mercato. Supporto legale, fiscale e strategico per startup innovative e nuove realtà imprenditoriali.</p>
+                    <span class="side-cta">Esplora il Percorso</span>
+                </div>
+            </a>
+
+            <!-- Percorso B: Trasformazione -->
+            <a href="contatti.html?path=transform" class="split-side side-transform reveal">
+                <div class="side-content">
+                    <span class="side-icon">⌬</span>
+                    <h2 class="side-title">Trasforma la <br>tua Azienda</h2>
+                    <p class="side-description">Ristrutturazione, potenziamento e digitalizzazione. Evolvi la tua società già avviata con metodologia d'avanguardia.</p>
+                    <span class="side-cta">Esplora il Percorso</span>
+                </div>
+            </a>
+        </section>
+
+        <section class="vision-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-label">La Forza di CSF</span>
+                    <h2 class="section-title">Oltre la mera <span class="text-gold">Consulenza</span></h2>
+                    <p class="section-subtitle">Un approccio olistico che fonde 55 anni di storia con le tecnologie del futuro.</p>
+                </div>
+
+                <div class="vision-grid">
+                    <div class="vision-item reveal">
+                        <h3>Visione d'Insieme</h3>
+                        <p>Non guardiamo solo ai numeri, ma all'intero ecosistema aziendale, dai processi interni all'immagine di marca.</p>
+                    </div>
+                    <div class="vision-item reveal" style="transition-delay: 0.1s;">
+                        <h3>Metodo Ibrido</h3>
+                        <p>La personalizzazione di uno studio professionale unita alla potenza analitica delle grandi firme internazionali.</p>
+                    </div>
+                    <div class="vision-item reveal" style="transition-delay: 0.2s;">
+                        <h3>Partner Strategico</h3>
+                        <p>Non siamo semplici fornitori, ma il motore che coadiuva la crescita e la sicurezza della tua impresa.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-info">
+                    <div class="footer-logo">
+                        <span class="logo-csf">CSF</span>
+                        <span class="logo-consulting">CONSULTING</span>
+                    </div>
+                    <p class="footer-tagline">Tradizione e Innovazione dal 1970.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Navigazione</h4>
+                    <a href="index.html">Home</a>
+                    <a href="servizi.html">Servizi</a>
+                    <a href="percorsi.html">Percorsi</a>
+                    <a href="innova.html">Innova</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Contatti</h4>
+                    <p>info@csfconsulting.it<br>Territorio Pontino, Italia</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
