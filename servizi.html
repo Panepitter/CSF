@@ -12,16 +12,43 @@
     <style>
         /* Custom Styles for Servizi - The Masterclass Layout */
         .services-hero {
-            padding: 180px 0 100px;
+            padding: 220px 0 140px;
             background: var(--navy-950);
             text-align: center;
-            border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .services-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(28, 61, 106, 0.2) 0%, transparent 70%);
+            z-index: 1;
         }
         
+        .services-hero .container { position: relative; z-index: 2; }
+
+        .hero-title-main {
+            font-family: var(--font-display);
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            line-height: 0.9;
+            margin-top: 20px;
+            color: var(--white);
+            letter-spacing: -0.02em;
+        }
+
+        .hero-title-main span.outline {
+            color: transparent;
+            -webkit-text-stroke: 1px var(--gold-300);
+            opacity: 0.5;
+        }
+
         .service-deep-dive {
-            padding: 120px 0;
+            padding: 140px 0;
             border-bottom: 1px solid rgba(201, 168, 76, 0.05);
             position: relative;
+            overflow: hidden;
         }
         
         .service-deep-dive:nth-child(even) {
@@ -31,97 +58,151 @@
         .service-layout {
             display: grid;
             grid-template-columns: 1fr 1.2fr;
-            gap: 80px;
+            gap: 100px;
             align-items: start;
         }
 
         .service-sticky-info {
             position: sticky;
-            top: 120px;
+            top: 140px;
         }
 
         .service-number-large {
             font-family: var(--font-display);
-            font-size: 8rem;
-            line-height: 1;
+            font-size: 10rem;
+            line-height: 0.8;
             color: var(--gold-500);
-            opacity: 0.1;
-            margin-bottom: -40px;
-            margin-left: -10px;
+            opacity: 0.07;
+            margin-bottom: -50px;
+            margin-left: -20px;
+            font-weight: 700;
         }
 
         .service-title-large {
-            font-size: 3.5rem;
+            font-size: 4rem;
             margin-bottom: 30px;
             color: var(--white);
+            line-height: 1.1;
         }
 
         .service-content-box {
-            padding-top: 40px;
+            padding: 50px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 2px;
+            position: relative;
+            transition: transform 0.8s var(--ease-expo), box-shadow 0.8s var(--ease-expo);
+        }
+
+        .service-content-box:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--glow-gold);
+            border-color: var(--gold-500);
         }
 
         .service-description-lead {
-            font-size: 1.2rem;
-            color: var(--gold-200);
-            line-height: 1.6;
+            font-size: 1.4rem;
+            color: var(--gold-100);
+            line-height: 1.5;
             margin-bottom: 40px;
             font-family: var(--font-display);
             font-style: italic;
+            border-left: 3px solid var(--gold-500);
+            padding-left: 30px;
         }
 
         .competence-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 50px;
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .competence-item {
+            position: relative;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .competence-item h4 {
             color: var(--gold-400);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            font-weight: 600;
         }
 
         .competence-item p {
-            font-size: 0.9rem;
-            line-height: 1.6;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
         }
 
         .innovation-bridge {
             margin-top: 60px;
-            padding: 40px;
-            background: rgba(59, 130, 246, 0.03);
-            border-left: 2px solid var(--electric);
+            padding: 35px;
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.1);
             position: relative;
+            transition: all 0.5s ease;
+        }
+
+        .innovation-bridge:hover {
+            background: rgba(59, 130, 246, 0.08);
+            border-color: var(--electric);
         }
 
         .innovation-bridge h5 {
             color: var(--electric-light);
             font-family: var(--font-body);
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.25em;
             margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .innovation-bridge h5::after {
+            content: '';
+            height: 1px;
+            flex-grow: 1;
+            background: var(--electric);
+            opacity: 0.3;
         }
 
         /* Innovation CTA Section */
         .innovation-cta-block {
-            padding: 100px 0;
-            background: linear-gradient(rgba(4, 10, 20, 0.9), rgba(4, 10, 20, 0.9)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1500');
-            background-size: cover;
-            background-attachment: fixed;
+            padding: 150px 0;
+            background: var(--navy-950);
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-glow {
+            position: absolute;
+            bottom: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 40%;
+            background: radial-gradient(ellipse at center, var(--electric-glow) 0%, transparent 70%);
+            opacity: 0.5;
         }
 
         @media (max-width: 1024px) {
-            .service-layout { grid-template-columns: 1fr; gap: 40px; }
+            .service-layout { grid-template-columns: 1fr; gap: 60px; }
             .service-sticky-info { position: static; }
-            .service-title-large { font-size: 2.5rem; }
+            .service-title-large { font-size: 3rem; }
+            .service-content-box { padding: 30px; }
             .competence-grid { grid-template-columns: 1fr; }
         }
     </style>
+
 </head>
 <body>
 
@@ -156,16 +237,22 @@
     <main>
         <!-- Hero Servizi -->
         <section class="services-hero">
+            <div class="bg-glow"></div>
             <div class="container">
                 <div class="hero-badge reveal">
                     <span class="hero-badge-line"></span>
                     <span class="hero-badge-text">L'Offerta Core</span>
                     <span class="hero-badge-line"></span>
                 </div>
-                <h1 class="reveal">Consulenza d'Impresa <br><span class="title-accent">Senza Compromessi</span></h1>
-                <p class="section-subtitle reveal" style="margin-top: 24px;">Quattro pilastri fondamentali, cinquantacinque anni di esperienza, un unico obiettivo: la tua sicurezza.</p>
+                <h1 class="hero-title-main reveal">
+                    Eccellenza e <br><span class="outline">Strategia</span>
+                </h1>
+                <p class="section-subtitle reveal" style="margin-top: 30px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                    Quattro pilastri fondamentali, cinquantacinque anni di autorità nel territorio pontino. Trasformiamo la complessità normativa in vantaggio competitivo.
+                </p>
             </div>
         </section>
+
 
         <!-- 01 Fiscale -->
         <section id="fiscale" class="service-deep-dive">
@@ -321,13 +408,20 @@
 
         <!-- Innovation CTA -->
         <section class="innovation-cta-block reveal">
+            <div class="cta-glow"></div>
             <div class="container">
                 <span class="section-label section-label-electric">Oltre la Tradizione</span>
                 <h2 class="service-title-large">Pronto per il <span class="text-electric">Prossimo Livello?</span></h2>
-                <p class="section-subtitle" style="margin-bottom: 40px;">Scopri come la nostra divisione Innova può trasformare la tua infrastruttura tecnologica e la tua immagine di marca.</p>
-                <a href="innova.html" class="btn btn-electric">Esplora Innovation Management</a>
+                <p class="section-subtitle" style="margin-bottom: 50px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    La nostra divisione ibrida fonde l'esperienza contabile con l'intelligenza artificiale e il digital management. Scopri come CSF Consulting sta riscrivendo le regole della consulenza.
+                </p>
+                <a href="innova.html" class="btn btn-electric" style="padding: 20px 40px; font-size: 1rem;">
+                    <span>Esplora Innovation Management</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="margin-left: 10px;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
             </div>
         </section>
+
     </main>
 
     <footer id="footer">
