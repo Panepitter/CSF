@@ -3,16 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Servizi — CSF Consulting | Consulenza Fiscale, Societaria e del Lavoro</title>
-    <meta name="description" content="I servizi core di CSF Consulting: consulenza fiscale, contabile, societaria e del lavoro potenziati da 55 anni di esperienza e gestione del dato.">
+    <title>Servizi — CSF Consulting | Eccellenza Multidisciplinare</title>
+    <meta name="description" content="Scopri i servizi core di CSF Consulting: Fiscale, Contabilità, Societario e Lavoro. La solidità della tradizione potenziata dall'innovazione.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Custom Styles for Servizi - The Masterclass Layout */
+        .services-hero {
+            padding: 180px 0 100px;
+            background: var(--navy-950);
+            text-align: center;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+        }
+        
+        .service-deep-dive {
+            padding: 120px 0;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.05);
+            position: relative;
+        }
+        
+        .service-deep-dive:nth-child(even) {
+            background: var(--navy-900);
+        }
+
+        .service-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .service-sticky-info {
+            position: sticky;
+            top: 120px;
+        }
+
+        .service-number-large {
+            font-family: var(--font-display);
+            font-size: 8rem;
+            line-height: 1;
+            color: var(--gold-500);
+            opacity: 0.1;
+            margin-bottom: -40px;
+            margin-left: -10px;
+        }
+
+        .service-title-large {
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            color: var(--white);
+        }
+
+        .service-content-box {
+            padding-top: 40px;
+        }
+
+        .service-description-lead {
+            font-size: 1.2rem;
+            color: var(--gold-200);
+            line-height: 1.6;
+            margin-bottom: 40px;
+            font-family: var(--font-display);
+            font-style: italic;
+        }
+
+        .competence-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .competence-item h4 {
+            color: var(--gold-400);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+        }
+
+        .competence-item p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .innovation-bridge {
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(59, 130, 246, 0.03);
+            border-left: 2px solid var(--electric);
+            position: relative;
+        }
+
+        .innovation-bridge h5 {
+            color: var(--electric-light);
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 15px;
+        }
+
+        /* Innovation CTA Section */
+        .innovation-cta-block {
+            padding: 100px 0;
+            background: linear-gradient(rgba(4, 10, 20, 0.9), rgba(4, 10, 20, 0.9)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1500');
+            background-size: cover;
+            background-attachment: fixed;
+            text-align: center;
+        }
+
+        @media (max-width: 1024px) {
+            .service-layout { grid-template-columns: 1fr; gap: 40px; }
+            .service-sticky-info { position: static; }
+            .service-title-large { font-size: 2.5rem; }
+            .competence-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Preloader -->
     <div id="preloader">
         <div class="preloader-inner">
             <div class="preloader-logo">CSF</div>
@@ -21,11 +133,9 @@
         </div>
     </div>
 
-    <!-- Custom Cursor -->
     <div class="cursor-dot" aria-hidden="true"></div>
     <div class="cursor-outline" aria-hidden="true"></div>
 
-    <!-- Navigation -->
     <nav id="navbar" class="scrolled">
         <div class="nav-container">
             <a href="index.html" class="nav-logo">
@@ -33,118 +143,189 @@
                 <span class="logo-divider"></span>
                 <span class="logo-consulting">CONSULTING</span>
             </a>
-            <div class="nav-links" id="navLinks">
+            <div class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="chi-siamo.html" class="nav-link">Chi Siamo</a>
                 <a href="servizi.html" class="nav-link active">Servizi</a>
                 <a href="innova.html" class="nav-link">Innova</a>
                 <a href="contatti.html" class="nav-link nav-link-cta">Contatti</a>
             </div>
-            <button class="nav-toggle" id="navToggle" aria-label="Apri menu">
-                <span></span><span></span><span></span>
-            </button>
         </div>
     </nav>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="mobile-menu-inner">
-            <a href="index.html" class="mobile-link">Home</a>
-            <a href="chi-siamo.html" class="mobile-link">Chi Siamo</a>
-            <a href="servizi.html" class="mobile-link">Servizi</a>
-            <a href="innova.html" class="mobile-link">Innova</a>
-            <a href="contatti.html" class="mobile-link">Contatti</a>
-        </div>
-    </div>
-
     <main>
-        <!-- Hero Interna -->
-        <section class="internal-hero" style="padding: 180px 0 100px; background: var(--navy-900); text-align: center;">
+        <!-- Hero Servizi -->
+        <section class="services-hero">
             <div class="container">
                 <div class="hero-badge reveal">
                     <span class="hero-badge-line"></span>
-                    <span class="hero-badge-text">Consulenza Core</span>
+                    <span class="hero-badge-text">L'Offerta Core</span>
                     <span class="hero-badge-line"></span>
                 </div>
-                <h1 class="reveal">Soluzioni Strategiche <br><span class="title-accent">per la Tua Impresa</span></h1>
-                <p class="section-subtitle reveal" style="margin-top: 24px;">La solidità della tradizione incontra l'efficienza della gestione digitale del dato.</p>
+                <h1 class="reveal">Consulenza d'Impresa <br><span class="title-accent">Senza Compromessi</span></h1>
+                <p class="section-subtitle reveal" style="margin-top: 24px;">Quattro pilastri fondamentali, cinquantacinque anni di esperienza, un unico obiettivo: la tua sicurezza.</p>
             </div>
         </section>
 
-        <!-- Servizi Dettaglio -->
-        <section style="padding: 100px 0; background: var(--navy-800);">
+        <!-- 01 Fiscale -->
+        <section id="fiscale" class="service-deep-dive">
             <div class="container">
-                <div class="services-grid">
-                    <!-- Fiscale -->
-                    <div class="service-card reveal">
-                        <div class="service-card-inner">
-                            <div class="service-number">01</div>
-                            <h3 class="service-title">Fiscale & Dichiarativi</h3>
-                            <p class="service-description">Pianificazione fiscale nazionale e internazionale, gestione dei dichiarativi e assistenza nel contenzioso tributario con la massima precisione e sicurezza.</p>
-                            <div class="service-tags">
-                                <span class="service-tag">Pianificazione</span>
-                                <span class="service-tag">Compliance</span>
-                                <span class="service-tag">Contenzioso</span>
+                <div class="service-layout">
+                    <div class="service-sticky-info reveal">
+                        <div class="service-number-large">01</div>
+                        <h2 class="service-title-large">Fiscale &<br>Dichiarativi</h2>
+                        <p>La navigazione nel panorama tributario richiede una bussola precisa. CSF Consulting offre una visione strategica che trasforma gli adempimenti in opportunità di pianificazione.</p>
+                    </div>
+                    <div class="service-content-box reveal">
+                        <p class="service-description-lead">"Non ci limitiamo alla compliance; progettiamo la struttura fiscale più efficiente per la tua crescita."</p>
+                        <div class="competence-grid">
+                            <div class="competence-item">
+                                <h4>Pianificazione</h4>
+                                <p>Ottimizzazione del carico fiscale nazionale e internazionale nel pieno rispetto delle normative.</p>
+                            </div>
+                            <div class="competence-item">
+                                <h4>Dichiarativi</h4>
+                                <p>Gestione magistrale di tutti i modelli dichiarativi per società, enti e persone fisiche.</p>
+                            </div>
+                            <div class="competence-item">
+                                <h4>Contenzioso</h4>
+                                <p>Difesa tecnica e rappresentanza presso le Commissioni Tributarie di ogni ordine e grado.</p>
+                            </div>
+                            <div class="competence-item">
+                                <h4>IVA & Dogane</h4>
+                                <p>Consulenza specialistica sugli scambi intracomunitari e operazioni con l'estero.</p>
                             </div>
                         </div>
-                    </div>
-                    <!-- Contabile -->
-                    <div class="service-card reveal">
-                        <div class="service-card-inner">
-                            <div class="service-number">02</div>
-                            <h3 class="service-title">Contabilità Strategica</h3>
-                            <p class="service-description">Non solo tenuta della contabilità, ma trasformazione del dato contabile in uno strumento di analisi per il controllo di gestione e la crescita aziendale.</p>
-                            <div class="service-tags">
-                                <span class="service-tag">Data Analysis</span>
-                                <span class="service-tag">Bilanci</span>
-                                <span class="service-tag">Reporting</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Societaria -->
-                    <div class="service-card reveal">
-                        <div class="service-card-inner">
-                            <div class="service-number">03</div>
-                            <h3 class="service-title">Consulenza Societaria</h3>
-                            <p class="service-description">Supporto in tutte le fasi della vita societaria: dalla costituzione alle operazioni straordinarie come fusioni, scissioni, cessioni e liquidazioni.</p>
-                            <div class="service-tags">
-                                <span class="service-tag">Costituzioni</span>
-                                <span class="service-tag">M&A</span>
-                                <span class="service-tag">Liquidazioni</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Lavoro -->
-                    <div class="service-card reveal">
-                        <div class="service-card-inner">
-                            <div class="service-number">04</div>
-                            <h3 class="service-title">Consulenza del Lavoro</h3>
-                            <p class="service-description">Gestione completa delle risorse umane, amministrazione del personale e relazioni industriali con un approccio moderno e digitalizzato.</p>
-                            <div class="service-tags">
-                                <span class="service-tag">HR Management</span>
-                                <span class="service-tag">Paghe</span>
-                                <span class="service-tag">Welfare</span>
-                            </div>
+                        <div class="innovation-bridge">
+                            <h5>L'Innesto Tecnologico</h5>
+                            <p style="font-size: 0.95rem; color: var(--text-body);">Utilizziamo algoritmi di controllo incrociato per eliminare l'errore umano e garantire una sicurezza documentale totale.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Sezione Esperienza Dati -->
-        <section style="padding: 120px 0; background: var(--navy-950); position: relative; overflow: hidden;">
+        <!-- 02 Contabilità -->
+        <section id="contabilita" class="service-deep-dive">
             <div class="container">
-                <div class="about-grid" style="align-items: center;">
-                    <div class="reveal">
-                        <h2 class="section-title">L'Importanza del <span class="text-gold">Dato</span></h2>
-                        <p>Grazie a oltre 55 anni di esperienza nella gestione di dati contabili, CSF Consulting aiuta le imprese a prendere coscienza del proprio valore attraverso una nuova esperienza di gestione.</p>
-                        <p>Le nostre tecnologie permettono al cliente di sentirsi veramente partecipe, trasformando numeri statici in decisioni dinamiche.</p>
+                <div class="service-layout">
+                    <div class="service-sticky-info reveal">
+                        <div class="service-number-large">02</div>
+                        <h2 class="service-title-large">Contabilità &<br>Bilancio</h2>
+                        <p>I numeri raccontano una storia. Noi ti insegniamo a leggerla. La nostra gestione contabile è il cuore pulsante del tuo controllo di gestione.</p>
                     </div>
-                    <div class="reveal" style="text-align: center;">
-                        <div style="font-size: 5rem; font-family: var(--font-display); color: var(--gold-400); opacity: 0.3;">55+</div>
-                        <p class="hero-badge-text">Anni di Dati Gestiti</p>
+                    <div class="service-content-box reveal">
+                        <p class="service-description-lead">"Il bilancio non è un punto d'arrivo, ma la base di partenza per ogni decisione strategica."</p>
+                        <div class="competence-grid">
+                            <div class="competence-item">
+                                <h4>Tenuta Contabile</h4>
+                                <p>Gestione ordinaria e semplificata con standard qualitativi da grande firma.</p>
+                            </div>
+                            <div class="competence-item">
+                                <h4>Bilanci UE</h4>
+                                <p>Redazione di bilanci d'esercizio e consolidati secondo i principi contabili nazionali e internazionali.</p>
+                            </div>
+                            <div class="competence-item">
+                                <h4>Reporting</h4>
+                                <p>Sistemi di reportistica periodica per monitorare l'andamento economico e finanziario.</p>
+                            </div>
+                            <div class="competence-item">
+                                <h4>Revisione</h4>
+                                <p>Attività di auditing interno per garantire la veridicità e la trasparenza dei dati.</p>
+                            </div>
+                        </div>
+                        <div class="innovation-bridge">
+                            <h5>L'Innesto Tecnologico</h5>
+                            <p style="font-size: 0.95rem; color: var(--text-body);">Integrazione diretta dei flussi bancari e gestionali nel nostro reparto produttivo per dati sempre aggiornati in tempo reale.</p>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- 03 Societario -->
+        <section id="societario" class="service-deep-dive">
+            <div class="container">
+                <div class="service-layout">
+                    <div class="service-sticky-info reveal">
+                        <div class="service-number-large">03</div>
+                        <h2 class="service-title-large">Consulenza<br>Societaria</h2>
+                        <p>Dalla nascita all'espansione, proteggiamo la struttura della tua impresa. Supportiamo i soci nelle scelte che definiscono il futuro dell'organizzazione.</p>
+                    </div>
+                    <div class="service-content-box reveal">
+                        <p class="service-description-lead">"Architettiamo la forma giuridica perfetta per proteggere il tuo patrimonio e favorire lo sviluppo."</p>
+                        <div class="competence-grid">
+                            <div class="competence-item">
+                                <h4>Costituzioni</h4>
+                                <p>Scelta del modello societario e redazione di statuti personalizzati "sartoriali".</p>
+                            </div>
+                            <div class="competence-item">
+                                <h4>M&A</h4>
+                                <p>Assistenza in fusioni, scissioni, conferimenti e acquisizioni d'azienda.</p>
+                            </div>
+                            <div class="competence-item">
+                                <h4>Passaggi Generazionali</h4>
+                                <p>Pianificazione della successione aziendale per garantire continuità e armonia.</p>
+                            </div>
+                            <div class="competence-item">
+                                <h4>Liquidazioni</h4>
+                                <p>Gestione professionale delle fasi di chiusura e recesso.</p>
+                            </div>
+                        </div>
+                        <div class="innovation-bridge">
+                            <h5>L'Innesto Tecnologico</h5>
+                            <p style="font-size: 0.95rem; color: var(--text-body);">Data Room virtuali e strumenti di Business Intelligence per valutazioni d'azienda (Due Diligence) rapide e oggettive.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 04 Lavoro -->
+        <section id="lavoro" class="service-deep-dive">
+            <div class="container">
+                <div class="service-layout">
+                    <div class="service-sticky-info reveal">
+                        <div class="service-number-large">04</div>
+                        <h2 class="service-title-large">Consulenza<br>del Lavoro</h2>
+                        <p>Le persone sono l'asset più prezioso. Gestiamo la complessità normativa del lavoro per permetterti di concentrarti sulla crescita del tuo team.</p>
+                    </div>
+                    <div class="service-content-box reveal">
+                        <p class="service-description-lead">"Trasformiamo la gestione del personale da costo burocratico a leva di vantaggio competitivo."</p>
+                        <div class="competence-grid">
+                            <div class="competence-item">
+                                <h4>Amministrazione HR</h4>
+                                <p>Gestione completa del ciclo paghe e contributi con precisione millimetrica.</p>
+                            </div>
+                            <div class="competence-item">
+                                <h4>Relazioni Industriali</h4>
+                                <p>Supporto nelle trattative sindacali e nella gestione dei conflitti collettivi.</p>
+                            </div>
+                            <div class="competence-item">
+                                <h4>Welfare Aziendale</h4>
+                                <p>Progettazione di piani di welfare per aumentare la produttività e il benessere dei dipendenti.</p>
+                            </div>
+                            <div class="competence-item">
+                                <h4>Audit Giuslavoristico</h4>
+                                <p>Verifica della corretta applicazione dei contratti e prevenzione dei rischi.</p>
+                            </div>
+                        </div>
+                        <div class="innovation-bridge">
+                            <h5>L'Innesto Tecnologico</h5>
+                            <p style="font-size: 0.95rem; color: var(--text-body);">Portali dipendente self-service e automazione dei flussi presenze per una gestione HR snella e moderna.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Innovation CTA -->
+        <section class="innovation-cta-block reveal">
+            <div class="container">
+                <span class="section-label section-label-electric">Oltre la Tradizione</span>
+                <h2 class="service-title-large">Pronto per il <span class="text-electric">Prossimo Livello?</span></h2>
+                <p class="section-subtitle" style="margin-bottom: 40px;">Scopri come la nostra divisione Innova può trasformare la tua infrastruttura tecnologica e la tua immagine di marca.</p>
+                <a href="innova.html" class="btn btn-electric">Esplora Innovation Management</a>
             </div>
         </section>
     </main>
