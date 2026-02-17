@@ -291,49 +291,103 @@
         </div>
     </section>
 
-    <!-- ===================== INNOVATION MANAGEMENT SECTION (NEW) ===================== -->
-    <section id="innovation-management" style="padding: var(--section-padding) 0; background: var(--navy-900);">
+    <!-- ===================== INNOVATION MANAGEMENT SECTION (TECH SHOWCASE) ===================== -->
+    <section id="innovation-management" style="padding: var(--section-padding) 0; background: var(--navy-950); overflow: hidden;">
         <div class="container">
             <div class="section-header reveal">
                 <span class="section-label section-label-electric">Innovation Management</span>
-                <h2 class="section-title">Il Futuro della <span class="text-electric">Tua Impresa</span></h2>
-                <p class="section-subtitle">Oltre la consulenza tradizionale: integriamo tecnologie d'avanguardia e strategie creative per scalare il tuo business.</p>
+                <h2 class="section-title">L'Infrastruttura del <span class="text-electric">Futuro</span></h2>
+                <p class="section-subtitle">Non ci limitiamo a consigliare. Costruiamo gli strumenti tecnologici che rendono la tua impresa competitiva nell'era dell'intelligenza.</p>
             </div>
 
-            <div class="services-grid">
-                <!-- Sviluppo Software & AI -->
-                <div class="service-card reveal">
-                    <div class="service-card-inner" style="border-color: rgba(59, 130, 246, 0.15);">
-                        <div class="service-icon" style="color: var(--electric-light);">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
+            <div class="showcase-container">
+                <!-- Feature 1: Software & AI -->
+                <div class="showcase-item reveal" style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 120px;">
+                    <div class="showcase-text">
+                        <div class="hero-badge" style="justify-content: flex-start; margin-bottom: 20px;">
+                            <span class="hero-badge-text" style="color: var(--electric-light); letter-spacing: 0.2em;">The Engine</span>
                         </div>
-                        <h3 class="service-title">Sviluppo Software & AI</h3>
-                        <p class="service-description">Creazione di soluzioni software su misura e integrazione di Intelligenza Artificiale per automatizzare i processi e ottimizzare le performance.</p>
+                        <h3 class="service-title" style="font-size: 2.5rem; margin-bottom: 20px;">Sviluppo Software <br>& Intelligenza Artificiale</h3>
+                        <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-body); margin-bottom: 30px;">Progettiamo ecosistemi digitali su misura. Dall'automazione dei processi interni all'integrazione di modelli AI predittivi, trasformiamo la complessit&agrave; in efficienza operativa.</p>
+                        <ul class="path-features" style="margin-bottom: 0;">
+                            <li><span class="path-feature-icon" style="color: var(--electric);">◆</span> Software Gestionali Custom</li>
+                            <li><span class="path-feature-icon" style="color: var(--electric);">◆</span> Integrazione Large Language Models</li>
+                            <li><span class="path-feature-icon" style="color: var(--electric);">◆</span> Automazione Workflow</li>
+                        </ul>
+                    </div>
+                    <div class="showcase-visual" style="position: relative;">
+                        <div style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), transparent); border: 1px solid rgba(59, 130, 246, 0.2); padding: 40px; border-radius: 4px; position: relative; z-index: 1;">
+                            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000" alt="AI & Software" style="width: 100%; border-radius: 2px; filter: brightness(0.8) blue-shift;">
+                        </div>
+                        <div style="position: absolute; top: -20px; right: -20px; width: 100%; height: 100%; border: 1px solid rgba(59, 130, 246, 0.1); z-index: 0;"></div>
                     </div>
                 </div>
-                <!-- Data Management & BI -->
-                <div class="service-card reveal">
-                    <div class="service-card-inner" style="border-color: rgba(59, 130, 246, 0.15);">
-                        <div class="service-icon" style="color: var(--electric-light);">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+
+                <!-- Feature 2: Data Management (Inverted) -->
+                <div class="showcase-item reveal" style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 120px;">
+                    <div class="showcase-visual" style="position: relative; order: 2;">
+                        <div style="background: linear-gradient(135deg, rgba(201, 168, 76, 0.1), transparent); border: 1px solid rgba(201, 168, 76, 0.2); padding: 40px; border-radius: 4px; position: relative; z-index: 1;">
+                            <img src="https://images.unsplash.com/photo-1551288049-bbbda546697a?auto=format&fit=crop&q=80&w=1000" alt="Data Management" style="width: 100%; border-radius: 2px; filter: brightness(0.8);">
                         </div>
-                        <h3 class="service-title">Data Management & BI</h3>
-                        <p class="service-description">Trasformiamo i dati grezzi in Business Intelligence. Analisi predittiva e dashboard in tempo reale per decisioni basate sui fatti.</p>
+                        <div style="position: absolute; bottom: -20px; left: -20px; width: 100%; height: 100%; border: 1px solid rgba(201, 168, 76, 0.1); z-index: 0;"></div>
+                    </div>
+                    <div class="showcase-text" style="order: 1;">
+                        <div class="hero-badge" style="justify-content: flex-start; margin-bottom: 20px;">
+                            <span class="hero-badge-text" style="color: var(--gold-400); letter-spacing: 0.2em;">The Brain</span>
+                        </div>
+                        <h3 class="service-title" style="font-size: 2.5rem; margin-bottom: 20px;">Data Management <br>& Business Intelligence</h3>
+                        <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-body); margin-bottom: 30px;">I dati sono il patrimonio pi&ugrave; prezioso della tua impresa. Li estraiamo, li proteggiamo e li rendiamo leggibili attraverso dashboard intuitive per guidare ogni tua decisione strategica.</p>
+                        <ul class="path-features" style="margin-bottom: 0;">
+                            <li><span class="path-feature-icon" style="color: var(--gold-500);">◆</span> Analisi Predittiva dei Dati</li>
+                            <li><span class="path-feature-icon" style="color: var(--gold-500);">◆</span> Dashboard KPI in Real-time</li>
+                            <li><span class="path-feature-icon" style="color: var(--gold-500);">◆</span> Data Security & Governance</li>
+                        </ul>
                     </div>
                 </div>
-                <!-- Comunicazione & Branding -->
-                <div class="service-card reveal">
-                    <div class="service-card-inner" style="border-color: rgba(59, 130, 246, 0.15);">
-                        <div class="service-icon" style="color: var(--electric-light);">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.5 1.5"/><path d="M7 11l5-5"/></svg>
+
+                <!-- Feature 3: Branding & Communication -->
+                <div class="showcase-item reveal" style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
+                    <div class="showcase-text">
+                        <div class="hero-badge" style="justify-content: flex-start; margin-bottom: 20px;">
+                            <span class="hero-badge-text" style="color: var(--white); letter-spacing: 0.2em;">The Voice</span>
                         </div>
-                        <h3 class="service-title">Comunicazione & Branding</h3>
-                        <p class="service-description">Digital Marketing e posizionamento di marca. Costruiamo un'immagine solida e una presenza online che converte.</p>
+                        <h3 class="service-title" style="font-size: 2.5rem; margin-bottom: 20px;">Comunicazione <br>& Branding Strategico</h3>
+                        <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-body); margin-bottom: 30px;">L'innovazione deve essere comunicata. Costruiamo identit&agrave; di marca forti e strategie di digital marketing che posizionano la tua azienda come leader indiscusso del settore.</p>
+                        <ul class="path-features" style="margin-bottom: 0;">
+                            <li><span class="path-feature-icon" style="color: var(--white);">◆</span> Brand Identity & Rebranding</li>
+                            <li><span class="path-feature-icon" style="color: var(--white);">◆</span> Digital Marketing Performance</li>
+                            <li><span class="path-feature-icon" style="color: var(--white);">◆</span> Content Strategy & Social</li>
+                        </ul>
+                    </div>
+                    <div class="showcase-visual" style="position: relative;">
+                        <div style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent); border: 1px solid rgba(255, 255, 255, 0.1); padding: 40px; border-radius: 4px; position: relative; z-index: 1;">
+                            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1000" alt="Branding" style="width: 100%; border-radius: 2px; filter: contrast(1.1);">
+                        </div>
+                        <div style="position: absolute; top: -20px; right: -20px; width: 100%; height: 100%; border: 1px solid rgba(255, 255, 255, 0.05); z-index: 0;"></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <style>
+        @media (max-width: 1024px) {
+            .showcase-item {
+                grid-template-columns: 1fr !important;
+                gap: 40px !important;
+                margin-bottom: 80px !important;
+            }
+            .showcase-visual {
+                order: 2 !important;
+            }
+            .showcase-text {
+                order: 1 !important;
+            }
+            .showcase-visual div {
+                padding: 20px !important;
+            }
+        }
+    </style>
 
     <!-- ===================== INNOVATION PATHS SECTION ===================== -->
     <section id="innovation" style="padding: var(--section-padding) 0; position: relative; background: var(--navy-950);">
