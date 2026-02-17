@@ -180,7 +180,7 @@
         /* Back Button */
         .back-to-choice {
             position: fixed;
-            top: 30px;
+            top: 100px;
             left: 30px;
             z-index: 1500;
             display: flex;
@@ -234,6 +234,28 @@
 
 </head>
 <body class="percorsi-page">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="scrolled" style="z-index: 2500;">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-csf">CSF</span>
+                <span class="logo-divider"></span>
+                <span class="logo-consulting">CONSULTING</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="chi-siamo.html" class="nav-link">Chi Siamo</a>
+                <a href="servizi.html" class="nav-link">Servizi</a>
+                <a href="percorsi.html" class="nav-link active">Percorsi</a>
+                <a href="innova.html" class="nav-link">Innova</a>
+                <a href="contatti.html" class="nav-link nav-link-cta">Contatti</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Apri menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
 
     <!-- Back Button -->
     <button class="back-to-choice" onclick="resetPath()" aria-label="Torna alla scelta del percorso">
