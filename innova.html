@@ -8,9 +8,173 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Innova Page - Tech Masterclass */
+        :root {
+            --tech-bg: #020617;
+            --tech-card: rgba(15, 23, 42, 0.6);
+            --tech-border: rgba(59, 130, 246, 0.2);
+        }
+
+        body.innova-page {
+            background-color: var(--tech-bg);
+            color: var(--white);
+        }
+
+        .innova-hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+        }
+
+        #tech-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.4;
+            z-index: 1;
+        }
+
+        .innova-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .tech-glitch-title {
+            font-family: var(--font-body);
+            font-weight: 800;
+            font-size: clamp(3rem, 10vw, 6.5rem);
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+            margin-bottom: 30px;
+            background: linear-gradient(to bottom, #fff 40%, var(--electric-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Bento Grid Pillars */
+        .pillars-section {
+            padding: 150px 0;
+            position: relative;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: repeat(2, 450px);
+            gap: 30px;
+        }
+
+        .bento-item {
+            background: var(--tech-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--tech-border);
+            border-radius: 4px;
+            padding: 50px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.6s var(--ease-expo);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .bento-item:hover {
+            border-color: var(--electric);
+            box-shadow: var(--glow-electric);
+            transform: translateY(-5px);
+        }
+
+        .bento-item.large { grid-column: span 8; }
+        .bento-item.medium { grid-column: span 4; }
+        .bento-item.full { grid-column: span 12; height: 500px; margin-top: 30px; }
+
+        .pillar-tag {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--electric-light);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .pillar-title {
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .pillar-desc {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            max-width: 400px;
+            line-height: 1.6;
+        }
+
+        /* Visual Elements for Bento */
+        .bento-visual {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .data-viz-mockup {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            height: 150px;
+            padding: 20px;
+        }
+
+        .data-bar {
+            width: 30px;
+            background: var(--electric);
+            animation: bar-grow 2s infinite alternate ease-in-out;
+        }
+
+        @keyframes bar-grow {
+            0% { height: 20%; opacity: 0.3; }
+            100% { height: 80%; opacity: 0.8; }
+        }
+
+        /* Integration Section */
+        .integration-section {
+            padding: 150px 0;
+            background: #000;
+            position: relative;
+        }
+
+        .blueprint-bg {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        @media (max-width: 1024px) {
+            .bento-grid { display: flex; flex-direction: column; }
+            .bento-item { height: 450px; }
+            .pillar-title { font-size: 2rem; }
+        }
+    </style>
 </head>
-<body>
+<body class="innova-page">
 
     <!-- Preloader -->
     <div id="preloader">
@@ -59,69 +223,89 @@
 
     <main>
         <!-- Hero Innova -->
-        <section class="internal-hero" style="padding: 180px 0 100px; background: var(--navy-950); text-align: center; position: relative;">
-            <div class="innovation-bg">
-                <div class="innovation-grid-pattern"></div>
-            </div>
-            <div class="container" style="position: relative; z-index: 1;">
+        <section class="innova-hero">
+            <canvas id="tech-canvas"></canvas>
+            <div class="innova-hero-content">
                 <div class="hero-badge reveal">
                     <span class="hero-badge-line" style="background: var(--electric);"></span>
-                    <span class="hero-badge-text" style="color: var(--electric-light);">Innovation Management</span>
+                    <span class="hero-badge-text" style="color: var(--electric-light);">The Hybrid Evolution</span>
                     <span class="hero-badge-line" style="background: var(--electric);"></span>
                 </div>
-                <h1 class="reveal">Disegniamo il <span class="text-electric">Futuro</span> <br>della tua Impresa</h1>
-                <p class="section-subtitle reveal" style="margin-top: 24px; color: var(--text-secondary);">Il ponte tra la consulenza d'impresa e le nuove frontiere tecnologiche.</p>
+                <h1 class="tech-glitch-title reveal">L'Intelligenza <br>del Dato.</h1>
+                <p class="section-subtitle reveal" style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+                    Oltre 55 anni di esperienza contabile potenziati da algoritmi proprietari e visione digitale. Benvenuti nella società ibrida.
+                </p>
             </div>
         </section>
 
-        <!-- Servizi Innova -->
-        <section style="padding: 100px 0; background: var(--navy-900);">
+        <!-- Pillars Section -->
+        <section class="pillars-section">
             <div class="container">
-                <div class="innovation-paths">
-                    <!-- Branding & Marketing -->
-                    <div class="path-card path-startup reveal">
-                        <div class="path-glow"></div>
-                        <div class="path-header">
-                            <h3 class="path-title">Comunicazione & Immagine</h3>
+                <div class="bento-grid">
+                    <!-- 01 Data Management -->
+                    <div class="bento-item large reveal">
+                        <div class="bento-visual">
+                            <div class="data-viz-mockup">
+                                <div class="data-bar" style="animation-delay: 0s;"></div>
+                                <div class="data-bar" style="animation-delay: 0.2s;"></div>
+                                <div class="data-bar" style="animation-delay: 0.4s;"></div>
+                                <div class="data-bar" style="animation-delay: 0.1s;"></div>
+                                <div class="data-bar" style="animation-delay: 0.5s;"></div>
+                            </div>
                         </div>
-                        <p class="path-description">Evolvere l'identità aziendale per competere nei mercati moderni attraverso strategie di branding e digital marketing d'impatto.</p>
-                        <ul class="path-features">
-                            <li><span class="path-feature-icon">◆</span> Branding & Identity</li>
-                            <li><span class="path-feature-icon">◆</span> Digital Strategy</li>
-                            <li><span class="path-feature-icon">◆</span> Social Media Management</li>
-                        </ul>
+                        <span class="pillar-tag">Intelligence</span>
+                        <h2 class="pillar-title">Data Management & <br>Business Intelligence</h2>
+                        <p class="pillar-desc">Trasformiamo i dati contabili in asset decisionali. Analisi dei flussi e reportistica avanzata per una presa di coscienza totale della tua azienda.</p>
                     </div>
 
-                    <div class="path-divider">
-                        <div class="path-divider-line"></div>
-                        <span class="path-divider-text">INTEGRAZIONE</span>
-                        <div class="path-divider-line"></div>
+                    <!-- 02 Software & AI -->
+                    <div class="bento-item medium reveal">
+                        <div class="bento-visual" style="display: flex; align-items: center; justify-content: center;">
+                            <div class="ai-core" style="width: 100px; height: 100px; border: 2px solid var(--electric); border-radius: 50%; box-shadow: var(--glow-electric); animation: pulse 2s infinite;"></div>
+                        </div>
+                        <span class="pillar-tag">Technology</span>
+                        <h2 class="pillar-title">Sviluppo <br>Software & AI</h2>
+                        <p class="pillar-desc">Integrazione di nuove tecnologie nel reparto produttivo e gestionale dello studio per un'esperienza cliente differente.</p>
                     </div>
 
-                    <!-- Tech & Data -->
-                    <div class="path-card path-transform reveal">
-                        <div class="path-glow"></div>
-                        <div class="path-header">
-                            <h3 class="path-title" style="color: var(--luminous);">Sviluppo & Data</h3>
+                    <!-- 03 Branding -->
+                    <div class="bento-item full reveal">
+                        <div class="bento-visual" style="width: 40%; background: linear-gradient(45deg, var(--electric-dark), transparent); opacity: 0.2;"></div>
+                        <div style="max-width: 600px;">
+                            <span class="pillar-tag">Identity</span>
+                            <h2 class="pillar-title">Branding & <br>Digital Marketing</h2>
+                            <p class="pillar-desc">Comunicazione e immagine coordinate per riflettere il valore reale della tua impresa nell'ecosistema digitale moderno.</p>
+                            <div style="margin-top: 30px; display: flex; gap: 20px;">
+                                <span style="font-size: 0.8rem; color: var(--electric-light); border: 1px solid var(--electric); padding: 5px 15px;">Strategy</span>
+                                <span style="font-size: 0.8rem; color: var(--electric-light); border: 1px solid var(--electric); padding: 5px 15px;">Design</span>
+                                <span style="font-size: 0.8rem; color: var(--electric-light); border: 1px solid var(--electric); padding: 5px 15px;">Growth</span>
+                            </div>
                         </div>
-                        <p class="path-description">Trasformare i processi aziendali tramite software personalizzati, intelligenza artificiale e una gestione scientifica del dato.</p>
-                        <ul class="path-features">
-                            <li><span class="path-feature-icon" style="color: var(--luminous);">◆</span> Sviluppo Software & AI</li>
-                            <li><span class="path-feature-icon" style="color: var(--luminous);">◆</span> Data Management</li>
-                            <li><span class="path-feature-icon" style="color: var(--luminous);">◆</span> Business Intelligence</li>
-                        </ul>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="innovation-capabilities reveal" style="margin-top: 80px;">
-                    <div class="inno-cap"><span class="inno-cap-icon"></span> Trasformazione Digitale</div>
-                    <div class="inno-cap"><span class="inno-cap-icon"></span> Automazione Processi</div>
-                    <div class="inno-cap"><span class="inno-cap-icon"></span> Analisi Predittiva</div>
-                    <div class="inno-cap"><span class="inno-cap-icon"></span> Empowerment Tecnologico</div>
+        <!-- Integration Section -->
+        <section class="integration-section">
+            <div class="blueprint-bg"></div>
+            <div class="container" style="position: relative; z-index: 2;">
+                <div class="section-header reveal" style="text-align: left; margin-bottom: 80px;">
+                    <span class="section-label section-label-electric">Il Metodo Ibrido</span>
+                    <h2 class="section-title" style="color: #fff;">L'Esperienza incontra <br><span class="text-electric">l'Algoritmo</span></h2>
+                    <p class="section-subtitle" style="margin-left: 0;">55 anni di storia sono il carburante della nostra intelligenza artificiale. Un rapporto umano potenziato dalla precisione del dato.</p>
+                </div>
+                
+                <div class="method-flow reveal">
+                    <!-- Flowchart placeholder - can be enhanced with JS -->
+                    <div style="padding: 60px; border: 1px dashed var(--electric); text-align: center; color: var(--electric-light);">
+                        <p>DATA INPUT (1970) > AI PROCESSING > STRATEGIC OUTPUT</p>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
+
 
     <footer id="footer">
         <div class="container">

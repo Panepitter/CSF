@@ -71,9 +71,12 @@
     /* Effects */
     --glass-bg: rgba(11, 25, 41, 0.7);
     --glass-border: rgba(201, 168, 76, 0.15);
+    --glass-tech: rgba(15, 23, 42, 0.8);
+    --glass-tech-border: rgba(59, 130, 246, 0.2);
     --glow-gold: 0 0 20px rgba(184, 150, 46, 0.15);
     --glow-electric: 0 0 25px rgba(59, 130, 246, 0.25);
 }
+
 
 /* -------------------------
    Animated Backgrounds
