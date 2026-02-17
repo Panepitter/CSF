@@ -10,229 +10,315 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
+        /* --------------------------
+           Percorsi: The Choice Experience
+           -------------------------- */
         :root {
-            --split-bg-left: var(--navy-950);
-            --split-bg-right: var(--navy-900);
+            --path-accent: var(--gold-500);
+            --path-bg: var(--navy-950);
+            --path-text: var(--white);
         }
 
-        .percorsi-hero {
-            padding: 180px 0 80px;
-            background: var(--navy-950);
-            text-align: center;
-            position: relative;
+        body.percorsi-page {
+            background-color: var(--navy-950);
+            overflow: hidden; /* Locked initially */
+            transition: background-color 0.8s var(--ease-expo);
         }
 
-        .split-container {
+        body.path-selected {
+            overflow-y: auto;
+        }
+
+        /* Choice Overlay (Initial State) */
+        .choice-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
             display: flex;
-            width: 100%;
-            min-height: 70vh;
-            overflow: hidden;
-            position: relative;
+            transition: transform 1s var(--ease-expo);
         }
 
-        .split-side {
+        .choice-side {
             flex: 1;
             position: relative;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 60px;
-            transition: flex 0.8s var(--ease-expo), filter 0.5s ease;
+            padding: 40px;
             cursor: pointer;
-            text-decoration: none;
             overflow: hidden;
+            transition: flex 0.8s var(--ease-expo);
         }
 
-        .split-side::before {
+        .choice-side::before {
             content: '';
             position: absolute;
             inset: 0;
             background-size: cover;
             background-position: center;
-            opacity: 0.15;
+            opacity: 0.2;
             filter: grayscale(1);
-            transition: transform 1.2s var(--ease-expo), opacity 0.8s ease;
+            transition: opacity 0.8s ease, transform 1.2s var(--ease-expo), filter 0.8s ease;
         }
 
-        .side-startup::before { background-image: url('https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=1000'); }
-        .side-transform::before { background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1000'); }
+        .side-startup::before { background-image: url('https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=1200'); }
+        .side-transform::before { background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200'); }
 
-        .split-side:hover {
-            flex: 1.5;
-        }
+        .choice-side:hover { flex: 1.2; }
+        .choice-side:hover::before { opacity: 0.4; filter: grayscale(0); transform: scale(1.05); }
 
-        .split-side:hover::before {
-            opacity: 0.3;
-            transform: scale(1.05);
-            filter: grayscale(0);
-        }
-
-        .side-content {
+        .choice-content {
             position: relative;
             z-index: 2;
             text-align: center;
-            max-width: 400px;
+            pointer-events: none;
         }
 
-        .side-icon {
-            font-size: 3rem;
-            color: var(--gold-400);
+        .choice-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            color: var(--white);
+            line-height: 1;
             margin-bottom: 20px;
+        }
+
+        .choice-tag {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            color: var(--gold-400);
+            margin-bottom: 15px;
             display: block;
         }
 
-        .side-title {
-            font-family: var(--font-display);
-            font-size: 3.5rem;
-            color: var(--white);
-            margin-bottom: 20px;
-            line-height: 1;
+        .side-transform .choice-tag { color: var(--electric-light); }
+
+        /* Transitions after choice */
+        .choice-overlay.hidden-left { transform: translateX(-100%); }
+        .choice-overlay.hidden-right { transform: translateX(100%); }
+
+        /* Dynamic Content Sections */
+        .path-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s var(--ease-expo);
         }
 
-        .side-description {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-            opacity: 0.8;
+        body.path-startup .content-startup,
+        body.path-transform .content-transform {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .side-cta {
-            display: inline-block;
-            padding: 15px 35px;
-            border: 1px solid var(--gold-500);
-            color: var(--gold-300);
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            font-size: 0.8rem;
-            transition: all 0.4s ease;
-        }
+        /* Path Specific Styles */
+        body.path-startup { --path-accent: var(--gold-500); }
+        body.path-transform { --path-accent: var(--electric); }
 
-        .split-side:hover .side-cta {
-            background: var(--gold-500);
-            color: var(--navy-950);
-        }
-
-        .side-transform .side-icon, .side-transform .side-cta { color: var(--electric-light); border-color: var(--electric); }
-        .side-transform:hover .side-cta { background: var(--electric); color: var(--white); }
-
-        .vision-section {
-            padding: 120px 0;
-            background: var(--navy-950);
+        .path-hero {
+            padding: 200px 0 100px;
             text-align: center;
+            background: radial-gradient(circle at center, rgba(201, 168, 76, 0.05) 0%, transparent 70%);
         }
 
-        .vision-grid {
+        body.path-transform .path-hero {
+            background: radial-gradient(circle at center, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+        }
+
+        .roadmap-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 40px;
             margin-top: 80px;
         }
 
-        .vision-item h3 {
-            color: var(--gold-400);
-            margin-bottom: 15px;
+        .roadmap-step {
+            padding: 40px;
+            background: rgba(255,255,255,0.02);
+            border-left: 2px solid var(--path-accent);
+            position: relative;
+        }
+
+        .step-number {
             font-family: var(--font-display);
-            font-size: 1.8rem;
+            font-size: 3rem;
+            color: var(--path-accent);
+            opacity: 0.3;
+            position: absolute;
+            top: 20px; right: 30px;
+        }
+
+        /* Partnership Section (Convergence) */
+        .partnership-convergence {
+            padding: 150px 0;
+            background: linear-gradient(to bottom, var(--navy-950), #000);
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .convergence-title {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 7vw, 5rem);
+            background: linear-gradient(45deg, var(--gold-400), var(--electric-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 40px;
         }
 
         @media (max-width: 1024px) {
-            .split-container { flex-direction: column; }
-            .split-side { min-height: 50vh; }
+            .choice-overlay { flex-direction: column; }
+            .choice-side:hover { flex: 1; }
         }
     </style>
 </head>
-<body>
+<body class="percorsi-page">
 
-    <div id="preloader">
-        <div class="preloader-inner">
-            <div class="preloader-logo">CSF</div>
-            <div class="preloader-line"></div>
-            <div class="preloader-text">CONSULTING</div>
+    <!-- Choice Overlay -->
+    <div class="choice-overlay" id="choiceOverlay">
+        <div class="choice-side side-startup" onclick="selectPath('startup')">
+            <div class="choice-content">
+                <span class="choice-tag">Genesi</span>
+                <h2 class="choice-title">Inizia una <br>Start-up</h2>
+            </div>
+        </div>
+        <div class="choice-side side-transform" onclick="selectPath('transform')">
+            <div class="choice-content">
+                <span class="choice-tag">Evoluzione</span>
+                <h2 class="choice-title">Trasforma la <br>tua Azienda</h2>
+            </div>
         </div>
     </div>
 
-    <nav id="navbar" class="scrolled">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo">
-                <span class="logo-csf">CSF</span>
-                <span class="logo-divider"></span>
-                <span class="logo-consulting">CONSULTING</span>
-            </a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="chi-siamo.html" class="nav-link">Chi Siamo</a>
-                <a href="servizi.html" class="nav-link">Servizi</a>
-                <a href="percorsi.html" class="nav-link active">Percorsi</a>
-                <a href="innova.html" class="nav-link">Innova</a>
-                <a href="contatti.html" class="nav-link nav-link-cta">Contatti</a>
-            </div>
-        </div>
-    </nav>
-
     <main>
-        <section class="percorsi-hero">
-            <div class="container">
-                <div class="hero-badge reveal">
-                    <span class="hero-badge-line"></span>
-                    <span class="hero-badge-text">Consulenza a 360°</span>
-                    <span class="hero-badge-line"></span>
+        <!-- STARTUP CONTENT -->
+        <div class="path-content content-startup">
+            <section class="path-hero">
+                <div class="container">
+                    <span class="hero-badge-text" style="color: var(--gold-400); letter-spacing: 0.3em; text-transform: uppercase; font-size: 0.8rem;">Percorso Genesi</span>
+                    <h1 class="choice-title" style="margin-top: 20px;">Dall'Idea al <span class="text-gold">Mercato</span></h1>
+                    <p class="section-subtitle" style="max-width: 700px; margin: 20px auto;">Supporto olistico per la creazione di nuove realtà imprenditoriali, con un focus specifico sulle Startup Innovative e la scalabilità del business.</p>
                 </div>
-                <h1 class="reveal">Scegli la tua <span class="text-gold">Evoluzione</span></h1>
-                <p class="section-subtitle reveal" style="max-width: 800px; margin: 24px auto 0;">
-                    Dalla scintilla iniziale di una startup alla ristrutturazione di un impero consolidato. 
-                    CSF Consulting offre la visione d'insieme necessaria per ogni fase della vita aziendale.
+            </section>
+
+            <section style="padding: 100px 0;">
+                <div class="container">
+                    <div class="roadmap-grid">
+                        <div class="roadmap-step">
+                            <span class="step-number">01</span>
+                            <h3>Assetto Legale</h3>
+                            <p>Scelta della forma giuridica ottimale e redazione di statuti sartoriali per proteggere i soci e l'idea.</p>
+                        </div>
+                        <div class="roadmap-step">
+                            <span class="step-number">02</span>
+                            <h3>Compliance Fiscale</h3>
+                            <p>Pianificazione tributaria strategica e gestione delle agevolazioni per startup innovative.</p>
+                        </div>
+                        <div class="roadmap-step">
+                            <span class="step-number">03</span>
+                            <h3>Fundraising Ready</h3>
+                            <p>Preparazione della documentazione contabile e societaria per l'ingresso di investitori e capitali.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- TRANSFORM CONTENT -->
+        <div class="path-content content-transform">
+            <section class="path-hero">
+                <div class="container">
+                    <span class="hero-badge-text" style="color: var(--electric-light); letter-spacing: 0.3em; text-transform: uppercase; font-size: 0.8rem;">Percorso Evoluzione</span>
+                    <h1 class="choice-title" style="margin-top: 20px;">Ridisegnare il <span class="text-electric">Successo</span></h1>
+                    <p class="section-subtitle" style="max-width: 700px; margin: 20px auto;">Ristrutturazione strategica e potenziamento tecnologico per aziende consolidate che puntano alla leadership di mercato.</p>
+                </div>
+            </section>
+
+            <section style="padding: 100px 0;">
+                <div class="container">
+                    <div class="roadmap-grid">
+                        <div class="roadmap-step">
+                            <span class="step-number">01</span>
+                            <h3>Audit Strategico</h3>
+                            <p>Analisi profonda dei processi e individuazione delle inefficienze per liberare potenziale inespresso.</p>
+                        </div>
+                        <div class="roadmap-step">
+                            <span class="step-number">02</span>
+                            <h3>Digital Shift</h3>
+                            <p>Integrazione di Business Intelligence e AI per trasformare la contabilità in un centro di comando dati.</p>
+                        </div>
+                        <div class="roadmap-step">
+                            <span class="step-number">03</span>
+                            <h3>M&A & Growth</h3>
+                            <p>Supporto in operazioni straordinarie, fusioni e acquisizioni per l'espansione del perimetro aziendale.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- COMMON PARTNERSHIP SECTION -->
+        <section class="partnership-convergence">
+            <div class="container">
+                <h2 class="convergence-title">Partnership Strategica</h2>
+                <p class="section-subtitle" style="max-width: 800px; margin: 0 auto 60px;">
+                    Indipendentemente dal punto di partenza, la nostra forza è la <strong>Visione d'Insieme</strong>. 
+                    Non siamo semplici consulenti, ma il partner che coadiuva ogni tua scelta strategica con competenza multidisciplinare.
                 </p>
-            </div>
-        </section>
-
-        <section class="split-container">
-            <!-- Percorso A: Startup -->
-            <a href="contatti.html?path=startup" class="split-side side-startup reveal">
-                <div class="side-content">
-                    <span class="side-icon">✧</span>
-                    <h2 class="side-title">Inizia una <br>Start-up</h2>
-                    <p class="side-description">Dall'idea al mercato. Supporto legale, fiscale e strategico per startup innovative e nuove realtà imprenditoriali.</p>
-                    <span class="side-cta">Esplora il Percorso</span>
-                </div>
-            </a>
-
-            <!-- Percorso B: Trasformazione -->
-            <a href="contatti.html?path=transform" class="split-side side-transform reveal">
-                <div class="side-content">
-                    <span class="side-icon">⌬</span>
-                    <h2 class="side-title">Trasforma la <br>tua Azienda</h2>
-                    <p class="side-description">Ristrutturazione, potenziamento e digitalizzazione. Evolvi la tua società già avviata con metodologia d'avanguardia.</p>
-                    <span class="side-cta">Esplora il Percorso</span>
-                </div>
-            </a>
-        </section>
-
-        <section class="vision-section">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-label">La Forza di CSF</span>
-                    <h2 class="section-title">Oltre la mera <span class="text-gold">Consulenza</span></h2>
-                    <p class="section-subtitle">Un approccio olistico che fonde 55 anni di storia con le tecnologie del futuro.</p>
+                
+                <div class="vision-grid" style="text-align: left;">
+                    <div class="vision-item">
+                        <h4 style="color: var(--path-accent); margin-bottom: 15px;">Approccio Olistico</h4>
+                        <p>Guardiamo all'azienda come un organismo unico: legale, fiscale e digitale sono interconnessi.</p>
+                    </div>
+                    <div class="vision-item">
+                        <h4 style="color: var(--path-accent); margin-bottom: 15px;">Esperienza Ibrida</h4>
+                        <p>55 anni di storia nel territorio pontino fusi con le tecnologie più avanzate del mercato globale.</p>
+                    </div>
+                    <div class="vision-item">
+                        <h4 style="color: var(--path-accent); margin-bottom: 15px;">Presenza Costante</h4>
+                        <p>Un supporto diretto e personale. Il tuo successo è la misura della nostra autorevolezza.</p>
+                    </div>
                 </div>
 
-                <div class="vision-grid">
-                    <div class="vision-item reveal">
-                        <h3>Visione d'Insieme</h3>
-                        <p>Non guardiamo solo ai numeri, ma all'intero ecosistema aziendale, dai processi interni all'immagine di marca.</p>
-                    </div>
-                    <div class="vision-item reveal" style="transition-delay: 0.1s;">
-                        <h3>Metodo Ibrido</h3>
-                        <p>La personalizzazione di uno studio professionale unita alla potenza analitica delle grandi firme internazionali.</p>
-                    </div>
-                    <div class="vision-item reveal" style="transition-delay: 0.2s;">
-                        <h3>Partner Strategico</h3>
-                        <p>Non siamo semplici fornitori, ma il motore che coadiuva la crescita e la sicurezza della tua impresa.</p>
-                    </div>
+                <div style="margin-top: 80px;">
+                    <a href="contatti.html" class="btn btn-primary" id="finalCta">
+                        <span>Inizia il tuo Percorso</span>
+                    </a>
                 </div>
             </div>
         </section>
     </main>
+
+    <script>
+        function selectPath(path) {
+            const overlay = document.getElementById('choiceOverlay');
+            const body = document.body;
+            
+            // Animation for overlay
+            if (path === 'startup') {
+                overlay.classList.add('hidden-right');
+            } else {
+                overlay.classList.add('hidden-left');
+            }
+
+            // Set state
+            setTimeout(() => {
+                body.classList.add('path-selected');
+                body.classList.add('path-' + path);
+                overlay.style.display = 'none';
+                
+                // Update final CTA link based on path
+                const finalCta = document.getElementById('finalCta');
+                finalCta.href = `contatti.html?path=${path}`;
+                
+                // Trigger reveal animations for the new content
+                if (typeof reveal === 'function') reveal();
+            }, 800);
+        }
+    </script>
+
 
     <footer id="footer">
         <div class="container">
