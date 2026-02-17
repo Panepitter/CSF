@@ -131,59 +131,138 @@
             background: radial-gradient(circle at center, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
         }
 
-        .roadmap-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin-top: 60px;
+        /* --------------------------
+           Horizontal Journey Styles
+           -------------------------- */
+        .journey-container {
+            position: relative;
+            width: 100%;
+            background: var(--navy-950);
         }
 
-        .roadmap-step {
-            padding: 40px;
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-left: 3px solid var(--path-accent);
+        .journey-wrapper {
+            height: 500vh; /* Lunghezza dello scroll */
             position: relative;
-            transition: all 0.4s var(--ease-expo);
+        }
+
+        .journey-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .journey-track {
+            display: flex;
+            padding: 0 10vw;
+            will-change: transform;
+            transition: transform 0.1s linear;
+        }
+
+        .journey-step {
+            flex: 0 0 80vw;
+            height: 60vh;
+            margin-right: 10vw;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            justify-content: center;
+            position: relative;
+            padding: 60px;
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 1px solid var(--path-accent);
+            backdrop-filter: blur(10px);
         }
 
-        .roadmap-step:hover {
-            background: rgba(255,255,255,0.05);
-            transform: translateY(-5px);
-            border-color: rgba(255,255,255,0.1);
+        .journey-step:last-child {
+            margin-right: 20vw;
         }
 
-        .step-number {
+        .step-bg-number {
+            position: absolute;
+            top: -50px;
+            right: -20px;
             font-family: var(--font-display);
-            font-size: 2.5rem;
+            font-size: 25rem;
+            font-weight: 900;
             color: var(--path-accent);
-            opacity: 0.2;
+            opacity: 0.03;
+            pointer-events: none;
             line-height: 1;
         }
 
-        .step-content h3 {
-            font-size: 1.2rem;
+        .journey-step h3 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 4rem);
             color: var(--white);
-            margin-bottom: 10px;
+            margin-bottom: 30px;
+            line-height: 1.1;
         }
 
-        .step-content p {
-            font-size: 0.9rem;
+        .journey-step p {
+            font-size: 1.2rem;
             color: var(--text-secondary);
-            line-height: 1.6;
-            margin: 0;
+            max-width: 600px;
+            line-height: 1.8;
         }
 
-        .step-tag {
-            font-size: 0.65rem;
+        .journey-progress {
+            position: fixed;
+            bottom: 50px;
+            left: 10vw;
+            width: 80vw;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.6s ease;
+        }
+
+        body.path-selected .journey-progress {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--path-accent);
+            width: 0%;
+            transition: width 0.2s ease;
+            box-shadow: 0 0 20px var(--path-accent);
+        }
+
+        .journey-nav-hint {
+            position: absolute;
+            bottom: 100px;
+            left: 10vw;
+            font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--path-accent);
-            font-weight: 700;
-            opacity: 0.8;
+            letter-spacing: 0.3em;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .journey-nav-hint::after {
+            content: '';
+            width: 100px;
+            height: 1px;
+            background: var(--text-secondary);
+            opacity: 0.3;
+        }
+
+        @media (max-width: 768px) {
+            .journey-step {
+                flex: 0 0 90vw;
+                padding: 30px;
+                height: 70vh;
+            }
+            .journey-wrapper { height: 900vh; }
+            .step-bg-number { font-size: 15rem; top: 0; }
         }
 
         /* Partnership Section (Convergence) */
@@ -290,6 +369,10 @@
         <span>Cambia Percorso</span>
     </button>
 
+    <div class="journey-progress">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
     <!-- Choice Overlay -->
     <div class="choice-overlay" id="choiceOverlay">
         <div class="choice-side side-startup" onclick="selectPath('startup')">
@@ -309,169 +392,136 @@
     <main>
         <!-- STARTUP CONTENT -->
         <div class="path-content content-startup">
-            <section class="path-hero">
-                <div class="container">
-                    <span class="hero-badge-text" style="color: var(--gold-400); letter-spacing: 0.3em; text-transform: uppercase; font-size: 0.8rem;">Percorso Inizia</span>
-                    <h1 class="choice-title" style="margin-top: 20px;">Dall'Idea alla <span class="text-gold">Startup Scalabile</span></h1>
-                    <p class="section-subtitle" style="max-width: 700px; margin: 20px auto;">Dedicato a chi ha un'idea e vuole trasformarla in una realtà imprenditoriale solida, finanziata e pronta per il mercato.</p>
-                </div>
-            </section>
-
-            <section style="padding: 60px 0 120px;">
-                <div class="container">
-                    <div class="roadmap-grid">
-                        <div class="roadmap-step">
-                            <span class="step-number">01</span>
-                            <div class="step-content">
-                                <h3>Analisi dell'Idea</h3>
+            <div class="journey-container">
+                <div class="journey-wrapper" id="startupWrapper">
+                    <div class="journey-sticky">
+                        <div class="journey-track" id="startupTrack">
+                            <!-- Step 01 -->
+                            <div class="journey-step">
+                                <span class="step-bg-number">01</span>
+                                <h3>Analisi <br>dell'Idea</h3>
                                 <p>Ascoltiamo la tua visione e ne studiamo il potenziale imprenditoriale attraverso sessioni di brainstorming strategico.</p>
                             </div>
-                        </div>
-                        <div class="roadmap-step">
-                            <span class="step-number">02</span>
-                            <div class="step-content">
-                                <h3>Test di Fattibilità</h3>
+                            <!-- Step 02 -->
+                            <div class="journey-step">
+                                <span class="step-bg-number">02</span>
+                                <h3>Test di <br>Fattibilità</h3>
                                 <p>Effettuiamo ricerche di mercato e analisi della concorrenza per validare il progetto prima del lancio.</p>
                             </div>
-                        </div>
-                        <div class="roadmap-step">
-                            <span class="step-number">03</span>
-                            <div class="step-content">
-                                <span class="step-tag">Compliance</span>
-                                <h3>Setup Legale e Fiscale</h3>
-                                <p>Gestiamo la costituzione della società e l'apertura delle posizioni fiscali garantendo massima sicurezza normativa.</p>
+                            <!-- Step 03 -->
+                            <div class="journey-step">
+                                <span class="step-bg-number">03</span>
+                                <h3>Setup Legale <br>e Fiscale</h3>
+                                <p>Gestiamo la costituzione della società e l'apertura delle posizioni fiscali garantendo massima sicurezza normativa (Compliance).</p>
                             </div>
-                        </div>
-                        <div class="roadmap-step">
-                            <span class="step-number">04</span>
-                            <div class="step-content">
-                                <h3>Progettazione Strategica</h3>
+                            <!-- Step 04 -->
+                            <div class="journey-step">
+                                <span class="step-bg-number">04</span>
+                                <h3>Progettazione <br>Strategica</h3>
                                 <p>Definiamo il business plan e i patti tra i soci per garantire una crescita ordinata e prevenire conflitti futuri.</p>
                             </div>
-                        </div>
-                        <div class="roadmap-step">
-                            <span class="step-number">05</span>
-                            <div class="step-content">
-                                <h3>Ricerca Capitali</h3>
+                            <!-- Step 05 -->
+                            <div class="journey-step">
+                                <span class="step-bg-number">05</span>
+                                <h3>Ricerca <br>Capitali</h3>
                                 <p>Attiviamo lo scouting di bandi e finanziamenti agevolati specifici per startup innovative a livello nazionale ed europeo.</p>
                             </div>
-                        </div>
-                        <div class="roadmap-step">
-                            <span class="step-number">06</span>
-                            <div class="step-content">
-                                <span class="step-tag">CoreStack</span>
-                                <h3>Sviluppo Prodotto (MVP)</h3>
-                                <p>Costruiamo fisicamente la tua piattaforma, sito web o app focalizzandoci sulle funzionalità core per il mercato.</p>
+                            <!-- Step 06 -->
+                            <div class="journey-step">
+                                <span class="step-bg-number">06</span>
+                                <h3>Sviluppo <br>Prodotto (MVP)</h3>
+                                <p>Costruiamo fisicamente la tua piattaforma, sito web o app focalizzandoci sulle funzionalità core (CoreStack).</p>
                             </div>
-                        </div>
-                        <div class="roadmap-step">
-                            <span class="step-number">07</span>
-                            <div class="step-content">
-                                <span class="step-tag">Creative Flow</span>
-                                <h3>Lancio e Branding</h3>
-                                <p>Creiamo l'identità visiva e la strategia di marketing per posizionare il tuo brand nell'ecosistema digitale.</p>
+                            <!-- Step 07 -->
+                            <div class="journey-step">
+                                <span class="step-bg-number">07</span>
+                                <h3>Lancio e <br>Branding</h3>
+                                <p>Creiamo l'identità visiva e la strategia di marketing per posizionare il tuo brand (Creative Flow).</p>
                             </div>
-                        </div>
-                        <div class="roadmap-step">
-                            <span class="step-number">08</span>
-                            <div class="step-content">
-                                <span class="step-tag">Cognitive Engine</span>
-                                <h3>Automazione AI</h3>
-                                <p>Inseriamo agenti intelligenti e processi automatici per rendere la startup snella e ridurre i costi operativi.</p>
+                            <!-- Step 08 -->
+                            <div class="journey-step">
+                                <span class="step-bg-number">08</span>
+                                <h3>Automazione <br>AI</h3>
+                                <p>Inseriamo agenti intelligenti e processi automatici per rendere la startup snella (Cognitive Engine).</p>
                             </div>
-                        </div>
-                        <div class="roadmap-step">
-                            <span class="step-number">09</span>
-                            <div class="step-content">
-                                <h3>Monitoraggio Risultati</h3>
+                            <!-- Step 09 -->
+                            <div class="journey-step">
+                                <span class="step-bg-number">09</span>
+                                <h3>Monitoraggio <br>Risultati</h3>
                                 <p>Analizziamo i primi KPI e l'andamento finanziario per pianificare i prossimi round di investimento.</p>
                             </div>
                         </div>
+                        <div class="journey-nav-hint">Scorri per esplorare il percorso</div>
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
 
         <!-- TRANSFORM CONTENT -->
         <div class="path-content content-transform">
-            <section class="path-hero">
-                <div class="container">
-                    <span class="hero-badge-text" style="color: var(--electric-light); letter-spacing: 0.3em; text-transform: uppercase; font-size: 0.8rem;">Percorso Migliora</span>
-                    <h1 class="choice-title" style="margin-top: 20px;">Evoluzione <span class="text-electric">Intelligente</span></h1>
-                    <p class="section-subtitle" style="max-width: 700px; margin: 20px auto;">Dedicato a imprese esistenti che vogliono diventare veloci, ottimizzate e leader nel proprio settore attraverso l'innovazione.</p>
-                </div>
-            </section>
-
-            <section style="padding: 60px 0 120px;">
-                <div class="container">
-                    <div class="roadmap-grid">
-                        <div class="roadmap-step">
-                            <span class="step-number">01</span>
-                            <div class="step-content">
-                                <h3>Screening Aziendale</h3>
+            <div class="journey-container">
+                <div class="journey-wrapper" id="transformWrapper">
+                    <div class="journey-sticky">
+                        <div class="journey-track" id="transformTrack">
+                            <!-- Step 01 -->
+                            <div class="journey-step">
+                                <span class="step-bg-number">01</span>
+                                <h3>Screening <br>Aziendale</h3>
                                 <p>Effettuiamo un check-up completo dei tuoi processi interni e della tua salute fiscale e contributiva.</p>
                             </div>
-                        </div>
-                        <div class="roadmap-step">
-                            <span class="step-number">02</span>
-                            <div class="step-content">
-                                <h3>Valutazione dei Margini</h3>
+                            <!-- Step 02 -->
+                            <div class="journey-step">
+                                <span class="step-bg-number">02</span>
+                                <h3>Valutazione <br>dei Margini</h3>
                                 <p>Analizziamo i costi e i flussi di cassa per identificare inefficienze e sprechi di risorse finanziarie.</p>
                             </div>
-                        </div>
-                        <div class="roadmap-step">
-                            <span class="step-number">03</span>
-                            <div class="step-content">
-                                <span class="step-tag">Compliance</span>
-                                <h3>Messa in Sicurezza</h3>
-                                <p>Ottimizziamo il carico fiscale e regolarizziamo la gestione del personale per una protezione totale.</p>
+                            <!-- Step 03 -->
+                            <div class="journey-step">
+                                <span class="step-bg-number">03</span>
+                                <h3>Messa in <br>Sicurezza</h3>
+                                <p>Ottimizziamo il carico fiscale e regolarizziamo la gestione del personale per una protezione totale (Compliance).</p>
                             </div>
-                        </div>
-                        <div class="roadmap-step">
-                            <span class="step-number">04</span>
-                            <div class="step-content">
-                                <h3>Revisione Strategica</h3>
+                            <!-- Step 04 -->
+                            <div class="journey-step">
+                                <span class="step-bg-number">04</span>
+                                <h3>Revisione <br>Strategica</h3>
                                 <p>Aggiorniamo il piano industriale e gli assetti organizzativi per prevenire crisi e anticipare il mercato.</p>
                             </div>
-                        </div>
-                        <div class="roadmap-step">
-                            <span class="step-number">05</span>
-                            <div class="step-content">
-                                <h3>Recupero Incentivi</h3>
+                            <!-- Step 05 -->
+                            <div class="journey-step">
+                                <span class="step-bg-number">05</span>
+                                <h3>Recupero <br>Incentivi</h3>
                                 <p>Sfruttiamo i crediti d'imposta e i bandi come Transizione 5.0 per finanziare la tua trasformazione tecnologica.</p>
                             </div>
-                        </div>
-                        <div class="roadmap-step">
-                            <span class="step-number">06</span>
-                            <div class="step-content">
-                                <h3>Digitalizzazione Processi</h3>
+                            <!-- Step 06 -->
+                            <div class="journey-step">
+                                <span class="step-bg-number">06</span>
+                                <h3>Digitalizzazione <br>Processi</h3>
                                 <p>Trasformiamo i flussi manuali e frammentati in asset digitali scalabili e facilmente monitorabili.</p>
                             </div>
-                        </div>
-                        <div class="roadmap-step">
-                            <span class="step-number">07</span>
-                            <div class="step-content">
-                                <h3>Rilancio del Brand</h3>
+                            <!-- Step 07 -->
+                            <div class="journey-step">
+                                <span class="step-bg-number">07</span>
+                                <h3>Rilancio <br>del Brand</h3>
                                 <p>Aggiorniamo la comunicazione e automatizziamo il marketing per acquisire nuovi clienti in modo costante.</p>
                             </div>
-                        </div>
-                        <div class="roadmap-step">
-                            <span class="step-number">08</span>
-                            <div class="step-content">
-                                <h3>Integrazione AI</h3>
+                            <!-- Step 08 -->
+                            <div class="journey-step">
+                                <span class="step-bg-number">08</span>
+                                <h3>Integrazione <br>AI</h3>
                                 <p>Inseriamo l'Intelligenza Artificiale nei reparti operativi per eliminare lavori ripetitivi e aumentare la produttività.</p>
                             </div>
-                        </div>
-                        <div class="roadmap-step">
-                            <span class="step-number">09</span>
-                            <div class="step-content">
-                                <h3>Controllo di Gestione</h3>
+                            <!-- Step 09 -->
+                            <div class="journey-step">
+                                <span class="step-bg-number">09</span>
+                                <h3>Controllo <br>di Gestione</h3>
                                 <p>Implementiamo dashboard interattive per monitorare l'andamento dell'azienda in tempo reale con dati certi.</p>
                             </div>
                         </div>
+                        <div class="journey-nav-hint">Scorri per esplorare il percorso</div>
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
 
         <!-- COMMON PARTNERSHIP SECTION -->
@@ -529,30 +579,43 @@
                 const finalCta = document.getElementById('finalCta');
                 finalCta.href = `contatti.html?path=${path}`;
                 
-                // Trigger reveal animations for the new content
-                if (typeof reveal === 'function') reveal();
+                // Initialize Horizontal Scroll
+                initHorizontalScroll(path);
             }, 800);
+        }
+
+        function initHorizontalScroll(path) {
+            const track = document.getElementById(path + 'Track');
+            const wrapper = document.getElementById(path + 'Wrapper');
+            const progressBar = document.getElementById('progressBar');
+
+            window.addEventListener('scroll', () => {
+                if (!document.body.classList.contains('path-selected')) return;
+
+                const wrapperRect = wrapper.getBoundingClientRect();
+                const scrollPercentage = Math.max(0, Math.min(1, -wrapperRect.top / (wrapperRect.height - window.innerHeight)));
+                
+                const maxTranslate = track.offsetWidth - window.innerWidth;
+                track.style.transform = `translateX(${-scrollPercentage * maxTranslate}px)`;
+                
+                progressBar.style.width = `${scrollPercentage * 100}%`;
+            });
         }
 
         function resetPath() {
             const overlay = document.getElementById('choiceOverlay');
             const body = document.body;
 
-            // Smooth scroll to top before resetting
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
             setTimeout(() => {
-                // Reset classes
                 body.classList.remove('path-selected', 'path-startup', 'path-transform');
-                
-                // Show overlay again
                 overlay.style.display = 'flex';
-                
-                // Force reflow for animation
                 overlay.offsetHeight;
-                
-                // Remove animation classes
                 overlay.classList.remove('hidden-left', 'hidden-right');
+                
+                // Reset progress bar
+                document.getElementById('progressBar').style.width = '0%';
             }, 300);
         }
     </script>
