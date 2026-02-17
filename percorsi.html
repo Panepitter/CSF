@@ -141,7 +141,7 @@
         }
 
         .journey-wrapper {
-            height: 500vh; /* Lunghezza dello scroll */
+            height: 600vh; /* Lunghezza dello scroll per 9 step */
             position: relative;
         }
 
@@ -159,13 +159,12 @@
             display: flex;
             padding: 0 10vw;
             will-change: transform;
-            transition: transform 0.1s linear;
         }
 
         .journey-step {
-            flex: 0 0 80vw;
+            flex: 0 0 70vw;
             height: 60vh;
-            margin-right: 10vw;
+            margin-right: 15vw;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -174,43 +173,54 @@
             background: rgba(255, 255, 255, 0.02);
             border-left: 1px solid var(--path-accent);
             backdrop-filter: blur(10px);
+            transition: transform 0.5s var(--ease-expo);
+        }
+
+        .journey-step:hover {
+            background: rgba(255, 255, 255, 0.04);
+            transform: scale(1.02);
         }
 
         .journey-step:last-child {
-            margin-right: 20vw;
+            margin-right: 30vw;
         }
 
         .step-bg-number {
             position: absolute;
-            top: -50px;
+            top: -20px;
             right: -20px;
             font-family: var(--font-display);
-            font-size: 25rem;
+            font-size: clamp(15rem, 25vw, 25rem);
             font-weight: 900;
             color: var(--path-accent);
-            opacity: 0.03;
+            opacity: 0.05;
             pointer-events: none;
             line-height: 1;
+            z-index: 0;
         }
 
         .journey-step h3 {
             font-family: var(--font-display);
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(2rem, 4vw, 3.5rem);
             color: var(--white);
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             line-height: 1.1;
+            position: relative;
+            z-index: 1;
         }
 
         .journey-step p {
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 1.2vw, 1.25rem);
             color: var(--text-secondary);
-            max-width: 600px;
-            line-height: 1.8;
+            max-width: 550px;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
         }
 
         .journey-progress {
             position: fixed;
-            bottom: 50px;
+            bottom: 40px;
             left: 10vw;
             width: 80vw;
             height: 2px;
@@ -230,13 +240,12 @@
             height: 100%;
             background: var(--path-accent);
             width: 0%;
-            transition: width 0.2s ease;
             box-shadow: 0 0 20px var(--path-accent);
         }
 
         .journey-nav-hint {
             position: absolute;
-            bottom: 100px;
+            bottom: 80px;
             left: 10vw;
             font-size: 0.7rem;
             text-transform: uppercase;
@@ -245,24 +254,26 @@
             display: flex;
             align-items: center;
             gap: 20px;
+            opacity: 0.6;
         }
 
         .journey-nav-hint::after {
             content: '';
-            width: 100px;
+            width: 60px;
             height: 1px;
             background: var(--text-secondary);
-            opacity: 0.3;
+            opacity: 0.5;
         }
 
         @media (max-width: 768px) {
             .journey-step {
-                flex: 0 0 90vw;
-                padding: 30px;
-                height: 70vh;
+                flex: 0 0 85vw;
+                padding: 40px 30px;
+                height: 65vh;
+                margin-right: 10vw;
             }
-            .journey-wrapper { height: 900vh; }
-            .step-bg-number { font-size: 15rem; top: 0; }
+            .journey-wrapper { height: 800vh; }
+            .step-bg-number { font-size: 12rem; top: 20px; }
         }
 
         /* Partnership Section (Convergence) */
@@ -589,17 +600,28 @@
             const wrapper = document.getElementById(path + 'Wrapper');
             const progressBar = document.getElementById('progressBar');
 
-            window.addEventListener('scroll', () => {
-                if (!document.body.classList.contains('path-selected')) return;
+            const handleScroll = () => {
+                if (!document.body.classList.contains('path-selected')) {
+                    window.removeEventListener('scroll', handleScroll);
+                    return;
+                }
 
                 const wrapperRect = wrapper.getBoundingClientRect();
-                const scrollPercentage = Math.max(0, Math.min(1, -wrapperRect.top / (wrapperRect.height - window.innerHeight)));
+                const windowHeight = window.innerHeight;
+                const wrapperHeight = wrapperRect.height;
                 
-                const maxTranslate = track.offsetWidth - window.innerWidth;
-                track.style.transform = `translateX(${-scrollPercentage * maxTranslate}px)`;
+                // Calcolo percentuale basato sulla posizione del wrapper rispetto al viewport
+                let scrollPercentage = -wrapperRect.top / (wrapperHeight - windowHeight);
+                scrollPercentage = Math.max(0, Math.min(1, scrollPercentage));
                 
+                const maxTranslate = track.scrollWidth - window.innerWidth + (window.innerWidth * 0.2); // 0.2 per il padding finale
+                const currentTranslate = scrollPercentage * maxTranslate;
+                
+                track.style.transform = `translateX(${-currentTranslate}px)`;
                 progressBar.style.width = `${scrollPercentage * 100}%`;
-            });
+            };
+
+            window.addEventListener('scroll', handleScroll);
         }
 
         function resetPath() {
