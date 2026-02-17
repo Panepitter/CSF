@@ -3,16 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chi Siamo — CSF Consulting | Tradizione e Innovazione dal 1970</title>
-    <meta name="description" content="La storia di CSF Consulting: dall'esperienza di Antonio Frasca nel 1970 all'evoluzione in boutique di consulenza ibrida nel territorio pontino.">
+    <title>Chi Siamo — CSF Consulting | L'Evoluzione della Fiducia</title>
+    <meta name="description" content="Scopri la storia di CSF Consulting: 55 anni di esperienza che incontrano l'innovazione tecnologica.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Custom Styles for Chi Siamo - Boutique Ibrida Concept */
+        .split-hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 90vh;
+            background: var(--navy-950);
+            position: relative;
+            overflow: hidden;
+        }
+        .split-side {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+        }
+        .side-tradition {
+            background: linear-gradient(rgba(4, 10, 20, 0.8), rgba(4, 10, 20, 0.8)), url('https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?auto=format&fit=crop&q=80&w=1000');
+            background-size: cover;
+            background-position: center;
+            border-right: 1px solid rgba(201, 168, 76, 0.2);
+        }
+        .side-innovation {
+            background: var(--navy-900);
+        }
+        .hero-center-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            text-align: center;
+            width: 100%;
+            pointer-events: none;
+        }
+        .hero-center-content h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 0.9;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+        .hero-center-content .floating-word {
+            display: block;
+            color: var(--white);
+            opacity: 0.9;
+        }
+        .hero-center-content .accent-word {
+            display: block;
+            color: var(--gold-400);
+            font-style: italic;
+            font-family: var(--font-display);
+            text-transform: none;
+            letter-spacing: 0;
+            margin-top: -10px;
+        }
+
+        .legacy-section {
+            padding: 150px 0;
+            background: var(--navy-900);
+        }
+        .asymmetric-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 100px;
+            align-items: center;
+        }
+        .legacy-image-wrap {
+            position: relative;
+        }
+        .legacy-image-wrap img {
+            width: 100%;
+            filter: grayscale(1) contrast(1.1);
+            transition: filter 0.8s var(--ease-expo);
+        }
+        .legacy-image-wrap:hover img {
+            filter: grayscale(0.2) contrast(1);
+        }
+        .image-caption {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            background: var(--gold-500);
+            color: var(--navy-950);
+            padding: 30px;
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-style: italic;
+            max-width: 300px;
+            box-shadow: 20px 20px 0 var(--navy-800);
+        }
+
+        .metamorphosis {
+            padding: 120px 0;
+            background: var(--navy-950);
+            border-top: 1px solid rgba(201, 168, 76, 0.1);
+        }
+        .step-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 80px;
+        }
+        .step-card {
+            padding: 40px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(201, 168, 76, 0.05);
+            transition: all 0.5s var(--ease-expo);
+        }
+        .step-card:hover {
+            background: rgba(201, 168, 76, 0.03);
+            border-color: var(--gold-500);
+            transform: translateY(-10px);
+        }
+        .step-year {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            color: var(--gold-500);
+            opacity: 0.2;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+        .step-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--white);
+        }
+
+        @media (max-width: 1024px) {
+            .split-hero { grid-template-columns: 1fr; }
+            .side-tradition { display: none; }
+            .asymmetric-grid { grid-template-columns: 1fr; gap: 60px; }
+            .step-container { grid-template-columns: 1fr; }
+            .image-caption { position: static; margin-top: 20px; box-shadow: none; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Preloader -->
     <div id="preloader">
         <div class="preloader-inner">
             <div class="preloader-logo">CSF</div>
@@ -21,11 +156,9 @@
         </div>
     </div>
 
-    <!-- Custom Cursor -->
     <div class="cursor-dot" aria-hidden="true"></div>
     <div class="cursor-outline" aria-hidden="true"></div>
 
-    <!-- Navigation -->
     <nav id="navbar" class="scrolled">
         <div class="nav-container">
             <a href="index.html" class="nav-logo">
@@ -33,102 +166,98 @@
                 <span class="logo-divider"></span>
                 <span class="logo-consulting">CONSULTING</span>
             </a>
-            <div class="nav-links" id="navLinks">
+            <div class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="chi-siamo.html" class="nav-link active">Chi Siamo</a>
                 <a href="servizi.html" class="nav-link">Servizi</a>
                 <a href="innova.html" class="nav-link">Innova</a>
                 <a href="contatti.html" class="nav-link nav-link-cta">Contatti</a>
             </div>
-            <button class="nav-toggle" id="navToggle" aria-label="Apri menu">
-                <span></span><span></span><span></span>
-            </button>
         </div>
     </nav>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="mobile-menu-inner">
-            <a href="index.html" class="mobile-link">Home</a>
-            <a href="chi-siamo.html" class="mobile-link">Chi Siamo</a>
-            <a href="servizi.html" class="mobile-link">Servizi</a>
-            <a href="innova.html" class="mobile-link">Innova</a>
-            <a href="contatti.html" class="mobile-link">Contatti</a>
-        </div>
-    </div>
-
     <main>
-        <!-- Hero Interna -->
-        <section class="internal-hero" style="padding: 180px 0 100px; background: var(--navy-900); text-align: center;">
-            <div class="container">
-                <div class="hero-badge reveal">
-                    <span class="hero-badge-line"></span>
-                    <span class="hero-badge-text">La Nostra Identità</span>
-                    <span class="hero-badge-line"></span>
+        <!-- Split Hero -->
+        <section class="split-hero">
+            <div class="split-side side-tradition">
+                <div class="reveal">
+                    <p class="hero-badge-text" style="color: var(--gold-200);">L'Eredità Frasca</p>
                 </div>
-                <h1 class="reveal">Oltre mezzo secolo di <br><span class="title-accent">Consulenza d'Impresa</span></h1>
-                <p class="section-subtitle reveal" style="margin-top: 24px;">Dallo Studio Frasca a CSF Consulting: l'evoluzione di una realtà radicata nel territorio pontino.</p>
+            </div>
+            <div class="split-side side-innovation">
+                <div class="innovation-grid-pattern"></div>
+                <div class="reveal">
+                    <p class="hero-badge-text" style="color: var(--electric-light);">Il Futuro CSF</p>
+                </div>
+            </div>
+            <div class="hero-center-content">
+                <h1 class="reveal">
+                    <span class="floating-word">55 Anni di</span>
+                    <span class="accent-word">Evoluzione</span>
+                </h1>
             </div>
         </section>
 
-        <!-- Storia & Evoluzione -->
-        <section id="heritage" style="padding: 100px 0; background: var(--navy-800);">
+        <!-- Legacy Section -->
+        <section class="legacy-section">
             <div class="container">
-                <div class="about-grid">
-                    <div class="about-text reveal">
-                        <h2 class="section-title">L'Eredità di <span class="text-gold">Antonio Frasca</span></h2>
-                        <p class="about-lead">Dal 1970, lo Studio Frasca è stato un punto di riferimento per le imprese del territorio pontino, guidandole con precisione, sicurezza e professionalità.</p>
-                        <p>Oggi, CSF Consulting rappresenta l'evoluzione naturale di quella visione. Sotto la guida del Dott. Antonio Frasca, lo studio ha saputo trasformarsi in una realtà ibrida: una società che unisce la metodologia delle grandi firme internazionali alla personalizzazione e al rapporto umano tipico del classico studio professionale.</p>
-                        <p>Questo processo è stato coadiuvato dall'integrazione di nuove tecnologie nel reparto produttivo e gestionale, permettendo un'esperienza finale dove il cliente si sente finalmente seguito e veramente partecipe nella propria gestione aziendale.</p>
+                <div class="asymmetric-grid">
+                    <div class="legacy-image-wrap reveal">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200" alt="Architettura e Storia">
+                        <div class="image-caption">
+                            "La sicurezza di un metodo radicato nel tempo."
+                        </div>
                     </div>
-                    <div class="about-timeline reveal">
-                        <div class="timeline-track"></div>
-                        <div class="timeline-item revealed" data-year="1970">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <h3>La Fondazione</h3>
-                                <p>Antonio Frasca apre lo studio a Latina, ponendo le basi per una consulenza basata sulla fiducia.</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item revealed" data-year="2000">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <h3>Espansione</h3>
-                                <p>Lo studio amplia il network di professionisti per offrire servizi multidisciplinari.</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item revealed" data-year="2025">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-content">
-                                <h3>CSF Consulting</h3>
-                                <p>L'evoluzione in Boutique di Consulenza Ibrida e il lancio della divisione Innova.</p>
-                            </div>
-                        </div>
+                    <div class="legacy-text reveal">
+                        <span class="section-label">Le Radici</span>
+                        <h2 class="section-title">Dallo Studio Frasca alla <span class="text-gold">Boutique Ibrida</span></h2>
+                        <p>Nel 1970, Antonio Frasca fondava uno studio basato su un principio non negoziabile: la <strong>precisione assoluta</strong>. Per oltre mezzo secolo, abbiamo protetto e guidato le imprese del territorio pontino attraverso ogni tempesta economica.</p>
+                        <p>Oggi, quella stessa precisione è il motore di una realtà ibrida. Non siamo solo consulenti; siamo architetti di processi che fondono l'empatia umana con la potenza del dato digitale.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Metodologia Ibrida -->
-        <section style="padding: 120px 0; background: var(--navy-950);">
+        <!-- Metamorphosis -->
+        <section class="metamorphosis">
             <div class="container">
                 <div class="section-header reveal">
-                    <span class="section-label">Il Nostro Metodo</span>
-                    <h2 class="section-title">La Boutique <span class="text-gold">Ibrida</span></h2>
+                    <span class="section-label">Il Percorso</span>
+                    <h2 class="section-title">La nostra <span class="text-gold">Metamorfosi</span></h2>
+                    <p class="section-subtitle">Tre ere, un'unica missione: il successo della tua impresa.</p>
                 </div>
-                <div class="services-grid">
-                    <div class="service-card reveal">
-                        <div class="service-card-inner">
-                            <h3 class="service-title">Metodologia "Big Four"</h3>
-                            <p class="service-description">Processi standardizzati, efficienza operativa e rigore analitico pari alle grandi firme globali.</p>
-                        </div>
+                
+                <div class="step-container">
+                    <div class="step-card reveal">
+                        <div class="step-year">1970</div>
+                        <h3 class="step-title">La Genesi</h3>
+                        <p>Antonio Frasca introduce un nuovo standard di consulenza fiscale e societaria nel territorio pontino. Nasce il legame indissolubile con il tessuto imprenditoriale locale.</p>
                     </div>
-                    <div class="service-card reveal">
-                        <div class="service-card-inner">
-                            <h3 class="service-title">Rapporto Sartoriale</h3>
-                            <p class="service-description">La cura del dettaglio e la vicinanza umana che solo uno studio professionale radicato può offrire.</p>
-                        </div>
+                    <div class="step-card reveal" style="transition-delay: 0.2s;">
+                        <div class="step-year">2000</div>
+                        <h3 class="step-title">L'Espansione</h3>
+                        <p>Lo studio evolve in un network multidisciplinare. L'integrazione di nuove professionalità permette di coprire ogni esigenza aziendale, dalla contabilità al lavoro.</p>
                     </div>
+                    <div class="step-card reveal" style="transition-delay: 0.4s;">
+                        <div class="step-year">Oggi</div>
+                        <h3 class="step-title">L'Ibrido</h3>
+                        <p>CSF Consulting diventa una società di servizi avanzati. Tecnologia, AI e Data Management si fondono con la consulenza tradizionale per un'esperienza cliente senza precedenti.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vision Quote -->
+        <section style="padding: 150px 0; background: var(--navy-900); text-align: center;">
+            <div class="container">
+                <div class="reveal">
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="var(--gold-500)" stroke-width="1" style="margin-bottom: 40px; opacity: 0.5;">
+                        <path d="M3 21c3 0 7-1 7-8V5c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h4c0 5-4 5-4 5v3zm14 0c3 0 7-1 7-8V5c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v6c0 1.1.9 2 2 2h4c0 5-4 5-4 5v3z"/>
+                    </svg>
+                    <h2 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); font-style: italic; color: var(--text-primary); max-width: 900px; margin: 0 auto; line-height: 1.4;">
+                        "Abbiamo digitalizzato il reparto produttivo non per allontanarci dal cliente, ma per renderlo finalmente protagonista consapevole della propria azienda."
+                    </h2>
+                    <p class="hero-badge-text" style="margin-top: 40px; letter-spacing: 0.5em;">— Antonio Frasca</p>
                 </div>
             </div>
         </section>
