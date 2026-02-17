@@ -65,17 +65,57 @@
         .service-sticky-info {
             position: sticky;
             top: 140px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Visual Element for the left side */
+        .service-visual-bg {
+            position: absolute;
+            left: -10%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            height: 120%;
+            z-index: -1;
+            opacity: 0.15;
+            filter: grayscale(1) brightness(0.8);
+            pointer-events: none;
+            mask-image: radial-gradient(circle at 30% 50%, black 0%, transparent 70%);
+            -webkit-mask-image: radial-gradient(circle at 30% 50%, black 0%, transparent 70%);
+            transition: transform 1.2s var(--ease-expo), opacity 0.8s ease;
+        }
+
+        .service-deep-dive:hover .service-visual-bg {
+            transform: translateY(-52%) scale(1.05);
+            opacity: 0.25;
         }
 
         .service-number-large {
             font-family: var(--font-display);
-            font-size: 10rem;
+            font-size: 12rem;
             line-height: 0.8;
             color: var(--gold-500);
-            opacity: 0.07;
-            margin-bottom: -50px;
+            opacity: 0.1;
+            margin-bottom: -40px;
             margin-left: -20px;
             font-weight: 700;
+            position: relative;
+        }
+
+        .service-number-large::after {
+            content: '';
+            position: absolute;
+            left: 40px;
+            top: 50%;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, var(--gold-500) 0%, transparent 70%);
+            opacity: 0.2;
+            filter: blur(30px);
+            z-index: -1;
         }
 
         .service-title-large {
@@ -83,6 +123,7 @@
             margin-bottom: 30px;
             color: var(--white);
             line-height: 1.1;
+            position: relative;
         }
 
         .service-content-box {
@@ -256,6 +297,7 @@
 
         <!-- 01 Fiscale -->
         <section id="fiscale" class="service-deep-dive">
+            <img src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?auto=format&fit=crop&q=80&w=1000" class="service-visual-bg" alt="Architecture">
             <div class="container">
                 <div class="service-layout">
                     <div class="service-sticky-info reveal">
@@ -263,6 +305,7 @@
                         <h2 class="service-title-large">Fiscale &<br>Dichiarativi</h2>
                         <p>La navigazione nel panorama tributario richiede una bussola precisa. CSF Consulting offre una visione strategica che trasforma gli adempimenti in opportunità di pianificazione.</p>
                     </div>
+
                     <div class="service-content-box reveal">
                         <p class="service-description-lead">"Non ci limitiamo alla compliance; progettiamo la struttura fiscale più efficiente per la tua crescita."</p>
                         <div class="competence-grid">
@@ -294,6 +337,7 @@
 
         <!-- 02 Contabilità -->
         <section id="contabilita" class="service-deep-dive">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1000" class="service-visual-bg" alt="Architecture">
             <div class="container">
                 <div class="service-layout">
                     <div class="service-sticky-info reveal">
@@ -301,6 +345,7 @@
                         <h2 class="service-title-large">Contabilità &<br>Bilancio</h2>
                         <p>I numeri raccontano una storia. Noi ti insegniamo a leggerla. La nostra gestione contabile è il cuore pulsante del tuo controllo di gestione.</p>
                     </div>
+
                     <div class="service-content-box reveal">
                         <p class="service-description-lead">"Il bilancio non è un punto d'arrivo, ma la base di partenza per ogni decisione strategica."</p>
                         <div class="competence-grid">
@@ -332,6 +377,7 @@
 
         <!-- 03 Societario -->
         <section id="societario" class="service-deep-dive">
+            <img src="https://images.unsplash.com/photo-1503387762-592dee58c160?auto=format&fit=crop&q=80&w=1000" class="service-visual-bg" alt="Architecture">
             <div class="container">
                 <div class="service-layout">
                     <div class="service-sticky-info reveal">
@@ -339,6 +385,7 @@
                         <h2 class="service-title-large">Consulenza<br>Societaria</h2>
                         <p>Dalla nascita all'espansione, proteggiamo la struttura della tua impresa. Supportiamo i soci nelle scelte che definiscono il futuro dell'organizzazione.</p>
                     </div>
+
                     <div class="service-content-box reveal">
                         <p class="service-description-lead">"Architettiamo la forma giuridica perfetta per proteggere il tuo patrimonio e favorire lo sviluppo."</p>
                         <div class="competence-grid">
@@ -370,6 +417,7 @@
 
         <!-- 04 Lavoro -->
         <section id="lavoro" class="service-deep-dive">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1000" class="service-visual-bg" alt="Architecture">
             <div class="container">
                 <div class="service-layout">
                     <div class="service-sticky-info reveal">
@@ -377,6 +425,7 @@
                         <h2 class="service-title-large">Consulenza<br>del Lavoro</h2>
                         <p>Le persone sono l'asset più prezioso. Gestiamo la complessità normativa del lavoro per permetterti di concentrarti sulla crescita del tuo team.</p>
                     </div>
+
                     <div class="service-content-box reveal">
                         <p class="service-description-lead">"Trasformiamo la gestione del personale da costo burocratico a leva di vantaggio competitivo."</p>
                         <div class="competence-grid">
