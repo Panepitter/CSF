@@ -133,30 +133,57 @@
 
         .roadmap-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 80px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
         }
 
         .roadmap-step {
-            padding: 50px;
+            padding: 40px;
             background: rgba(255,255,255,0.02);
-            border-left: 2px solid var(--path-accent);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-left: 3px solid var(--path-accent);
             position: relative;
-            transition: background 0.4s ease;
+            transition: all 0.4s var(--ease-expo);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         .roadmap-step:hover {
             background: rgba(255,255,255,0.05);
+            transform: translateY(-5px);
+            border-color: rgba(255,255,255,0.1);
         }
 
         .step-number {
             font-family: var(--font-display);
-            font-size: 3rem;
+            font-size: 2.5rem;
             color: var(--path-accent);
-            opacity: 0.3;
-            position: absolute;
-            top: 20px; right: 30px;
+            opacity: 0.2;
+            line-height: 1;
+        }
+
+        .step-content h3 {
+            font-size: 1.2rem;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+
+        .step-content p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .step-tag {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--path-accent);
+            font-weight: 700;
+            opacity: 0.8;
         }
 
         /* Partnership Section (Convergence) */
@@ -284,29 +311,81 @@
         <div class="path-content content-startup">
             <section class="path-hero">
                 <div class="container">
-                    <span class="hero-badge-text" style="color: var(--gold-400); letter-spacing: 0.3em; text-transform: uppercase; font-size: 0.8rem;">Percorso Genesi</span>
-                    <h1 class="choice-title" style="margin-top: 20px;">Dall'Idea al <span class="text-gold">Mercato</span></h1>
-                    <p class="section-subtitle" style="max-width: 700px; margin: 20px auto;">Supporto olistico per la creazione di nuove realtà imprenditoriali, con un focus specifico sulle Startup Innovative e la scalabilità del business.</p>
+                    <span class="hero-badge-text" style="color: var(--gold-400); letter-spacing: 0.3em; text-transform: uppercase; font-size: 0.8rem;">Percorso Inizia</span>
+                    <h1 class="choice-title" style="margin-top: 20px;">Dall'Idea alla <span class="text-gold">Startup Scalabile</span></h1>
+                    <p class="section-subtitle" style="max-width: 700px; margin: 20px auto;">Dedicato a chi ha un'idea e vuole trasformarla in una realtà imprenditoriale solida, finanziata e pronta per il mercato.</p>
                 </div>
             </section>
 
-            <section style="padding: 100px 0;">
+            <section style="padding: 60px 0 120px;">
                 <div class="container">
                     <div class="roadmap-grid">
                         <div class="roadmap-step">
                             <span class="step-number">01</span>
-                            <h3>Assetto Legale</h3>
-                            <p>Scelta della forma giuridica ottimale e redazione di statuti sartoriali per proteggere i soci e l'idea.</p>
+                            <div class="step-content">
+                                <h3>Analisi dell'Idea</h3>
+                                <p>Ascoltiamo la tua visione e ne studiamo il potenziale imprenditoriale attraverso sessioni di brainstorming strategico.</p>
+                            </div>
                         </div>
                         <div class="roadmap-step">
                             <span class="step-number">02</span>
-                            <h3>Compliance Fiscale</h3>
-                            <p>Pianificazione tributaria strategica e gestione delle agevolazioni per startup innovative.</p>
+                            <div class="step-content">
+                                <h3>Test di Fattibilità</h3>
+                                <p>Effettuiamo ricerche di mercato e analisi della concorrenza per validare il progetto prima del lancio.</p>
+                            </div>
                         </div>
                         <div class="roadmap-step">
                             <span class="step-number">03</span>
-                            <h3>Fundraising Ready</h3>
-                            <p>Preparazione della documentazione contabile e societaria per l'ingresso di investitori e capitali.</p>
+                            <div class="step-content">
+                                <span class="step-tag">Compliance</span>
+                                <h3>Setup Legale e Fiscale</h3>
+                                <p>Gestiamo la costituzione della società e l'apertura delle posizioni fiscali garantendo massima sicurezza normativa.</p>
+                            </div>
+                        </div>
+                        <div class="roadmap-step">
+                            <span class="step-number">04</span>
+                            <div class="step-content">
+                                <h3>Progettazione Strategica</h3>
+                                <p>Definiamo il business plan e i patti tra i soci per garantire una crescita ordinata e prevenire conflitti futuri.</p>
+                            </div>
+                        </div>
+                        <div class="roadmap-step">
+                            <span class="step-number">05</span>
+                            <div class="step-content">
+                                <h3>Ricerca Capitali</h3>
+                                <p>Attiviamo lo scouting di bandi e finanziamenti agevolati specifici per startup innovative a livello nazionale ed europeo.</p>
+                            </div>
+                        </div>
+                        <div class="roadmap-step">
+                            <span class="step-number">06</span>
+                            <div class="step-content">
+                                <span class="step-tag">CoreStack</span>
+                                <h3>Sviluppo Prodotto (MVP)</h3>
+                                <p>Costruiamo fisicamente la tua piattaforma, sito web o app focalizzandoci sulle funzionalità core per il mercato.</p>
+                            </div>
+                        </div>
+                        <div class="roadmap-step">
+                            <span class="step-number">07</span>
+                            <div class="step-content">
+                                <span class="step-tag">Creative Flow</span>
+                                <h3>Lancio e Branding</h3>
+                                <p>Creiamo l'identità visiva e la strategia di marketing per posizionare il tuo brand nell'ecosistema digitale.</p>
+                            </div>
+                        </div>
+                        <div class="roadmap-step">
+                            <span class="step-number">08</span>
+                            <div class="step-content">
+                                <span class="step-tag">Cognitive Engine</span>
+                                <h3>Automazione AI</h3>
+                                <p>Inseriamo agenti intelligenti e processi automatici per rendere la startup snella e ridurre i costi operativi.</p>
+                            </div>
+                        </div>
+                        <div class="roadmap-step">
+                            <span class="step-number">09</span>
+                            <div class="step-content">
+                                <h3>Monitoraggio Risultati</h3>
+                                <p>Analizziamo i primi KPI e l'andamento finanziario per pianificare i prossimi round di investimento.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -317,29 +396,78 @@
         <div class="path-content content-transform">
             <section class="path-hero">
                 <div class="container">
-                    <span class="hero-badge-text" style="color: var(--electric-light); letter-spacing: 0.3em; text-transform: uppercase; font-size: 0.8rem;">Percorso Evoluzione</span>
-                    <h1 class="choice-title" style="margin-top: 20px;">Ridisegnare il <span class="text-electric">Successo</span></h1>
-                    <p class="section-subtitle" style="max-width: 700px; margin: 20px auto;">Ristrutturazione strategica e potenziamento tecnologico per aziende consolidate che puntano alla leadership di mercato.</p>
+                    <span class="hero-badge-text" style="color: var(--electric-light); letter-spacing: 0.3em; text-transform: uppercase; font-size: 0.8rem;">Percorso Migliora</span>
+                    <h1 class="choice-title" style="margin-top: 20px;">Evoluzione <span class="text-electric">Intelligente</span></h1>
+                    <p class="section-subtitle" style="max-width: 700px; margin: 20px auto;">Dedicato a imprese esistenti che vogliono diventare veloci, ottimizzate e leader nel proprio settore attraverso l'innovazione.</p>
                 </div>
             </section>
 
-            <section style="padding: 100px 0;">
+            <section style="padding: 60px 0 120px;">
                 <div class="container">
                     <div class="roadmap-grid">
                         <div class="roadmap-step">
                             <span class="step-number">01</span>
-                            <h3>Audit Strategico</h3>
-                            <p>Analisi profonda dei processi e individuazione delle inefficienze per liberare potenziale inespresso.</p>
+                            <div class="step-content">
+                                <h3>Screening Aziendale</h3>
+                                <p>Effettuiamo un check-up completo dei tuoi processi interni e della tua salute fiscale e contributiva.</p>
+                            </div>
                         </div>
                         <div class="roadmap-step">
                             <span class="step-number">02</span>
-                            <h3>Digital Shift</h3>
-                            <p>Integrazione di Business Intelligence e AI per trasformare la contabilità in un centro di comando dati.</p>
+                            <div class="step-content">
+                                <h3>Valutazione dei Margini</h3>
+                                <p>Analizziamo i costi e i flussi di cassa per identificare inefficienze e sprechi di risorse finanziarie.</p>
+                            </div>
                         </div>
                         <div class="roadmap-step">
                             <span class="step-number">03</span>
-                            <h3>M&A & Growth</h3>
-                            <p>Supporto in operazioni straordinarie, fusioni e acquisizioni per l'espansione del perimetro aziendale.</p>
+                            <div class="step-content">
+                                <span class="step-tag">Compliance</span>
+                                <h3>Messa in Sicurezza</h3>
+                                <p>Ottimizziamo il carico fiscale e regolarizziamo la gestione del personale per una protezione totale.</p>
+                            </div>
+                        </div>
+                        <div class="roadmap-step">
+                            <span class="step-number">04</span>
+                            <div class="step-content">
+                                <h3>Revisione Strategica</h3>
+                                <p>Aggiorniamo il piano industriale e gli assetti organizzativi per prevenire crisi e anticipare il mercato.</p>
+                            </div>
+                        </div>
+                        <div class="roadmap-step">
+                            <span class="step-number">05</span>
+                            <div class="step-content">
+                                <h3>Recupero Incentivi</h3>
+                                <p>Sfruttiamo i crediti d'imposta e i bandi come Transizione 5.0 per finanziare la tua trasformazione tecnologica.</p>
+                            </div>
+                        </div>
+                        <div class="roadmap-step">
+                            <span class="step-number">06</span>
+                            <div class="step-content">
+                                <h3>Digitalizzazione Processi</h3>
+                                <p>Trasformiamo i flussi manuali e frammentati in asset digitali scalabili e facilmente monitorabili.</p>
+                            </div>
+                        </div>
+                        <div class="roadmap-step">
+                            <span class="step-number">07</span>
+                            <div class="step-content">
+                                <h3>Rilancio del Brand</h3>
+                                <p>Aggiorniamo la comunicazione e automatizziamo il marketing per acquisire nuovi clienti in modo costante.</p>
+                            </div>
+                        </div>
+                        <div class="roadmap-step">
+                            <span class="step-number">08</span>
+                            <div class="step-content">
+                                <h3>Integrazione AI</h3>
+                                <p>Inseriamo l'Intelligenza Artificiale nei reparti operativi per eliminare lavori ripetitivi e aumentare la produttività.</p>
+                            </div>
+                        </div>
+                        <div class="roadmap-step">
+                            <span class="step-number">09</span>
+                            <div class="step-content">
+                                <h3>Controllo di Gestione</h3>
+                                <p>Implementiamo dashboard interattive per monitorare l'andamento dell'azienda in tempo reale con dati certi.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
