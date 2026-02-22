@@ -276,12 +276,113 @@
             .step-bg-number { font-size: 12rem; top: 20px; }
         }
 
-        /* Partnership Section (Convergence) */
+        /* Partnership Section (Convergence) — hidden until path selected */
         .partnership-convergence {
             padding: 150px 0;
             background: linear-gradient(to bottom, var(--navy-950), #000);
             text-align: center;
             border-top: 1px solid rgba(255,255,255,0.05);
+            display: none;
+        }
+
+        body.path-selected .partnership-convergence {
+            display: block;
+        }
+
+        /* Path Intro Section */
+        .path-intro {
+            padding: 180px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        body.path-startup .path-intro {
+            background: radial-gradient(circle at center, rgba(201, 168, 76, 0.06) 0%, transparent 70%);
+        }
+        body.path-transform .path-intro {
+            background: radial-gradient(circle at center, rgba(59, 130, 246, 0.06) 0%, transparent 70%);
+        }
+        .path-intro-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 40px;
+            opacity: 0.7;
+        }
+        .path-intro-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+        body.path-startup .path-intro-icon {
+            color: var(--gold-400);
+        }
+        body.path-transform .path-intro-icon {
+            color: var(--electric-light);
+        }
+        .path-intro-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--white);
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+        .path-intro-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+        .path-intro-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+        body.path-startup .path-intro-badge {
+            color: var(--gold-400);
+        }
+        body.path-transform .path-intro-badge {
+            color: var(--electric-light);
+        }
+        .path-intro-badge-line {
+            width: 40px;
+            height: 1px;
+            opacity: 0.5;
+        }
+        body.path-startup .path-intro-badge-line {
+            background: var(--gold-500);
+        }
+        body.path-transform .path-intro-badge-line {
+            background: var(--electric);
+        }
+        .path-intro-scroll {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            margin-top: 60px;
+            opacity: 0.5;
+        }
+        .path-intro-scroll span {
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+        .path-intro-scroll-line {
+            width: 1px;
+            height: 40px;
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+        body.path-startup .path-intro-scroll-line {
+            background: linear-gradient(180deg, var(--gold-400), transparent);
+        }
+        body.path-transform .path-intro-scroll-line {
+            background: linear-gradient(180deg, var(--electric-light), transparent);
         }
 
         .convergence-title {
@@ -342,10 +443,29 @@
             transform: translateX(-4px);
         }
 
+        /* Vision Grid */
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .vision-item h4 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+        }
+        .vision-item p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
         @media (max-width: 1024px) {
             .choice-overlay { flex-direction: column; }
             .choice-side:hover { flex: 1; }
-            .path-hero { padding-top: 150px; }
+            .path-intro { padding-top: 150px; }
+            .vision-grid { grid-template-columns: 1fr; gap: 30px; }
         }
     </style>
 
@@ -373,6 +493,22 @@
             </button>
         </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu" style="z-index: 2400;">
+        <div class="mobile-menu-inner">
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="chi-siamo.html" class="mobile-link">Chi Siamo</a>
+            <a href="servizi.html" class="mobile-link">Servizi</a>
+            <a href="percorsi.html" class="mobile-link">Percorsi</a>
+            <a href="innova.html" class="mobile-link">Innova</a>
+            <a href="contatti.html" class="mobile-link">Contatti</a>
+        </div>
+        <div class="mobile-menu-footer">
+            <p>info@csfconsulting.it</p>
+            <p>Territorio Pontino, Italia</p>
+        </div>
+    </div>
 
     <!-- Back Button -->
     <button class="back-to-choice" onclick="resetPath()" aria-label="Torna alla scelta del percorso">
@@ -403,6 +539,29 @@
     <main>
         <!-- STARTUP CONTENT -->
         <div class="path-content content-startup">
+            <section class="path-intro">
+                <div class="container">
+                    <div class="path-intro-icon">
+                        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M32 6l14 24H18L32 6z"/>
+                            <line x1="32" y1="30" x2="32" y2="50"/>
+                            <circle cx="32" cy="54" r="4"/>
+                            <line x1="22" y1="42" x2="42" y2="42"/>
+                        </svg>
+                    </div>
+                    <div class="path-intro-badge">
+                        <span class="path-intro-badge-line"></span>
+                        <span>Percorso Genesi</span>
+                        <span class="path-intro-badge-line"></span>
+                    </div>
+                    <h2 class="path-intro-title">Inizia la Tua <span class="text-gold">Startup</span></h2>
+                    <p class="path-intro-subtitle">Dall'idea al mercato: un percorso strutturato in 9 fasi che unisce visione imprenditoriale, solidità gestionale e tecnologia all'avanguardia. Ti accompagniamo in ogni passo della creazione della tua impresa.</p>
+                    <div class="path-intro-scroll">
+                        <span>Scorri per iniziare</span>
+                        <div class="path-intro-scroll-line"></div>
+                    </div>
+                </div>
+            </section>
             <div class="journey-container">
                 <div class="journey-wrapper" id="startupWrapper">
                     <div class="journey-sticky">
@@ -470,6 +629,31 @@
 
         <!-- TRANSFORM CONTENT -->
         <div class="path-content content-transform">
+            <section class="path-intro">
+                <div class="container">
+                    <div class="path-intro-icon">
+                        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="6" y="20" width="20" height="20" rx="3"/>
+                            <rect x="38" y="20" width="20" height="20" rx="3"/>
+                            <path d="M26 26h12"/>
+                            <path d="M34 22l4 4-4 4"/>
+                            <path d="M38 34H26"/>
+                            <path d="M30 38l-4-4 4-4"/>
+                        </svg>
+                    </div>
+                    <div class="path-intro-badge">
+                        <span class="path-intro-badge-line"></span>
+                        <span>Percorso Evoluzione</span>
+                        <span class="path-intro-badge-line"></span>
+                    </div>
+                    <h2 class="path-intro-title">Trasforma la Tua <span class="text-electric">Impresa</span></h2>
+                    <p class="path-intro-subtitle">Evolvi il tuo business esistente: un percorso in 9 fasi che ottimizza processi, comunicazione e gestione attraverso tecnologie all'avanguardia. Portiamo la tua azienda nell'era digitale.</p>
+                    <div class="path-intro-scroll">
+                        <span>Scorri per iniziare</span>
+                        <div class="path-intro-scroll-line"></div>
+                    </div>
+                </div>
+            </section>
             <div class="journey-container">
                 <div class="journey-wrapper" id="transformWrapper">
                     <div class="journey-sticky">

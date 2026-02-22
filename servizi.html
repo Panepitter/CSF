@@ -242,6 +242,18 @@
             .service-title-large { font-size: 3rem; }
             .service-content-box { padding: 30px; }
             .competence-grid { grid-template-columns: 1fr; }
+            .services-hero { padding: 160px 0 100px; }
+        }
+
+        @media (max-width: 768px) {
+            .services-hero { padding: 140px 0 80px; }
+            .service-title-large { font-size: 2.2rem; }
+            .service-content-box { padding: 24px; }
+        }
+
+        @media (max-width: 480px) {
+            .services-hero { padding: 120px 0 60px; }
+            .service-title-large { font-size: 1.8rem; }
         }
     </style>
 
@@ -266,7 +278,7 @@
                 <span class="logo-divider"></span>
                 <span class="logo-consulting">CONSULTING</span>
             </a>
-            <div class="nav-links">
+            <div class="nav-links" id="navLinks">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="chi-siamo.html" class="nav-link">Chi Siamo</a>
                 <a href="servizi.html" class="nav-link active">Servizi</a>
@@ -274,8 +286,27 @@
                 <a href="innova.html" class="nav-link">Innova</a>
                 <a href="contatti.html" class="nav-link nav-link-cta">Contatti</a>
             </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Apri menu">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-inner">
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="chi-siamo.html" class="mobile-link">Chi Siamo</a>
+            <a href="servizi.html" class="mobile-link">Servizi</a>
+            <a href="percorsi.html" class="mobile-link">Percorsi</a>
+            <a href="innova.html" class="mobile-link">Innova</a>
+            <a href="contatti.html" class="mobile-link">Contatti</a>
+        </div>
+        <div class="mobile-menu-footer">
+            <p>info@csfconsulting.it</p>
+            <p>Territorio Pontino, Italia</p>
+        </div>
+    </div>
 
     <main>
         <!-- Hero Servizi -->

@@ -33,7 +33,10 @@
             border-right: 1px solid rgba(201, 168, 76, 0.2);
         }
         .side-innovation {
-            background: var(--navy-900);
+            background: linear-gradient(rgba(4, 10, 20, 0.75), rgba(4, 10, 20, 0.75)), url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000');
+            background-size: cover;
+            background-position: center;
+            border-left: 1px solid rgba(59, 130, 246, 0.2);
         }
         .hero-center-content {
             position: absolute;
@@ -137,9 +140,41 @@
             color: var(--white);
         }
 
+        /* Alternating hero animation for mobile */
+        @keyframes heroFadeA {
+            0%, 45% { opacity: 1; }
+            50%, 95% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @keyframes heroFadeB {
+            0%, 45% { opacity: 0; }
+            50%, 95% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
         @media (max-width: 1024px) {
-            .split-hero { grid-template-columns: 1fr; }
-            .side-tradition { display: none; }
+            .split-hero {
+                grid-template-columns: 1fr;
+                position: relative;
+            }
+            .split-side {
+                grid-column: 1;
+                grid-row: 1;
+                min-height: 90vh;
+            }
+            .side-tradition {
+                border-right: none;
+                animation: heroFadeA 8s ease-in-out infinite;
+                z-index: 1;
+            }
+            .side-innovation {
+                border-left: none;
+                animation: heroFadeB 8s ease-in-out infinite;
+                z-index: 1;
+            }
+            .hero-center-content {
+                z-index: 10;
+            }
             .asymmetric-grid { grid-template-columns: 1fr; gap: 60px; }
             .step-container { grid-template-columns: 1fr; }
             .image-caption { position: static; margin-top: 20px; box-shadow: none; }
@@ -155,6 +190,33 @@
             .feature-item {
                 flex-direction: column;
                 gap: 15px !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .step-container[style] {
+                grid-template-columns: 1fr 1fr !important;
+            }
+            .split-side {
+                padding: 40px 24px;
+            }
+            .hero-center-content h1 {
+                font-size: clamp(2.2rem, 10vw, 3.5rem);
+            }
+            .legacy-section {
+                padding: 80px 0;
+            }
+            .metamorphosis {
+                padding: 80px 0;
+            }
+        }
+        @media (max-width: 480px) {
+            .step-container[style] {
+                grid-template-columns: 1fr !important;
+            }
+            .image-caption {
+                font-size: 1.1rem;
+                padding: 20px;
             }
         }
     </style>
@@ -179,7 +241,7 @@
                 <span class="logo-divider"></span>
                 <span class="logo-consulting">CONSULTING</span>
             </a>
-            <div class="nav-links">
+            <div class="nav-links" id="navLinks">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="chi-siamo.html" class="nav-link active">Chi Siamo</a>
                 <a href="servizi.html" class="nav-link">Servizi</a>
@@ -187,8 +249,27 @@
                 <a href="innova.html" class="nav-link">Innova</a>
                 <a href="contatti.html" class="nav-link nav-link-cta">Contatti</a>
             </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Apri menu">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-inner">
+            <a href="index.html" class="mobile-link">Home</a>
+            <a href="chi-siamo.html" class="mobile-link">Chi Siamo</a>
+            <a href="servizi.html" class="mobile-link">Servizi</a>
+            <a href="percorsi.html" class="mobile-link">Percorsi</a>
+            <a href="innova.html" class="mobile-link">Innova</a>
+            <a href="contatti.html" class="mobile-link">Contatti</a>
+        </div>
+        <div class="mobile-menu-footer">
+            <p>info@csfconsulting.it</p>
+            <p>Territorio Pontino, Italia</p>
+        </div>
+    </div>
 
     <main>
         <!-- Split Hero -->

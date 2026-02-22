@@ -59,6 +59,7 @@
             <a href="index.html" class="mobile-link">Home</a>
             <a href="chi-siamo.html" class="mobile-link">Chi Siamo</a>
             <a href="servizi.html" class="mobile-link">Servizi</a>
+            <a href="percorsi.html" class="mobile-link">Percorsi</a>
             <a href="innova.html" class="mobile-link">Innova</a>
             <a href="contatti.html" class="mobile-link">Contatti</a>
         </div>
@@ -119,21 +120,30 @@
                 <div class="about-timeline">
                     <div class="timeline-track"></div>
                     <div class="timeline-item reveal" data-year="1970">
-                        <div class="timeline-dot"></div>
+                        <div class="timeline-marker">
+                            <div class="timeline-dot"></div>
+                            <span class="timeline-year">1970</span>
+                        </div>
                         <div class="timeline-content">
                             <h3>Fondazione</h3>
                             <p>Antonio Frasca avvia lo studio, ponendo le basi di precisione e sicurezza.</p>
                         </div>
                     </div>
                     <div class="timeline-item reveal" data-year="2000">
-                        <div class="timeline-dot"></div>
+                        <div class="timeline-marker">
+                            <div class="timeline-dot"></div>
+                            <span class="timeline-year">2000</span>
+                        </div>
                         <div class="timeline-content">
                             <h3>Crescita</h3>
                             <p>Espansione dei servizi e consolidamento nel territorio pontino.</p>
                         </div>
                     </div>
                     <div class="timeline-item reveal" data-year="Oggi">
-                        <div class="timeline-dot"></div>
+                        <div class="timeline-marker">
+                            <div class="timeline-dot"></div>
+                            <span class="timeline-year">Oggi</span>
+                        </div>
                         <div class="timeline-content">
                             <h3>CSF Consulting</h3>
                             <p>L'evoluzione ibrida: tecnologia e consulenza d'eccellenza.</p>
@@ -173,7 +183,7 @@
 
             <!-- Service 2 -->
             <div class="monolith reveal" style="transition-delay: 0.1s;">
-                <div class="monolith-bg" style="background-image: url('https://images.unsplash.com/photo-1454165833767-027ffea9e77b?auto=format&fit=crop&q=80&w=1000');"></div>
+                <div class="monolith-bg" style="background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=1000');"></div>
                 <div class="monolith-overlay"></div>
                 <div class="monolith-content">
                     <div class="monolith-number">02</div>
@@ -209,7 +219,7 @@
 
             <!-- Service 4 -->
             <div class="monolith reveal" style="transition-delay: 0.3s;">
-                <div class="monolith-bg" style="background-image: url('https://images.unsplash.com/photo-1521791136364-798a7bc0d262?auto=format&fit=crop&q=80&w=1000');"></div>
+                <div class="monolith-bg" style="background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1000');"></div>
                 <div class="monolith-overlay"></div>
                 <div class="monolith-content">
                     <div class="monolith-number">04</div>
@@ -310,7 +320,7 @@
         /* Hover Effects Desktop */
         @media (hover: hover) {
             .monolith:hover {
-                flex: 1.6;
+                flex: 2.5;
             }
             .monolith:hover .monolith-bg {
                 filter: grayscale(0.3) brightness(0.6);
@@ -336,39 +346,51 @@
                 height: auto;
             }
             .monolith {
-                height: 350px; /* Aumentato per dare più respiro */
+                height: 85vh;
+                min-height: 500px;
                 flex: none;
                 border-right: none;
                 border-bottom: 1px solid rgba(201, 168, 76, 0.1);
-                opacity: 1 !important; /* Forza visibilità */
+                opacity: 1 !important;
                 transform: none !important;
+                padding: 40px 30px;
+                align-items: center;
+                justify-content: center;
             }
             .monolith-bg {
-                filter: grayscale(0.4) brightness(0.5); /* Più chiaro su mobile */
+                filter: grayscale(0.4) brightness(0.5);
             }
             .monolith-overlay {
                 opacity: 0.7;
             }
+            .monolith-content {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: center;
+            }
             .monolith-details {
-                max-height: 250px; /* Sempre visibile su mobile */
+                max-height: 300px;
                 opacity: 1;
-                margin-top: 15px;
+                margin-top: 20px;
             }
             .monolith-number {
-                font-size: 2.5rem;
+                font-size: 3rem;
                 opacity: 0.5;
                 transform: none !important;
+                margin-bottom: 16px;
             }
             .monolith-title {
-                font-size: 1.8rem;
-                margin-bottom: 10px;
+                font-size: 2rem;
+                margin-bottom: 12px;
             }
-            
-            /* Reveal fallback per mobile */
-            .reveal {
-                opacity: 1 !important;
-                transform: translateY(0) !important;
-                transition: none !important;
+            .monolith-details p {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+            .monolith-list li {
+                font-size: 0.95rem;
+                margin-bottom: 12px;
             }
         }
     </style>
@@ -448,7 +470,7 @@
                 <div class="showcase-item reveal" style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 120px;">
                     <div class="showcase-visual" style="position: relative; order: 2;">
                         <div style="background: linear-gradient(135deg, rgba(201, 168, 76, 0.1), transparent); border: 1px solid rgba(201, 168, 76, 0.2); padding: 40px; border-radius: 4px; position: relative; z-index: 1;">
-                            <img src="https://images.unsplash.com/photo-1551288049-bbbda546697a?auto=format&fit=crop&q=80&w=1000" alt="Data Management" style="width: 100%; border-radius: 2px; filter: brightness(0.8);">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1000" alt="Data Management" style="width: 100%; border-radius: 2px; filter: brightness(0.8);">
                         </div>
                         <div style="position: absolute; bottom: -20px; left: -20px; width: 100%; height: 100%; border: 1px solid rgba(201, 168, 76, 0.1); z-index: 0;"></div>
                     </div>

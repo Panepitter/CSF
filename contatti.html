@@ -9,6 +9,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .internal-hero {
+            padding: 180px 0 100px;
+            background: var(--navy-900);
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .internal-hero { padding: 140px 0 70px; }
+        }
+
+        @media (max-width: 480px) {
+            .internal-hero { padding: 120px 0 56px; }
+        }
+    </style>
 </head>
 <body>
 
@@ -53,14 +68,19 @@
             <a href="index.html" class="mobile-link">Home</a>
             <a href="chi-siamo.html" class="mobile-link">Chi Siamo</a>
             <a href="servizi.html" class="mobile-link">Servizi</a>
+            <a href="percorsi.html" class="mobile-link">Percorsi</a>
             <a href="innova.html" class="mobile-link">Innova</a>
             <a href="contatti.html" class="mobile-link">Contatti</a>
+        </div>
+        <div class="mobile-menu-footer">
+            <p>info@csfconsulting.it</p>
+            <p>Territorio Pontino, Italia</p>
         </div>
     </div>
 
     <main>
         <!-- Hero Contatti -->
-        <section class="internal-hero" style="padding: 180px 0 100px; background: var(--navy-900); text-align: center;">
+        <section class="internal-hero">
             <div class="container">
                 <div class="hero-badge reveal">
                     <span class="hero-badge-line"></span>
