@@ -14,10 +14,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Custom Styles for Servizi - The Masterclass Layout */
+        /* ===== Servizi Page — Premium Redesign ===== */
+
         .services-hero {
-            padding: 220px 0 140px;
-            background: var(--navy-950);
+            padding: 200px 0 120px;
+            background: var(--bg-deep);
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -26,204 +27,244 @@
         .services-hero::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(28, 61, 106, 0.2) 0%, transparent 70%);
+            inset: 0;
+            background:
+                radial-gradient(ellipse 70% 50% at 50% 40%, rgba(212, 173, 66, 0.05) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 70% 60%, rgba(59, 124, 245, 0.04) 0%, transparent 55%);
             z-index: 1;
         }
-        
+
         .services-hero .container { position: relative; z-index: 2; }
 
         .hero-title-main {
             font-family: var(--font-display);
-            font-size: clamp(3.5rem, 8vw, 6rem);
-            line-height: 0.9;
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            line-height: 0.95;
             margin-top: 20px;
-            color: var(--white);
+            color: var(--text-heading);
             letter-spacing: -0.02em;
         }
 
-        .hero-title-main span.outline {
-            color: transparent;
-            -webkit-text-stroke: 1px var(--gold-300);
-            opacity: 0.5;
+        .hero-title-main .outline {
+            color: var(--gold-300);
+            font-style: italic;
+            font-weight: 400;
         }
 
-        .service-deep-dive {
-            padding: 140px 0;
-            border-bottom: 1px solid rgba(201, 168, 76, 0.05);
+        /* ===== Service Section ===== */
+        .service-section {
+            padding: 0;
+            position: relative;
+        }
+
+        .service-card-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+        }
+
+        .service-card-wrap.reverse {
+            direction: rtl;
+        }
+        .service-card-wrap.reverse > * {
+            direction: ltr;
+        }
+
+        /* --- Image side --- */
+        .service-img-side {
             position: relative;
             overflow: hidden;
         }
-        
-        .service-deep-dive:nth-child(even) {
-            background: var(--navy-900);
-        }
 
-        .service-layout {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 100px;
-            align-items: start;
-        }
-
-        .service-sticky-info {
-            position: sticky;
-            top: 140px;
-            height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        /* Visual Element for the left side */
-        .service-visual-bg {
-            position: absolute;
-            left: -5%;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 80%;
+        .service-img-side img {
+            width: 100%;
             height: 100%;
-            z-index: -1;
-            opacity: 0.25;
-            filter: grayscale(1) brightness(0.7);
-            pointer-events: none;
-            mask-image: radial-gradient(circle at 20% 50%, black 0%, transparent 80%);
-            -webkit-mask-image: radial-gradient(circle at 20% 50%, black 0%, transparent 80%);
-            transition: transform 1.2s var(--ease-expo), opacity 0.8s ease, filter 0.8s ease;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(0.3) brightness(0.65) saturate(0.9);
+            transition: filter 1s ease, transform 1.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .service-deep-dive:hover .service-visual-bg {
-            transform: translateY(-52%) scale(1.1);
-            opacity: 0.4;
-            filter: grayscale(0.5) brightness(0.9);
+        .service-card-wrap:hover .service-img-side img {
+            filter: grayscale(0.1) brightness(0.75) saturate(1);
+            transform: scale(1.04);
         }
 
-        .service-number-large {
-            font-family: var(--font-display);
-            font-size: 12rem;
-            line-height: 0.8;
-            color: var(--gold-500);
-            opacity: 0.1;
-            margin-bottom: -40px;
-            margin-left: -20px;
-            font-weight: 700;
-            position: relative;
-        }
-
-        .service-number-large::after {
-            content: '';
+        .service-img-overlay {
             position: absolute;
-            left: 40px;
-            top: 50%;
-            width: 150px;
-            height: 150px;
-            background: radial-gradient(circle, var(--gold-500) 0%, transparent 70%);
-            opacity: 0.2;
-            filter: blur(30px);
-            z-index: -1;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
         }
 
-        .service-title-large {
-            font-size: 4rem;
-            margin-bottom: 30px;
-            color: var(--white);
-            line-height: 1.1;
-            position: relative;
+        /* Gradient overlay direction depends on image side */
+        .service-card-wrap:not(.reverse) .service-img-overlay {
+            background: linear-gradient(90deg, transparent 40%, var(--bg-deep) 100%);
+        }
+        .service-card-wrap.reverse .service-img-overlay {
+            background: linear-gradient(270deg, transparent 40%, var(--bg-deep) 100%);
         }
 
-        .service-content-box {
-            padding: 50px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 2px;
-            position: relative;
-            transition: transform 0.8s var(--ease-expo), box-shadow 0.8s var(--ease-expo);
-        }
-
-        .service-content-box:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--glow-gold);
-            border-color: var(--gold-500);
-        }
-
-        .service-description-lead {
-            font-size: 1.4rem;
-            color: var(--gold-100);
-            line-height: 1.5;
-            margin-bottom: 40px;
+        .service-img-number {
+            position: absolute;
+            bottom: 32px;
+            left: 36px;
+            z-index: 3;
             font-family: var(--font-display);
-            font-style: italic;
-            border-left: 3px solid var(--gold-500);
-            padding-left: 30px;
-        }
-
-        .competence-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-top: 60px;
-        }
-
-        .competence-item {
-            position: relative;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .competence-item h4 {
+            font-size: 8rem;
+            font-weight: 700;
+            line-height: 1;
             color: var(--gold-400);
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.15em;
-            font-weight: 600;
+            opacity: 0.15;
         }
 
-        .competence-item p {
-            font-size: 0.95rem;
-            line-height: 1.7;
-            color: var(--text-secondary);
+        .service-card-wrap.reverse .service-img-number {
+            left: auto;
+            right: 36px;
         }
 
-        .innovation-bridge {
-            margin-top: 60px;
-            padding: 35px;
-            background: rgba(59, 130, 246, 0.05);
-            border: 1px solid rgba(59, 130, 246, 0.1);
+        /* --- Content side --- */
+        .service-content-side {
+            display: flex;
+            align-items: center;
+            padding: 80px 72px;
+            background: var(--bg-deep);
             position: relative;
-            transition: all 0.5s ease;
         }
 
-        .innovation-bridge:hover {
-            background: rgba(59, 130, 246, 0.08);
-            border-color: var(--electric);
+        .service-section:nth-child(even) .service-content-side {
+            background: var(--bg-base);
+        }
+        .service-section:nth-child(even) .service-card-wrap:not(.reverse) .service-img-overlay {
+            background: linear-gradient(90deg, transparent 40%, var(--bg-base) 100%);
+        }
+        .service-section:nth-child(even) .service-card-wrap.reverse .service-img-overlay {
+            background: linear-gradient(270deg, transparent 40%, var(--bg-base) 100%);
         }
 
-        .innovation-bridge h5 {
-            color: var(--electric-light);
+        .service-content-inner {
+            max-width: 560px;
+        }
+
+        .service-tag {
+            display: inline-block;
             font-family: var(--font-body);
-            font-size: 0.8rem;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            letter-spacing: 0.25em;
-            margin-bottom: 15px;
+            color: var(--gold-400);
+            margin-bottom: 20px;
+        }
+
+        .service-tag::before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 1px;
+            background: var(--gold-500);
+            vertical-align: middle;
+            margin-right: 12px;
+            opacity: 0.5;
+        }
+
+        .service-title-lg {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+            color: var(--text-heading);
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .service-lead {
+            font-size: 1.05rem;
+            color: var(--text-body);
+            line-height: 1.75;
+            margin-bottom: 36px;
+        }
+
+        /* Competence pills */
+        .competence-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 36px;
+        }
+
+        .competence-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: rgba(212, 173, 66, 0.05);
+            border: 1px solid rgba(212, 173, 66, 0.1);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-body);
+            transition: all 0.35s ease;
+        }
+
+        .competence-pill:hover {
+            background: rgba(212, 173, 66, 0.1);
+            border-color: rgba(212, 173, 66, 0.22);
+            color: var(--gold-200);
+        }
+
+        .competence-pill::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--gold-400);
+            flex-shrink: 0;
+            opacity: 0.6;
+        }
+
+        /* Innovation bridge */
+        .service-innovation {
+            padding: 20px 24px;
+            background: rgba(59, 124, 245, 0.04);
+            border: 1px solid rgba(59, 124, 245, 0.1);
+            border-radius: 14px;
+            transition: all 0.4s ease;
+        }
+
+        .service-innovation:hover {
+            background: rgba(59, 124, 245, 0.07);
+            border-color: rgba(59, 124, 245, 0.2);
+        }
+
+        .service-innovation-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--blue-400);
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .innovation-bridge h5::after {
+        .service-innovation-label::after {
             content: '';
             height: 1px;
-            flex-grow: 1;
-            background: var(--electric);
-            opacity: 0.3;
+            flex: 1;
+            background: var(--blue-500);
+            opacity: 0.2;
         }
 
-        /* Innovation CTA Section */
+        .service-innovation p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+        }
+
+        /* ===== CTA Block ===== */
         .innovation-cta-block {
-            padding: 150px 0;
-            background: var(--navy-950);
+            padding: 140px 0;
+            background: var(--bg-deep);
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -234,30 +275,110 @@
             bottom: -20%;
             left: 50%;
             transform: translateX(-50%);
-            width: 80%;
+            width: 70%;
             height: 40%;
-            background: radial-gradient(ellipse at center, var(--electric-glow) 0%, transparent 70%);
-            opacity: 0.5;
+            background: radial-gradient(ellipse at center, rgba(59, 124, 245, 0.15) 0%, transparent 70%);
+            pointer-events: none;
         }
 
+        .cta-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            color: var(--text-heading);
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        /* ===== Responsive — Tablet ===== */
         @media (max-width: 1024px) {
-            .service-layout { grid-template-columns: 1fr; gap: 60px; }
-            .service-sticky-info { position: static; }
-            .service-title-large { font-size: 3rem; }
-            .service-content-box { padding: 30px; }
-            .competence-grid { grid-template-columns: 1fr; }
             .services-hero { padding: 160px 0 100px; }
+            .service-content-side { padding: 60px 48px; }
+            .service-img-number { font-size: 6rem; }
         }
 
+        /* ===== Responsive — Mobile ===== */
         @media (max-width: 768px) {
-            .services-hero { padding: 140px 0 80px; }
-            .service-title-large { font-size: 2.2rem; }
-            .service-content-box { padding: 24px; }
+            .services-hero { padding: 140px 0 72px; }
+            .hero-title-main { line-height: 1; }
+
+            .service-card-wrap,
+            .service-card-wrap.reverse {
+                grid-template-columns: 1fr;
+                direction: ltr;
+                min-height: 0;
+            }
+            .service-card-wrap.reverse > * { direction: ltr; }
+
+            .service-img-side {
+                height: 220px;
+            }
+
+            .service-img-side img {
+                height: 100%;
+                object-fit: cover;
+                object-position: center 30%;
+            }
+
+            /* Override overlay to fade downward on mobile */
+            .service-card-wrap:not(.reverse) .service-img-overlay,
+            .service-card-wrap.reverse .service-img-overlay {
+                background: linear-gradient(180deg, transparent 30%, var(--bg-deep) 100%);
+            }
+            .service-section:nth-child(even) .service-card-wrap:not(.reverse) .service-img-overlay,
+            .service-section:nth-child(even) .service-card-wrap.reverse .service-img-overlay {
+                background: linear-gradient(180deg, transparent 30%, var(--bg-base) 100%);
+            }
+
+            .service-img-number {
+                font-size: 5rem;
+                bottom: 16px;
+                left: 20px;
+                opacity: 0.12;
+            }
+            .service-card-wrap.reverse .service-img-number {
+                left: 20px;
+                right: auto;
+            }
+
+            .service-content-side {
+                padding: 32px 20px 52px;
+            }
+
+            .service-content-inner {
+                max-width: 100%;
+            }
+
+            .service-title-lg {
+                font-size: 1.8rem;
+                margin-bottom: 14px;
+            }
+
+            .service-lead {
+                font-size: 0.92rem;
+                margin-bottom: 24px;
+            }
+
+            .competence-list { gap: 8px; margin-bottom: 24px; }
+            .competence-pill {
+                padding: 8px 14px;
+                font-size: 0.74rem;
+            }
+
+            .service-innovation {
+                padding: 16px 18px;
+                border-radius: 12px;
+            }
+            .service-innovation p { font-size: 0.82rem; }
+
+            .innovation-cta-block { padding: 80px 0; }
+            .cta-title { font-size: 1.6rem; }
         }
 
         @media (max-width: 480px) {
-            .services-hero { padding: 120px 0 60px; }
-            .service-title-large { font-size: 1.8rem; }
+            .services-hero { padding: 120px 0 56px; }
+            .service-img-side { height: 180px; }
+            .service-content-side { padding: 24px 16px 44px; }
+            .service-title-lg { font-size: 1.55rem; }
         }
     </style>
 
@@ -313,9 +434,8 @@
     </div>
 
     <main>
-        <!-- Hero Servizi -->
+        <!-- Hero -->
         <section class="services-hero">
-            <div class="bg-glow"></div>
             <div class="container">
                 <div class="hero-badge reveal">
                     <span class="hero-badge-line"></span>
@@ -325,185 +445,136 @@
                 <h1 class="hero-title-main reveal">
                     Eccellenza e <br><span class="outline">Strategia</span>
                 </h1>
-                <p class="section-subtitle reveal" style="margin-top: 30px; max-width: 700px; margin-left: auto; margin-right: auto;">
-                    Quattro pilastri fondamentali, cinquantacinque anni di autorità nel territorio pontino. Trasformiamo la complessità normativa in vantaggio competitivo.
+                <p class="section-subtitle reveal" style="margin-top: 28px; max-width: 660px; margin-left: auto; margin-right: auto;">
+                    Quattro pilastri fondamentali, oltre cinquantacinque anni di autorità nel territorio pontino. Trasformiamo la complessità normativa in vantaggio competitivo.
                 </p>
             </div>
         </section>
 
-
         <!-- 01 Fiscale -->
-        <section id="fiscale" class="service-deep-dive">
-            <img src="https://images.unsplash.com/photo-1554469384-e58fac16e23a?auto=format&fit=crop&q=80&w=1000" class="service-visual-bg" alt="Architecture">
-            <div class="container">
-                <div class="service-layout">
-                    <div class="service-sticky-info reveal">
-                        <div class="service-number-large">01</div>
-                        <h2 class="service-title-large">Fiscale &<br>Dichiarativi</h2>
-                        <p>La navigazione nel panorama tributario richiede una bussola precisa. CSF Consulting offre una visione strategica che trasforma gli adempimenti in opportunità di pianificazione.</p>
-                    </div>
-
-                    <div class="service-content-box reveal">
-                        <p class="service-description-lead">"Non ci limitiamo alla compliance; progettiamo la struttura fiscale più efficiente per la tua crescita."</p>
-                        <div class="competence-grid">
-                            <div class="competence-item">
-                                <h4>Pianificazione</h4>
-                                <p>Ottimizzazione del carico fiscale nazionale e internazionale nel pieno rispetto delle normative.</p>
-                            </div>
-                            <div class="competence-item">
-                                <h4>Dichiarativi</h4>
-                                <p>Gestione magistrale di tutti i modelli dichiarativi per società, enti e persone fisiche.</p>
-                            </div>
-                            <div class="competence-item">
-                                <h4>Contenzioso</h4>
-                                <p>Difesa tecnica e rappresentanza presso le Commissioni Tributarie di ogni ordine e grado.</p>
-                            </div>
-                            <div class="competence-item">
-                                <h4>IVA & Dogane</h4>
-                                <p>Consulenza specialistica sugli scambi intracomunitari e operazioni con l'estero.</p>
-                            </div>
+        <div class="service-section" id="fiscale">
+            <div class="service-card-wrap reveal">
+                <div class="service-img-side">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1200" alt="Consulenza fiscale" loading="lazy">
+                    <div class="service-img-overlay"></div>
+                    <div class="service-img-number">01</div>
+                </div>
+                <div class="service-content-side">
+                    <div class="service-content-inner">
+                        <span class="service-tag">Pilastro I</span>
+                        <h2 class="service-title-lg">Fiscale &<br>Dichiarativi</h2>
+                        <p class="service-lead">La navigazione nel panorama tributario richiede una bussola precisa. CSF Consulting offre una visione strategica che trasforma gli adempimenti in opportunità di pianificazione.</p>
+                        <div class="competence-list">
+                            <span class="competence-pill">Pianificazione Fiscale</span>
+                            <span class="competence-pill">Modelli Dichiarativi</span>
+                            <span class="competence-pill">Contenzioso Tributario</span>
+                            <span class="competence-pill">IVA & Dogane</span>
                         </div>
-                        <div class="innovation-bridge">
-                            <h5>L'Innesto Tecnologico</h5>
-                            <p style="font-size: 0.95rem; color: var(--text-body);">Utilizziamo algoritmi di controllo incrociato per eliminare l'errore umano e garantire una sicurezza documentale totale.</p>
+                        <div class="service-innovation">
+                            <div class="service-innovation-label">L'Innesto Tecnologico</div>
+                            <p>Algoritmi di controllo incrociato per eliminare l'errore umano e garantire sicurezza documentale totale.</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
         <!-- 02 Contabilità -->
-        <section id="contabilita" class="service-deep-dive">
-            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1000" class="service-visual-bg" alt="Architecture">
-            <div class="container">
-                <div class="service-layout">
-                    <div class="service-sticky-info reveal">
-                        <div class="service-number-large">02</div>
-                        <h2 class="service-title-large">Contabilità &<br>Bilancio</h2>
-                        <p>I numeri raccontano una storia. Noi ti insegniamo a leggerla. La nostra gestione contabile è il cuore pulsante del tuo controllo di gestione.</p>
-                    </div>
-
-                    <div class="service-content-box reveal">
-                        <p class="service-description-lead">"Il bilancio non è un punto d'arrivo, ma la base di partenza per ogni decisione strategica."</p>
-                        <div class="competence-grid">
-                            <div class="competence-item">
-                                <h4>Tenuta Contabile</h4>
-                                <p>Gestione ordinaria e semplificata con standard qualitativi da grande firma.</p>
-                            </div>
-                            <div class="competence-item">
-                                <h4>Bilanci UE</h4>
-                                <p>Redazione di bilanci d'esercizio e consolidati secondo i principi contabili nazionali e internazionali.</p>
-                            </div>
-                            <div class="competence-item">
-                                <h4>Reporting</h4>
-                                <p>Sistemi di reportistica periodica per monitorare l'andamento economico e finanziario.</p>
-                            </div>
-                            <div class="competence-item">
-                                <h4>Revisione</h4>
-                                <p>Attività di auditing interno per garantire la veridicità e la trasparenza dei dati.</p>
-                            </div>
+        <div class="service-section" id="contabilita">
+            <div class="service-card-wrap reverse reveal">
+                <div class="service-img-side">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200" alt="Contabilità e bilancio" loading="lazy">
+                    <div class="service-img-overlay"></div>
+                    <div class="service-img-number">02</div>
+                </div>
+                <div class="service-content-side">
+                    <div class="service-content-inner">
+                        <span class="service-tag">Pilastro II</span>
+                        <h2 class="service-title-lg">Contabilità &<br>Bilancio</h2>
+                        <p class="service-lead">I numeri raccontano una storia. Noi ti insegniamo a leggerla. La nostra gestione contabile è il cuore pulsante del tuo controllo di gestione.</p>
+                        <div class="competence-list">
+                            <span class="competence-pill">Tenuta Contabile</span>
+                            <span class="competence-pill">Bilanci UE</span>
+                            <span class="competence-pill">Reporting Periodico</span>
+                            <span class="competence-pill">Revisione & Audit</span>
                         </div>
-                        <div class="innovation-bridge">
-                            <h5>L'Innesto Tecnologico</h5>
-                            <p style="font-size: 0.95rem; color: var(--text-body);">Integrazione diretta dei flussi bancari e gestionali nel nostro reparto produttivo per dati sempre aggiornati in tempo reale.</p>
+                        <div class="service-innovation">
+                            <div class="service-innovation-label">L'Innesto Tecnologico</div>
+                            <p>Integrazione diretta dei flussi bancari e gestionali per dati sempre aggiornati in tempo reale.</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
         <!-- 03 Societario -->
-        <section id="societario" class="service-deep-dive">
-            <img src="https://images.unsplash.com/photo-1503387762-592dee58c160?auto=format&fit=crop&q=80&w=1000" class="service-visual-bg" alt="Architecture">
-            <div class="container">
-                <div class="service-layout">
-                    <div class="service-sticky-info reveal">
-                        <div class="service-number-large">03</div>
-                        <h2 class="service-title-large">Consulenza<br>Societaria</h2>
-                        <p>Dalla nascita all'espansione, proteggiamo la struttura della tua impresa. Supportiamo i soci nelle scelte che definiscono il futuro dell'organizzazione.</p>
-                    </div>
-
-                    <div class="service-content-box reveal">
-                        <p class="service-description-lead">"Architettiamo la forma giuridica perfetta per proteggere il tuo patrimonio e favorire lo sviluppo."</p>
-                        <div class="competence-grid">
-                            <div class="competence-item">
-                                <h4>Costituzioni</h4>
-                                <p>Scelta del modello societario e redazione di statuti personalizzati "sartoriali".</p>
-                            </div>
-                            <div class="competence-item">
-                                <h4>M&A</h4>
-                                <p>Assistenza in fusioni, scissioni, conferimenti e acquisizioni d'azienda.</p>
-                            </div>
-                            <div class="competence-item">
-                                <h4>Passaggi Generazionali</h4>
-                                <p>Pianificazione della successione aziendale per garantire continuità e armonia.</p>
-                            </div>
-                            <div class="competence-item">
-                                <h4>Liquidazioni</h4>
-                                <p>Gestione professionale delle fasi di chiusura e recesso.</p>
-                            </div>
+        <div class="service-section" id="societario">
+            <div class="service-card-wrap reveal">
+                <div class="service-img-side">
+                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=1200" alt="Consulenza societaria" loading="lazy">
+                    <div class="service-img-overlay"></div>
+                    <div class="service-img-number">03</div>
+                </div>
+                <div class="service-content-side">
+                    <div class="service-content-inner">
+                        <span class="service-tag">Pilastro III</span>
+                        <h2 class="service-title-lg">Consulenza<br>Societaria</h2>
+                        <p class="service-lead">Dalla nascita all'espansione, proteggiamo la struttura della tua impresa. Supportiamo i soci nelle scelte che definiscono il futuro dell'organizzazione.</p>
+                        <div class="competence-list">
+                            <span class="competence-pill">Costituzioni & Statuti</span>
+                            <span class="competence-pill">M&A</span>
+                            <span class="competence-pill">Passaggi Generazionali</span>
+                            <span class="competence-pill">Liquidazioni</span>
                         </div>
-                        <div class="innovation-bridge">
-                            <h5>L'Innesto Tecnologico</h5>
-                            <p style="font-size: 0.95rem; color: var(--text-body);">Data Room virtuali e strumenti di Business Intelligence per valutazioni d'azienda (Due Diligence) rapide e oggettive.</p>
+                        <div class="service-innovation">
+                            <div class="service-innovation-label">L'Innesto Tecnologico</div>
+                            <p>Data Room virtuali e Business Intelligence per valutazioni d'azienda rapide e oggettive.</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
         <!-- 04 Lavoro -->
-        <section id="lavoro" class="service-deep-dive">
-            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1000" class="service-visual-bg" alt="Architecture">
-            <div class="container">
-                <div class="service-layout">
-                    <div class="service-sticky-info reveal">
-                        <div class="service-number-large">04</div>
-                        <h2 class="service-title-large">Consulenza<br>del Lavoro</h2>
-                        <p>Le persone sono l'asset più prezioso. Gestiamo la complessità normativa del lavoro per permetterti di concentrarti sulla crescita del tuo team.</p>
-                    </div>
-
-                    <div class="service-content-box reveal">
-                        <p class="service-description-lead">"Trasformiamo la gestione del personale da costo burocratico a leva di vantaggio competitivo."</p>
-                        <div class="competence-grid">
-                            <div class="competence-item">
-                                <h4>Amministrazione HR</h4>
-                                <p>Gestione completa del ciclo paghe e contributi con precisione millimetrica.</p>
-                            </div>
-                            <div class="competence-item">
-                                <h4>Relazioni Industriali</h4>
-                                <p>Supporto nelle trattative sindacali e nella gestione dei conflitti collettivi.</p>
-                            </div>
-                            <div class="competence-item">
-                                <h4>Welfare Aziendale</h4>
-                                <p>Progettazione di piani di welfare per aumentare la produttività e il benessere dei dipendenti.</p>
-                            </div>
-                            <div class="competence-item">
-                                <h4>Audit Giuslavoristico</h4>
-                                <p>Verifica della corretta applicazione dei contratti e prevenzione dei rischi.</p>
-                            </div>
+        <div class="service-section" id="lavoro">
+            <div class="service-card-wrap reverse reveal">
+                <div class="service-img-side">
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200" alt="Consulenza del lavoro" loading="lazy">
+                    <div class="service-img-overlay"></div>
+                    <div class="service-img-number">04</div>
+                </div>
+                <div class="service-content-side">
+                    <div class="service-content-inner">
+                        <span class="service-tag">Pilastro IV</span>
+                        <h2 class="service-title-lg">Consulenza<br>del Lavoro</h2>
+                        <p class="service-lead">Le persone sono l'asset più prezioso. Gestiamo la complessità normativa del lavoro per permetterti di concentrarti sulla crescita del tuo team.</p>
+                        <div class="competence-list">
+                            <span class="competence-pill">Amministrazione HR</span>
+                            <span class="competence-pill">Relazioni Industriali</span>
+                            <span class="competence-pill">Welfare Aziendale</span>
+                            <span class="competence-pill">Audit Giuslavoristico</span>
                         </div>
-                        <div class="innovation-bridge">
-                            <h5>L'Innesto Tecnologico</h5>
-                            <p style="font-size: 0.95rem; color: var(--text-body);">Portali dipendente self-service e automazione dei flussi presenze per una gestione HR snella e moderna.</p>
+                        <div class="service-innovation">
+                            <div class="service-innovation-label">L'Innesto Tecnologico</div>
+                            <p>Portali dipendente self-service e automazione presenze per una gestione HR snella e moderna.</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
         <!-- Innovation CTA -->
         <section class="innovation-cta-block reveal">
             <div class="cta-glow"></div>
-            <div class="container">
+            <div class="container" style="position: relative; z-index: 2;">
                 <span class="section-label section-label-electric">Oltre la Tradizione</span>
-                <h2 class="service-title-large">Pronto per il <span class="text-electric">Prossimo Livello?</span></h2>
-                <p class="section-subtitle" style="margin-bottom: 50px; max-width: 800px; margin-left: auto; margin-right: auto;">
-                    La nostra divisione ibrida fonde l'esperienza contabile con l'intelligenza artificiale e il digital management. Scopri come CSF Consulting sta riscrivendo le regole della consulenza.
+                <h2 class="cta-title">Pronto per il <span class="text-electric">Prossimo Livello?</span></h2>
+                <p class="section-subtitle" style="margin-bottom: 44px; max-width: 680px; margin-left: auto; margin-right: auto;">
+                    La nostra divisione ibrida fonde l'esperienza contabile con l'intelligenza artificiale e il digital management.
                 </p>
-                <a href="innova.html" class="btn btn-electric" style="padding: 20px 40px; font-size: 1rem;">
+                <a href="innova.html" class="btn btn-electric" style="padding: 18px 36px; font-size: 0.95rem;">
                     <span>Esplora Innovation Management</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="margin-left: 10px;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="margin-left: 8px;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                 </a>
             </div>
         </section>
@@ -533,7 +604,7 @@
                 </div>
                 <div class="footer-links">
                     <h4>Contatti</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Territorio Pontino, Italia<br>info@csfconsulting.it</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Territorio Pontino, Italia<br>info@csfconsulting.it</p>
                 </div>
             </div>
             <div class="footer-bottom">

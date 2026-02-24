@@ -121,17 +121,34 @@
 
         function getCount() {
             var w = window.innerWidth;
-            if (w < 480) return 20;
-            if (w < 768) return 30;
-            if (w < 1024) return 45;
-            return 60;
+            if (w < 480) return 25;
+            if (w < 768) return 38;
+            if (w < 1024) return 55;
+            return 75;
         }
 
         function createParticles() {
             particles = [];
             var count = getCount();
-            for (var i = 0; i < count; i++) {
-                var isBlue = Math.random() < 0.12;
+            /* beacon particles — larger, brighter focal points */
+            var beaconCount = Math.max(2, Math.floor(count * 0.06));
+            for (var b = 0; b < beaconCount; b++) {
+                var isBlueB = b % 2 === 1;
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.15,
+                    vy: (Math.random() - 0.5) * 0.15,
+                    r: Math.random() * 2.2 + 2,
+                    color: isBlueB ? '91, 148, 247' : '212, 173, 66',
+                    alpha: Math.random() * 0.3 + 0.25,
+                    pulse: Math.random() * Math.PI * 2,
+                    ps: Math.random() * 0.005 + 0.002,
+                    beacon: true
+                });
+            }
+            for (var i = 0; i < count - beaconCount; i++) {
+                var isBlue = Math.random() < 0.15;
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
@@ -141,7 +158,8 @@
                     color: isBlue ? '91, 148, 247' : '212, 173, 66',
                     alpha: Math.random() * 0.45 + 0.15,
                     pulse: Math.random() * Math.PI * 2,
-                    ps: Math.random() * 0.008 + 0.003
+                    ps: Math.random() * 0.008 + 0.003,
+                    beacon: false
                 });
             }
         }
@@ -149,16 +167,18 @@
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+            /* connection lines */
             for (var i = 0; i < particles.length; i++) {
                 for (var j = i + 1; j < particles.length; j++) {
                     var dx = particles[i].x - particles[j].x;
                     var dy = particles[i].y - particles[j].y;
                     var dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 160) {
-                        var a = (1 - dist / 160) * 0.1;
+                    var maxDist = (particles[i].beacon || particles[j].beacon) ? 200 : 160;
+                    if (dist < maxDist) {
+                        var a = (1 - dist / maxDist) * 0.12;
                         ctx.beginPath();
                         ctx.strokeStyle = 'rgba(212, 173, 66, ' + a + ')';
-                        ctx.lineWidth = 0.4;
+                        ctx.lineWidth = (particles[i].beacon || particles[j].beacon) ? 0.6 : 0.4;
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
                         ctx.stroke();
@@ -166,20 +186,46 @@
                 }
             }
 
+            /* particles & glows */
             for (var k = 0; k < particles.length; k++) {
                 var p = particles[k];
                 p.pulse += p.ps;
                 var a = p.alpha + Math.sin(p.pulse) * 0.12;
 
+                if (p.beacon) {
+                    /* outer soft glow */
+                    var grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 12);
+                    grad.addColorStop(0, 'rgba(' + p.color + ', ' + (a * 0.12) + ')');
+                    grad.addColorStop(0.5, 'rgba(' + p.color + ', ' + (a * 0.04) + ')');
+                    grad.addColorStop(1, 'rgba(' + p.color + ', 0)');
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r * 12, 0, Math.PI * 2);
+                    ctx.fillStyle = grad;
+                    ctx.fill();
+
+                    /* inner glow */
+                    var grad2 = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 4);
+                    grad2.addColorStop(0, 'rgba(' + p.color + ', ' + (a * 0.35) + ')');
+                    grad2.addColorStop(1, 'rgba(' + p.color + ', 0)');
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r * 4, 0, Math.PI * 2);
+                    ctx.fillStyle = grad2;
+                    ctx.fill();
+                }
+
+                /* core dot */
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
                 ctx.fillStyle = 'rgba(' + p.color + ', ' + a + ')';
                 ctx.fill();
 
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.r * 3, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(' + p.color + ', ' + (a * 0.08) + ')';
-                ctx.fill();
+                /* halo */
+                if (!p.beacon) {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r * 3.5, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(' + p.color + ', ' + (a * 0.06) + ')';
+                    ctx.fill();
+                }
             }
         }
 
@@ -349,7 +395,7 @@
             setTimeout(function () {
                 var el = document.querySelector(hash);
                 if (el) {
-                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     el.style.outline = '2px solid rgba(212, 173, 66, 0.3)';
                     el.style.outlineOffset = '8px';
                     el.style.transition = 'outline 0.5s, outline-offset 0.5s';
@@ -551,6 +597,10 @@
             if (navEntry && navEntry.type === 'reload') isReload = true;
         } catch (e) { /* old browser fallback */ }
 
+        /* --- Page-specific behaviour --- */
+        var currentPage = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
+        var isPercorsi = currentPage === 'percorsi.html';
+
         /* --- Restore chat from sessionStorage (persists across link clicks, resets on reload) --- */
         (function restoreChat() {
             var saved = sessionStorage.getItem('csf_chat');
@@ -566,17 +616,51 @@
                     msgs.innerHTML = state.messagesHtml;
                 }
                 if (state.isOpen) {
-                    isOpen = true;
-                    trigger.classList.add('hidden');
-                    panel.classList.add('open');
-
-                    /* Agent navigation: show chat open, then minimize smoothly after delay */
-                    if (state.agentNav) {
+                    if (isPercorsi && !state.agentNav) {
+                        /* On percorsi (non-agent nav): keep chat closed */
+                    } else if (isPercorsi && state.agentNav) {
+                        /* Agent nav to percorsi: open first, then close fully after delay */
+                        isOpen = true;
+                        trigger.classList.add('hidden');
+                        panel.style.transition = 'none';
+                        panel.classList.add('open');
+                        panel.offsetHeight;
+                        panel.style.transition = '';
+                        var percDelay = isMobile() ? 2000 : 1500;
+                        setTimeout(function () {
+                            if (isOpen && panel.classList.contains('open')) {
+                                isOpen = false;
+                                panel.classList.remove('open');
+                                panel.classList.remove('minimized');
+                                trigger.classList.remove('hidden');
+                            }
+                        }, percDelay);
+                    } else if (state.agentNav) {
+                        /* Agent navigation: open fully, then minimize after delay */
+                        isOpen = true;
+                        trigger.classList.add('hidden');
+                        panel.style.transition = 'none';
+                        panel.classList.add('open');
+                        panel.offsetHeight;
+                        panel.style.transition = '';
+                        var navDelay = isMobile() ? 3500 : 2000;
                         setTimeout(function () {
                             if (isOpen && panel.classList.contains('open') && !panel.classList.contains('minimized')) {
                                 panel.classList.add('minimized');
                             }
-                        }, 2000);
+                        }, navDelay);
+                    } else {
+                        isOpen = true;
+                        trigger.classList.add('hidden');
+                        if (state.isMinimized) {
+                            panel.style.transition = 'none';
+                            panel.classList.add('open');
+                            panel.classList.add('minimized');
+                            panel.offsetHeight;
+                            panel.style.transition = '';
+                        } else {
+                            panel.classList.add('open');
+                        }
                     }
                 }
             } catch (e) { /* ignore */ }
@@ -585,18 +669,20 @@
         /* --- Save chat before every page unload (link clicks, agent nav) --- */
         var agentNavPending = false;
         window.addEventListener('beforeunload', function () {
-            if (!sessionId) return; /* nothing to save */
             /* Don't overwrite if an agent-navigation saveChat(true) already wrote */
             if (agentNavPending) return;
             saveChat();
         });
+
+        /* --- Mobile detection helper --- */
+        function isMobile() { return window.innerWidth <= 640; }
 
         /* --- Toggle --- */
         trigger.addEventListener('click', function () {
             isOpen = !isOpen;
             panel.classList.toggle('open', isOpen);
             trigger.classList.toggle('hidden', isOpen);
-            if (isOpen) {
+            if (isOpen && !isMobile()) {
                 setTimeout(function () {
                     document.getElementById('agentInput').focus();
                 }, 400);
@@ -801,11 +887,13 @@
         function saveChat(agentNav) {
             if (agentNav) agentNavPending = true;
             var msgs = document.getElementById('agentMessages');
+            var isMinimized = panel.classList.contains('minimized');
             try {
                 sessionStorage.setItem('csf_chat', JSON.stringify({
                     sessionId: sessionId,
                     messagesHtml: msgs ? msgs.innerHTML : '',
                     isOpen: isOpen,
+                    isMinimized: isMinimized,
                     agentNav: !!agentNav
                 }));
             } catch (e) { /* quota exceeded etc */ }
@@ -827,7 +915,7 @@
                         var el = document.querySelector(target);
                         if (el) {
                             minimizeChat();
-                            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                             el.style.outline = '2px solid rgba(212, 173, 66, 0.3)';
                             el.style.outlineOffset = '8px';
                             el.style.transition = 'outline 0.5s, outline-offset 0.5s';
@@ -850,7 +938,12 @@
                     var monoliths = document.querySelectorAll('.monolith');
                     if (monoliths[idx]) {
                         minimizeChat();
-                        monoliths[idx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        var servicesSection = document.getElementById('services');
+                        if (servicesSection) {
+                            servicesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        } else {
+                            monoliths[idx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
                     } else {
                         /* Not on home page — redirect there */
                         saveChat(true);
