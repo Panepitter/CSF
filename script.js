@@ -1,13 +1,15 @@
 /* ============================================================
-   CSF CONSULTING — INTERACTION & ANIMATION ENGINE
+   CSF CONSULTING — INTERACTION ENGINE v2
+   Premium Motion Design + Agent Integration
    ============================================================ */
 
 (function () {
     'use strict';
 
-    /* --------------------------
-       DOM Ready
-       -------------------------- */
+    /* ----- Configuration ----- */
+    var AGENT_API = '/api/agents';
+    var AGENT_ID = 'agent_csf_consultant';
+
     document.addEventListener('DOMContentLoaded', init);
 
     function init() {
@@ -21,34 +23,44 @@
         setupSmoothScroll();
         setupContactForm();
         setupCustomCursor();
+        setupAgentChat();
+        handleHashScroll();
     }
 
-    /* --------------------------
-       Preloader
-       -------------------------- */
+    /* ----- Preloader ----- */
     function preloader() {
-        const el = document.getElementById('preloader');
+        var el = document.getElementById('preloader');
         if (!el) return;
 
-        window.addEventListener('load', function () {
-            setTimeout(function () {
-                el.classList.add('hidden');
-                document.body.classList.remove('loading');
-            }, 1800);
+        /* Hide preloader text until fonts are ready to avoid FOUT */
+        var inner = el.querySelector('.preloader-inner');
+        if (inner) inner.style.opacity = '0';
+
+        document.fonts.ready.then(function () {
+            if (inner) {
+                inner.style.opacity = '1';
+                inner.style.transition = 'opacity 0.2s ease';
+            }
         });
 
-        // Safety fallback
+        window.addEventListener('load', function () {
+            document.fonts.ready.then(function () {
+                setTimeout(function () {
+                    el.classList.add('hidden');
+                    document.body.classList.remove('loading');
+                }, 800);
+            });
+        });
+
         setTimeout(function () {
             el.classList.add('hidden');
             document.body.classList.remove('loading');
-        }, 4000);
+        }, 3000);
     }
 
-    /* --------------------------
-       Navbar
-       -------------------------- */
+    /* ----- Navbar ----- */
     function setupNavbar() {
-        const navbar = document.getElementById('navbar');
+        var navbar = document.getElementById('navbar');
         if (!navbar) return;
 
         var lastScroll = 0;
@@ -58,7 +70,7 @@
             lastScroll = window.pageYOffset;
             if (!ticking) {
                 requestAnimationFrame(function () {
-                    if (lastScroll > 60) {
+                    if (lastScroll > 50) {
                         navbar.classList.add('scrolled');
                     } else {
                         navbar.classList.remove('scrolled');
@@ -70,12 +82,10 @@
         });
     }
 
-    /* --------------------------
-       Mobile Menu
-       -------------------------- */
+    /* ----- Mobile Menu ----- */
     function setupMobileMenu() {
-        const toggle = document.getElementById('navToggle');
-        const menu = document.getElementById('mobileMenu');
+        var toggle = document.getElementById('navToggle');
+        var menu = document.getElementById('mobileMenu');
         if (!toggle || !menu) return;
 
         toggle.addEventListener('click', function () {
@@ -84,7 +94,6 @@
             document.body.classList.toggle('loading');
         });
 
-        // Close on link click
         var links = menu.querySelectorAll('.mobile-link');
         links.forEach(function (link) {
             link.addEventListener('click', function () {
@@ -95,66 +104,61 @@
         });
     }
 
-    /* --------------------------
-       Hero Canvas — Particle Network
-       -------------------------- */
+    /* ----- Hero Canvas — Particle Network ----- */
     function setupHeroCanvas() {
-        const canvas = document.getElementById('heroCanvas');
+        var canvas = document.getElementById('heroCanvas');
         if (!canvas) return;
 
-        const ctx = canvas.getContext('2d');
+        var ctx = canvas.getContext('2d');
         var particles = [];
         var animationId;
-        var mouse = { x: null, y: null, radius: 120 };
+        var mouse = { x: null, y: null, radius: 140 };
 
         function resize() {
             canvas.width = canvas.offsetWidth;
             canvas.height = canvas.offsetHeight;
         }
 
-        function getParticleCount() {
+        function getCount() {
             var w = window.innerWidth;
-            if (w < 480) return 25;
-            if (w < 768) return 35;
-            if (w < 1024) return 50;
-            return 70;
+            if (w < 480) return 20;
+            if (w < 768) return 30;
+            if (w < 1024) return 45;
+            return 60;
         }
 
         function createParticles() {
             particles = [];
-            var count = getParticleCount();
+            var count = getCount();
             for (var i = 0; i < count; i++) {
-                var isElectric = Math.random() < 0.15;
+                var isBlue = Math.random() < 0.12;
                 particles.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.4,
-                    vy: (Math.random() - 0.5) * 0.4,
-                    radius: Math.random() * 1.8 + 0.5,
-                    color: isElectric ? 'rgba(59, 130, 246,' : 'rgba(201, 168, 76,',
-                    baseAlpha: Math.random() * 0.5 + 0.2,
+                    vx: (Math.random() - 0.5) * 0.35,
+                    vy: (Math.random() - 0.5) * 0.35,
+                    r: Math.random() * 1.6 + 0.4,
+                    color: isBlue ? '91, 148, 247' : '212, 173, 66',
+                    alpha: Math.random() * 0.45 + 0.15,
                     pulse: Math.random() * Math.PI * 2,
-                    pulseSpeed: Math.random() * 0.01 + 0.005
+                    ps: Math.random() * 0.008 + 0.003
                 });
             }
         }
 
-        function drawParticles() {
+        function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Draw connections
             for (var i = 0; i < particles.length; i++) {
                 for (var j = i + 1; j < particles.length; j++) {
                     var dx = particles[i].x - particles[j].x;
                     var dy = particles[i].y - particles[j].y;
                     var dist = Math.sqrt(dx * dx + dy * dy);
-                    var maxDist = 150;
-
-                    if (dist < maxDist) {
-                        var alpha = (1 - dist / maxDist) * 0.12;
+                    if (dist < 160) {
+                        var a = (1 - dist / 160) * 0.1;
                         ctx.beginPath();
-                        ctx.strokeStyle = 'rgba(201, 168, 76, ' + alpha + ')';
-                        ctx.lineWidth = 0.5;
+                        ctx.strokeStyle = 'rgba(212, 173, 66, ' + a + ')';
+                        ctx.lineWidth = 0.4;
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
                         ctx.stroke();
@@ -162,49 +166,40 @@
                 }
             }
 
-            // Draw particles
             for (var k = 0; k < particles.length; k++) {
                 var p = particles[k];
-                p.pulse += p.pulseSpeed;
-                var alpha = p.baseAlpha + Math.sin(p.pulse) * 0.15;
+                p.pulse += p.ps;
+                var a = p.alpha + Math.sin(p.pulse) * 0.12;
 
                 ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = p.color + alpha + ')';
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(' + p.color + ', ' + a + ')';
                 ctx.fill();
 
-                // Subtle glow
                 ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius * 3, 0, Math.PI * 2);
-                ctx.fillStyle = p.color + (alpha * 0.1) + ')';
+                ctx.arc(p.x, p.y, p.r * 3, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(' + p.color + ', ' + (a * 0.08) + ')';
                 ctx.fill();
             }
         }
 
-        function updateParticles() {
+        function update() {
             for (var i = 0; i < particles.length; i++) {
                 var p = particles[i];
-
-                // Mouse interaction
                 if (mouse.x !== null) {
                     var dx = p.x - mouse.x;
                     var dy = p.y - mouse.y;
                     var dist = Math.sqrt(dx * dx + dy * dy);
                     if (dist < mouse.radius) {
                         var force = (mouse.radius - dist) / mouse.radius;
-                        p.vx += (dx / dist) * force * 0.02;
-                        p.vy += (dy / dist) * force * 0.02;
+                        p.vx += (dx / dist) * force * 0.015;
+                        p.vy += (dy / dist) * force * 0.015;
                     }
                 }
-
                 p.x += p.vx;
                 p.y += p.vy;
-
-                // Damping
-                p.vx *= 0.999;
-                p.vy *= 0.999;
-
-                // Bounds
+                p.vx *= 0.998;
+                p.vy *= 0.998;
                 if (p.x < 0) { p.x = 0; p.vx *= -1; }
                 if (p.x > canvas.width) { p.x = canvas.width; p.vx *= -1; }
                 if (p.y < 0) { p.y = 0; p.vy *= -1; }
@@ -213,16 +208,15 @@
         }
 
         function animate() {
-            updateParticles();
-            drawParticles();
+            update();
+            draw();
             animationId = requestAnimationFrame(animate);
         }
 
-        // Mouse tracking
         canvas.addEventListener('mousemove', function (e) {
-            var rect = canvas.getBoundingClientRect();
-            mouse.x = e.clientX - rect.left;
-            mouse.y = e.clientY - rect.top;
+            var r = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - r.left;
+            mouse.y = e.clientY - r.top;
         });
 
         canvas.addEventListener('mouseleave', function () {
@@ -230,16 +224,14 @@
             mouse.y = null;
         });
 
-        // Initialize
         resize();
         createParticles();
         animate();
 
-        // Resize handling
-        var resizeTimer;
+        var rt;
         window.addEventListener('resize', function () {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function () {
+            clearTimeout(rt);
+            rt = setTimeout(function () {
                 cancelAnimationFrame(animationId);
                 resize();
                 createParticles();
@@ -247,7 +239,6 @@
             }, 250);
         });
 
-        // Pause when not visible
         document.addEventListener('visibilitychange', function () {
             if (document.hidden) {
                 cancelAnimationFrame(animationId);
@@ -257,15 +248,13 @@
         });
     }
 
-    /* --------------------------
-       Scroll Reveal (Intersection Observer)
-       -------------------------- */
+    /* ----- Scroll Reveal ----- */
     function setupScrollReveal() {
+        var selectors = '.reveal, .reveal-left, .reveal-right, .reveal-scale';
+        var elements = document.querySelectorAll(selectors);
+
         if (!('IntersectionObserver' in window)) {
-            // Fallback: show everything
-            document.querySelectorAll('.reveal').forEach(function (el) {
-                el.classList.add('revealed');
-            });
+            elements.forEach(function (el) { el.classList.add('revealed'); });
             return;
         }
 
@@ -277,44 +266,20 @@
                 }
             });
         }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -60px 0px'
+            threshold: 0.08,
+            rootMargin: '0px 0px -48px 0px'
         });
 
-        document.querySelectorAll('.reveal').forEach(function (el) {
-            observer.observe(el);
-        });
-
-        // Stagger service cards
-        var serviceCards = document.querySelectorAll('.service-card');
-        var cardObserver = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (entry.isIntersecting) {
-                    var cards = entry.target.parentElement.querySelectorAll('.service-card');
-                    cards.forEach(function (card, i) {
-                        setTimeout(function () {
-                            card.classList.add('revealed');
-                        }, i * 120);
-                    });
-                    cardObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        if (serviceCards.length > 0) {
-            cardObserver.observe(serviceCards[0]);
-        }
+        elements.forEach(function (el) { observer.observe(el); });
     }
 
-    /* --------------------------
-       Counter Animation
-       -------------------------- */
+    /* ----- Counters ----- */
     function setupCounters() {
         var counters = document.querySelectorAll('.stat-number');
         if (counters.length === 0) return;
 
-        var statsSection = document.getElementById('stats');
-        if (!statsSection) return;
+        var section = document.getElementById('stats');
+        if (!section) return;
 
         if (!('IntersectionObserver' in window)) {
             counters.forEach(function (el) {
@@ -324,43 +289,35 @@
         }
 
         var animated = false;
-
-        var observer = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (entry.isIntersecting && !animated) {
+        var obs = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (e.isIntersecting && !animated) {
                     animated = true;
                     animateCounters(counters);
-                    observer.unobserve(entry.target);
+                    obs.unobserve(e.target);
                 }
             });
         }, { threshold: 0.3 });
 
-        observer.observe(document.getElementById('stats'));
+        obs.observe(section);
     }
 
     function animateCounters(counters) {
-        counters.forEach(function (counter) {
-            var target = parseInt(counter.getAttribute('data-target'), 10);
-            var duration = 2000;
-            var start = 0;
-            var startTime = null;
+        counters.forEach(function (c) {
+            var target = parseInt(c.getAttribute('data-target'), 10);
+            var dur = 2200;
+            var start = null;
 
-            // Use easeOutQuart for smooth deceleration
-            function easeOutQuart(t) {
-                return 1 - Math.pow(1 - t, 4);
-            }
+            function ease(t) { return 1 - Math.pow(1 - t, 4); }
 
-            function step(timestamp) {
-                if (!startTime) startTime = timestamp;
-                var progress = Math.min((timestamp - startTime) / duration, 1);
-                var easedProgress = easeOutQuart(progress);
-                var current = Math.floor(easedProgress * (target - start) + start);
-                counter.textContent = current;
-
-                if (progress < 1) {
+            function step(ts) {
+                if (!start) start = ts;
+                var p = Math.min((ts - start) / dur, 1);
+                c.textContent = Math.floor(ease(p) * target);
+                if (p < 1) {
                     requestAnimationFrame(step);
                 } else {
-                    counter.textContent = target;
+                    c.textContent = target;
                 }
             }
 
@@ -368,160 +325,153 @@
         });
     }
 
-    /* --------------------------
-       Smooth Scroll
-       -------------------------- */
+    /* ----- Smooth Scroll ----- */
     function setupSmoothScroll() {
-        document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-            anchor.addEventListener('click', function (e) {
-                var targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-
-                var targetEl = document.querySelector(targetId);
-                if (!targetEl) return;
-
+        document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+            a.addEventListener('click', function (e) {
+                var id = this.getAttribute('href');
+                if (id === '#') return;
+                var el = document.querySelector(id);
+                if (!el) return;
                 e.preventDefault();
-                var offset = 80;
-                var top = targetEl.getBoundingClientRect().top + window.pageYOffset - offset;
-
-                window.scrollTo({
-                    top: top,
-                    behavior: 'smooth'
-                });
+                var top = el.getBoundingClientRect().top + window.pageYOffset - 80;
+                window.scrollTo({ top: top, behavior: 'smooth' });
             });
         });
     }
 
-    /* --------------------------
-       Contact Form
-       -------------------------- */
+    /* ----- Hash Scroll (after cross-page navigation) ----- */
+    function handleHashScroll() {
+        var hash = window.location.hash;
+        if (!hash) return;
+        /* Wait for preloader to finish, then scroll to section */
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                var el = document.querySelector(hash);
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    el.style.outline = '2px solid rgba(212, 173, 66, 0.3)';
+                    el.style.outlineOffset = '8px';
+                    el.style.transition = 'outline 0.5s, outline-offset 0.5s';
+                    setTimeout(function () { el.style.outline = 'none'; }, 3000);
+                }
+            }, 1200);
+        });
+    }
+
+    /* ----- Contact Form ----- */
     function setupContactForm() {
         var form = document.getElementById('contactForm') || document.getElementById('mainContactForm');
         if (!form) return;
 
         form.addEventListener('submit', function (e) {
             e.preventDefault();
-
             var btn = form.querySelector('.btn-submit');
-            var originalText = btn.querySelector('span').textContent;
+            var span = btn.querySelector('span');
+            var orig = span.textContent;
 
             btn.classList.add('sending');
-            btn.querySelector('span').textContent = 'Invio in corso...';
+            span.textContent = 'Invio in corso...';
 
-            // Simulate form submission (replace with actual endpoint)
             setTimeout(function () {
                 btn.classList.remove('sending');
                 btn.classList.add('sent');
-                btn.querySelector('span').textContent = 'Messaggio Inviato!';
+                span.textContent = 'Messaggio Inviato!';
 
                 setTimeout(function () {
                     btn.classList.remove('sent');
-                    btn.querySelector('span').textContent = originalText;
+                    span.textContent = orig;
                     form.reset();
                 }, 3000);
             }, 1500);
         });
     }
 
-    /* --------------------------
-       Custom Cursor
-       -------------------------- */
+    /* ----- Custom Cursor ----- */
     function setupCustomCursor() {
-        // Only on devices with fine pointer (mouse)
         if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
         var dot = document.querySelector('.cursor-dot');
         var outline = document.querySelector('.cursor-outline');
         if (!dot || !outline) return;
 
-        var cursorX = 0, cursorY = 0;
-        var outlineX = 0, outlineY = 0;
+        var cx = 0, cy = 0, ox = 0, oy = 0;
 
         document.addEventListener('mousemove', function (e) {
-            cursorX = e.clientX;
-            cursorY = e.clientY;
-            dot.style.left = cursorX + 'px';
-            dot.style.top = cursorY + 'px';
+            cx = e.clientX;
+            cy = e.clientY;
+            dot.style.left = cx + 'px';
+            dot.style.top = cy + 'px';
         });
 
-        // Smooth follow for outline
         function animateOutline() {
-            outlineX += (cursorX - outlineX) * 0.12;
-            outlineY += (cursorY - outlineY) * 0.12;
-            outline.style.left = outlineX + 'px';
-            outline.style.top = outlineY + 'px';
+            ox += (cx - ox) * 0.1;
+            oy += (cy - oy) * 0.1;
+            outline.style.left = ox + 'px';
+            outline.style.top = oy + 'px';
             requestAnimationFrame(animateOutline);
         }
         animateOutline();
 
-        // Hover effect on interactive elements
-        var hoverTargets = document.querySelectorAll('a, button, .service-card-inner, .path-card, input, textarea, select');
-        hoverTargets.forEach(function (el) {
-            el.addEventListener('mouseenter', function () {
-                document.body.classList.add('cursor-hover');
-            });
-            el.addEventListener('mouseleave', function () {
-                document.body.classList.remove('cursor-hover');
-            });
+        var targets = document.querySelectorAll('a, button, .service-card-inner, .path-card, .monolith, input, textarea, select, .agent-suggestion');
+        targets.forEach(function (el) {
+            el.addEventListener('mouseenter', function () { document.body.classList.add('cursor-hover'); });
+            el.addEventListener('mouseleave', function () { document.body.classList.remove('cursor-hover'); });
         });
     }
 
-    /* --------------------------
-       Innovation Canvas (Neural Network Effect)
-       -------------------------- */
+    /* ----- Tech Canvas (Innova page) ----- */
     function initTechCanvas() {
         var canvas = document.getElementById('tech-canvas');
         if (!canvas) return;
         var ctx = canvas.getContext('2d');
         var particles = [];
-        var particleCount = 80;
+        var count = 70;
 
         function resize() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
 
-        function Particle() {
-            this.x = Math.random() * window.innerWidth;
-            this.y = Math.random() * window.innerHeight;
-            this.vx = (Math.random() - 0.5) * 0.5;
-            this.vy = (Math.random() - 0.5) * 0.5;
-            this.radius = Math.random() * 2;
-            
-            this.update = function() {
+        function P() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.vx = (Math.random() - 0.5) * 0.4;
+            this.vy = (Math.random() - 0.5) * 0.4;
+            this.r = Math.random() * 1.8;
+
+            this.update = function () {
                 this.x += this.vx;
                 this.y += this.vy;
                 if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
             };
-            this.draw = function() {
+            this.draw = function () {
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(59, 130, 246, 0.5)';
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(91, 148, 247, 0.45)';
                 ctx.fill();
             };
         }
 
-        function init() {
+        function start() {
             resize();
-            for (var i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
+            for (var i = 0; i < count; i++) particles.push(new P());
         }
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(function(p, i) {
+            particles.forEach(function (p, i) {
                 p.update();
                 p.draw();
                 for (var j = i + 1; j < particles.length; j++) {
                     var dx = p.x - particles[j].x;
                     var dy = p.y - particles[j].y;
-                    var dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 150) {
+                    var d = Math.sqrt(dx * dx + dy * dy);
+                    if (d < 140) {
                         ctx.beginPath();
-                        ctx.strokeStyle = 'rgba(59, 130, 246, ' + (0.2 * (1 - dist / 150)) + ')';
-                        ctx.lineWidth = 0.5;
+                        ctx.strokeStyle = 'rgba(91, 148, 247, ' + (0.18 * (1 - d / 140)) + ')';
+                        ctx.lineWidth = 0.4;
                         ctx.moveTo(p.x, p.y);
                         ctx.lineTo(particles[j].x, particles[j].y);
                         ctx.stroke();
@@ -532,11 +482,437 @@
         }
 
         window.addEventListener('resize', resize);
-        init();
+        start();
         animate();
     }
 
     initTechCanvas();
 
-})();
+    /* ============================================================
+       AGENT CHAT WIDGET
+       ============================================================ */
+    function setupAgentChat() {
+        /* --- Build DOM --- */
+        var trigger = document.createElement('button');
+        trigger.className = 'agent-trigger';
+        trigger.setAttribute('aria-label', 'Apri assistente AI');
+        trigger.innerHTML = '<span class="agent-trigger-pulse"></span>' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+            '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
 
+        var panel = document.createElement('div');
+        panel.className = 'agent-panel';
+        panel.innerHTML =
+            '<div class="agent-panel-header">' +
+                '<div class="agent-panel-title">' +
+                    '<div class="agent-avatar">AI</div>' +
+                    '<div><span>CSF Consulente AI</span><small>Sempre disponibile</small></div>' +
+                '</div>' +
+                '<div class="agent-header-actions">' +
+                    '<button class="agent-minimize" aria-label="Minimizza">' +
+                        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/></svg>' +
+                    '</button>' +
+                    '<button class="agent-close" aria-label="Chiudi">' +
+                        '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
+                    '</button>' +
+                '</div>' +
+            '</div>' +
+            '<div class="agent-messages" id="agentMessages">' +
+                '<div class="agent-welcome">' +
+                    '<h4>Benvenuto in CSF</h4>' +
+                    '<p>Sono il consulente AI di CSF Consulting. Posso aiutarti a esplorare i nostri servizi, guidarti verso il percorso giusto o rispondere alle tue domande.</p>' +
+                    '<div class="agent-suggestions">' +
+                        '<button class="agent-suggestion" data-msg="Quali servizi offrite?">Quali servizi offrite?</button>' +
+                        '<button class="agent-suggestion" data-msg="Vorrei avviare una startup, potete aiutarmi?">Vorrei avviare una startup</button>' +
+                        '<button class="agent-suggestion" data-msg="Come posso trasformare la mia azienda con la tecnologia?">Trasformazione digitale</button>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+            '<div class="agent-input-area">' +
+                '<input class="agent-input" id="agentInput" type="text" placeholder="Scrivi un messaggio..." autocomplete="off">' +
+                '<button class="agent-send" id="agentSend" aria-label="Invia">' +
+                    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+                    '<line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>' +
+                '</button>' +
+            '</div>';
+
+        document.body.appendChild(trigger);
+        document.body.appendChild(panel);
+
+        /* --- State --- */
+        var isOpen = false;
+        var sessionId = null;
+        var isStreaming = false;
+
+        /* --- Detect reload vs link navigation --- */
+        var isReload = false;
+        try {
+            var navEntry = performance.getEntriesByType('navigation')[0];
+            if (navEntry && navEntry.type === 'reload') isReload = true;
+        } catch (e) { /* old browser fallback */ }
+
+        /* --- Restore chat from sessionStorage (persists across link clicks, resets on reload) --- */
+        (function restoreChat() {
+            var saved = sessionStorage.getItem('csf_chat');
+            if (isReload || !saved) {
+                sessionStorage.removeItem('csf_chat');
+                return;
+            }
+            try {
+                var state = JSON.parse(saved);
+                sessionId = state.sessionId || null;
+                if (state.messagesHtml) {
+                    var msgs = document.getElementById('agentMessages');
+                    msgs.innerHTML = state.messagesHtml;
+                }
+                if (state.isOpen) {
+                    isOpen = true;
+                    trigger.classList.add('hidden');
+                    panel.classList.add('open');
+
+                    /* Agent navigation: show chat open, then minimize smoothly after delay */
+                    if (state.agentNav) {
+                        setTimeout(function () {
+                            if (isOpen && panel.classList.contains('open') && !panel.classList.contains('minimized')) {
+                                panel.classList.add('minimized');
+                            }
+                        }, 2000);
+                    }
+                }
+            } catch (e) { /* ignore */ }
+        })();
+
+        /* --- Save chat before every page unload (link clicks, agent nav) --- */
+        var agentNavPending = false;
+        window.addEventListener('beforeunload', function () {
+            if (!sessionId) return; /* nothing to save */
+            /* Don't overwrite if an agent-navigation saveChat(true) already wrote */
+            if (agentNavPending) return;
+            saveChat();
+        });
+
+        /* --- Toggle --- */
+        trigger.addEventListener('click', function () {
+            isOpen = !isOpen;
+            panel.classList.toggle('open', isOpen);
+            trigger.classList.toggle('hidden', isOpen);
+            if (isOpen) {
+                setTimeout(function () {
+                    document.getElementById('agentInput').focus();
+                }, 400);
+            }
+        });
+
+        panel.querySelector('.agent-close').addEventListener('click', function () {
+            isOpen = false;
+            panel.classList.remove('open');
+            panel.classList.remove('minimized');
+            trigger.classList.remove('hidden');
+        });
+
+        /* --- Minimize --- */
+        panel.querySelector('.agent-minimize').addEventListener('click', function () {
+            panel.classList.add('minimized');
+        });
+
+        /* --- Expand from minimized (click anywhere on minimized bar) --- */
+        panel.querySelector('.agent-panel-header').addEventListener('click', function (e) {
+            if (!panel.classList.contains('minimized')) return;
+            /* Don't trigger on close/minimize button clicks */
+            if (e.target.closest('.agent-close') || e.target.closest('.agent-minimize')) return;
+            panel.classList.remove('minimized');
+        });
+
+        /* --- Auto-minimize helper (called when agent triggers UI action) --- */
+        function minimizeChat() {
+            if (isOpen && panel.classList.contains('open')) {
+                setTimeout(function () {
+                    /* Re-check state — user may have closed in the meantime */
+                    if (isOpen && panel.classList.contains('open') && !panel.classList.contains('minimized')) {
+                        panel.classList.add('minimized');
+                    }
+                }, 1800);
+            }
+        }
+
+        /* --- Suggestions --- */
+        panel.querySelectorAll('.agent-suggestion').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var msg = this.getAttribute('data-msg');
+                sendMessage(msg);
+            });
+        });
+
+        /* --- Input --- */
+        var input = document.getElementById('agentInput');
+        var sendBtn = document.getElementById('agentSend');
+
+        input.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage(input.value.trim());
+            }
+        });
+
+        sendBtn.addEventListener('click', function () {
+            sendMessage(input.value.trim());
+        });
+
+        /* --- Send Message --- */
+        function sendMessage(text) {
+            if (!text || isStreaming) return;
+
+            var messages = document.getElementById('agentMessages');
+
+            /* Remove welcome */
+            var welcome = messages.querySelector('.agent-welcome');
+            if (welcome) welcome.remove();
+
+            /* User bubble */
+            var userMsg = document.createElement('div');
+            userMsg.className = 'agent-msg agent-msg-user';
+            userMsg.textContent = text;
+            messages.appendChild(userMsg);
+
+            input.value = '';
+            scrollChat();
+
+            /* Typing indicator */
+            var typing = document.createElement('div');
+            typing.className = 'agent-typing';
+            typing.innerHTML = '<span></span><span></span><span></span>';
+            messages.appendChild(typing);
+            scrollChat();
+
+            isStreaming = true;
+            sendBtn.disabled = true;
+
+            /* --- SSE Fetch --- */
+            var currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            var contextPrefix = '[Pagina corrente: ' + currentPage + '] ';
+
+            fetch(AGENT_API + '/' + AGENT_ID + '/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'text/event-stream',
+                    'X-Agent-API-Key': 'csf_public_2026'
+                },
+                body: JSON.stringify({
+                    message: contextPrefix + text,
+                    session_id: sessionId
+                })
+            }).then(function (res) {
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+
+                /* Remove typing */
+                if (typing.parentNode) typing.remove();
+
+                /* Create assistant bubble */
+                var assistantMsg = document.createElement('div');
+                assistantMsg.className = 'agent-msg agent-msg-assistant';
+                messages.appendChild(assistantMsg);
+
+                var content = '';
+                var reader = res.body.getReader();
+                var decoder = new TextDecoder();
+                var buffer = '';
+
+                function processStream() {
+                    return reader.read().then(function (result) {
+                        if (result.done) {
+                            finishStream();
+                            return;
+                        }
+
+                        buffer += decoder.decode(result.value, { stream: true });
+                        var lines = buffer.split('\n');
+                        buffer = lines.pop() || '';
+
+                        for (var i = 0; i < lines.length; i++) {
+                            var line = lines[i].trim();
+                            if (!line.startsWith('data: ')) continue;
+                            var raw = line.slice(6);
+                            if (raw === '[DONE]') { finishStream(); return; }
+
+                            try {
+                                var data = JSON.parse(raw);
+                                handleEvent(data, assistantMsg, messages);
+                            } catch (e) { /* skip */ }
+                        }
+
+                        scrollChat();
+                        return processStream();
+                    });
+                }
+
+                return processStream();
+            }).catch(function (err) {
+                if (typing.parentNode) typing.remove();
+                var errMsg = document.createElement('div');
+                errMsg.className = 'agent-msg agent-msg-assistant';
+                errMsg.textContent = 'Mi scuso, al momento non sono disponibile. Riprova tra poco oppure contattaci direttamente a info@csfconsulting.it';
+                messages.appendChild(errMsg);
+                finishStream();
+            });
+
+            function finishStream() {
+                isStreaming = false;
+                sendBtn.disabled = false;
+                scrollChat();
+            }
+        }
+
+        /* --- Handle SSE Events --- */
+        function handleEvent(data, bubble, container) {
+            switch (data.type) {
+                case 'token':
+                    bubble.innerHTML = formatMarkdown(bubble.textContent + (data.content || ''));
+                    break;
+
+                case 'tool_call':
+                    var toolCard = document.createElement('div');
+                    toolCard.className = 'agent-msg agent-msg-tool';
+                    toolCard.innerHTML = '<svg class="tool-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>' +
+                        '<span>' + (data.name || 'Tool') + '</span>';
+                    container.appendChild(toolCard);
+                    break;
+
+                case 'tool_result':
+                    handleToolResult(data);
+                    break;
+
+                case 'done':
+                    if (data.content) {
+                        bubble.innerHTML = formatMarkdown(data.content);
+                    }
+                    if (data.session_id) {
+                        sessionId = data.session_id;
+                    }
+                    break;
+
+                case 'error':
+                    bubble.textContent = data.error || 'Errore di connessione.';
+                    break;
+            }
+        }
+
+        /* --- Persist chat to sessionStorage --- */
+        function saveChat(agentNav) {
+            if (agentNav) agentNavPending = true;
+            var msgs = document.getElementById('agentMessages');
+            try {
+                sessionStorage.setItem('csf_chat', JSON.stringify({
+                    sessionId: sessionId,
+                    messagesHtml: msgs ? msgs.innerHTML : '',
+                    isOpen: isOpen,
+                    agentNav: !!agentNav
+                }));
+            } catch (e) { /* quota exceeded etc */ }
+        }
+
+        /* --- Handle Tool Results (UI Actions) --- */
+        function handleToolResult(data) {
+            var result;
+            try {
+                result = typeof data.result === 'string' ? JSON.parse(data.result) : data.result;
+            } catch (e) { return; }
+
+            if (!result || !result.ui_action) return;
+
+            switch (result.ui_action) {
+                case 'navigate':
+                    var target = result.target;
+                    if (target && target.startsWith('#')) {
+                        var el = document.querySelector(target);
+                        if (el) {
+                            minimizeChat();
+                            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            el.style.outline = '2px solid rgba(212, 173, 66, 0.3)';
+                            el.style.outlineOffset = '8px';
+                            el.style.transition = 'outline 0.5s, outline-offset 0.5s';
+                            setTimeout(function () {
+                                el.style.outline = 'none';
+                            }, 3000);
+                        } else {
+                            /* Section not on current page — go to index.html + hash */
+                            saveChat(true);
+                            window.location.href = 'index.html' + target;
+                        }
+                    } else if (target) {
+                        saveChat(true);
+                        window.location.href = target;
+                    }
+                    break;
+
+                case 'highlight_service':
+                    var idx = result.index;
+                    var monoliths = document.querySelectorAll('.monolith');
+                    if (monoliths[idx]) {
+                        minimizeChat();
+                        monoliths[idx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    } else {
+                        /* Not on home page — redirect there */
+                        saveChat(true);
+                        window.location.href = 'index.html#services';
+                    }
+                    break;
+
+                case 'open_contact':
+                    var contactSection = document.getElementById('contact');
+                    if (contactSection) {
+                        minimizeChat();
+                        contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    } else {
+                        saveChat(true);
+                        window.location.href = 'contatti.html';
+                    }
+                    break;
+
+                case 'show_widget':
+                    /* Display rich content card in chat */
+                    var messages = document.getElementById('agentMessages');
+                    var widget = document.createElement('div');
+                    widget.className = 'agent-msg agent-msg-assistant';
+                    widget.innerHTML = formatMarkdown(result.content || '');
+                    messages.appendChild(widget);
+                    break;
+            }
+        }
+
+        /* --- Simple Markdown --- */
+        function formatMarkdown(text) {
+            /* Process lists: lines starting with * or - become <ul> */
+            var lines = text.split('\n');
+            var html = [];
+            var inList = false;
+            for (var i = 0; i < lines.length; i++) {
+                var line = lines[i];
+                var listMatch = line.match(/^\s*[\*\-]\s+(.+)/);
+                if (listMatch) {
+                    if (!inList) { html.push('<ul>'); inList = true; }
+                    html.push('<li>' + inlineFormat(listMatch[1]) + '</li>');
+                } else {
+                    if (inList) { html.push('</ul>'); inList = false; }
+                    html.push(inlineFormat(line));
+                    if (i < lines.length - 1) html.push('<br>');
+                }
+            }
+            if (inList) html.push('</ul>');
+            return html.join('');
+        }
+
+        function inlineFormat(s) {
+            return s
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>');
+        }
+
+        /* --- Scroll Chat --- */
+        function scrollChat() {
+            var el = document.getElementById('agentMessages');
+            if (el) el.scrollTop = el.scrollHeight;
+        }
+    }
+
+})();
