@@ -61,6 +61,37 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
+        /* Override Global Nav for Innova Page */
+        body.innova-page #navbar {
+            background: transparent;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+        }
+        body.innova-page #navbar.scrolled {
+            background: rgba(3, 3, 5, 0.8);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        body.innova-page .nav-logo, body.innova-page .nav-link {
+            color: var(--inv-text);
+        }
+        body.innova-page .nav-link:hover, body.innova-page .nav-link.active {
+            color: var(--inv-accent);
+        }
+        body.innova-page .nav-link::after {
+            background: var(--inv-accent);
+        }
+        body.innova-page .nav-link-cta {
+            border-color: rgba(255,255,255,0.2);
+        }
+        body.innova-page .nav-link-cta:hover {
+            background: var(--inv-accent);
+            border-color: var(--inv-accent);
+            color: #fff;
+        }
+        body.innova-page .nav-toggle span {
+            background: var(--inv-text);
+        }
+
         ::selection {
             background: var(--inv-accent);
             color: #fff;
