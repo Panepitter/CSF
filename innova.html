@@ -6,482 +6,503 @@
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="icon" href="favicon.ico" sizes="32x32">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <title>Innova — Innovation Management | CSF Consulting</title>
+    <title>Innova — The Future of Enterprise | CSF Consulting</title>
     <meta name="description" content="Innova: la divisione di CSF Consulting dedicata a Branding, Digital Marketing, Sviluppo Software, AI e Data Management per l'impresa del futuro.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
-        body.innova-page {
-            background-color: var(--bg-deep);
+        /* New Innova Styles */
+        :root {
+            --innova-bg: #020611;
+            --innova-surface: rgba(10, 15, 30, 0.6);
+            --innova-accent: #3b82f6;
+            --innova-accent-glow: rgba(59, 130, 246, 0.4);
+            --innova-text: #f8fafc;
+            --innova-muted: #94a3b8;
+            --font-tech: 'Space Grotesk', sans-serif;
         }
 
-        /* ---- Hero ---- */
+        body.innova-page {
+            background-color: var(--innova-bg);
+            color: var(--innova-text);
+            overflow-x: hidden;
+        }
+
+        /* Ambient Background */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background: var(--innova-bg);
+        }
+
+        .ambient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.4;
+            animation: floatOrb 20s infinite alternate ease-in-out;
+        }
+
+        .orb-1 {
+            top: -10%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(29,78,216,0.6) 0%, rgba(0,0,0,0) 70%);
+        }
+
+        .orb-2 {
+            bottom: -20%;
+            right: -10%;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(59,130,246,0.4) 0%, rgba(0,0,0,0) 70%);
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            top: 40%;
+            left: 50%;
+            width: 40vw;
+            height: 40vw;
+            background: radial-gradient(circle, rgba(147,197,253,0.2) 0%, rgba(0,0,0,0) 70%);
+            animation-delay: -10s;
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(10%, 10%) scale(1.1); }
+        }
+
+        /* Hero Section */
         .innova-hero {
             height: 100vh;
-            min-height: 700px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            overflow: hidden;
-            background: radial-gradient(ellipse at 50% 35%, rgba(59, 124, 245, 0.1) 0%, var(--bg-deep) 65%);
+            padding: 0 5%;
         }
 
-        #tech-canvas {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.3;
-            z-index: 1;
-        }
-
-        .innova-hero-content {
-            position: relative;
-            z-index: 2;
+        .hero-content {
             text-align: center;
-            max-width: 900px;
-            padding: 0 24px;
+            z-index: 2;
+            max-width: 1000px;
         }
 
-        .hero-title-innova {
-            font-family: var(--font-body);
-            font-weight: 800;
-            font-size: clamp(3rem, 10vw, 6.5rem);
-            line-height: 0.9;
-            letter-spacing: -0.04em;
-            margin-bottom: 32px;
-            background: linear-gradient(180deg, #ffffff 30%, var(--blue-300));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-desc-innova {
-            font-size: clamp(0.95rem, 1.3vw, 1.08rem);
-            color: var(--text-body);
-            max-width: 560px;
-            margin: 0 auto;
-            line-height: 1.85;
-        }
-
-        /* ---- Pillars Bento Grid ---- */
-        .pillars-section {
-            padding: 120px 0 140px;
-            background: var(--bg-deep);
-            position: relative;
-        }
-
-        .pillars-section .section-header {
-            margin-bottom: 72px;
-        }
-
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-auto-rows: auto;
-            gap: 20px;
-        }
-
-        .bento-item {
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            min-height: 440px;
-            padding: 48px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 24px;
-            transition: all 0.6s var(--ease-out);
-            background: linear-gradient(165deg, rgba(17, 28, 50, 0.6) 0%, rgba(8, 14, 28, 0.95) 100%);
-            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset;
-        }
-
-        .bento-item::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 24px;
-            opacity: 0;
-            transition: opacity 0.7s ease;
-        }
-
-        /* Shimmer edge on hover */
-        .bento-item::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 24px;
-            border: 1px solid transparent;
-            background: linear-gradient(135deg, rgba(59, 124, 245, 0.2), transparent 40%, transparent 60%, rgba(59, 124, 245, 0.1)) border-box;
-            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            opacity: 0;
-            transition: opacity 0.6s ease;
-        }
-
-        .bento-item:hover {
-            transform: translateY(-6px);
-            box-shadow:
-                0 32px 80px rgba(59, 124, 245, 0.08),
-                0 0 60px rgba(59, 124, 245, 0.04),
-                0 1px 0 rgba(255, 255, 255, 0.04) inset;
-        }
-
-        .bento-item:hover::before { opacity: 1; }
-        .bento-item:hover::after { opacity: 1; }
-
-        .bento-item > * { position: relative; z-index: 1; }
-
-        .bento-item.span-8 { grid-column: span 8; }
-        .bento-item.span-4 { grid-column: span 4; }
-        .bento-item.span-12 { grid-column: span 12; min-height: 380px; }
-
-        /* Card: Data Management */
-        .card-data::before {
-            background: radial-gradient(circle at 85% 25%, rgba(59, 124, 245, 0.1) 0%, transparent 55%);
-        }
-
-        .card-data .viz-container {
-            position: absolute;
-            top: 40px;
-            right: 40px;
-            display: flex;
-            align-items: flex-end;
-            gap: 10px;
-            height: 200px;
-            opacity: 0.25;
-            transition: opacity 0.6s ease;
-        }
-
-        .bento-item:hover .viz-container { opacity: 0.55; }
-
-        .viz-bar {
-            width: 20px;
-            background: linear-gradient(180deg, var(--blue-300), var(--blue-500));
-            border-radius: 6px 6px 2px 2px;
-            animation: vizPulse 3s ease-in-out infinite alternate;
-        }
-        .viz-bar:nth-child(1) { height: 35%; animation-delay: 0s; }
-        .viz-bar:nth-child(2) { height: 65%; animation-delay: 0.3s; }
-        .viz-bar:nth-child(3) { height: 45%; animation-delay: 0.1s; }
-        .viz-bar:nth-child(4) { height: 80%; animation-delay: 0.5s; }
-        .viz-bar:nth-child(5) { height: 55%; animation-delay: 0.2s; }
-        .viz-bar:nth-child(6) { height: 70%; animation-delay: 0.4s; }
-        .viz-bar:nth-child(7) { height: 50%; animation-delay: 0.15s; }
-        .viz-bar:nth-child(8) { height: 85%; animation-delay: 0.45s; }
-
-        @keyframes vizPulse {
-            0% { opacity: 0.6; transform: scaleY(0.88); }
-            100% { opacity: 1; transform: scaleY(1.08); }
-        }
-
-        /* Card: Software & AI */
-        .card-ai::before {
-            background: radial-gradient(circle at 50% 35%, rgba(59, 124, 245, 0.08) 0%, transparent 55%);
-        }
-
-        .ai-orb {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -65%);
-            width: 160px;
-            height: 160px;
-            opacity: 0.18;
-            transition: opacity 0.6s ease;
-        }
-
-        .bento-item:hover .ai-orb { opacity: 0.38; }
-
-        .ai-orb-ring {
-            position: absolute;
-            inset: 0;
-            border: 1px solid var(--blue-400);
-            border-radius: 50%;
-            animation: orbRotate 10s linear infinite;
-        }
-        .ai-orb-ring:nth-child(2) {
-            inset: 18px;
-            animation-direction: reverse;
-            animation-duration: 7s;
-            border-color: var(--blue-300);
-        }
-        .ai-orb-ring:nth-child(3) {
-            inset: 40px;
-            animation-duration: 5s;
-            border-style: dashed;
-            border-color: var(--blue-200);
-        }
-
-        .ai-orb-core {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 10px;
-            height: 10px;
-            background: var(--blue-300);
-            border-radius: 50%;
-            box-shadow: 0 0 20px var(--blue-400), 0 0 50px rgba(59, 124, 245, 0.4);
-        }
-
-        @keyframes orbRotate {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Card: Branding */
-        .card-brand::before {
-            background: linear-gradient(120deg, rgba(59, 124, 245, 0.05) 0%, transparent 45%);
-        }
-
-        .card-brand .brand-inner {
-            max-width: 680px;
-        }
-
-        .brand-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 32px;
-        }
-
-        .brand-tag {
-            font-size: 0.68rem;
-            font-weight: 600;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--blue-300);
-            border: 1px solid rgba(59, 124, 245, 0.12);
-            border-radius: 100px;
-            padding: 9px 22px;
-            background: rgba(59, 124, 245, 0.03);
-            transition: all 0.4s var(--ease-out);
-        }
-
-        .bento-item:hover .brand-tag {
-            border-color: rgba(59, 124, 245, 0.3);
-            background: rgba(59, 124, 245, 0.07);
-            box-shadow: 0 0 16px rgba(59, 124, 245, 0.06);
-        }
-
-        /* Shared card typography */
-        .pillar-tag {
-            font-size: 0.62rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
-            color: var(--blue-400);
-            margin-bottom: 20px;
+        .hero-badge {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            padding: 8px 16px;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(20px);
         }
 
-        .pillar-tag::before {
-            content: '';
-            width: 20px;
-            height: 1px;
-            background: var(--blue-500);
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--innova-accent);
+            box-shadow: 0 0 10px var(--innova-accent-glow);
+            animation: pulseDot 2s infinite;
         }
 
-        .pillar-title {
-            font-size: 2.6rem;
-            color: var(--text-heading);
-            margin-bottom: 18px;
-            line-height: 1.08;
+        @keyframes pulseDot {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+
+        .hero-badge-text {
+            font-family: var(--font-tech);
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--innova-muted);
+        }
+
+        .hero-title {
             font-family: var(--font-display);
-            font-weight: 500;
+            font-size: clamp(4rem, 8vw, 8rem);
+            line-height: 0.9;
+            font-weight: 400;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(30px);
         }
 
-        .pillar-desc {
-            color: var(--text-muted);
-            font-size: 0.92rem;
-            max-width: 420px;
-            line-height: 1.8;
+        .hero-title span {
+            display: block;
         }
 
-        .pillar-features {
-            margin-top: 32px;
+        .hero-title .italic {
+            font-style: italic;
+            color: var(--innova-muted);
+            font-weight: 300;
+        }
+
+        .hero-desc {
+            font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+            color: var(--innova-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
             flex-direction: column;
-            gap: 12px;
-        }
-
-        .pillar-feat {
-            display: flex;
             align-items: center;
-            gap: 14px;
-            font-size: 0.84rem;
-            color: var(--text-body);
-            font-weight: 400;
+            gap: 10px;
+            opacity: 0;
         }
 
-        .pillar-feat-dot {
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background: var(--blue-400);
-            flex-shrink: 0;
-            box-shadow: 0 0 8px rgba(59, 124, 245, 0.4);
+        .scroll-text {
+            font-family: var(--font-tech);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--innova-muted);
         }
 
-        /* ---- Method Section ---- */
-        .method-section {
-            padding: 140px 0;
-            background: var(--bg-deep);
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--innova-accent), transparent);
+            animation: scrollLine 2s infinite;
+        }
+
+        @keyframes scrollLine {
+            0% { transform: scaleY(0); transform-origin: top; }
+            50% { transform: scaleY(1); transform-origin: top; }
+            50.1% { transform: scaleY(1); transform-origin: bottom; }
+            100% { transform: scaleY(0); transform-origin: bottom; }
+        }
+
+        /* Vision Section */
+        .vision-section {
+            padding: 150px 5%;
             position: relative;
-            overflow: hidden;
+            z-index: 2;
         }
 
-        .method-blueprint {
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(59, 124, 245, 0.025) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(59, 124, 245, 0.025) 1px, transparent 1px);
-            background-size: 72px 72px;
-            mask-image: radial-gradient(ellipse at 50% 50%, black 15%, transparent 75%);
-            -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 15%, transparent 75%);
-        }
-
-        .method-layout {
+        .vision-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 80px;
             align-items: center;
+        }
+
+        .vision-text-block h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            line-height: 1.1;
+            margin-bottom: 30px;
+        }
+
+        .vision-text-block p {
+            font-size: 1.1rem;
+            color: var(--innova-muted);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .vision-visual {
+            position: relative;
+            height: 600px;
+            border-radius: 24px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .glass-card {
+            position: absolute;
+            width: 300px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transform: rotate(-5deg);
+            transition: transform 0.5s ease;
+        }
+
+        .glass-card:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .glass-card-2 {
+            transform: rotate(5deg) translate(40px, 40px);
+            background: rgba(59, 130, 246, 0.05);
+            z-index: -1;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--innova-accent);
+        }
+
+        .card-title {
+            font-family: var(--font-tech);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--innova-muted);
+        }
+
+        /* Ecosystem Section */
+        .ecosystem-section {
+            padding: 150px 5%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        .section-subtitle {
+            font-family: var(--font-tech);
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--innova-accent);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 5vw, 5rem);
+            line-height: 1;
+        }
+
+        .eco-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .eco-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 50px 40px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+
+        .eco-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .eco-item:hover {
+            transform: translateY(-10px);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .eco-item:hover::before {
+            opacity: 1;
+        }
+
+        .eco-num {
+            font-family: var(--font-tech);
+            font-size: 4rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.05);
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            transition: color 0.5s ease;
+        }
+
+        .eco-item:hover .eco-num {
+            color: rgba(59, 130, 246, 0.2);
+        }
+
+        .eco-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            margin-top: 40px;
             position: relative;
             z-index: 1;
         }
 
-        .method-flow {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
+        .eco-desc {
+            color: var(--innova-muted);
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 30px;
         }
 
-        .method-step {
+        .eco-tags {
             display: flex;
-            align-items: flex-start;
-            gap: 28px;
-            padding: 36px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            flex-wrap: wrap;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .eco-tag {
+            font-family: var(--font-tech);
+            font-size: 0.75rem;
+            padding: 6px 12px;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--innova-text);
+        }
+
+        /* Interactive Marquee */
+        .marquee-section {
+            padding: 100px 0;
+            overflow: hidden;
+            background: var(--innova-accent);
+            color: #000;
+            transform: rotate(-2deg) scale(1.05);
+            position: relative;
+            z-index: 3;
+        }
+
+        .marquee-inner {
+            display: flex;
+            white-space: nowrap;
+            font-family: var(--font-tech);
+            font-size: 4rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .marquee-part {
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .marquee-dot {
+            width: 15px;
+            height: 15px;
+            background: #000;
+            border-radius: 50%;
+            margin: 0 40px;
+        }
+
+        /* CTA Section */
+        .innova-cta {
+            padding: 200px 5%;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-title {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 6vw, 6rem);
+            line-height: 1;
+            margin-bottom: 40px;
+        }
+
+        .btn-glow {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 40px;
+            background: var(--innova-accent);
+            color: #fff;
+            font-family: var(--font-tech);
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            position: relative;
+            overflow: hidden;
             transition: all 0.3s ease;
         }
 
-        .method-step:last-child { border-bottom: none; }
-
-        .method-step:hover { padding-left: 8px; }
-
-        .method-num {
-            font-family: var(--font-display);
-            font-size: 2.8rem;
-            font-weight: 600;
-            color: var(--blue-400);
-            opacity: 0.18;
-            line-height: 1;
-            min-width: 44px;
-            transition: opacity 0.3s;
-        }
-
-        .method-step:hover .method-num { opacity: 0.4; }
-
-        .method-step-title {
-            font-family: var(--font-display);
-            font-size: 1.3rem;
-            color: var(--text-heading);
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .method-step-desc {
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            line-height: 1.75;
-            margin-bottom: 0;
-        }
-
-        /* ---- CTA Section ---- */
-        .innova-cta {
-            padding: 140px 0 160px;
-            background: var(--bg-deep);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Strong blue glow above footer */
-        .innova-cta::before {
+        .btn-glow::before {
             content: '';
             position: absolute;
-            bottom: -40%;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 0;
+            left: -100%;
             width: 100%;
-            height: 90%;
-            background: radial-gradient(ellipse at center bottom, rgba(59, 124, 245, 0.22) 0%, rgba(59, 124, 245, 0.08) 30%, transparent 65%);
-            pointer-events: none;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
         }
 
-        .innova-cta::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 10%;
-            right: 10%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(59, 124, 245, 0.25), transparent);
+        .btn-glow:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
         }
 
-        .cta-title-innova {
-            font-family: var(--font-display);
-            font-size: clamp(2.4rem, 5vw, 4rem);
-            color: var(--text-heading);
-            margin-bottom: 24px;
-            line-height: 1.15;
-            font-weight: 500;
+        .btn-glow:hover::before {
+            left: 100%;
         }
 
-        .cta-desc-innova {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            max-width: 640px;
-            margin: 0 auto 48px;
-            line-height: 1.85;
-        }
-
-        /* ---- Responsive ---- */
+        /* Responsive */
         @media (max-width: 1024px) {
-            .bento-grid { display: flex; flex-direction: column; }
-            .bento-item { min-height: 360px; padding: 36px; border-radius: 20px; }
-            .bento-item::before, .bento-item::after { border-radius: 20px; }
-            .pillar-title { font-size: 2rem; }
-            .method-layout { grid-template-columns: 1fr; gap: 60px; }
-            .method-section { padding: 100px 0; }
-            .pillars-section { padding: 100px 0 120px; }
-        }
-
-        @media (max-width: 768px) {
-            .bento-item { min-height: 300px; padding: 28px; border-radius: 16px; }
-            .bento-item::before, .bento-item::after { border-radius: 16px; }
-            .pillar-title { font-size: 1.7rem; }
-            .card-data .viz-container { height: 130px; right: 24px; top: 24px; }
-            .ai-orb { width: 110px; height: 110px; }
-            .pillars-section { padding: 80px 0 100px; }
-            .innova-cta { padding: 100px 0 120px; }
-        }
-
-        @media (max-width: 480px) {
-            .bento-item { min-height: 260px; padding: 24px; border-radius: 14px; }
-            .bento-item::before, .bento-item::after { border-radius: 14px; }
-            .pillar-title { font-size: 1.4rem; }
-            .pillar-desc { font-size: 0.85rem; }
-            .brand-tags { gap: 8px; }
-            .brand-tag { padding: 7px 16px; font-size: 0.6rem; }
+            .vision-container { grid-template-columns: 1fr; gap: 60px; }
+            .eco-grid { grid-template-columns: 1fr; }
+            .vision-visual { height: 400px; }
         }
     </style>
 </head>
@@ -492,13 +513,20 @@
         <div class="preloader-inner">
             <div class="preloader-logo">CSF</div>
             <div class="preloader-line"></div>
-            <div class="preloader-text">CONSULTING</div>
+            <div class="preloader-text">INNOVA</div>
         </div>
     </div>
 
     <!-- Custom Cursor -->
     <div class="cursor-dot" aria-hidden="true"></div>
     <div class="cursor-outline" aria-hidden="true"></div>
+
+    <!-- Ambient Background -->
+    <div class="ambient-bg">
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+        <div class="ambient-orb orb-3"></div>
+    </div>
 
     <!-- Navigation -->
     <nav id="navbar" class="scrolled">
@@ -532,141 +560,112 @@
             <a href="innova.html" class="mobile-link">Innova</a>
             <a href="contatti.html" class="mobile-link">Contatti</a>
         </div>
-        <div class="mobile-menu-footer">
-            <p>info@csfconsulting.it</p>
-            <p>Territorio Pontino, Italia</p>
-        </div>
     </div>
 
     <main>
         <!-- Hero -->
         <section class="innova-hero">
-            <canvas id="tech-canvas"></canvas>
-            <div class="innova-hero-content">
-                <div class="hero-badge reveal">
-                    <span class="hero-badge-line" style="background: var(--blue-500);"></span>
-                    <span class="hero-badge-text" style="color: var(--blue-300);">The Hybrid Evolution</span>
-                    <span class="hero-badge-line" style="background: var(--blue-500);"></span>
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <div class="hero-badge-dot"></div>
+                    <span class="hero-badge-text">The Hybrid Evolution</span>
                 </div>
-                <h1 class="hero-title-innova reveal">L'Intelligenza<br>del Dato.</h1>
-                <p class="hero-desc-innova reveal">
-                    Oltre 55 anni di esperienza contabile potenziati da algoritmi proprietari e visione digitale. Benvenuti nella societ&agrave; ibrida.
+                <h1 class="hero-title">
+                    <span>L'Intelligenza</span>
+                    <span class="italic">del Dato.</span>
+                </h1>
+                <p class="hero-desc">
+                    Oltre 55 anni di esperienza contabile potenziati da algoritmi proprietari e visione digitale. Benvenuti nella società ibrida.
                 </p>
             </div>
+            <div class="scroll-indicator">
+                <span class="scroll-text">Scroll</span>
+                <div class="scroll-line"></div>
+            </div>
         </section>
 
-        <!-- Pillars Bento Grid -->
-        <section class="pillars-section">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-label section-label-electric">I Tre Pilastri</span>
-                    <h2 class="section-title">L'Arsenale <span class="text-blue">Digitale</span></h2>
-                    <p class="section-subtitle">Tre divisioni integrate che trasformano il dato in decisione, il codice in vantaggio competitivo, la comunicazione in autorit&agrave;.</p>
+        <!-- Vision Section -->
+        <section class="vision-section">
+            <div class="vision-container">
+                <div class="vision-text-block">
+                    <span class="section-subtitle">La Visione</span>
+                    <h2>L'Esperienza incontra<br>l'Algoritmo</h2>
+                    <p>Non siamo solo consulenti. Siamo architetti del futuro aziendale. Innova è la divisione di CSF Consulting nata per colmare il divario tra la solidità della tradizione e la velocità dell'innovazione tecnologica.</p>
+                    <p>Trasformiamo i dati grezzi in strategie predittive, automatizziamo i processi complessi e costruiamo identità digitali che dominano il mercato.</p>
                 </div>
-
-                <div class="bento-grid">
-                    <!-- 01 Data Management — Large Card -->
-                    <div class="bento-item span-8 card-data reveal">
-                        <div class="viz-container">
-                            <div class="viz-bar"></div>
-                            <div class="viz-bar"></div>
-                            <div class="viz-bar"></div>
-                            <div class="viz-bar"></div>
-                            <div class="viz-bar"></div>
-                            <div class="viz-bar"></div>
-                            <div class="viz-bar"></div>
-                            <div class="viz-bar"></div>
-                        </div>
-                        <span class="pillar-tag">Intelligence</span>
-                        <h2 class="pillar-title">Data Management &<br>Business Intelligence</h2>
-                        <p class="pillar-desc">Trasformiamo i dati contabili in asset decisionali. Analisi dei flussi e reportistica avanzata per una presa di coscienza totale della tua azienda.</p>
-                        <div class="pillar-features">
-                            <div class="pillar-feat"><span class="pillar-feat-dot"></span>Analisi Predittiva dei Dati</div>
-                            <div class="pillar-feat"><span class="pillar-feat-dot"></span>Dashboard KPI in Real-time</div>
-                            <div class="pillar-feat"><span class="pillar-feat-dot"></span>Data Security & Governance</div>
-                        </div>
-                    </div>
-
-                    <!-- 02 Software & AI — Medium Card -->
-                    <div class="bento-item span-4 card-ai reveal">
-                        <div class="ai-orb">
-                            <div class="ai-orb-ring"></div>
-                            <div class="ai-orb-ring"></div>
-                            <div class="ai-orb-ring"></div>
-                            <div class="ai-orb-core"></div>
-                        </div>
-                        <span class="pillar-tag">Technology</span>
-                        <h2 class="pillar-title">Sviluppo<br>Software & AI</h2>
-                        <p class="pillar-desc">Integrazione di nuove tecnologie nel reparto produttivo e gestionale dello studio per un'esperienza cliente differente.</p>
-                    </div>
-
-                    <!-- 03 Branding & Marketing — Full Width -->
-                    <div class="bento-item span-12 card-brand reveal">
-                        <div class="brand-inner">
-                            <span class="pillar-tag">Identity</span>
-                            <h2 class="pillar-title">Branding &<br>Digital Marketing</h2>
-                            <p class="pillar-desc">Comunicazione e immagine coordinate per riflettere il valore reale della tua impresa nell'ecosistema digitale moderno.</p>
-                            <div class="brand-tags">
-                                <span class="brand-tag">Strategy</span>
-                                <span class="brand-tag">Design</span>
-                                <span class="brand-tag">Growth</span>
-                                <span class="brand-tag">Content</span>
-                                <span class="brand-tag">Social</span>
+                <div class="vision-visual">
+                    <div class="glass-card glass-card-2"></div>
+                    <div class="glass-card">
+                        <div>
+                            <div class="card-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                             </div>
+                            <h3 class="card-title" style="margin-top: 20px;">AI Processing</h3>
+                            <p class="card-desc">I nostri algoritmi analizzano pattern, anomalie e opportunità nei tuoi flussi aziendali in tempo reale.</p>
+                        </div>
+                        <div style="height: 4px; width: 100%; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;">
+                            <div style="height: 100%; width: 65%; background: var(--innova-accent);"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Method Section -->
-        <section class="method-section">
-            <div class="method-blueprint"></div>
-            <div class="container">
-                <div class="method-layout">
-                    <div class="reveal">
-                        <span class="section-label section-label-electric">Il Metodo Ibrido</span>
-                        <h2 class="section-title" style="text-align: left;">L'Esperienza incontra<br><span class="text-blue">l'Algoritmo</span></h2>
-                        <p style="color: var(--text-body); line-height: 1.85; margin-top: 20px;">55 anni di storia sono il carburante della nostra intelligenza artificiale. Un rapporto umano potenziato dalla precisione del dato.</p>
+        <!-- Ecosystem Section -->
+        <section class="ecosystem-section">
+            <div class="section-header">
+                <span class="section-subtitle">L'Arsenale Digitale</span>
+                <h2 class="section-title">Tre Pilastri per<br>Dominare il Mercato</h2>
+            </div>
+            <div class="eco-grid">
+                <div class="eco-item">
+                    <span class="eco-num">01</span>
+                    <h3 class="eco-title">Data & BI</h3>
+                    <p class="eco-desc">Trasformiamo i dati contabili in asset decisionali. Analisi dei flussi e reportistica avanzata per una presa di coscienza totale della tua azienda.</p>
+                    <div class="eco-tags">
+                        <span class="eco-tag">Predictive Analysis</span>
+                        <span class="eco-tag">KPI Dashboards</span>
+                        <span class="eco-tag">Data Governance</span>
                     </div>
-                    <div class="method-flow reveal">
-                        <div class="method-step">
-                            <span class="method-num">01</span>
-                            <div>
-                                <h4 class="method-step-title">Data Input</h4>
-                                <p class="method-step-desc">Raccogliamo e strutturiamo 55 anni di competenza contabile in modelli predittivi.</p>
-                            </div>
-                        </div>
-                        <div class="method-step">
-                            <span class="method-num">02</span>
-                            <div>
-                                <h4 class="method-step-title">AI Processing</h4>
-                                <p class="method-step-desc">I nostri algoritmi analizzano pattern, anomalie e opportunit&agrave; nei tuoi flussi aziendali.</p>
-                            </div>
-                        </div>
-                        <div class="method-step">
-                            <span class="method-num">03</span>
-                            <div>
-                                <h4 class="method-step-title">Strategic Output</h4>
-                                <p class="method-step-desc">Dashboard intuitive e report che trasformano la complessit&agrave; in decisioni chiare.</p>
-                            </div>
-                        </div>
+                </div>
+                <div class="eco-item">
+                    <span class="eco-num">02</span>
+                    <h3 class="eco-title">Software & AI</h3>
+                    <p class="eco-desc">Integrazione di nuove tecnologie nel reparto produttivo e gestionale dello studio per un'esperienza cliente differente e automatizzata.</p>
+                    <div class="eco-tags">
+                        <span class="eco-tag">Custom Software</span>
+                        <span class="eco-tag">Machine Learning</span>
+                        <span class="eco-tag">Process Automation</span>
+                    </div>
+                </div>
+                <div class="eco-item">
+                    <span class="eco-num">03</span>
+                    <h3 class="eco-title">Branding</h3>
+                    <p class="eco-desc">Comunicazione e immagine coordinate per riflettere il valore reale della tua impresa nell'ecosistema digitale moderno.</p>
+                    <div class="eco-tags">
+                        <span class="eco-tag">Brand Identity</span>
+                        <span class="eco-tag">Digital Strategy</span>
+                        <span class="eco-tag">UI/UX Design</span>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- Marquee -->
+        <div class="marquee-section">
+            <div class="marquee-inner">
+                <div class="marquee-part">INNOVATION MANAGEMENT <div class="marquee-dot"></div> DIGITAL TRANSFORMATION <div class="marquee-dot"></div> ARTIFICIAL INTELLIGENCE <div class="marquee-dot"></div></div>
+                <div class="marquee-part">INNOVATION MANAGEMENT <div class="marquee-dot"></div> DIGITAL TRANSFORMATION <div class="marquee-dot"></div> ARTIFICIAL INTELLIGENCE <div class="marquee-dot"></div></div>
+            </div>
+        </div>
 
         <!-- CTA -->
         <section class="innova-cta">
-            <div class="container reveal">
-                <span class="section-label section-label-electric">Pronto per il Prossimo Livello?</span>
-                <h2 class="cta-title-innova">Trasforma la <span class="text-blue">Complessit&agrave;</span><br>in Vantaggio Competitivo</h2>
-                <p class="cta-desc-innova">La nostra divisione ibrida fonde l'esperienza contabile con l'intelligenza artificiale e il digital management. Scopri come CSF Consulting sta riscrivendo le regole della consulenza.</p>
-                <a href="contatti.html" class="btn btn-electric" style="padding: 18px 40px; font-size: 0.9rem;">
-                    <span>Parliamo del Tuo Progetto</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                </a>
-            </div>
+            <h2 class="cta-title">Pronto per il<br>Prossimo Livello?</h2>
+            <a href="contatti.html" class="btn-glow">
+                Inizia la Trasformazione
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
         </section>
     </main>
 
@@ -703,5 +702,88 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // GSAP Animations for Innova Page
+        document.addEventListener("DOMContentLoaded", (event) => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // Hero Animations
+            const tlHero = gsap.timeline({ delay: 0.5 });
+            tlHero.to(".hero-badge", { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" })
+                  .to(".hero-title", { y: 0, opacity: 1, duration: 1, ease: "power3.out" }, "-=0.4")
+                  .to(".hero-desc", { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, "-=0.6")
+                  .to(".scroll-indicator", { opacity: 1, duration: 1 }, "-=0.2");
+
+            // Vision Section
+            gsap.from(".vision-text-block > *", {
+                scrollTrigger: {
+                    trigger: ".vision-section",
+                    start: "top 70%",
+                },
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power3.out"
+            });
+
+            gsap.to(".glass-card", {
+                scrollTrigger: {
+                    trigger: ".vision-section",
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1
+                },
+                y: -50,
+                rotation: 0
+            });
+
+            // Ecosystem Section
+            gsap.from(".section-header > *", {
+                scrollTrigger: {
+                    trigger: ".ecosystem-section",
+                    start: "top 80%",
+                },
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power3.out"
+            });
+
+            gsap.from(".eco-item", {
+                scrollTrigger: {
+                    trigger: ".eco-grid",
+                    start: "top 75%",
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power3.out"
+            });
+
+            // Marquee Animation
+            gsap.to(".marquee-inner", {
+                xPercent: -50,
+                ease: "none",
+                duration: 20,
+                repeat: -1
+            });
+
+            // CTA Section
+            gsap.from(".innova-cta > *", {
+                scrollTrigger: {
+                    trigger: ".innova-cta",
+                    start: "top 80%",
+                },
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power3.out"
+            });
+        });
+    </script>
 </body>
 </html>
