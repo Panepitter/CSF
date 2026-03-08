@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" class="lenis lenis-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,34 +8,79 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <title>Innova — The Future of Enterprise | CSF Consulting</title>
     <meta name="description" content="Innova: la divisione di CSF Consulting dedicata a Branding, Digital Marketing, Sviluppo Software, AI e Data Management per l'impresa del futuro.">
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
-    <!-- GSAP -->
+    
+    <!-- Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/split-type"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
     <style>
-        /* New Innova Styles */
+        /* ==========================================================================
+           INNOVA ELITE DESIGN SYSTEM
+           ========================================================================== */
         :root {
-            --innova-bg: #020611;
-            --innova-surface: rgba(10, 15, 30, 0.6);
-            --innova-accent: #3b82f6;
-            --innova-accent-glow: rgba(59, 130, 246, 0.4);
-            --innova-text: #f8fafc;
-            --innova-muted: #94a3b8;
+            --inv-bg: #030305;
+            --inv-surface: #0a0a0f;
+            --inv-surface-glass: rgba(15, 15, 22, 0.4);
+            --inv-text: #f0f0f5;
+            --inv-muted: #8a8a99;
+            --inv-accent: #4f46e5;
+            --inv-accent-glow: rgba(79, 70, 229, 0.5);
+            --inv-accent-2: #0ea5e9;
+            
+            --font-sans: 'Inter', sans-serif;
+            --font-serif: 'Cormorant Garamond', serif;
             --font-tech: 'Space Grotesk', sans-serif;
+            --font-display: 'Syncopate', sans-serif;
+            
+            --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+            --ease-in-out-circ: cubic-bezier(0.85, 0, 0.15, 1);
         }
+
+        /* Lenis Smooth Scroll */
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
 
         body.innova-page {
-            background-color: var(--innova-bg);
-            color: var(--innova-text);
+            background-color: var(--inv-bg);
+            color: var(--inv-text);
+            font-family: var(--font-sans);
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Ambient Background */
-        .ambient-bg {
+        ::selection {
+            background: var(--inv-accent);
+            color: #fff;
+        }
+
+        /* Noise Overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Ambient Mesh Gradient */
+        .mesh-bg {
             position: fixed;
             top: 0;
             left: 0;
@@ -43,747 +88,692 @@
             height: 100vh;
             z-index: -1;
             overflow: hidden;
-            background: var(--innova-bg);
+            background: var(--inv-bg);
         }
-
-        .ambient-orb {
+        
+        .mesh-blob {
             position: absolute;
+            filter: blur(90px);
             border-radius: 50%;
-            filter: blur(120px);
             opacity: 0.4;
-            animation: floatOrb 20s infinite alternate ease-in-out;
+            animation: meshFloat 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
         }
 
-        .orb-1 {
-            top: -10%;
-            left: -10%;
-            width: 50vw;
-            height: 50vw;
-            background: radial-gradient(circle, rgba(29,78,216,0.6) 0%, rgba(0,0,0,0) 70%);
+        .blob-1 {
+            top: -10%; left: -10%;
+            width: 50vw; height: 50vw;
+            background: radial-gradient(circle, rgba(79,70,229,0.4) 0%, transparent 70%);
         }
 
-        .orb-2 {
-            bottom: -20%;
-            right: -10%;
-            width: 60vw;
-            height: 60vw;
-            background: radial-gradient(circle, rgba(59,130,246,0.4) 0%, rgba(0,0,0,0) 70%);
+        .blob-2 {
+            bottom: -20%; right: -10%;
+            width: 60vw; height: 60vw;
+            background: radial-gradient(circle, rgba(14,165,233,0.3) 0%, transparent 70%);
             animation-delay: -5s;
         }
 
-        .orb-3 {
-            top: 40%;
-            left: 50%;
-            width: 40vw;
-            height: 40vw;
-            background: radial-gradient(circle, rgba(147,197,253,0.2) 0%, rgba(0,0,0,0) 70%);
-            animation-delay: -10s;
-        }
-
-        @keyframes floatOrb {
+        @keyframes meshFloat {
             0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(10%, 10%) scale(1.1); }
+            100% { transform: translate(5%, 10%) scale(1.2); }
         }
 
-        /* Hero Section */
-        .innova-hero {
+        /* Custom Cursor */
+        .inv-cursor {
+            position: fixed;
+            top: 0; left: 0;
+            width: 12px; height: 12px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            mix-blend-mode: difference;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+        }
+        .inv-cursor-follower {
+            position: fixed;
+            top: 0; left: 0;
+            width: 40px; height: 40px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background 0.3s;
+        }
+        body:hover .inv-cursor { opacity: 1; }
+
+        /* Typography Utilities */
+        .text-split { clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); }
+        .char { transform: translateY(115%); transition: transform 0.5s; }
+
+        /* ==========================================================================
+           SECTIONS
+           ========================================================================== */
+
+        /* 1. Hero Section */
+        .inv-hero {
             height: 100vh;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
+            padding: 0 5vw;
             position: relative;
-            padding: 0 5%;
         }
 
-        .hero-content {
-            text-align: center;
-            z-index: 2;
-            max-width: 1000px;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            padding: 8px 16px;
-            border-radius: 100px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            margin-bottom: 40px;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .hero-badge-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--innova-accent);
-            box-shadow: 0 0 10px var(--innova-accent-glow);
-            animation: pulseDot 2s infinite;
-        }
-
-        @keyframes pulseDot {
-            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
-        }
-
-        .hero-badge-text {
+        .hero-top-meta {
+            position: absolute;
+            top: 120px;
+            left: 5vw;
             font-family: var(--font-tech);
-            font-size: 0.85rem;
-            letter-spacing: 0.2em;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            color: var(--innova-muted);
+            letter-spacing: 0.2em;
+            color: var(--inv-muted);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .hero-top-meta::before {
+            content: '';
+            width: 40px; height: 1px;
+            background: var(--inv-muted);
+        }
+
+        .hero-title-wrapper {
+            margin-top: 5vh;
         }
 
         .hero-title {
             font-family: var(--font-display);
-            font-size: clamp(4rem, 8vw, 8rem);
-            line-height: 0.9;
-            font-weight: 400;
-            margin-bottom: 30px;
-            opacity: 0;
-            transform: translateY(30px);
+            font-size: clamp(3rem, 8vw, 9rem);
+            font-weight: 700;
+            line-height: 0.85;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin: 0;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.1);
+            position: relative;
         }
 
-        .hero-title span {
-            display: block;
+        .hero-title .filled {
+            color: var(--inv-text);
+            -webkit-text-stroke: 0;
         }
 
-        .hero-title .italic {
+        .hero-title .serif-italic {
+            font-family: var(--font-serif);
             font-style: italic;
-            color: var(--innova-muted);
             font-weight: 300;
+            text-transform: none;
+            color: var(--inv-accent-2);
+            -webkit-text-stroke: 0;
+            font-size: 1.1em;
+        }
+
+        .hero-bottom {
+            position: absolute;
+            bottom: 50px;
+            left: 5vw;
+            right: 5vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
         }
 
         .hero-desc {
-            font-size: clamp(1.1rem, 1.5vw, 1.3rem);
-            color: var(--innova-muted);
-            max-width: 600px;
-            margin: 0 auto;
+            font-family: var(--font-tech);
+            font-size: clamp(1rem, 1.2vw, 1.2rem);
+            color: var(--inv-muted);
+            max-width: 400px;
             line-height: 1.6;
-            opacity: 0;
-            transform: translateY(20px);
         }
 
-        /* Scroll Indicator */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
+        .scroll-down {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 10px;
-            opacity: 0;
-        }
-
-        .scroll-text {
             font-family: var(--font-tech);
             font-size: 0.7rem;
-            letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: var(--innova-muted);
+            letter-spacing: 0.2em;
         }
-
-        .scroll-line {
-            width: 1px;
-            height: 60px;
-            background: linear-gradient(to bottom, var(--innova-accent), transparent);
-            animation: scrollLine 2s infinite;
-        }
-
-        @keyframes scrollLine {
-            0% { transform: scaleY(0); transform-origin: top; }
-            50% { transform: scaleY(1); transform-origin: top; }
-            50.1% { transform: scaleY(1); transform-origin: bottom; }
-            100% { transform: scaleY(0); transform-origin: bottom; }
-        }
-
-        /* Vision Section */
-        .vision-section {
-            padding: 150px 5%;
+        .scroll-down-line {
+            width: 1px; height: 60px;
+            background: rgba(255,255,255,0.2);
             position: relative;
-            z-index: 2;
+            overflow: hidden;
+        }
+        .scroll-down-line::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 50%;
+            background: #fff;
+            animation: scrollLine 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+        }
+        @keyframes scrollLine {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(200%); }
         }
 
-        .vision-container {
+        /* 2. Manifesto / Vision */
+        .inv-manifesto {
+            padding: 20vh 5vw;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .manifesto-text {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4.5vw, 5rem);
+            line-height: 1.1;
+            font-weight: 300;
+            max-width: 1400px;
+            color: rgba(255,255,255,0.1); /* For text reveal */
+        }
+
+        .manifesto-text .highlight {
+            color: var(--inv-text);
+            font-style: italic;
+        }
+
+        /* 3. The Arsenal (Horizontal Scroll) */
+        .inv-arsenal-wrapper {
+            overflow: hidden;
+            background: var(--inv-surface);
+            position: relative;
+        }
+
+        .inv-arsenal {
+            display: flex;
+            width: 400vw; /* 4 panels */
+            height: 100vh;
+        }
+
+        .arsenal-panel {
+            width: 100vw;
+            height: 100vh;
+            padding: 0 5vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .panel-intro {
+            text-align: center;
+        }
+        .panel-intro h2 {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 6vw, 7rem);
+            text-transform: uppercase;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.2);
+            color: transparent;
+        }
+
+        .arsenal-card {
+            width: 100%;
             max-width: 1200px;
-            margin: 0 auto;
+            height: 70vh;
+            background: var(--inv-surface-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 30px;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-
-        .vision-text-block h2 {
-            font-family: var(--font-display);
-            font-size: clamp(2.5rem, 4vw, 4rem);
-            line-height: 1.1;
-            margin-bottom: 30px;
-        }
-
-        .vision-text-block p {
-            font-size: 1.1rem;
-            color: var(--innova-muted);
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-
-        .vision-visual {
-            position: relative;
-            height: 600px;
-            border-radius: 24px;
             overflow: hidden;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative;
         }
 
-        .glass-card {
-            position: absolute;
-            width: 300px;
-            height: 400px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 40px;
+        .card-content {
+            padding: 80px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            transform: rotate(-5deg);
-            transition: transform 0.5s ease;
-        }
-
-        .glass-card:hover {
-            transform: rotate(0deg) scale(1.05);
-        }
-
-        .glass-card-2 {
-            transform: rotate(5deg) translate(40px, 40px);
-            background: rgba(59, 130, 246, 0.05);
-            z-index: -1;
-        }
-
-        .card-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(59, 130, 246, 0.2);
-            display: flex;
-            align-items: center;
             justify-content: center;
-            color: var(--innova-accent);
-        }
-
-        .card-title {
-            font-family: var(--font-tech);
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
-
-        .card-desc {
-            font-size: 0.9rem;
-            color: var(--innova-muted);
-        }
-
-        /* Ecosystem Section */
-        .ecosystem-section {
-            padding: 150px 5%;
             position: relative;
             z-index: 2;
         }
 
-        .section-header {
-            text-align: center;
-            margin-bottom: 100px;
-        }
-
-        .section-subtitle {
+        .card-num {
             font-family: var(--font-tech);
-            font-size: 0.9rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--innova-accent);
+            font-size: 1.2rem;
+            color: var(--inv-accent);
             margin-bottom: 20px;
             display: block;
         }
 
-        .section-title {
-            font-family: var(--font-display);
-            font-size: clamp(3rem, 5vw, 5rem);
+        .card-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 4vw, 4.5rem);
             line-height: 1;
-        }
-
-        .eco-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .eco-item {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 24px;
-            padding: 50px 40px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s ease;
-            cursor: pointer;
-        }
-
-        .eco-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent 70%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .eco-item:hover {
-            transform: translateY(-10px);
-            border-color: rgba(59, 130, 246, 0.3);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .eco-item:hover::before {
-            opacity: 1;
-        }
-
-        .eco-num {
-            font-family: var(--font-tech);
-            font-size: 4rem;
-            font-weight: 300;
-            color: rgba(255, 255, 255, 0.05);
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            transition: color 0.5s ease;
-        }
-
-        .eco-item:hover .eco-num {
-            color: rgba(59, 130, 246, 0.2);
-        }
-
-        .eco-title {
-            font-family: var(--font-display);
-            font-size: 2rem;
-            margin-bottom: 20px;
-            margin-top: 40px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .eco-desc {
-            color: var(--innova-muted);
-            line-height: 1.7;
-            position: relative;
-            z-index: 1;
             margin-bottom: 30px;
+            font-weight: 400;
         }
 
-        .eco-tags {
+        .card-desc {
+            font-size: 1.1rem;
+            color: var(--inv-muted);
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 400px;
+        }
+
+        .card-tags {
             display: flex;
+            gap: 15px;
             flex-wrap: wrap;
-            gap: 10px;
-            position: relative;
-            z-index: 1;
         }
 
-        .eco-tag {
-            font-family: var(--font-tech);
-            font-size: 0.75rem;
-            padding: 6px 12px;
+        .card-tag {
+            padding: 8px 20px;
             border-radius: 100px;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--innova-text);
-        }
-
-        /* Interactive Marquee */
-        .marquee-section {
-            padding: 100px 0;
-            overflow: hidden;
-            background: var(--innova-accent);
-            color: #000;
-            transform: rotate(-2deg) scale(1.05);
-            position: relative;
-            z-index: 3;
-        }
-
-        .marquee-inner {
-            display: flex;
-            white-space: nowrap;
+            border: 1px solid rgba(255,255,255,0.1);
             font-family: var(--font-tech);
-            font-size: 4rem;
-            font-weight: 600;
-            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
         }
 
-        .marquee-part {
+        .card-visual {
+            position: relative;
+            background: rgba(0,0,0,0.2);
             display: flex;
             align-items: center;
-            padding: 0 20px;
+            justify-content: center;
+            overflow: hidden;
         }
 
-        .marquee-dot {
-            width: 15px;
-            height: 15px;
-            background: #000;
+        /* Abstract Visuals for Cards */
+        .visual-data .ring {
+            position: absolute;
             border-radius: 50%;
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            animation: spin 20s linear infinite;
+        }
+        .visual-data .ring:nth-child(1) { width: 300px; height: 300px; border-top-color: var(--inv-accent); }
+        .visual-data .ring:nth-child(2) { width: 400px; height: 400px; border-right-color: var(--inv-accent-2); animation-direction: reverse; animation-duration: 25s; }
+        .visual-data .ring:nth-child(3) { width: 500px; height: 500px; border-bottom-color: #fff; animation-duration: 30s; }
+
+        .visual-ai .cube-container {
+            perspective: 1000px;
+        }
+        .visual-ai .cube {
+            width: 200px; height: 200px;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotateCube 15s infinite linear;
+        }
+        .visual-ai .face {
+            position: absolute; width: 200px; height: 200px;
+            border: 1px solid rgba(14, 165, 233, 0.4);
+            background: rgba(14, 165, 233, 0.05);
+            backdrop-filter: blur(5px);
+        }
+        .visual-ai .front  { transform: translateZ(100px); }
+        .visual-ai .back   { transform: rotateY(180deg) translateZ(100px); }
+        .visual-ai .right  { transform: rotateY(90deg) translateZ(100px); }
+        .visual-ai .left   { transform: rotateY(-90deg) translateZ(100px); }
+        .visual-ai .top    { transform: rotateX(90deg) translateZ(100px); }
+        .visual-ai .bottom { transform: rotateX(-90deg) translateZ(100px); }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes rotateCube { 100% { transform: rotateX(360deg) rotateY(360deg); } }
+
+        /* 4. Marquee */
+        .inv-marquee {
+            padding: 10vh 0;
+            background: var(--inv-text);
+            color: var(--inv-bg);
+            overflow: hidden;
+            transform: rotate(-2deg) scale(1.05);
+            position: relative;
+            z-index: 10;
+        }
+        .marquee-track {
+            display: flex;
+            white-space: nowrap;
+            font-family: var(--font-display);
+            font-size: clamp(4rem, 8vw, 8rem);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .marquee-item {
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+        }
+        .marquee-star {
             margin: 0 40px;
+            width: 40px; height: 40px;
+            background: var(--inv-accent);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
         }
 
-        /* CTA Section */
-        .innova-cta {
-            padding: 200px 5%;
+        /* 5. CTA / Footer */
+        .inv-cta {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
+            padding: 0 5vw;
             position: relative;
-            z-index: 2;
         }
 
         .cta-title {
-            font-family: var(--font-display);
-            font-size: clamp(3rem, 6vw, 6rem);
+            font-family: var(--font-serif);
+            font-size: clamp(3rem, 7vw, 8rem);
             line-height: 1;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
+            font-weight: 300;
         }
 
-        .btn-glow {
+        .magnetic-btn {
+            position: relative;
             display: inline-flex;
             align-items: center;
-            gap: 15px;
-            padding: 20px 40px;
-            background: var(--innova-accent);
+            justify-content: center;
+            width: 200px; height: 200px;
+            border-radius: 50%;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
             color: #fff;
             font-family: var(--font-tech);
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 100px;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            position: relative;
+            font-size: 0.9rem;
+            cursor: pointer;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: border-color 0.3s;
         }
-
-        .btn-glow::before {
+        .magnetic-btn::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s ease;
+            top: 100%; left: 0;
+            width: 100%; height: 100%;
+            background: var(--inv-accent);
+            border-radius: 50%;
+            transition: top 0.5s var(--ease-out-expo);
+            z-index: -1;
         }
-
-        .btn-glow:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
-        }
-
-        .btn-glow:hover::before {
-            left: 100%;
-        }
+        .magnetic-btn:hover { border-color: transparent; }
+        .magnetic-btn:hover::before { top: 0; border-radius: 0; }
 
         /* Responsive */
         @media (max-width: 1024px) {
-            .vision-container { grid-template-columns: 1fr; gap: 60px; }
-            .eco-grid { grid-template-columns: 1fr; }
-            .vision-visual { height: 400px; }
+            .arsenal-card { grid-template-columns: 1fr; height: 80vh; }
+            .card-content { padding: 40px; }
+            .card-visual { display: none; } /* Simplify on mobile */
+            .inv-arsenal { width: 100vw; flex-direction: column; height: auto; }
+            .arsenal-panel { height: auto; padding: 10vh 5vw; }
+            .inv-arsenal-wrapper { overflow: visible; }
         }
     </style>
 </head>
 <body class="innova-page">
 
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="preloader-inner">
-            <div class="preloader-logo">CSF</div>
-            <div class="preloader-line"></div>
-            <div class="preloader-text">INNOVA</div>
-        </div>
+    <div class="noise-overlay"></div>
+    
+    <div class="mesh-bg">
+        <div class="mesh-blob blob-1"></div>
+        <div class="mesh-blob blob-2"></div>
     </div>
 
     <!-- Custom Cursor -->
-    <div class="cursor-dot" aria-hidden="true"></div>
-    <div class="cursor-outline" aria-hidden="true"></div>
+    <div class="inv-cursor"></div>
+    <div class="inv-cursor-follower"></div>
 
-    <!-- Ambient Background -->
-    <div class="ambient-bg">
-        <div class="ambient-orb orb-1"></div>
-        <div class="ambient-orb orb-2"></div>
-        <div class="ambient-orb orb-3"></div>
-    </div>
-
-    <!-- Navigation -->
-    <nav id="navbar" class="scrolled">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo">
-                <span class="logo-csf">CSF</span>
-                <span class="logo-divider"></span>
-                <span class="logo-consulting">CONSULTING</span>
-            </a>
-            <div class="nav-links" id="navLinks">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="chi-siamo.html" class="nav-link">Chi Siamo</a>
-                <a href="servizi.html" class="nav-link">Servizi</a>
-                <a href="percorsi.html" class="nav-link">Percorsi</a>
-                <a href="innova.html" class="nav-link active">Innova</a>
-                <a href="contatti.html" class="nav-link nav-link-cta">Contatti</a>
-            </div>
-            <button class="nav-toggle" id="navToggle" aria-label="Apri menu">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
+    <!-- Minimal Navbar for Innova -->
+    <nav style="position: fixed; top: 0; width: 100%; padding: 30px 5vw; display: flex; justify-content: space-between; z-index: 100; mix-blend-mode: difference;">
+        <a href="index.html" style="font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; letter-spacing: -0.05em;">CSF<span style="font-weight: 400; color: var(--inv-muted);">/INNOVA</span></a>
+        <a href="contatti.html" style="font-family: var(--font-tech); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em;">Inizia Progetto</a>
     </nav>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="mobile-menu-inner">
-            <a href="index.html" class="mobile-link">Home</a>
-            <a href="chi-siamo.html" class="mobile-link">Chi Siamo</a>
-            <a href="servizi.html" class="mobile-link">Servizi</a>
-            <a href="percorsi.html" class="mobile-link">Percorsi</a>
-            <a href="innova.html" class="mobile-link">Innova</a>
-            <a href="contatti.html" class="mobile-link">Contatti</a>
-        </div>
-    </div>
 
     <main>
         <!-- Hero -->
-        <section class="innova-hero">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <div class="hero-badge-dot"></div>
-                    <span class="hero-badge-text">The Hybrid Evolution</span>
-                </div>
+        <section class="inv-hero">
+            <div class="hero-top-meta">Divisione Tecnologica</div>
+            
+            <div class="hero-title-wrapper">
                 <h1 class="hero-title">
-                    <span>L'Intelligenza</span>
-                    <span class="italic">del Dato.</span>
+                    <span class="filled">L'Intelligenza</span><br>
+                    <span class="serif-italic">del Dato.</span>
                 </h1>
-                <p class="hero-desc">
-                    Oltre 55 anni di esperienza contabile potenziati da algoritmi proprietari e visione digitale. Benvenuti nella società ibrida.
-                </p>
             </div>
-            <div class="scroll-indicator">
-                <span class="scroll-text">Scroll</span>
-                <div class="scroll-line"></div>
+
+            <div class="hero-bottom">
+                <p class="hero-desc">Oltre 55 anni di esperienza contabile potenziati da algoritmi proprietari e visione digitale. Benvenuti nella società ibrida.</p>
+                <div class="scroll-down">
+                    <span>Scroll</span>
+                    <div class="scroll-down-line"></div>
+                </div>
             </div>
         </section>
 
-        <!-- Vision Section -->
-        <section class="vision-section">
-            <div class="vision-container">
-                <div class="vision-text-block">
-                    <span class="section-subtitle">La Visione</span>
-                    <h2>L'Esperienza incontra<br>l'Algoritmo</h2>
-                    <p>Non siamo solo consulenti. Siamo architetti del futuro aziendale. Innova è la divisione di CSF Consulting nata per colmare il divario tra la solidità della tradizione e la velocità dell'innovazione tecnologica.</p>
-                    <p>Trasformiamo i dati grezzi in strategie predittive, automatizziamo i processi complessi e costruiamo identità digitali che dominano il mercato.</p>
+        <!-- Manifesto -->
+        <section class="inv-manifesto">
+            <p class="manifesto-text" id="manifestoText">
+                Non siamo solo consulenti. Siamo <span class="highlight">architetti del futuro</span> aziendale. Innova colma il divario tra la solidità della tradizione e la velocità dell'innovazione tecnologica.
+            </p>
+        </section>
+
+        <!-- The Arsenal (Horizontal Scroll) -->
+        <section class="inv-arsenal-wrapper" id="arsenalWrapper">
+            <div class="inv-arsenal" id="arsenalContainer">
+                
+                <!-- Intro Panel -->
+                <div class="arsenal-panel">
+                    <div class="panel-intro">
+                        <h2>L'Arsenale<br><span style="color: var(--inv-text); -webkit-text-stroke: 0;">Digitale</span></h2>
+                    </div>
                 </div>
-                <div class="vision-visual">
-                    <div class="glass-card glass-card-2"></div>
-                    <div class="glass-card">
-                        <div>
-                            <div class="card-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+
+                <!-- Card 1 -->
+                <div class="arsenal-panel">
+                    <div class="arsenal-card">
+                        <div class="card-content">
+                            <span class="card-num">01 // Intelligence</span>
+                            <h3 class="card-title">Data & BI</h3>
+                            <p class="card-desc">Trasformiamo i dati contabili in asset decisionali. Analisi dei flussi e reportistica avanzata per una presa di coscienza totale della tua azienda.</p>
+                            <div class="card-tags">
+                                <span class="card-tag">Predictive Analysis</span>
+                                <span class="card-tag">KPI Dashboards</span>
                             </div>
-                            <h3 class="card-title" style="margin-top: 20px;">AI Processing</h3>
-                            <p class="card-desc">I nostri algoritmi analizzano pattern, anomalie e opportunità nei tuoi flussi aziendali in tempo reale.</p>
                         </div>
-                        <div style="height: 4px; width: 100%; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;">
-                            <div style="height: 100%; width: 65%; background: var(--innova-accent);"></div>
+                        <div class="card-visual visual-data">
+                            <div class="ring"></div>
+                            <div class="ring"></div>
+                            <div class="ring"></div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- Ecosystem Section -->
-        <section class="ecosystem-section">
-            <div class="section-header">
-                <span class="section-subtitle">L'Arsenale Digitale</span>
-                <h2 class="section-title">Tre Pilastri per<br>Dominare il Mercato</h2>
-            </div>
-            <div class="eco-grid">
-                <div class="eco-item">
-                    <span class="eco-num">01</span>
-                    <h3 class="eco-title">Data & BI</h3>
-                    <p class="eco-desc">Trasformiamo i dati contabili in asset decisionali. Analisi dei flussi e reportistica avanzata per una presa di coscienza totale della tua azienda.</p>
-                    <div class="eco-tags">
-                        <span class="eco-tag">Predictive Analysis</span>
-                        <span class="eco-tag">KPI Dashboards</span>
-                        <span class="eco-tag">Data Governance</span>
+                <!-- Card 2 -->
+                <div class="arsenal-panel">
+                    <div class="arsenal-card">
+                        <div class="card-content">
+                            <span class="card-num">02 // Technology</span>
+                            <h3 class="card-title">Software & AI</h3>
+                            <p class="card-desc">Integrazione di nuove tecnologie nel reparto produttivo e gestionale dello studio per un'esperienza cliente differente e automatizzata.</p>
+                            <div class="card-tags">
+                                <span class="card-tag">Custom Software</span>
+                                <span class="card-tag">Machine Learning</span>
+                            </div>
+                        </div>
+                        <div class="card-visual visual-ai">
+                            <div class="cube-container">
+                                <div class="cube">
+                                    <div class="face front"></div>
+                                    <div class="face back"></div>
+                                    <div class="face right"></div>
+                                    <div class="face left"></div>
+                                    <div class="face top"></div>
+                                    <div class="face bottom"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="eco-item">
-                    <span class="eco-num">02</span>
-                    <h3 class="eco-title">Software & AI</h3>
-                    <p class="eco-desc">Integrazione di nuove tecnologie nel reparto produttivo e gestionale dello studio per un'esperienza cliente differente e automatizzata.</p>
-                    <div class="eco-tags">
-                        <span class="eco-tag">Custom Software</span>
-                        <span class="eco-tag">Machine Learning</span>
-                        <span class="eco-tag">Process Automation</span>
+
+                <!-- Card 3 -->
+                <div class="arsenal-panel">
+                    <div class="arsenal-card">
+                        <div class="card-content">
+                            <span class="card-num">03 // Identity</span>
+                            <h3 class="card-title">Branding</h3>
+                            <p class="card-desc">Comunicazione e immagine coordinate per riflettere il valore reale della tua impresa nell'ecosistema digitale moderno.</p>
+                            <div class="card-tags">
+                                <span class="card-tag">Brand Identity</span>
+                                <span class="card-tag">UI/UX Design</span>
+                            </div>
+                        </div>
+                        <div class="card-visual" style="background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);">
+                            <div style="font-family: var(--font-display); font-size: 10rem; opacity: 0.1; font-weight: 700;">CSF</div>
+                        </div>
                     </div>
                 </div>
-                <div class="eco-item">
-                    <span class="eco-num">03</span>
-                    <h3 class="eco-title">Branding</h3>
-                    <p class="eco-desc">Comunicazione e immagine coordinate per riflettere il valore reale della tua impresa nell'ecosistema digitale moderno.</p>
-                    <div class="eco-tags">
-                        <span class="eco-tag">Brand Identity</span>
-                        <span class="eco-tag">Digital Strategy</span>
-                        <span class="eco-tag">UI/UX Design</span>
-                    </div>
-                </div>
+
             </div>
         </section>
 
         <!-- Marquee -->
-        <div class="marquee-section">
-            <div class="marquee-inner">
-                <div class="marquee-part">INNOVATION MANAGEMENT <div class="marquee-dot"></div> DIGITAL TRANSFORMATION <div class="marquee-dot"></div> ARTIFICIAL INTELLIGENCE <div class="marquee-dot"></div></div>
-                <div class="marquee-part">INNOVATION MANAGEMENT <div class="marquee-dot"></div> DIGITAL TRANSFORMATION <div class="marquee-dot"></div> ARTIFICIAL INTELLIGENCE <div class="marquee-dot"></div></div>
+        <section class="inv-marquee">
+            <div class="marquee-track" id="marqueeTrack">
+                <div class="marquee-item">INNOVATION MANAGEMENT <div class="marquee-star"></div></div>
+                <div class="marquee-item">DIGITAL TRANSFORMATION <div class="marquee-star"></div></div>
+                <div class="marquee-item">ARTIFICIAL INTELLIGENCE <div class="marquee-star"></div></div>
+                <div class="marquee-item">INNOVATION MANAGEMENT <div class="marquee-star"></div></div>
+                <div class="marquee-item">DIGITAL TRANSFORMATION <div class="marquee-star"></div></div>
             </div>
-        </div>
+        </section>
 
         <!-- CTA -->
-        <section class="innova-cta">
+        <section class="inv-cta">
             <h2 class="cta-title">Pronto per il<br>Prossimo Livello?</h2>
-            <a href="contatti.html" class="btn-glow">
-                Inizia la Trasformazione
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            <a href="contatti.html" class="magnetic-btn" id="magneticBtn">
+                <span>Inizia Ora</span>
             </a>
         </section>
     </main>
 
-    <footer id="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-info">
-                    <div class="footer-logo">
-                        <span class="logo-csf">CSF</span>
-                        <span class="logo-consulting">CONSULTING</span>
-                    </div>
-                    <p class="footer-tagline">Tradizione e Innovazione dal 1970. La tua impresa, la nostra missione.</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Studio</h4>
-                    <a href="index.html">Home</a>
-                    <a href="chi-siamo.html">Chi Siamo</a>
-                    <a href="contatti.html">Contatti</a>
-                </div>
-                <div class="footer-links">
-                    <h4>Servizi</h4>
-                    <a href="servizi.html">Consulenza Core</a>
-                    <a href="innova.html">Innovation Management</a>
-                </div>
-                <div class="footer-links">
-                    <h4>Contatti</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-muted);">Territorio Pontino, Italia<br>info@csfconsulting.it</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 CSF Consulting. Tutti i diritti riservati.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
     <script>
-        // GSAP Animations for Innova Page
-        document.addEventListener("DOMContentLoaded", (event) => {
-            gsap.registerPlugin(ScrollTrigger);
+        // Initialize Lenis for Smooth Scrolling
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+            infinite: false,
+        });
 
-            // Hero Animations
-            const tlHero = gsap.timeline({ delay: 0.5 });
-            tlHero.to(".hero-badge", { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" })
-                  .to(".hero-title", { y: 0, opacity: 1, duration: 1, ease: "power3.out" }, "-=0.4")
-                  .to(".hero-desc", { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, "-=0.6")
-                  .to(".scroll-indicator", { opacity: 1, duration: 1 }, "-=0.2");
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
 
-            // Vision Section
-            gsap.from(".vision-text-block > *", {
-                scrollTrigger: {
-                    trigger: ".vision-section",
-                    start: "top 70%",
-                },
-                y: 40,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.2,
-                ease: "power3.out"
+        // Custom Cursor Logic
+        const cursor = document.querySelector('.inv-cursor');
+        const follower = document.querySelector('.inv-cursor-follower');
+        let mouseX = 0, mouseY = 0, followerX = 0, followerY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+        });
+
+        gsap.ticker.add(() => {
+            followerX += (mouseX - followerX) * 0.1;
+            followerY += (mouseY - followerY) * 0.1;
+            follower.style.left = followerX + 'px';
+            follower.style.top = followerY + 'px';
+        });
+
+        // Magnetic Button
+        const magneticBtn = document.getElementById('magneticBtn');
+        magneticBtn.addEventListener('mousemove', (e) => {
+            const rect = magneticBtn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            gsap.to(magneticBtn, {
+                x: x * 0.4,
+                y: y * 0.4,
+                duration: 0.5,
+                ease: "power2.out"
             });
-
-            gsap.to(".glass-card", {
-                scrollTrigger: {
-                    trigger: ".vision-section",
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: 1
-                },
-                y: -50,
-                rotation: 0
-            });
-
-            // Ecosystem Section
-            gsap.from(".section-header > *", {
-                scrollTrigger: {
-                    trigger: ".ecosystem-section",
-                    start: "top 80%",
-                },
-                y: 30,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.2,
-                ease: "power3.out"
-            });
-
-            gsap.from(".eco-item", {
-                scrollTrigger: {
-                    trigger: ".eco-grid",
-                    start: "top 75%",
-                },
-                y: 50,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.2,
-                ease: "power3.out"
-            });
-
-            // Marquee Animation
-            gsap.to(".marquee-inner", {
-                xPercent: -50,
-                ease: "none",
-                duration: 20,
-                repeat: -1
-            });
-
-            // CTA Section
-            gsap.from(".innova-cta > *", {
-                scrollTrigger: {
-                    trigger: ".innova-cta",
-                    start: "top 80%",
-                },
-                y: 40,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.2,
-                ease: "power3.out"
+            gsap.to(magneticBtn.querySelector('span'), {
+                x: x * 0.2,
+                y: y * 0.2,
+                duration: 0.5,
+                ease: "power2.out"
             });
         });
+        magneticBtn.addEventListener('mouseleave', () => {
+            gsap.to(magneticBtn, { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1, 0.3)" });
+            gsap.to(magneticBtn.querySelector('span'), { x: 0, y: 0, duration: 0.7, ease: "elastic.out(1, 0.3)" });
+        });
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Animation
+        const tlHero = gsap.timeline();
+        tlHero.from(".hero-top-meta", { y: 20, opacity: 0, duration: 1, ease: "power3.out", delay: 0.5 })
+              .from(".hero-title span", { y: 100, opacity: 0, duration: 1.2, stagger: 0.2, ease: "power4.out" }, "-=0.8")
+              .from(".hero-desc", { y: 20, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.8")
+              .from(".scroll-down", { opacity: 0, duration: 1 }, "-=0.5");
+
+        // Manifesto Text Reveal
+        const manifestoText = new SplitType('#manifestoText', { types: 'words, chars' });
+        gsap.from(manifestoText.chars, {
+            scrollTrigger: {
+                trigger: ".inv-manifesto",
+                start: "top 70%",
+                end: "bottom 60%",
+                scrub: 1,
+            },
+            color: "rgba(255,255,255,0.1)",
+            stagger: 0.1
+        });
+
+        // Horizontal Scroll for Arsenal (Desktop only)
+        if (window.innerWidth > 1024) {
+            const arsenalContainer = document.getElementById('arsenalContainer');
+            const panels = gsap.utils.toArray('.arsenal-panel');
+            
+            gsap.to(panels, {
+                xPercent: -100 * (panels.length - 1),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: ".inv-arsenal-wrapper",
+                    pin: true,
+                    scrub: 1,
+                    snap: 1 / (panels.length - 1),
+                    end: () => "+=" + arsenalContainer.offsetWidth
+                }
+            });
+        }
+
+        // Marquee Animation
+        gsap.to("#marqueeTrack", {
+            xPercent: -50,
+            ease: "none",
+            duration: 15,
+            repeat: -1
+        });
+
     </script>
 </body>
 </html>
