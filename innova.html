@@ -66,10 +66,12 @@
             background: transparent;
             border-bottom: 1px solid rgba(255,255,255,0.05);
             backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
         }
         body.innova-page #navbar.scrolled {
             background: rgba(3, 3, 5, 0.8);
             border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 15px 0;
         }
         body.innova-page .nav-logo, body.innova-page .nav-link {
             color: var(--inv-text);
@@ -90,6 +92,19 @@
         }
         body.innova-page .nav-toggle span {
             background: var(--inv-text);
+        }
+        
+        /* Mobile Menu Override */
+        body.innova-page .mobile-menu {
+            background: var(--inv-bg);
+        }
+        body.innova-page .mobile-link {
+            color: var(--inv-text);
+            font-family: var(--font-display);
+            text-transform: uppercase;
+        }
+        body.innova-page .mobile-link:hover {
+            color: var(--inv-accent);
         }
 
         ::selection {
