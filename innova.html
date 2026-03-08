@@ -179,6 +179,24 @@
         .text-split { clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); }
         .char { transform: translateY(115%); transition: transform 0.5s; }
 
+        /* Override Global Footer for Innova Page */
+        body.innova-page #footer {
+            background: var(--inv-surface);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: var(--inv-muted);
+        }
+        body.innova-page #footer .footer-logo, 
+        body.innova-page #footer h4, 
+        body.innova-page #footer a {
+            color: var(--inv-text);
+        }
+        body.innova-page #footer a:hover {
+            color: var(--inv-accent);
+        }
+        body.innova-page .footer-bottom {
+            border-top-color: rgba(255,255,255,0.05);
+        }
+
         /* ==========================================================================
            SECTIONS
            ========================================================================== */
