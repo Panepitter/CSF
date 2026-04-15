@@ -14,11 +14,11 @@
     <meta property="og:type" content="website">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="home">
 
     <!-- Preloader -->
     <div id="preloader">
@@ -73,87 +73,116 @@
         </div>
     </div>
 
-    <!-- ===================== HERO SECTION ===================== -->
-    <section id="hero">
+    <!-- ===================== HERO SECTION — Editorial ===================== -->
+    <section id="hero" class="hero-home">
         <canvas id="heroCanvas"></canvas>
         <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <div class="hero-badge reveal">
-                <span class="hero-badge-line"></span>
-                <span class="hero-badge-text">Dal 1970 &mdash; Oltre 55 Anni di Esperienza</span>
-                <span class="hero-badge-line"></span>
+
+        <div class="hero-home__folio">
+            <div>
+                <span>N.&deg; 01</span>
+                <span>&mdash; Homepage</span>
             </div>
-            <h1 class="hero-title">
-                <span class="title-line reveal">Tradizione e Innovazione</span>
-                <span class="title-line title-accent reveal">al Servizio della Tua Impresa</span>
-            </h1>
-            <p class="hero-subtitle reveal">Competenza radicata nel territorio, visione proiettata al futuro. Lo studio che evolve con te.</p>
-            <div class="hero-cta reveal">
-                <a href="servizi.html" class="btn btn-primary">
-                    <span>Scopri i Servizi</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                </a>
-                <a href="chi-siamo.html" class="btn btn-outline">La Nostra Storia</a>
+            <div>
+                <span data-year>2025</span>
+                <span>&mdash; Territorio Pontino</span>
             </div>
         </div>
+
+        <h1 class="hero-home__title">
+            <span class="line"><span>Tradizione</span></span>
+            <span class="line"><span>&amp; <em>innovazione</em>,</span></span>
+            <span class="line"><span>dal 1970.</span></span>
+        </h1>
+
+        <div class="hero-home__meta">
+            <p class="lede hanging">
+                CSF Consulting &egrave; un ecosistema. Uniamo fiscalit&agrave;, operazioni straordinarie, consulenza del lavoro, innovation management e tecnologie digitali &mdash; <em>sotto un'unica regia</em>, con un referente dedicato.
+            </p>
+            <div class="hero-home__actions">
+                <a href="servizi.html" class="btn btn-primary">
+                    <span>Scopri i servizi</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </a>
+                <a href="chi-siamo.html" class="btn btn-outline">La nostra storia</a>
+            </div>
+        </div>
+
         <div class="hero-scroll-indicator">
             <div class="scroll-line"></div>
             <span>Scroll</span>
         </div>
     </section>
 
-    <!-- ===================== ABOUT SECTION ===================== -->
-    <section id="about">
-        <div class="section-decoration">
-            <div class="deco-line deco-line-left"></div>
-            <div class="deco-diamond"></div>
-            <div class="deco-line deco-line-right"></div>
+    <!-- ===================== RUNNING LINE ===================== -->
+    <section class="running" aria-hidden="true">
+        <div class="running__row">
+            <span class="mono running__side">Oggi operiamo su &mdash;</span>
+            <span class="running__type" data-type='["Consulenza fiscale e dichiarativi.","Contabilit&agrave; e bilancio strategico.","Operazioni societarie &amp; M&amp;A.","Consulenza del lavoro e welfare.","Innovation management.","Intelligenza artificiale applicata.","Software gestionali su misura.","Business Intelligence real-time."]'></span>
+            <span class="mono running__side right">&mdash; <span data-year>2025</span></span>
         </div>
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-text reveal">
-                    <span class="section-label">Chi Siamo</span>
-                    <h2 class="section-title">L'evoluzione dello <span class="text-gold">Studio Frasca</span></h2>
-                    <p class="about-lead">CSF Consulting &egrave; la sintesi perfetta tra l'esperienza storica e la visione contemporanea della consulenza d'impresa.</p>
-                    <p>Nati nel 1970 come Studio Frasca, abbiamo accompagnato generazioni di imprenditori nel territorio pontino. Oggi ci evolviamo in una realt&agrave; ibrida che unisce la <strong>metodologia delle grandi firme</strong> alla <strong>personalizzazione sartoriale</strong> dello studio professionale.</p>
-                    <p>Attraverso l'integrazione di nuove tecnologie nel nostro reparto produttivo, offriamo un'esperienza partecipativa dove il cliente &egrave; finalmente consapevole e protagonista della propria gestione aziendale.</p>
-                    <div style="margin-top: 32px;">
-                        <a href="chi-siamo.html" class="btn btn-outline">Scopri la nostra storia</a>
+    </section>
+
+    <!-- ===================== MANIFESTO ===================== -->
+    <section class="manifesto ink-section">
+        <div class="manifesto__wrap">
+            <p class="label label-block rise">&sect; Manifesto</p>
+            <p class="manifesto__text" data-breathe>
+                Lo studio che ha attraversato <em>mezzo secolo</em> di riforme sa che il cambiamento non si subisce, si cavalca. CSF nasce da quell'esperienza, estesa al futuro.
+            </p>
+
+            <div class="manifesto__grid">
+                <div class="manifesto__cell rise">
+                    <p class="folio">&sect; 01 &mdash; Il principio</p>
+                    <p class="manifesto__cell-body">Anti-fragilit&agrave;: diventare pi&ugrave; forti grazie al cambiamento. Lo abbiamo vissuto in prima persona, dal 1970 a oggi.</p>
+                </div>
+                <div class="manifesto__cell rise" data-d="1">
+                    <p class="folio">&sect; 02 &mdash; Il modello</p>
+                    <p class="manifesto__cell-body">Un ecosistema di partnership verticali selezionate, non un generalista qualunque. Regia unica, lingua comune.</p>
+                </div>
+                <div class="manifesto__cell rise" data-d="2">
+                    <p class="folio">&sect; 03 &mdash; La promessa</p>
+                    <p class="manifesto__cell-body">Un referente. Un linguaggio. Un perimetro che cresce con l'impresa, dal recupero del capitale alla scalabilit&agrave;.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== LETTER — Chi siamo / Founder's voice ===================== -->
+    <section id="about" class="letter-section">
+        <div class="letter-wrap">
+            <div class="letter">
+                <aside class="letter__aside rise">
+                    <strong class="letter__author">Chi siamo</strong>
+                    <span class="letter__meta">
+                        Antonio Frasca<br>
+                        Commercialista, revisore,<br>consulente del lavoro<br>
+                        &mdash;&mdash;&mdash;&mdash;<br>
+                        Territorio Pontino, 1970 &rarr; oggi<br>
+                        55 anni di professione
+                    </span>
+                </aside>
+
+                <div class="letter__body">
+                    <p class="folio rise">&sect; Lettera agli imprenditori</p>
+                    <h2 class="d3 rise" data-d="1">Quando <em>abbiamo iniziato</em>,<br>i bilanci si scrivevano a penna.</h2>
+                    <p class="lede hanging rise" data-d="2">Il mestiere che si imparava cinquant'anni fa non esiste pi&ugrave;. &Egrave; diventato qualcos'altro: si &egrave; dovuto adattare a tecnologie e normative che allora erano impensabili. Chi ha attraversato quel cambiamento conosce la paura iniziale ma sa anche l'importanza di restare in piedi davanti al nuovo.</p>
+                    <p class="body hanging rise" data-d="3">Da Studio Frasca a CSF Consulting il passo &egrave; stato naturale: mettere quell'esperienza al servizio di chi costruisce impresa oggi, integrando competenze che vanno dalla fiscalit&agrave; all'intelligenza artificiale. Non come mestieri giustapposti &mdash; come un <em>unico sguardo</em> sul presente e sul futuro di un'azienda.</p>
+                    <p class="body hanging rise" data-d="4">Per farlo abbiamo stretto partnership verticali con chi condivide i nostri standard, e abbiamo costruito un workflow che va dal recupero del capitale fino alla scalabilit&agrave;. &Egrave; quello che chiamiamo <em>ecosistema</em>.</p>
+                    <p class="letter__signature rise" data-d="5">Antonio Frasca<br>
+                        <span class="letter__caption">Fondatore</span>
+                    </p>
+                    <div class="rise" data-d="6" style="margin-top:32px">
+                        <a href="chi-siamo.html" class="btn btn-outline">Continua a leggere</a>
                     </div>
                 </div>
-                <div class="about-timeline">
-                    <div class="timeline-track"></div>
-                    <div class="timeline-item reveal" data-year="1970">
-                        <div class="timeline-marker">
-                            <div class="timeline-dot"></div>
-                            <span class="timeline-year">1970</span>
-                        </div>
-                        <div class="timeline-content">
-                            <h3>Fondazione</h3>
-                            <p>Antonio Frasca avvia lo studio, ponendo le basi di precisione e sicurezza.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item reveal" data-year="2000">
-                        <div class="timeline-marker">
-                            <div class="timeline-dot"></div>
-                            <span class="timeline-year">2000</span>
-                        </div>
-                        <div class="timeline-content">
-                            <h3>Crescita</h3>
-                            <p>Espansione dei servizi e consolidamento nel territorio pontino.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item reveal" data-year="Oggi">
-                        <div class="timeline-marker">
-                            <div class="timeline-dot"></div>
-                            <span class="timeline-year">Oggi</span>
-                        </div>
-                        <div class="timeline-content">
-                            <h3>CSF Consulting</h3>
-                            <p>L'evoluzione ibrida: tecnologia e consulenza d'eccellenza.</p>
-                        </div>
-                    </div>
-                </div>
+            </div>
+
+            <!-- Chronological ribbon: tre tappe leggere -->
+            <div class="chron rise">
+                <div class="chron__item"><span class="chron__n">I.</span><span class="chron__y">1970</span><span class="chron__t">Fondazione dello Studio Frasca</span></div>
+                <div class="chron__item"><span class="chron__n">II.</span><span class="chron__y">2000</span><span class="chron__t">Crescita e consolidamento nel territorio</span></div>
+                <div class="chron__item"><span class="chron__n">III.</span><span class="chron__y">Oggi</span><span class="chron__t">CSF Consulting &mdash; metodo e tecnologia</span></div>
             </div>
         </div>
     </section>
@@ -502,172 +531,79 @@
         </div>
     </section>
 
-    <!-- ===================== INNOVATION MANAGEMENT SECTION (TECH SHOWCASE) ===================== -->
-    <section id="innovation-management" style="padding: var(--section-padding) 0; background: var(--navy-950); overflow: hidden;">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="section-label section-label-electric">Innovation Management</span>
-                <h2 class="section-title">L'Infrastruttura del <span class="text-electric">Futuro</span></h2>
-                <p class="section-subtitle">Non ci limitiamo a consigliare. Costruiamo gli strumenti tecnologici che rendono la tua impresa competitiva nell'era dell'intelligenza.</p>
-            </div>
-
-            <div class="showcase-container">
-                <!-- Feature 1: Software & AI -->
-                <div class="showcase-item reveal" style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 120px;">
-                    <div class="showcase-text">
-                        <div class="hero-badge" style="justify-content: flex-start; margin-bottom: 20px;">
-                            <span class="hero-badge-text" style="color: var(--electric-light); letter-spacing: 0.2em;">The Engine</span>
-                        </div>
-                        <h3 class="service-title" style="font-size: 2.5rem; margin-bottom: 20px;">Sviluppo Software <br>& Intelligenza Artificiale</h3>
-                        <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-body); margin-bottom: 30px;">Progettiamo ecosistemi digitali su misura. Dall'automazione dei processi interni all'integrazione di modelli AI predittivi, trasformiamo la complessit&agrave; in efficienza operativa.</p>
-                        <ul class="path-features" style="margin-bottom: 0;">
-                            <li><span class="path-feature-icon" style="color: var(--electric);">◆</span> Software Gestionali Custom</li>
-                            <li><span class="path-feature-icon" style="color: var(--electric);">◆</span> Integrazione Large Language Models</li>
-                            <li><span class="path-feature-icon" style="color: var(--electric);">◆</span> Automazione Workflow</li>
-                        </ul>
-                    </div>
-                    <div class="showcase-visual" style="position: relative;">
-                        <div style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), transparent); border: 1px solid rgba(59, 130, 246, 0.2); padding: 40px; border-radius: 4px; position: relative; z-index: 1;">
-                            <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1000" alt="AI & Software" style="width: 100%; border-radius: 2px; filter: brightness(0.8) blue-shift;">
-                        </div>
-                        <div style="position: absolute; top: -20px; right: -20px; width: 100%; height: 100%; border: 1px solid rgba(59, 130, 246, 0.1); z-index: 0;"></div>
-                    </div>
+    <!-- ===================== CAPITOLI — Editorial TOC ===================== -->
+    <section id="capitoli" class="capitoli-section">
+        <div class="capitoli-wrap">
+            <header class="capitoli__header">
+                <div>
+                    <p class="label label-block rise">&sect; Indice</p>
+                    <h2 class="d2 rise" data-d="1">I <em>capitoli</em>.</h2>
                 </div>
-
-                <!-- Feature 2: Data Management (Inverted) -->
-                <div class="showcase-item reveal" style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 120px;">
-                    <div class="showcase-visual" style="position: relative; order: 2;">
-                        <div style="background: linear-gradient(135deg, rgba(201, 168, 76, 0.1), transparent); border: 1px solid rgba(201, 168, 76, 0.2); padding: 40px; border-radius: 4px; position: relative; z-index: 1;">
-                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1000" alt="Data Management" style="width: 100%; border-radius: 2px; filter: brightness(0.8);">
-                        </div>
-                        <div style="position: absolute; bottom: -20px; left: -20px; width: 100%; height: 100%; border: 1px solid rgba(201, 168, 76, 0.1); z-index: 0;"></div>
-                    </div>
-                    <div class="showcase-text" style="order: 1;">
-                        <div class="hero-badge" style="justify-content: flex-start; margin-bottom: 20px;">
-                            <span class="hero-badge-text" style="color: var(--gold-400); letter-spacing: 0.2em;">The Brain</span>
-                        </div>
-                        <h3 class="service-title" style="font-size: 2.5rem; margin-bottom: 20px;">Data Management <br>& Business Intelligence</h3>
-                        <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-body); margin-bottom: 30px;">I dati sono il patrimonio pi&ugrave; prezioso della tua impresa. Li estraiamo, li proteggiamo e li rendiamo leggibili attraverso dashboard intuitive per guidare ogni tua decisione strategica.</p>
-                        <ul class="path-features" style="margin-bottom: 0;">
-                            <li><span class="path-feature-icon" style="color: var(--gold-500);">◆</span> Analisi Predittiva dei Dati</li>
-                            <li><span class="path-feature-icon" style="color: var(--gold-500);">◆</span> Dashboard KPI in Real-time</li>
-                            <li><span class="path-feature-icon" style="color: var(--gold-500);">◆</span> Data Security & Governance</li>
-                        </ul>
-                    </div>
+                <div class="rise" data-d="2">
+                    <p class="body">Ogni pagina &egrave; un capitolo dell'ecosistema CSF. Puoi leggerli nell'ordine che preferisci &mdash; sono pensati per essere attraversati, non consultati.</p>
                 </div>
+            </header>
 
-                <!-- Feature 3: Branding & Communication -->
-                <div class="showcase-item reveal" style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
-                    <div class="showcase-text">
-                        <div class="hero-badge" style="justify-content: flex-start; margin-bottom: 20px;">
-                            <span class="hero-badge-text" style="color: var(--white); letter-spacing: 0.2em;">The Voice</span>
-                        </div>
-                        <h3 class="service-title" style="font-size: 2.5rem; margin-bottom: 20px;">Comunicazione <br>& Branding Strategico</h3>
-                        <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-body); margin-bottom: 30px;">L'innovazione deve essere comunicata. Costruiamo identit&agrave; di marca forti e strategie di digital marketing che posizionano la tua azienda come leader indiscusso del settore.</p>
-                        <ul class="path-features" style="margin-bottom: 0;">
-                            <li><span class="path-feature-icon" style="color: var(--white);">◆</span> Brand Identity & Rebranding</li>
-                            <li><span class="path-feature-icon" style="color: var(--white);">◆</span> Digital Marketing Performance</li>
-                            <li><span class="path-feature-icon" style="color: var(--white);">◆</span> Content Strategy & Social</li>
-                        </ul>
-                    </div>
-                    <div class="showcase-visual" style="position: relative;">
-                        <div style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent); border: 1px solid rgba(255, 255, 255, 0.1); padding: 40px; border-radius: 4px; position: relative; z-index: 1;">
-                            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=1000" alt="Branding" style="width: 100%; border-radius: 2px; filter: contrast(1.1);">
-                        </div>
-                        <div style="position: absolute; top: -20px; right: -20px; width: 100%; height: 100%; border: 1px solid rgba(255, 255, 255, 0.05); z-index: 0;"></div>
-                    </div>
-                </div>
+            <div class="toc rise">
+                <a href="chi-siamo.html" class="toc__item">
+                    <span class="toc__n">II</span>
+                    <span class="toc__title">Chi siamo <em>&amp; metodo</em><span class="dots">&middot;  &middot;  &middot;  &middot;  &middot;</span></span>
+                    <span class="toc__go">Apri
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </span>
+                </a>
+                <a href="servizi.html" class="toc__item">
+                    <span class="toc__n">III</span>
+                    <span class="toc__title">Servizi <em>tradizionali</em><span class="dots">&middot;  &middot;  &middot;  &middot;  &middot;</span></span>
+                    <span class="toc__go">Apri
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </span>
+                </a>
+                <a href="percorsi.html" class="toc__item">
+                    <span class="toc__n">IV</span>
+                    <span class="toc__title">Percorsi <em>a pacchetto</em><span class="dots">&middot;  &middot;  &middot;  &middot;  &middot;</span></span>
+                    <span class="toc__go">Apri
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </span>
+                </a>
+                <a href="innova.html" class="toc__item">
+                    <span class="toc__n">V</span>
+                    <span class="toc__title">Innovazione <em>&amp; tecnologia</em><span class="dots">&middot;  &middot;  &middot;  &middot;  &middot;</span></span>
+                    <span class="toc__go">Apri
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </span>
+                </a>
+                <a href="partnership.html" class="toc__item">
+                    <span class="toc__n">VI</span>
+                    <span class="toc__title">Partnership <em>&amp; pool</em><span class="dots">&middot;  &middot;  &middot;  &middot;  &middot;</span></span>
+                    <span class="toc__go">Apri
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </span>
+                </a>
+                <a href="contatti.html" class="toc__item">
+                    <span class="toc__n">VII</span>
+                    <span class="toc__title">Contatti <em>&amp; incontri</em><span class="dots">&middot;  &middot;  &middot;  &middot;  &middot;</span></span>
+                    <span class="toc__go">Apri
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </span>
+                </a>
             </div>
         </div>
     </section>
 
-    <style>
-        @media (max-width: 1024px) {
-            .showcase-item {
-                grid-template-columns: 1fr !important;
-                gap: 40px !important;
-                margin-bottom: 80px !important;
-            }
-            .showcase-visual {
-                order: 2 !important;
-            }
-            .showcase-text {
-                order: 1 !important;
-            }
-            .showcase-visual div {
-                padding: 20px !important;
-            }
-        }
-    </style>
-
-    <!-- ===================== INNOVATION PATHS SECTION ===================== -->
-    <section id="innovation" style="padding: var(--section-padding) 0; position: relative; background: var(--navy-950);">
-        <div class="innovation-bg">
-            <div class="innovation-grid-pattern"></div>
-        </div>
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="section-label">Scegli il tuo Percorso</span>
-                <h2 class="section-title">L'Evoluzione su <span class="text-gold">Misura</span></h2>
-                <p class="section-subtitle">Che tu stia dando vita a un'idea o voglia rivoluzionare una realtà consolidata, CSF Consulting ha il roadmap perfetto per la tua crescita.</p>
-            </div>
-
-            <div class="innovation-paths">
-                <!-- Path: Startup -->
-                <div class="path-card path-startup reveal">
-                    <div class="path-glow"></div>
-                    <div class="path-header">
-                        <div class="path-icon">
-                            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M32 6l14 24H18L32 6z"/>
-                                <line x1="32" y1="30" x2="32" y2="50"/>
-                                <circle cx="32" cy="54" r="4"/>
-                                <line x1="22" y1="42" x2="42" y2="42"/>
-                            </svg>
-                        </div>
-                        <h3 class="path-title">Inizia la Tua Startup</h3>
-                    </div>
-                    <p class="path-description">Dall'idea al mercato. Ti accompagniamo nella creazione della tua startup con un percorso strutturato che unisce visione imprenditoriale e solidit&agrave; gestionale.</p>
-                    <ul class="path-features">
-                        <li>Business plan e strategia</li>
-                        <li>Digital marketing e branding</li>
-                        <li>Sviluppo software e piattaforme</li>
-                        <li>Setup fiscale e societario</li>
-                    </ul>
-                    <a href="contatti.html" class="btn btn-electric">Scopri il Percorso</a>
+    <!-- ===================== CLOSING CTA ===================== -->
+    <section class="closing-section">
+        <div class="closing-wrap">
+            <div class="closing__grid">
+                <div>
+                    <p class="folio rise">&sect; Ultimo</p>
+                    <h2 class="d2 rise" data-d="1">Il modo pi&ugrave; semplice<br>&egrave; <em>parlarne</em>.</h2>
                 </div>
-
-                <!-- Divider -->
-                <div class="path-divider">
-                    <div class="path-divider-line"></div>
-                    <span class="path-divider-text">oppure</span>
-                    <div class="path-divider-line"></div>
-                </div>
-
-                <!-- Path: Transform -->
-                <div class="path-card path-transform reveal">
-                    <div class="path-glow"></div>
-                    <div class="path-header">
-                        <div class="path-icon">
-                            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="6" y="20" width="20" height="20" rx="3"/>
-                                <rect x="38" y="20" width="20" height="20" rx="3"/>
-                                <path d="M26 26h12"/>
-                                <path d="M34 22l4 4-4 4"/>
-                                <path d="M38 34H26"/>
-                                <path d="M30 38l-4-4 4-4"/>
-                            </svg>
-                        </div>
-                        <h3 class="path-title">Trasforma la Tua Impresa</h3>
-                    </div>
-                    <p class="path-description">Evolvi il tuo business esistente. Portiamo la tua impresa nell'era digitale ottimizzando processi, comunicazione e gestione attraverso tecnologie all'avanguardia.</p>
-                    <ul class="path-features">
-                        <li>Analisi e ottimizzazione processi</li>
-                        <li>Rebranding e digital presence</li>
-                        <li>Automazione e digitalizzazione</li>
-                        <li>AI e data analytics</li>
-                    </ul>
-                    <a href="contatti.html" class="btn btn-luminous">Scopri il Percorso</a>
+                <div class="closing__actions rise" data-d="2">
+                    <a href="contatti.html" class="btn btn-primary">
+                        <span>Prendi un'ora con noi</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </a>
                 </div>
             </div>
         </div>
@@ -782,6 +718,7 @@
         </div>
     </footer>
 
+    <script src="lenis.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

@@ -25,6 +25,11 @@
         setupCustomCursor();
         setupAgentChat();
         handleHashScroll();
+
+        /* --- Editorial layer (homepage only) --- */
+        if (document.body.classList.contains('home')) {
+            setupEditorialLayer();
+        }
     }
 
     /* ----- Preloader ----- */
@@ -1006,6 +1011,152 @@
             var el = document.getElementById('agentMessages');
             if (el) el.scrollTop = el.scrollHeight;
         }
+    }
+
+    /* ============================================================
+       EDITORIAL LAYER — homepage only
+       .rise / .line-mask reveal, data-breathe word-by-word,
+       data-type typing, data-year auto, is-loaded trigger.
+       ============================================================ */
+    function setupEditorialLayer() {
+        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        /* ---- IS-LOADED trigger (hero slide-up) ---- */
+        /* Fire as soon as fonts are ready (prevents FOUT jump), fallback after 800ms */
+        var markLoaded = function () {
+            document.body.classList.add('is-loaded');
+        };
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(function () {
+                requestAnimationFrame(markLoaded);
+            });
+        } else {
+            requestAnimationFrame(markLoaded);
+        }
+        /* Safety net */
+        setTimeout(markLoaded, 1200);
+
+        /* ---- RISE / LINE-MASK reveal ---- */
+        var riseTargets = document.querySelectorAll('.rise, .line-mask');
+        if (riseTargets.length && 'IntersectionObserver' in window) {
+            var ioRise = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-in');
+                        ioRise.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+            riseTargets.forEach(function (t) { ioRise.observe(t); });
+        } else {
+            riseTargets.forEach(function (t) { t.classList.add('is-in'); });
+        }
+
+        /* ---- BREATHE: split into words, illuminate on scroll ---- */
+        var breatheBlocks = document.querySelectorAll('[data-breathe]');
+        breatheBlocks.forEach(function (el) {
+            /* Split innerHTML by whitespace, preserving nested tags (em, etc.) */
+            /* Use a DOM walker approach to only wrap text nodes */
+            wrapTextWords(el);
+        });
+        if (breatheBlocks.length && !reduce) {
+            var updateBreathe = function () {
+                var vh = window.innerHeight;
+                breatheBlocks.forEach(function (b) {
+                    var r = b.getBoundingClientRect();
+                    var p = Math.min(1, Math.max(0, (vh * 0.9 - r.top) / (vh * 0.6)));
+                    var words = b.querySelectorAll('.word');
+                    var count = Math.round(p * words.length);
+                    words.forEach(function (w, i) {
+                        if (i < count) w.classList.add('is-lit');
+                        else w.classList.remove('is-lit');
+                    });
+                });
+            };
+            window.addEventListener('scroll', updateBreathe, { passive: true });
+            window.addEventListener('resize', updateBreathe, { passive: true });
+            updateBreathe();
+        } else if (reduce) {
+            /* reduced motion: show all words immediately */
+            document.querySelectorAll('[data-breathe] .word').forEach(function (w) {
+                w.classList.add('is-lit');
+            });
+        }
+
+        /* ---- TYPING ---- */
+        document.querySelectorAll('[data-type]').forEach(function (el) {
+            if (reduce) {
+                try {
+                    var arr = JSON.parse(el.getAttribute('data-type'));
+                    el.textContent = arr && arr.length ? arr[0] : '';
+                } catch (e) { el.textContent = el.getAttribute('data-type') || ''; }
+                return;
+            }
+            var phrases;
+            try { phrases = JSON.parse(el.getAttribute('data-type')); }
+            catch (e) { phrases = [el.getAttribute('data-type')]; }
+            if (!phrases || !phrases.length) return;
+            var pi = 0, ci = 0, del = false;
+            var speed = 48, hold = 1800, gap = 280;
+            var step = function () {
+                var w = phrases[pi];
+                if (!del) {
+                    ci++; el.textContent = w.slice(0, ci);
+                    if (ci === w.length) { del = true; return setTimeout(step, hold); }
+                } else {
+                    ci--; el.textContent = w.slice(0, ci);
+                    if (ci === 0) { del = false; pi = (pi + 1) % phrases.length; return setTimeout(step, gap); }
+                }
+                setTimeout(step, del ? speed * 0.55 : speed);
+            };
+            setTimeout(step, 700);
+        });
+
+        /* ---- YEAR auto ---- */
+        document.querySelectorAll('[data-year]').forEach(function (el) {
+            el.textContent = new Date().getFullYear();
+        });
+
+        /* ---- LENIS smooth scroll (homepage only) ---- */
+        /* Loaded via <script> tag in index.html; init conditionally */
+        if (typeof Lenis !== 'undefined' && !reduce) {
+            try {
+                var lenis = new Lenis({
+                    duration: 1.1,
+                    easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+                    smoothWheel: true,
+                    lerp: 0.1
+                });
+                function lenisRaf(time) { lenis.raf(time); requestAnimationFrame(lenisRaf); }
+                requestAnimationFrame(lenisRaf);
+            } catch (e) { /* ignore */ }
+        }
+    }
+
+    /* ---- helper: wrap words in text nodes (preserving inline tags like <em>) ---- */
+    function wrapTextWords(root) {
+        var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+        var nodes = [];
+        var n;
+        while ((n = walker.nextNode())) nodes.push(n);
+        nodes.forEach(function (node) {
+            var text = node.nodeValue;
+            if (!text || !/\S/.test(text)) return;
+            var parts = text.split(/(\s+)/);
+            var frag = document.createDocumentFragment();
+            parts.forEach(function (part) {
+                if (!part) return;
+                if (/^\s+$/.test(part)) {
+                    frag.appendChild(document.createTextNode(part));
+                } else {
+                    var span = document.createElement('span');
+                    span.className = 'word';
+                    span.textContent = part;
+                    frag.appendChild(span);
+                }
+            });
+            node.parentNode.replaceChild(frag, node);
+        });
     }
 
 })();
