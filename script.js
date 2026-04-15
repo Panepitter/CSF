@@ -1117,6 +1117,33 @@
             el.textContent = new Date().getFullYear();
         });
 
+        /* ---- DATA-COUNT counters (editorial stats) ---- */
+        var dataCounters = document.querySelectorAll('[data-count]');
+        if (dataCounters.length && 'IntersectionObserver' in window) {
+            var dcObs = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (!e.isIntersecting) return;
+                    var el = e.target;
+                    var target = parseFloat(el.getAttribute('data-count'));
+                    if (isNaN(target)) return;
+                    var suf = el.getAttribute('data-suffix') || '';
+                    var dec = parseInt(el.getAttribute('data-decimals') || '0', 10);
+                    var dur = 1700;
+                    var start = performance.now();
+                    var tick = function (now) {
+                        var p = Math.min(1, (now - start) / dur);
+                        var eased = 1 - Math.pow(1 - p, 3);
+                        el.textContent = (target * eased).toFixed(dec) + suf;
+                        if (p < 1) requestAnimationFrame(tick);
+                        else el.textContent = target.toFixed(dec) + suf;
+                    };
+                    requestAnimationFrame(tick);
+                    dcObs.unobserve(el);
+                });
+            }, { threshold: 0.4 });
+            dataCounters.forEach(function (c) { dcObs.observe(c); });
+        }
+
         /* ---- LENIS smooth scroll (homepage only) ---- */
         /* Loaded via <script> tag in index.html; init conditionally */
         if (typeof Lenis !== 'undefined' && !reduce) {
