@@ -1,0 +1,140 @@
+%%{init: {
+  "theme": "dark",
+  "themeVariables": {
+    "primaryColor": "#1a2744",
+    "primaryTextColor": "#f0e6ce",
+    "primaryBorderColor": "#c9a84c",
+    "lineColor": "#c9a84c",
+    "secondaryColor": "#0f1a2e",
+    "tertiaryColor": "#162035",
+    "fontFamily": "Inter, sans-serif",
+    "fontSize": "13px",
+    "clusterBkg": "#0d1525",
+    "clusterBorder": "#c9a84c40"
+  }
+}}%%
+
+flowchart TD
+    %% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    %% ENTRY — IL NEED DEL CLIENTE
+    %% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    NEED(["\n🏢 NEED DEL CLIENTE\nEsigenza fiscale · societaria · gestionale · digitale\n"])
+
+    NEED --> INTAKE
+
+    %% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    %% FASE 1 — PRIMO CONTATTO & RACCOLTA
+    %% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    subgraph FASE1["◼ FASE 1 — INTAKE & ANALISI"]
+        INTAKE["Primo Contatto\nAscolto del bisogno"]
+        INTAKE --> RACCOLTA["Raccolta Dati Grezzi\nDocumenti · Flussi · Storico"]
+        RACCOLTA --> DIAGNOSI{"Diagnosi\nMultidisciplinare"}
+    end
+
+    %% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    %% FASE 2 — SMISTAMENTO ALLE AREE OPERATIVE
+    %% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    DIAGNOSI --> FISCALE
+    DIAGNOSI --> CONTAB
+    DIAGNOSI --> SOCIET
+    DIAGNOSI --> LAVORO
+
+    subgraph CORE["◼ FASE 2 — ELABORAZIONE CORE · I 4 PILASTRI"]
+        direction TB
+
+        subgraph P1["Pilastro I"]
+            FISCALE["⚖️ Fiscale & Dichiarativi\n─────────────────\nDottore Commercialista"]
+            FISCALE --> F_OUT["Pianificazione fiscale\nDichiarativi · Contenzioso"]
+        end
+
+        subgraph P2["Pilastro II"]
+            CONTAB["📊 Contabilità & Bilancio\n─────────────────\nReparto Contabile"]
+            CONTAB --> C_OUT["Tenuta contabile\nBilanci UE · Reporting"]
+        end
+
+        subgraph P3["Pilastro III"]
+            SOCIET["🏛️ Consulenza Societaria\n─────────────────\nConsulente Societario"]
+            SOCIET --> S_OUT["Costituzioni · M&A\nPassaggi generazionali"]
+        end
+
+        subgraph P4["Pilastro IV"]
+            LAVORO["👥 Consulenza del Lavoro\n─────────────────\nConsulente del Lavoro"]
+            LAVORO --> L_OUT["Amministrazione HR\nWelfare · Audit"]
+        end
+    end
+
+    %% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    %% INTERCONNESSIONE TRA AREE (il valore CSF)
+    %% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    F_OUT <-.->|"scambio dati"| C_OUT
+    C_OUT <-.->|"scambio dati"| S_OUT
+    S_OUT <-.->|"scambio dati"| L_OUT
+    F_OUT <-.->|"scambio dati"| L_OUT
+
+    %% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    %% FASE 3 — CONVERGENZA NEL DATA LAYER
+    %% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    F_OUT --> DATALAYER
+    C_OUT --> DATALAYER
+    S_OUT --> DATALAYER
+    L_OUT --> DATALAYER
+
+    subgraph INNOVA["◼ FASE 3 — VALORIZZAZIONE · DIVISIONE INNOVA"]
+        direction TB
+        DATALAYER[("💎 DATA LAYER\nConvergenza di tutti i flussi\ndalle 4 aree operative")]
+
+        DATALAYER --> DM["📈 Data Management &\nBusiness Intelligence\n─────────────────\nAnalisi predittiva · Dashboard KPI\nData Governance"]
+
+        DATALAYER --> AI["🤖 Sviluppo Software & AI\n─────────────────\nAutomazione processi\nModelli predittivi · Integrazione"]
+
+        DATALAYER --> BRAND["🎨 Branding &\nDigital Marketing\n─────────────────\nIdentità · Comunicazione\nStrategia digitale"]
+
+        DM --> INSIGHT["Insight Strategici\nPattern · Trend · Anomalie"]
+        AI --> AUTOMAZ["Automazione\nWorkflow ottimizzati"]
+        BRAND --> POSIZ["Posizionamento\nValore percepito"]
+    end
+
+    %% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    %% FASE 4 — OUTPUT AL CLIENTE
+    %% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    INSIGHT --> OUTPUT
+    AUTOMAZ --> OUTPUT
+    POSIZ --> OUTPUT
+
+    subgraph FASE4["◼ FASE 4 — RESTITUZIONE VALORE"]
+        OUTPUT["Visione d'Insieme\nReport integrato multidisciplinare"]
+        OUTPUT --> CONSAP["📋 Consapevolezza\nIl cliente comprende\nla propria azienda"]
+        OUTPUT --> STRAT["🧭 Strategia\nDecisioni basate\nsui dati"]
+        OUTPUT --> CRESCITA["📈 Crescita\nWorkflow efficienti\ne impatto misurabile"]
+    end
+
+    CONSAP --> FEEDBACK
+    STRAT --> FEEDBACK
+    CRESCITA --> FEEDBACK
+
+    FEEDBACK(["🔄 FEEDBACK LOOP\nI nuovi dati alimentano il ciclo\n55 anni di apprendimento continuo"])
+
+    FEEDBACK -.->|"ciclo continuo"| RACCOLTA
+
+    %% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    %% STILI
+    %% ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    classDef entry fill:#2a1f0a,stroke:#c9a84c,stroke-width:3px,color:#f0e6ce,font-weight:700
+    classDef intake fill:#162035,stroke:#3b7cf5,stroke-width:1.5px,color:#e0e7f0
+    classDef pillar fill:#1a2744,stroke:#c9a84c,stroke-width:1.5px,color:#f0e6ce
+    classDef output fill:#1a2744,stroke:#c9a84c,stroke-width:1px,color:#d4ad42
+    classDef innova fill:#0f1a2e,stroke:#3b7cf5,stroke-width:1.5px,color:#93b4f5
+    classDef result fill:#162035,stroke:#c9a84c,stroke-width:1px,color:#f0e6ce
+    classDef datalayer fill:#1a0f2e,stroke:#c9a84c,stroke-width:2px,color:#f0e6ce,font-weight:600
+    classDef feedback fill:#0d2a1a,stroke:#4ade80,stroke-width:2px,color:#bbf7d0,font-weight:600
+    classDef decision fill:#2a1f0a,stroke:#c9a84c,stroke-width:2px,color:#f0e6ce
+
+    class NEED,FEEDBACK entry
+    class INTAKE,RACCOLTA intake
+    class DIAGNOSI decision
+    class FISCALE,CONTAB,SOCIET,LAVORO pillar
+    class F_OUT,C_OUT,S_OUT,L_OUT output
+    class DM,AI,BRAND innova
+    class DATALAYER datalayer
+    class INSIGHT,AUTOMAZ,POSIZ innova
+    class OUTPUT,CONSAP,STRAT,CRESCITA result
