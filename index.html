@@ -1,920 +1,315 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
-    <link rel="icon" href="favicon.ico" sizes="32x32">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <title>CSF Consulting — Tradizione e Innovazione dal 1970</title>
-    <meta name="description" content="CSF Consulting: oltre 55 anni di esperienza nella consulenza d'impresa. Consulenza fiscale, contabile, societaria, del lavoro e innovation management nel territorio pontino.">
-    <meta name="keywords" content="CSF Consulting, Studio Frasca, commercialista, consulenza fiscale, contabilità, consulenza societaria, consulenza del lavoro, innovation management, territorio pontino">
-    <meta property="og:title" content="CSF Consulting — Tradizione e Innovazione dal 1970">
-    <meta property="og:description" content="Oltre 55 anni di esperienza nella consulenza d'impresa. Competenza radicata, visione proiettata al futuro.">
-    <meta property="og:type" content="website">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CSF Consulting — Strategia, fiscalità e tecnologia dal 1978</title>
+<meta name="description" content="Boutique di consulenza a Latina: fiscalità, finanza agevolata, controllo di gestione e Innova — il reparto dati, AI e brand. Dal 1978.">
+<meta property="og:title" content="CSF Consulting — Strategia, fiscalità e tecnologia">
+<meta property="og:description" content="Boutique di consulenza a Latina dal 1978. Fiscalità, finanza agevolata, controllo di gestione, Innova.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="index.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/app.css">
+<link rel="stylesheet" href="assets/reveal.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ProfessionalService","name":"CSF Consulting","address":{"@type":"PostalAddress","streetAddress":"Via Aldo Moro 12","addressLocality":"Latina","postalCode":"04100","addressCountry":"IT"},"telephone":"+39 0773 000 000","email":"info@csf-consulting.it","foundingDate":"1978"}
+</script>
+<style>
+/* Homepage-specific */
+.hero{padding:clamp(60px,8vw,120px) 0 clamp(80px,10vw,140px);border-bottom:1px solid var(--rule);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;right:-20%;width:60vw;height:60vw;max-width:700px;max-height:700px;background:radial-gradient(circle,rgba(212,173,66,.08),transparent 60%);pointer-events:none;z-index:0}
+.hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1.3fr 1fr;gap:80px;align-items:end}
+.hero-copy{display:flex;flex-direction:column;gap:var(--sp-8)}
+.hero h1{font-size:var(--fs-120)}
+.hero .actions{display:flex;gap:16px;flex-wrap:wrap;margin-top:var(--sp-4)}
+.hero-side{display:flex;flex-direction:column;gap:var(--sp-6)}
+.hero-ph{aspect-ratio:3/4;background:
+  repeating-linear-gradient(135deg,rgba(212,173,66,.04) 0 14px,transparent 14px 28px),
+  linear-gradient(180deg,var(--bg-surface),var(--bg-raised));
+  border:1px solid var(--rule);position:relative;display:flex;align-items:flex-end;padding:24px}
+.hero-ph::after{content:'';position:absolute;inset:16px;border:1px dashed rgba(212,173,66,.2)}
+.hero-ph span{font-family:var(--f-mono);font-size:var(--fs-12);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-300);position:relative;z-index:1}
+.hero-meta{display:flex;justify-content:space-between;gap:20px;padding-top:var(--sp-6);border-top:1px solid var(--rule);font-family:var(--f-mono);font-size:var(--fs-12);letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim)}
+.hero-meta strong{color:var(--gold-300);font-weight:500;display:block;margin-top:4px}
+@media (max-width:900px){.hero-inner{grid-template-columns:1fr;gap:40px}.hero-ph{aspect-ratio:4/3}}
+
+/* Manifesto */
+.manifesto{padding:var(--section-py) 0}
+.manifesto .container{max-width:900px}
+.manifesto p{font-family:var(--f-display);font-weight:300;font-size:var(--fs-40);line-height:1.25;color:var(--text-heading);text-wrap:balance;letter-spacing:-.015em}
+.manifesto p em{font-style:italic;color:var(--gold-300)}
+.manifesto .sig{margin-top:var(--sp-10);display:flex;gap:20px;align-items:center;font-family:var(--f-mono);font-size:var(--fs-12);letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim)}
+.manifesto .sig .line{flex:0 0 60px;height:1px;background:var(--gold-500)}
+
+/* Pillars (servizi teaser) */
+.pillars{background:var(--bg-deep)}
+.pillar-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:var(--sp-10)}
+.pillar{background:var(--bg-deep);padding:var(--sp-12) var(--sp-10);display:flex;flex-direction:column;gap:var(--sp-4);transition:background var(--t-mid) var(--ease-out)}
+.pillar:hover{background:var(--bg-base)}
+.pillar .num{font-family:var(--f-mono);font-size:var(--fs-12);letter-spacing:.18em;color:var(--gold-400);margin-bottom:var(--sp-2)}
+.pillar h3{color:var(--text-heading)}
+.pillar h3 em{color:var(--gold-300);font-style:italic}
+.pillar p{color:var(--text-muted);font-size:var(--fs-16);line-height:1.65}
+.pillar .more{margin-top:var(--sp-4);font-family:var(--f-mono);font-size:var(--fs-12);letter-spacing:.18em;text-transform:uppercase;color:var(--gold-300);display:inline-flex;gap:8px;align-items:center}
+@media (max-width:720px){.pillar-grid{grid-template-columns:1fr}}
+
+/* Innova teaser */
+.innova-teaser{padding:var(--section-py) 0;background:var(--bg-deep);border-bottom:1px solid var(--rule)}
+.innova-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.innova-grid .ph{aspect-ratio:4/5}
+.innova-badge{font-family:var(--f-mono);font-size:var(--fs-12);letter-spacing:.22em;text-transform:uppercase;color:var(--blue-300);padding:6px 12px;border:1px solid rgba(59,124,245,.3);display:inline-block;margin-bottom:var(--sp-6)}
+.innova-teaser h2 em{color:var(--blue-300)}
+.innova-cats{display:flex;gap:24px;margin-top:var(--sp-8);flex-wrap:wrap}
+.innova-cats div{flex:1;min-width:160px;padding:var(--sp-6) 0;border-top:1px solid var(--rule)}
+.innova-cats .k{font-family:var(--f-mono);font-size:var(--fs-12);letter-spacing:.15em;color:var(--blue-300);text-transform:uppercase;margin-bottom:var(--sp-2)}
+.innova-cats .v{font-family:var(--f-display);font-size:var(--fs-24);color:var(--text-heading);font-weight:500}
+@media (max-width:900px){.innova-grid{grid-template-columns:1fr;gap:40px}}
+
+/* Numbers */
+.numbers{padding:var(--section-py) 0;border-bottom:1px solid var(--rule)}
+.num-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:var(--sp-10)}
+.num-cell{background:var(--bg-base);padding:var(--sp-10) var(--sp-8)}
+.num-cell .n{font-family:var(--f-display);font-weight:300;font-size:var(--fs-80);line-height:.95;color:var(--gold-300);letter-spacing:-.02em}
+.num-cell .n small{font-size:var(--fs-32);color:var(--gold-400);letter-spacing:0}
+.num-cell .l{font-family:var(--f-mono);font-size:var(--fs-12);letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);margin-top:var(--sp-3)}
+.num-cell .d{color:var(--text-muted);font-size:var(--fs-14);margin-top:var(--sp-3);line-height:1.6}
+@media (max-width:900px){.num-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.num-grid{grid-template-columns:1fr}}
+
+/* Founder letter */
+.letter{padding:var(--section-py) 0;background:var(--bg-deep)}
+.letter-inner{display:grid;grid-template-columns:1fr 1.5fr;gap:80px;align-items:start}
+.letter-portrait{aspect-ratio:3/4}
+.letter-body p{font-family:var(--f-display);font-weight:300;font-size:var(--fs-20);line-height:1.65;color:var(--text-body);margin-bottom:1.2em;max-width:58ch}
+.letter-body p em{font-style:italic;color:var(--gold-200)}
+.letter-body .sign{font-family:var(--f-display);font-size:var(--fs-32);color:var(--gold-300);font-style:italic;margin-top:var(--sp-8)}
+.letter-body .role{font-family:var(--f-mono);font-size:var(--fs-12);letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);margin-top:var(--sp-2)}
+@media (max-width:900px){.letter-inner{grid-template-columns:1fr;gap:40px}}
+
+/* CTA */
+.cta{padding:var(--section-py) 0;border-bottom:1px solid var(--rule)}
+.cta-card{border:1px solid var(--rule);padding:var(--sp-16) clamp(24px,5vw,80px);text-align:center;background:linear-gradient(180deg,rgba(212,173,66,.03),transparent);max-width:var(--container-narrow);margin:0 auto}
+.cta-card h2{margin-bottom:var(--sp-6)}
+.cta-card p{color:var(--text-muted);max-width:50ch;margin:0 auto var(--sp-10)}
+.cta-card .actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+</style>
 </head>
-<body class="home">
+<body data-page="home">
 
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="preloader-inner">
-            <div class="preloader-logo">CSF</div>
-            <div class="preloader-line"></div>
-            <div class="preloader-text">CONSULTING</div>
+<a class="skip" href="#main">Vai al contenuto</a>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="mark"></span>CSF <em>Consulting</em></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="chi-siamo.html">Chi siamo</a></li>
+      <li><a href="servizi.html">Servizi</a></li>
+      <li><a href="innova.html">Innova</a></li>
+      <li><a href="partnership.html">Partnership</a></li>
+      <li><a href="contatti.html">Contatti</a></li>
+      <li><a class="nav-cta" href="contatti.html">Prenota un incontro</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Apri menu" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+  </div>
+</nav>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-copy reveal">
+          <p class="folio">Dal 1978 &mdash; Territorio Pontino</p>
+          <h1 class="display">Una consulenza<br>che <em>compone</em><br>tradizione<br>e tecnologia.</h1>
+          <p class="lede">Siamo una <em>boutique</em> di consulenza: fiscalità, finanza agevolata e controllo di gestione affiancati da <em>Innova</em>, il nostro reparto di dati, intelligenza artificiale e strategia di marca.</p>
+          <div class="actions">
+            <a href="servizi.html" class="btn primary">Scopri i servizi <span class="arr">→</span></a>
+            <a href="chi-siamo.html" class="btn ghost">Chi siamo</a>
+          </div>
         </div>
+        <div class="hero-side reveal delay-2">
+          <div class="hero-ph">
+            <span>Ritratto<br>dello studio</span>
+          </div>
+          <div class="hero-meta">
+            <div>Fondato<strong>1978</strong></div>
+            <div>Sede<strong>Latina · LT</strong></div>
+            <div>Team<strong>12 professionisti</strong></div>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- Custom Cursor (desktop only) -->
-    <div class="cursor-dot" aria-hidden="true"></div>
-    <div class="cursor-outline" aria-hidden="true"></div>
-
-    <!-- Navigation -->
-    <nav id="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo">
-                <span class="logo-csf">CSF</span>
-                <span class="logo-divider"></span>
-                <span class="logo-consulting">CONSULTING</span>
-            </a>
-            <div class="nav-links" id="navLinks">
-                <a href="index.html" class="nav-link active">Home</a>
-                <a href="chi-siamo.html" class="nav-link">Chi Siamo</a>
-                <a href="servizi.html" class="nav-link">Servizi</a>
-                <a href="percorsi.html" class="nav-link">Percorsi</a>
-                <a href="innova.html" class="nav-link">Innova</a>
-                <a href="contatti.html" class="nav-link nav-link-cta">Contatti</a>
-            </div>
-            <button class="nav-toggle" id="navToggle" aria-label="Apri menu di navigazione">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="mobile-menu-inner">
-            <a href="index.html" class="mobile-link">Home</a>
-            <a href="chi-siamo.html" class="mobile-link">Chi Siamo</a>
-            <a href="servizi.html" class="mobile-link">Servizi</a>
-            <a href="percorsi.html" class="mobile-link">Percorsi</a>
-            <a href="innova.html" class="mobile-link">Innova</a>
-            <a href="contatti.html" class="mobile-link">Contatti</a>
-        </div>
-        <div class="mobile-menu-footer">
-            <p>info@csfconsulting.it</p>
-            <p>Territorio Pontino, Italia</p>
-        </div>
+  <!-- MANIFESTO -->
+  <section class="manifesto">
+    <div class="container">
+      <p class="reveal">Crediamo che la <em>buona consulenza</em> non sia un catalogo di servizi. È un <em>metodo</em> — radicato nella tradizione contabile, aggiornato dagli strumenti di oggi — che restituisce all'imprenditore il controllo della propria azienda.</p>
+      <div class="sig reveal delay-1"><span class="line"></span>Manifesto · CSF</div>
     </div>
+  </section>
 
-    <!-- ===================== HERO SECTION — Editorial ===================== -->
-    <section id="hero" class="hero-home">
-        <canvas id="heroCanvas"></canvas>
-        <div class="hero-overlay"></div>
-
-        <div class="hero-home__folio">
-            <div>
-                <span>N.&deg; 01</span>
-                <span>&mdash; Homepage</span>
-            </div>
-            <div>
-                <span data-year>2025</span>
-                <span>&mdash; Territorio Pontino</span>
-            </div>
+  <!-- PILLARS -->
+  <section class="pillars section">
+    <div class="container">
+      <div class="section-head">
+        <span class="num">01</span>
+        <div>
+          <h2 class="h2 reveal">Quattro <em>pilastri</em>, un'unica direzione.</h2>
+          <p class="intro reveal delay-1">Ogni pilastro è un reparto interno dello studio. Nessuno lavora a comparti stagni: è questa la differenza.</p>
         </div>
+      </div>
 
-        <h1 class="hero-home__title">
-            <span class="line"><span>Tradizione</span></span>
-            <span class="line"><span>&amp; <em>innovazione</em>,</span></span>
-            <span class="line"><span>dal 1970.</span></span>
-        </h1>
-
-        <div class="hero-home__meta">
-            <p class="lede hanging">
-                CSF Consulting &egrave; un ecosistema. Uniamo fiscalit&agrave;, operazioni straordinarie, consulenza del lavoro, innovation management e tecnologie digitali &mdash; <em>sotto un'unica regia</em>, con un referente dedicato.
-            </p>
-            <div class="hero-home__actions">
-                <a href="servizi.html" class="btn btn-primary">
-                    <span>Scopri i servizi</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                </a>
-                <a href="chi-siamo.html" class="btn btn-outline">La nostra storia</a>
-            </div>
+      <div class="pillar-grid">
+        <div class="pillar reveal">
+          <span class="num">I · Fiscalità</span>
+          <h3 class="h3">Contabilità e <em>fiscalità</em> d'impresa</h3>
+          <p>Dichiarativi, bilanci civilistici e fiscali, consulenza societaria ordinaria e straordinaria.</p>
+          <a href="servizi.html#fiscalita" class="more">Approfondisci →</a>
         </div>
-
-        <div class="hero-scroll-indicator">
-            <div class="scroll-line"></div>
-            <span>Scroll</span>
+        <div class="pillar reveal delay-1">
+          <span class="num">II · Finanza</span>
+          <h3 class="h3">Finanza <em>agevolata</em> e bandi</h3>
+          <p>Accesso a contributi, crediti d'imposta 4.0 e 5.0, finanziamenti SIMEST, bandi regionali e PNRR.</p>
+          <a href="servizi.html#finanza" class="more">Approfondisci →</a>
         </div>
-    </section>
-
-    <!-- ===================== RUNNING LINE ===================== -->
-    <section class="running" aria-hidden="true">
-        <div class="running__row">
-            <span class="mono running__side">Oggi operiamo su &mdash;</span>
-            <span class="running__type" data-type='["Consulenza fiscale e dichiarativi.","Contabilit&agrave; e bilancio strategico.","Operazioni societarie &amp; M&amp;A.","Consulenza del lavoro e welfare.","Innovation management.","Intelligenza artificiale applicata.","Software gestionali su misura.","Business Intelligence real-time."]'></span>
-            <span class="mono running__side right">&mdash; <span data-year>2025</span></span>
+        <div class="pillar reveal delay-2">
+          <span class="num">III · Controllo</span>
+          <h3 class="h3">Controllo di <em>gestione</em></h3>
+          <p>Budget, forecast, cruscotti direzionali. Gli strumenti che trasformano i dati contabili in decisioni.</p>
+          <a href="servizi.html#controllo" class="more">Approfondisci →</a>
         </div>
-    </section>
-
-    <!-- ===================== MANIFESTO ===================== -->
-    <section class="manifesto ink-section">
-        <div class="manifesto__wrap">
-            <p class="label label-block rise">&sect; Manifesto</p>
-            <p class="manifesto__text" data-breathe>
-                Lo studio che ha attraversato <em>mezzo secolo</em> di riforme sa che il cambiamento non si subisce, si cavalca. CSF nasce da quell'esperienza, estesa al futuro.
-            </p>
-
-            <div class="manifesto__grid">
-                <div class="manifesto__cell rise">
-                    <p class="folio">&sect; 01 &mdash; Il principio</p>
-                    <p class="manifesto__cell-body">Anti-fragilit&agrave;: diventare pi&ugrave; forti grazie al cambiamento. Lo abbiamo vissuto in prima persona, dal 1970 a oggi.</p>
-                </div>
-                <div class="manifesto__cell rise" data-d="1">
-                    <p class="folio">&sect; 02 &mdash; Il modello</p>
-                    <p class="manifesto__cell-body">Un ecosistema di partnership verticali selezionate, non un generalista qualunque. Regia unica, lingua comune.</p>
-                </div>
-                <div class="manifesto__cell rise" data-d="2">
-                    <p class="folio">&sect; 03 &mdash; La promessa</p>
-                    <p class="manifesto__cell-body">Un referente. Un linguaggio. Un perimetro che cresce con l'impresa, dal recupero del capitale alla scalabilit&agrave;.</p>
-                </div>
-            </div>
+        <div class="pillar reveal delay-3">
+          <span class="num">IV · Percorsi</span>
+          <h3 class="h3">Percorsi <em>a pacchetto</em></h3>
+          <p>Startup (da zero al primo bilancio) e Transform (ristrutturazione per aziende attive). Nove tappe definite.</p>
+          <a href="servizi.html#percorsi" class="more">Approfondisci →</a>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- ===================== CAPITOLI — Editorial TOC ===================== -->
-    <section id="capitoli" class="capitoli-section">
-        <div class="capitoli-wrap">
-            <header class="capitoli__header">
-                <div>
-                    <p class="label label-block rise">&sect; Indice</p>
-                    <h2 class="d2 rise" data-d="1">I <em>capitoli</em>.</h2>
-                </div>
-                <div class="rise" data-d="2">
-                    <p class="body">Ogni sezione &egrave; un capitolo dell'ecosistema CSF. Puoi leggerli qui sotto oppure andare a pagina piena per l'approfondimento &mdash; sono pensati per essere attraversati, non consultati.</p>
-                </div>
-            </header>
-
-            <div class="toc rise">
-                <a href="chi-siamo.html" class="toc__item">
-                    <span class="toc__n">II</span>
-                    <span class="toc__title">Chi siamo <em>&amp; metodo</em><span class="dots">&middot;  &middot;  &middot;  &middot;  &middot;</span></span>
-                    <span class="toc__go">Apri
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                    </span>
-                </a>
-                <a href="servizi.html" class="toc__item">
-                    <span class="toc__n">III</span>
-                    <span class="toc__title">Servizi <em>tradizionali</em><span class="dots">&middot;  &middot;  &middot;  &middot;  &middot;</span></span>
-                    <span class="toc__go">Apri
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                    </span>
-                </a>
-                <a href="innova.html" class="toc__item">
-                    <span class="toc__n">IV</span>
-                    <span class="toc__title">Innovazione <em>&amp; tecnologia</em><span class="dots">&middot;  &middot;  &middot;  &middot;  &middot;</span></span>
-                    <span class="toc__go">Apri
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                    </span>
-                </a>
-                <a href="#finanza" class="toc__item">
-                    <span class="toc__n">V</span>
-                    <span class="toc__title">Finanza <em>agevolata</em><span class="dots">&middot;  &middot;  &middot;  &middot;  &middot;</span></span>
-                    <span class="toc__go">Apri
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                    </span>
-                </a>
-                <a href="percorsi.html" class="toc__item">
-                    <span class="toc__n">VI</span>
-                    <span class="toc__title">Percorsi <em>a pacchetto</em><span class="dots">&middot;  &middot;  &middot;  &middot;  &middot;</span></span>
-                    <span class="toc__go">Apri
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                    </span>
-                </a>
-                <a href="partnership.html" class="toc__item">
-                    <span class="toc__n">VII</span>
-                    <span class="toc__title">Partnership <em>&amp; pool</em><span class="dots">&middot;  &middot;  &middot;  &middot;  &middot;</span></span>
-                    <span class="toc__go">Apri
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                    </span>
-                </a>
-                <a href="contatti.html" class="toc__item">
-                    <span class="toc__n">VIII</span>
-                    <span class="toc__title">Contatti <em>&amp; incontri</em><span class="dots">&middot;  &middot;  &middot;  &middot;  &middot;</span></span>
-                    <span class="toc__go">Apri
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                    </span>
-                </a>
-            </div>
+  <!-- INNOVA TEASER -->
+  <section class="innova-teaser">
+    <div class="container">
+      <div class="innova-grid">
+        <div class="reveal">
+          <span class="innova-badge">Reparto · Innova</span>
+          <h2 class="h2">Dove i <em>dati</em> incontrano la consulenza classica.</h2>
+          <p class="lede" style="margin-top:32px">Innova è il laboratorio tecnologico dello studio. Tre competenze che affiancano — non sostituiscono — il lavoro dei commercialisti: <em>Data</em>, <em>AI</em>, <em>Brand</em>.</p>
+          <div class="innova-cats">
+            <div><p class="k">Data</p><p class="v">Dashboard</p></div>
+            <div><p class="k">AI</p><p class="v">Automazioni</p></div>
+            <div><p class="k">Brand</p><p class="v">Identità</p></div>
+          </div>
+          <div class="actions" style="margin-top:40px">
+            <a href="innova.html" class="btn">Entra in Innova <span class="arr">→</span></a>
+          </div>
         </div>
-    </section>
-
-    <!-- ===================== SERVICES SECTION (MONUMENTAL GRID → MOBILE CAROUSEL) ===================== -->
-    <section id="services" style="padding: 0; background: var(--navy-900); overflow: hidden;">
-        <div class="section-header reveal" style="padding: 100px 24px 60px; margin-bottom: 0;">
-            <span class="section-label">Consulenza Core</span>
-            <h2 class="section-title">I Pilastri del <span class="text-gold">Prestigio</span></h2>
-            <p class="section-subtitle">Oltre mezzo secolo di autorità e sicurezza garantita dal metodo Studio Frasca.</p>
+        <div class="ph reveal delay-2" style="aspect-ratio:4/5">
+          <span>Visualizzazione<br>dati · mockup</span>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="carousel-hint mobile-only" aria-hidden="true">
-            <span>Scorri i pilastri</span>
+  <!-- NUMBERS -->
+  <section class="numbers">
+    <div class="container">
+      <div class="section-head">
+        <span class="num">02</span>
+        <div>
+          <h2 class="h2 reveal">Numeri <em>verificati</em>.</h2>
+          <p class="intro reveal delay-1">Quarantotto anni di storia raccontati in modo sobrio. I dati sono aggiornati al 31.12.2025.</p>
         </div>
+      </div>
+      <div class="num-grid">
+        <div class="num-cell reveal"><p class="n">48<small>&nbsp;anni</small></p><p class="l">Fondazione</p><p class="d">Lo studio nasce nel 1978 nella forma attuale.</p></div>
+        <div class="num-cell reveal delay-1"><p class="n">320<small>+</small></p><p class="l">Clienti attivi</p><p class="d">PMI, professionisti, enti del terzo settore.</p></div>
+        <div class="num-cell reveal delay-2"><p class="n">€4,2M</p><p class="l">Contributi ottenuti</p><p class="d">Finanza agevolata nel triennio 2023-25.</p></div>
+        <div class="num-cell reveal delay-3"><p class="n">12</p><p class="l">Professionisti</p><p class="d">Commercialisti, analisti, designer, data scientist.</p></div>
+      </div>
+    </div>
+  </section>
 
-        <div class="monumental-grid" role="region" aria-label="Servizi CSF — scorri orizzontalmente">
-            <!-- Service 1 -->
-            <a href="servizi.html#fiscale" class="monolith reveal">
-                <div class="monolith-bg" style="background-image: url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=1000');"></div>
-                <div class="monolith-overlay"></div>
-                <div class="monolith-content">
-                    <div class="monolith-number">01</div>
-                    <h3 class="monolith-title">Fiscale &<br>Dichiarativi</h3>
-                    <div class="monolith-details">
-                        <div>
-                            <p>Pianificazione strategica e sicurezza normativa ai massimi livelli.</p>
-                            <ul class="monolith-list">
-                                <li>Compliance Tributaria</li>
-                                <li>Pianificazione Nazionale</li>
-                                <li>Contenzioso</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Service 2 -->
-            <a href="servizi.html#contabilita" class="monolith reveal" style="transition-delay: 0.1s;">
-                <div class="monolith-bg" style="background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=1000');"></div>
-                <div class="monolith-overlay"></div>
-                <div class="monolith-content">
-                    <div class="monolith-number">02</div>
-                    <h3 class="monolith-title">Contabilità &<br>Bilancio</h3>
-                    <div class="monolith-details">
-                        <div>
-                            <p>Trasformiamo la tenuta contabile in un asset di analisi decisionale.</p>
-                            <ul class="monolith-list">
-                                <li>Bilanci d'Esercizio</li>
-                                <li>Controllo di Gestione</li>
-                                <li>Analisi dei Flussi</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Service 3 -->
-            <a href="servizi.html#societario" class="monolith reveal" style="transition-delay: 0.2s;">
-                <div class="monolith-bg" style="background-image: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=1000');"></div>
-                <div class="monolith-overlay"></div>
-                <div class="monolith-content">
-                    <div class="monolith-number">03</div>
-                    <h3 class="monolith-title">Consulenza<br>Societaria</h3>
-                    <div class="monolith-details">
-                        <div>
-                            <p>Supporto autorevole nelle fasi più delicate della vita aziendale.</p>
-                            <ul class="monolith-list">
-                                <li>Operazioni Straordinarie</li>
-                                <li>M&A</li>
-                                <li>Asset Protection</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Service 4 -->
-            <a href="servizi.html#lavoro" class="monolith reveal" style="transition-delay: 0.3s;">
-                <div class="monolith-bg" style="background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1000');"></div>
-                <div class="monolith-overlay"></div>
-                <div class="monolith-content">
-                    <div class="monolith-number">04</div>
-                    <h3 class="monolith-title">Consulenza<br>del Lavoro</h3>
-                    <div class="monolith-details">
-                        <div>
-                            <p>Gestione magistrale delle risorse umane e delle relazioni industriali.</p>
-                            <ul class="monolith-list">
-                                <li>Amministrazione HR</li>
-                                <li>Relazioni Sindacali</li>
-                                <li>Welfare Strategico</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </a>
+  <!-- FOUNDER LETTER -->
+  <section class="letter">
+    <div class="container">
+      <div class="letter-inner">
+        <div class="ph letter-portrait reveal"><span>Ritratto fondatore<br>placeholder</span></div>
+        <div class="letter-body reveal delay-1">
+          <p class="folio" style="margin-bottom:40px">Una lettera del fondatore</p>
+          <p>Quando mio padre aprì lo studio, nel 1978, il lavoro consisteva nel <em>custodire</em> i libri contabili. Oggi il lavoro consiste nel <em>leggere</em> quei libri e farli parlare.</p>
+          <p>Non abbiamo rinunciato al vecchio mestiere. Lo abbiamo affiancato a uno nuovo, quello dei dati, perché crediamo che il consulente del nostro tempo debba sapere tanto di bilancio quanto di dashboard.</p>
+          <p>Non è una scelta di stile. È una questione di utilità per chi ci affida la propria impresa.</p>
+          <p class="sign">Carlo Frasca</p>
+          <p class="role">Senior Partner · CSF Consulting</p>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="carousel-progress mobile-only" aria-hidden="true">
-            <span class="dot is-active"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <div class="cta-card reveal">
+        <p class="folio" style="justify-content:center;margin-bottom:24px">Prossimo passo</p>
+        <h2 class="h2">Un <em>incontro</em>, una valutazione.</h2>
+        <p>Trenta minuti per capirci, senza impegno. Venite in sede a Latina oppure incontriamoci online.</p>
+        <div class="actions">
+          <a href="contatti.html" class="btn primary">Prenota un incontro <span class="arr">→</span></a>
+          <a href="partnership.html" class="btn ghost">Diventa partner</a>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- ===================== RESPIRO I — tra servizi e innovazione ===================== -->
-    <section class="respiro mobile-only" aria-hidden="true">
-        <p class="respiro__quote">Non <em>vendiamo</em> consulenza.<br>Costruiamo un <em>ecosistema</em>.</p>
-        <span class="respiro__author">Il metodo CSF</span>
-    </section>
+</main>
 
-    <style>
-        .monumental-grid {
-            display: flex;
-            width: 100%;
-            height: 600px;
-            background: var(--navy-950);
-        }
-        .monolith {
-            position: relative;
-            flex: 1;
-            overflow: hidden;
-            display: flex;
-            align-items: flex-end;
-            padding: 40px;
-            transition: flex 0.8s var(--ease-expo), filter 0.5s ease;
-            border-right: 1px solid rgba(201, 168, 76, 0.1);
-            cursor: pointer;
-        }
-        .monolith:last-child { border-right: none; }
-        a.monolith { color: inherit; text-decoration: none; }
-        .monolith-bg {
-            position: absolute;
-            inset: 0;
-            background-size: cover;
-            background-position: center;
-            filter: grayscale(1) brightness(0.4);
-            transition: transform 1.2s var(--ease-expo), filter 0.8s ease;
-        }
-        .monolith-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, transparent 0%, rgba(4, 10, 20, 0.9) 100%);
-            opacity: 0.8;
-            transition: opacity 0.6s ease;
-        }
-        .monolith-content {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            transition: transform 0.6s var(--ease-expo);
-        }
-        .monolith-number {
-            font-family: var(--font-display);
-            font-size: 4rem;
-            color: var(--gold-500);
-            opacity: 0.2;
-            line-height: 1;
-            margin-bottom: 10px;
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        .monolith-title {
-            font-size: 2rem;
-            color: var(--white);
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-        .monolith-details {
-            display: grid;
-            grid-template-rows: 0fr;
-            opacity: 0;
-            overflow: hidden;
-            transition: grid-template-rows 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .monolith-details > div {
-            overflow: hidden;
-            min-height: 0;
-        }
-        .monolith-list {
-            margin-top: 20px;
-            padding-left: 0;
-        }
-        .monolith-list li {
-            font-size: 0.85rem;
-            color: var(--gold-300);
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .monolith-list li::before {
-            content: '';
-            width: 12px;
-            height: 1px;
-            background: var(--gold-500);
-        }
+<footer class="site">
+  <div class="foot-grid">
+    <div class="foot-col">
+      <p class="foot-brand">CSF <em>Consulting</em></p>
+      <p>Boutique di consulenza strategica, fiscale e tecnologica.<br>Territorio Pontino, dal 1978.</p>
+    </div>
+    <div class="foot-col">
+      <h5>Sede</h5>
+      <address>
+        Via Aldo Moro 12<br>
+        04100 Latina (LT)<br>
+        <a href="tel:+390773000000">+39 0773 000 000</a><br>
+        <a href="mailto:info@csf-consulting.it">info@csf-consulting.it</a>
+      </address>
+    </div>
+    <div class="foot-col">
+      <h5>Studio</h5>
+      <ul>
+        <li><a href="chi-siamo.html">Chi siamo</a></li>
+        <li><a href="servizi.html">Servizi</a></li>
+        <li><a href="innova.html">Innova</a></li>
+        <li><a href="partnership.html">Partnership</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h5>Risorse</h5>
+      <ul>
+        <li><a href="contatti.html">Contatti</a></li>
+        <li><a href="privacy.html">Privacy policy</a></li>
+        <li><a href="cookie.html">Cookie policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 1978—2026 CSF Consulting · P.IVA 01234567890</span>
+    <span>Redesign <span class="diamond"></span> v3.0</span>
+  </div>
+</footer>
 
-        /* Hover Effects Desktop */
-        @media (hover: hover) {
-            .monolith:hover {
-                flex: 2.5;
-            }
-            .monolith:hover .monolith-bg {
-                filter: grayscale(0.3) brightness(0.6);
-                transform: scale(1.05);
-            }
-            .monolith:hover .monolith-overlay {
-                opacity: 0.6;
-            }
-            .monolith:hover .monolith-details {
-                grid-template-rows: 1fr;
-                opacity: 1;
-            }
-            .monolith:hover .monolith-number {
-                opacity: 0.5;
-                transform: translateY(-10px);
-            }
-        }
-
-        /* Mobile rules → spostate nel @media (max-width: 768px) di style.css
-           (sezione "HOMEPAGE — MOBILE MASTERCLASS") come carousel orizzontale. */
-    </style>
-
-    <!-- ===================== INNOVAZIONE — Respiro editoriale ===================== -->
-    <section id="innovazione" class="innov-section">
-        <div class="innov-wrap">
-            <header class="innov__head">
-                <p class="folio rise">&sect; IV &mdash; Innovazione</p>
-                <h2 class="d2 rise" data-d="1">Tre reparti.<br>Un unico <em>cervello</em>.</h2>
-                <p class="lede hanging rise" data-d="2">La transizione digitale non &egrave; un progetto. &Egrave; un <em>nuovo modo</em> di pensare l'impresa. Tre competenze che si muovono sincrone, sotto un'unica regia.</p>
-            </header>
-
-            <div class="innov-schema">
-                <article class="innov-mod rise">
-                    <p class="innov-mod__n folio">01</p>
-                    <h3 class="innov-mod__title d4">Data Management<br>&amp; BI</h3>
-                    <p class="innov-mod__body body">Data warehousing, dashboard interattive, KPI monitoring, analisi predittiva. I dati grezzi diventano decisioni.</p>
-                    <p class="innov-mod__quote">&ldquo;Il petrolio del XXI secolo senza raffinazione resta grezzo.&rdquo;</p>
-                </article>
-                <article class="innov-mod rise" data-d="1">
-                    <p class="innov-mod__n folio">02</p>
-                    <h3 class="innov-mod__title d4">Software<br>&amp; <em>AI</em></h3>
-                    <p class="innov-mod__body body">Agenti AI personalizzati, automazione workflow, web app e piattaforme, chatbot intelligenti. Strumenti su misura, non pacchetti generici.</p>
-                    <p class="innov-mod__quote">&ldquo;Non vendiamo software. Costruiamo strumenti.&rdquo;</p>
-                </article>
-                <article class="innov-mod rise" data-d="2">
-                    <p class="innov-mod__n folio">03</p>
-                    <h3 class="innov-mod__title d4">Branding<br>&amp; comunicazione</h3>
-                    <p class="innov-mod__body body">Brand identity, web design premium, content strategy, digital marketing. La tecnologia pi&ugrave; avanzata &egrave; invisibile senza la sua narrazione.</p>
-                    <p class="innov-mod__quote">&ldquo;La tecnologia senza narrazione resta invisibile.&rdquo;</p>
-                </article>
-            </div>
-
-            <div class="innov-marquee" aria-hidden="true">
-                <div class="innov-marquee__track">
-                    <span>Sinergia</span><span>&bull;</span>
-                    <span>Velocit&agrave;</span><span>&bull;</span>
-                    <span>Visione</span><span>&bull;</span>
-                    <span>Data</span><span>&bull;</span>
-                    <span>AI</span><span>&bull;</span>
-                    <span>Brand</span><span>&bull;</span>
-                    <span>Ecosistema</span><span>&bull;</span>
-                    <span>Sinergia</span><span>&bull;</span>
-                    <span>Velocit&agrave;</span><span>&bull;</span>
-                    <span>Visione</span><span>&bull;</span>
-                    <span>Data</span><span>&bull;</span>
-                    <span>AI</span><span>&bull;</span>
-                    <span>Brand</span><span>&bull;</span>
-                    <span>Ecosistema</span><span>&bull;</span>
-                </div>
-            </div>
-
-            <div class="innov__foot rise">
-                <a href="innova.html" class="link">Apri il capitolo &mdash; Innovazione
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===================== FINANZA AGEVOLATA — Bollettino editoriale ===================== -->
-    <section id="finanza" class="finanza-section ink-section">
-        <div class="finanza-wrap">
-            <div class="bulletin__masthead rise">
-                <span><strong>Il Bollettino CSF</strong></span>
-                <span>Capitolo V &middot; Finanza agevolata</span>
-                <span>N.&deg; 05 &mdash; <span data-year>2025</span></span>
-                <span>Anno LV</span>
-                <span>Territorio Pontino</span>
-            </div>
-
-            <h2 class="bulletin__heading rise" data-d="1">Il capitale giusto<br>al momento <em>giusto</em>.</h2>
-
-            <div class="finanza__grid rise" data-d="2">
-                <div class="finanza__cols">
-                    <p>Una verit&agrave; che raramente viene scritta: in moltissimi bandi pubblici <strong>le spese di consulenza sono fra le voci ammissibili</strong> al rimborso. Non &egrave; un costo in pi&ugrave;, &egrave; parte del progetto.</p>
-                    <p>La nostra analisi parte sempre dalla pratica tecnica &mdash; il finanziamento stesso. Traduciamo l'opportunit&agrave; in business plan bancabile, mettiamo in fila le scadenze, rendiamo il capitolo trasparente per l'istituto o per l'ente.</p>
-                    <p>Tradurre &egrave; un mestiere: gli strumenti finanziari non parlano da soli. Parlano se qualcuno li racconta con il linguaggio giusto, coerente con quello che l'azienda sta davvero costruendo.</p>
-                </div>
-                <aside class="finanza__pull">
-                    <p class="pullquote">Il miglior investimento inizia capendo quali soldi non sei <em>obbligato</em> a mettere.</p>
-                </aside>
-            </div>
-
-            <div class="finanza__ledger rise" data-d="3">
-                <div class="ledger-row">
-                    <span class="ledger-row__n">I.</span>
-                    <span class="ledger-row__t">Finanza bancaria</span>
-                    <span class="ledger-row__d">Analisi bancabilit&agrave; &middot; SACE &middot; Negoziazione &middot; Ristrutturazione debito</span>
-                </div>
-                <div class="ledger-row">
-                    <span class="ledger-row__n">II.</span>
-                    <span class="ledger-row__t">Equity &amp; Crowd</span>
-                    <span class="ledger-row__d">Crowdfunding &middot; Pitch deck &middot; Term sheet &middot; Patti parasociali</span>
-                </div>
-                <div class="ledger-row">
-                    <span class="ledger-row__n">III.</span>
-                    <span class="ledger-row__t">Bandi pubblici</span>
-                    <span class="ledger-row__d">Invitalia &middot; Lazio Innova &middot; MIMIT &middot; Horizon Europe &middot; PNRR</span>
-                </div>
-                <div class="ledger-row">
-                    <span class="ledger-row__n">IV.</span>
-                    <span class="ledger-row__t">Agevolazioni fiscali</span>
-                    <span class="ledger-row__d">Nuova Sabatini &middot; Credito d'imposta 4.0/5.0 &middot; Iper-ammortamento &middot; ZES</span>
-                </div>
-            </div>
-
-            <div class="finanza__ticker" aria-hidden="true">
-                <div class="finanza__ticker-track">
-                    <span>&#9670; Scouting</span>
-                    <span>&#9670; Progettazione</span>
-                    <span>&#9670; Presentazione</span>
-                    <span>&#9670; Rendicontazione</span>
-                    <span>&#9670; Quattro passi, zero sorprese</span>
-                    <span>&#9670; Scouting</span>
-                    <span>&#9670; Progettazione</span>
-                    <span>&#9670; Presentazione</span>
-                    <span>&#9670; Rendicontazione</span>
-                    <span>&#9670; Quattro passi, zero sorprese</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===================== PERCORSI — Genesi & Evoluzione ===================== -->
-    <section id="percorsi-home" class="percorsi-section">
-        <div class="percorsi-wrap">
-            <header class="percorsi__head">
-                <p class="folio rise">&sect; VI &mdash; Percorsi</p>
-                <h2 class="d2 rise" data-d="1">Genesi<br>&amp; <em>evoluzione</em>.</h2>
-                <p class="lede rise" data-d="2">Due punti di partenza, una sola visione d'insieme. Accompagniamo chi parte dall'idea e chi deve reinventare un'impresa gi&agrave; in corsa.</p>
-            </header>
-
-            <div class="percorsi__pair">
-                <article class="percorso rise" data-d="1">
-                    <div class="percorso__top">
-                        <span class="folio">Percorso I</span>
-                        <h3 class="percorso__title d3">Genesi <em>&mdash; Startup</em></h3>
-                        <p class="body">Per chi parte dall'idea. Una roadmap in nove tappe che allinea visione imprenditoriale e solidit&agrave; gestionale, fino al lancio e oltre.</p>
-                    </div>
-                    <ol class="percorso__list">
-                        <li><span class="n">01</span><span>Analisi dell'idea</span></li>
-                        <li><span class="n">02</span><span>Test di fattibilit&agrave;</span></li>
-                        <li><span class="n">03</span><span>Setup legale e fiscale</span></li>
-                        <li><span class="n">04</span><span>Progettazione strategica</span></li>
-                        <li><span class="n">05</span><span>Ricerca capitali</span></li>
-                        <li><span class="n">06</span><span>Sviluppo prodotto &mdash; MVP</span></li>
-                        <li><span class="n">07</span><span>Lancio e branding</span></li>
-                        <li><span class="n">08</span><span>Automazione AI</span></li>
-                        <li><span class="n">09</span><span>Monitoraggio risultati</span></li>
-                    </ol>
-                </article>
-
-                <div class="percorsi__divider" aria-hidden="true">
-                    <span class="rule"></span>
-                    <span class="mono">oppure</span>
-                    <span class="rule"></span>
-                </div>
-
-                <article class="percorso rise" data-d="2">
-                    <div class="percorso__top">
-                        <span class="folio">Percorso II</span>
-                        <h3 class="percorso__title d3">Evoluzione <em>&mdash; Transform</em></h3>
-                        <p class="body">Per chi l'impresa ce l'ha gi&agrave;. Screening, messa in sicurezza e digitalizzazione integrata per riportare margini, metodo e direzione.</p>
-                    </div>
-                    <ol class="percorso__list">
-                        <li><span class="n">01</span><span>Screening aziendale</span></li>
-                        <li><span class="n">02</span><span>Valutazione dei margini</span></li>
-                        <li><span class="n">03</span><span>Messa in sicurezza</span></li>
-                        <li><span class="n">04</span><span>Revisione strategica</span></li>
-                        <li><span class="n">05</span><span>Recupero incentivi</span></li>
-                        <li><span class="n">06</span><span>Digitalizzazione processi</span></li>
-                        <li><span class="n">07</span><span>Rilancio del brand</span></li>
-                        <li><span class="n">08</span><span>Integrazione AI</span></li>
-                        <li><span class="n">09</span><span>Controllo di gestione</span></li>
-                    </ol>
-                </article>
-            </div>
-
-            <p class="percorsi__closing rise" data-d="3">Indipendentemente dal punto di partenza, la nostra forza &egrave; la <em>visione d'insieme</em>. Non consulenti seriali, ma il partner che coadiuva ogni scelta strategica.</p>
-
-            <div class="percorsi__foot rise">
-                <a href="percorsi.html" class="link">Apri il capitolo &mdash; Percorsi
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===================== PARTNERSHIP — Ecosistema ===================== -->
-    <section id="partnership-home" class="partnership-section">
-        <div class="partnership-wrap">
-            <header class="partnership__head">
-                <p class="folio rise">&sect; VII &mdash; Partnership</p>
-                <h2 class="d2 rise" data-d="1">Un ecosistema,<br>non un <em>elenco</em>.</h2>
-                <p class="lede hanging rise" data-d="2">Da soli si va veloci, insieme si va lontano. Al centro il cliente; attorno, competenze legali, tecnologiche e territoriali che orbitano coerenti.</p>
-            </header>
-
-            <div class="partnership__grid">
-                <article class="partner-cell rise">
-                    <p class="folio">I. Alleanza strategica</p>
-                    <h3 class="partner-cell__title d4">Professionisti<br>&amp; <em>studi associati</em></h3>
-                    <p class="body">Avvocati, notai, consulenti finanziari, revisori. Professionisti il cui lavoro si intreccia naturalmente con il nostro.</p>
-                    <ul class="partner-cell__tags">
-                        <li>Avvocati</li><li>Notai</li><li>Revisori</li><li>Consulenti fin.</li>
-                    </ul>
-                </article>
-
-                <article class="partner-cell rise" data-d="1">
-                    <p class="folio">II. Network tecnologico</p>
-                    <h3 class="partner-cell__title d4">Innovation<br>&amp; <em>software house</em></h3>
-                    <p class="body">System integrator, esperti AI, cloud provider, software house. L'avanguardia digitale al servizio dell'impresa.</p>
-                    <ul class="partner-cell__tags">
-                        <li>Software house</li><li>System int.</li><li>AI lab</li><li>Cloud</li>
-                    </ul>
-                </article>
-
-                <article class="partner-cell rise" data-d="2">
-                    <p class="folio">III. Sinergia territoriale</p>
-                    <h3 class="partner-cell__title d4">Radici<br>&amp; <em>comunit&agrave; locali</em></h3>
-                    <p class="body">Associazioni di categoria, incubatori, enti formativi, istituzioni del territorio Pontino. Radici profonde, impatto locale.</p>
-                    <ul class="partner-cell__tags">
-                        <li>Associazioni</li><li>Incubatori</li><li>Enti formativi</li><li>Istituzioni</li>
-                    </ul>
-                </article>
-            </div>
-
-            <div class="partnership__stats rise" data-d="3">
-                <div class="pstat">
-                    <span class="pstat__n"><span data-count="24">0</span></span>
-                    <span class="pstat__l">Partner attivi</span>
-                </div>
-                <div class="pstat">
-                    <span class="pstat__n"><span data-count="8">0</span></span>
-                    <span class="pstat__l">Settori verticali</span>
-                </div>
-                <div class="pstat">
-                    <span class="pstat__n"><span data-count="55">0</span>+</span>
-                    <span class="pstat__l">Anni di rete</span>
-                </div>
-            </div>
-
-            <div class="partnership__marquee" aria-hidden="true">
-                <div class="partnership__marquee-track">
-                    <span>Studi legali</span><span>&bull;</span>
-                    <span>Notariato</span><span>&bull;</span>
-                    <span>Revisione</span><span>&bull;</span>
-                    <span>Software house</span><span>&bull;</span>
-                    <span>Cloud provider</span><span>&bull;</span>
-                    <span>AI lab</span><span>&bull;</span>
-                    <span>Incubatori</span><span>&bull;</span>
-                    <span>Enti formativi</span><span>&bull;</span>
-                    <span>Istituzioni</span><span>&bull;</span>
-                    <span>Studi legali</span><span>&bull;</span>
-                    <span>Notariato</span><span>&bull;</span>
-                    <span>Revisione</span><span>&bull;</span>
-                    <span>Software house</span><span>&bull;</span>
-                    <span>Cloud provider</span><span>&bull;</span>
-                    <span>AI lab</span><span>&bull;</span>
-                </div>
-            </div>
-
-            <div class="partnership__foot rise">
-                <a href="partnership.html" class="link">Apri il capitolo &mdash; Partnership
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===================== RESPIRO II — tra partnership e letter ===================== -->
-    <section class="respiro mobile-only" aria-hidden="true">
-        <p class="respiro__quote">Da soli si va <em>veloci</em>.<br>Insieme si va <em>lontano</em>.</p>
-        <span class="respiro__author">Proverbio africano · filosofia CSF</span>
-    </section>
-
-    <!-- ===================== LETTER — Chi siamo / Founder's voice ===================== -->
-    <section id="about" class="letter-section">
-        <div class="letter-wrap">
-            <div class="letter">
-                <aside class="letter__aside rise">
-                    <strong class="letter__author">Chi siamo</strong>
-                    <span class="letter__meta">
-                        Antonio Frasca<br>
-                        Commercialista, revisore,<br>consulente del lavoro<br>
-                        &mdash;&mdash;&mdash;&mdash;<br>
-                        Territorio Pontino, 1970 &rarr; oggi<br>
-                        55 anni di professione
-                    </span>
-                </aside>
-
-                <div class="letter__body">
-                    <p class="folio rise">&sect; Lettera agli imprenditori</p>
-                    <h2 class="d3 rise" data-d="1">Quando <em>abbiamo iniziato</em>,<br>i bilanci si scrivevano a penna.</h2>
-                    <p class="lede hanging rise" data-d="2">Il mestiere che si imparava cinquant'anni fa non esiste pi&ugrave;. &Egrave; diventato qualcos'altro: si &egrave; dovuto adattare a tecnologie e normative che allora erano impensabili. Chi ha attraversato quel cambiamento conosce la paura iniziale ma sa anche l'importanza di restare in piedi davanti al nuovo.</p>
-                    <p class="body hanging rise" data-d="3">Da Studio Frasca a CSF Consulting il passo &egrave; stato naturale: mettere quell'esperienza al servizio di chi costruisce impresa oggi, integrando competenze che vanno dalla fiscalit&agrave; all'intelligenza artificiale. Non come mestieri giustapposti &mdash; come un <em>unico sguardo</em> sul presente e sul futuro di un'azienda.</p>
-                    <p class="body hanging rise" data-d="4">Per farlo abbiamo stretto partnership verticali con chi condivide i nostri standard, e abbiamo costruito un workflow che va dal recupero del capitale fino alla scalabilit&agrave;. &Egrave; quello che chiamiamo <em>ecosistema</em>.</p>
-                    <p class="letter__signature rise" data-d="5">Antonio Frasca<br>
-                        <span class="letter__caption">Fondatore</span>
-                    </p>
-                    <div class="rise" data-d="6" style="margin-top:32px">
-                        <a href="chi-siamo.html" class="btn btn-outline">Continua a leggere</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Chronological ribbon: tre tappe leggere -->
-            <div class="chron rise">
-                <div class="chron__item"><span class="chron__n">I.</span><span class="chron__y">1970</span><span class="chron__t">Fondazione dello Studio Frasca</span></div>
-                <div class="chron__item"><span class="chron__n">II.</span><span class="chron__y">2000</span><span class="chron__t">Crescita e consolidamento nel territorio</span></div>
-                <div class="chron__item"><span class="chron__n">III.</span><span class="chron__y">Oggi</span><span class="chron__t">CSF Consulting &mdash; metodo e tecnologia</span></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===================== STATS SECTION ===================== -->
-    <section id="stats">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item reveal">
-                    <div class="stat-number-wrap">
-                        <span class="stat-number" data-target="55">0</span>
-                        <span class="stat-suffix">+</span>
-                    </div>
-                    <span class="stat-label">Anni di Esperienza</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item reveal">
-                    <div class="stat-number-wrap">
-                        <span class="stat-number" data-target="5">0</span>
-                        <span class="stat-suffix"></span>
-                    </div>
-                    <span class="stat-label">Aree di Competenza</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item reveal">
-                    <div class="stat-number-wrap">
-                        <span class="stat-number" data-target="500">0</span>
-                        <span class="stat-suffix">+</span>
-                    </div>
-                    <span class="stat-label">Clienti Seguiti</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item reveal">
-                    <div class="stat-number-wrap">
-                        <span class="stat-number" data-target="1970">0</span>
-                        <span class="stat-suffix"></span>
-                    </div>
-                    <span class="stat-label">Anno di Fondazione</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- ===================== CLOSING CTA ===================== -->
-    <section class="closing-section">
-        <div class="closing-wrap">
-            <div class="closing__grid">
-                <div>
-                    <p class="folio rise">&sect; Ultimo</p>
-                    <h2 class="d2 rise" data-d="1">Il modo pi&ugrave; semplice<br>&egrave; <em>parlarne</em>.</h2>
-                </div>
-                <div class="closing__actions rise" data-d="2">
-                    <a href="contatti.html" class="btn btn-primary">
-                        <span>Prendi un'ora con noi</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===================== CONTACT SECTION ===================== -->
-    <section id="contact">
-        <div class="section-decoration">
-            <div class="deco-line deco-line-left"></div>
-            <div class="deco-diamond"></div>
-            <div class="deco-line deco-line-right"></div>
-        </div>
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label reveal">Contatti</span>
-                <h2 class="section-title reveal">Inizia il <span class="text-gold">Dialogo</span></h2>
-                <p class="section-subtitle reveal">Raccontaci le tue esigenze. Il primo passo verso una consulenza su misura &egrave; una conversazione.</p>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-info reveal">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
-                                <circle cx="12" cy="10" r="3"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h4>Sede</h4>
-                            <p>Territorio Pontino, Italia</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="2" y="4" width="20" height="16" rx="2"/>
-                                <polyline points="22,6 12,13 2,6"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h4>Email</h4>
-                            <p>info@csfconsulting.it</p>
-                        </div>
-                    </div>
-                    <div class="contact-quote">
-                        <div class="quote-mark">&ldquo;</div>
-                        <blockquote>La presa di coscienza ultima avviene capendo l'importanza del dato e dei processi.</blockquote>
-                    </div>
-                </div>
-                <form class="contact-form reveal" id="contactForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" required placeholder=" ">
-                            <label for="name">Nome e Cognome</label>
-                            <div class="form-line"></div>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" required placeholder=" ">
-                            <label for="email">Email</label>
-                            <div class="form-line"></div>
-                        </div>
-                    </div>
-                    <div class="form-group form-group-full">
-                        <textarea id="message" name="message" rows="4" required placeholder=" "></textarea>
-                        <label for="message">Il tuo messaggio</label>
-                        <div class="form-line"></div>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-submit">
-                        <span>Invia Messaggio</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===================== FOOTER ===================== -->
-    <footer id="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <span class="logo-csf">CSF</span>
-                        <span class="logo-divider"></span>
-                        <span class="logo-consulting">CONSULTING</span>
-                    </div>
-                    <p class="footer-tagline">Tradizione e innovazione al servizio della tua impresa dal 1970.</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Servizi</h4>
-                    <a href="servizi.html">Consulenza Fiscale</a>
-                    <a href="servizi.html">Contabilit&agrave;</a>
-                    <a href="servizi.html">Consulenza Societaria</a>
-                    <a href="servizi.html">Consulenza del Lavoro</a>
-                    <a href="innova.html">Innovation Management</a>
-                </div>
-                <div class="footer-links">
-                    <h4>Studio</h4>
-                    <a href="chi-siamo.html">Chi Siamo</a>
-                    <a href="servizi.html">Servizi</a>
-                    <a href="contatti.html">Contatti</a>
-                </div>
-                <div class="footer-links">
-                    <h4>Legale</h4>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Cookie Policy</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 CSF Consulting &mdash; L'evoluzione dello Studio Frasca. Tutti i diritti riservati.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="lenis.min.js"></script>
-    <script src="script.js"></script>
+<script src="assets/app.js"></script>
 </body>
 </html>

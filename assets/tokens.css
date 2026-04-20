@@ -1,0 +1,97 @@
+/* ============================================================
+   CSF CONSULTING — DESIGN SYSTEM v3 (redesign)
+   Unified tokens, no legacy aliases.
+   ============================================================ */
+:root{
+  /* Backgrounds */
+  --bg-deep:#040a14;
+  --bg-base:#0b1424;
+  --bg-surface:#121e32;
+  --bg-raised:#1a293e;
+  --bg-hover:#213348;
+
+  /* Gold */
+  --gold-600:#9a7b2a;
+  --gold-500:#b8942e;
+  --gold-400:#d4ad42;
+  --gold-300:#e4c466;
+  --gold-200:#efd68e;
+  --gold-100:#f6e8b8;
+
+  /* Blue */
+  --blue-600:#2563eb;
+  --blue-500:#3b7cf5;
+  --blue-400:#5b94f7;
+  --blue-300:#82b1fa;
+  --blue-200:#b0cffc;
+
+  /* Text */
+  --text-heading:#f5f1e9;
+  --text-body:#dce0e6;
+  --text-muted:#a4adb8;
+  --text-dim:#6b7588;
+  --text-dark:#0b1424;
+
+  /* State */
+  --success:#4fbf8f;
+  --warning:#e8a63a;
+  --error:#e25c5c;
+  --info:var(--blue-400);
+
+  /* Typography */
+  --f-display:'Fraunces', Georgia, serif;
+  --f-body:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --f-mono:'JetBrains Mono', ui-monospace, Menlo, monospace;
+
+  /* Type scale (fluid) */
+  --fs-12:.75rem;
+  --fs-14:.875rem;
+  --fs-16:1rem;
+  --fs-18:clamp(1rem, .95rem + .25vw, 1.125rem);
+  --fs-20:clamp(1.1rem, 1rem + .4vw, 1.25rem);
+  --fs-24:clamp(1.25rem, 1.1rem + .6vw, 1.5rem);
+  --fs-32:clamp(1.6rem, 1.35rem + 1vw, 2rem);
+  --fs-40:clamp(2rem, 1.7rem + 1.4vw, 2.5rem);
+  --fs-56:clamp(2.6rem, 2rem + 2.6vw, 3.5rem);
+  --fs-80:clamp(3.4rem, 2.4rem + 4.5vw, 5rem);
+  --fs-120:clamp(4.5rem, 3rem + 7vw, 7.5rem);
+
+  /* Spacing */
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px;
+  --sp-6:24px; --sp-8:32px; --sp-10:40px; --sp-12:48px;
+  --sp-16:64px; --sp-20:80px; --sp-24:96px; --sp-32:128px;
+
+  /* Layout */
+  --container:1240px;
+  --container-narrow:880px;
+  --section-py:clamp(80px, 6vw, 140px);
+
+  /* Rules */
+  --rule:rgba(212,173,66,.14);
+  --rule-soft:rgba(164,173,184,.08);
+
+  /* Easing & timing */
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --ease-smooth:cubic-bezier(.4,0,.2,1);
+  --t-fast:.22s;
+  --t-mid:.4s;
+  --t-slow:.8s;
+}
+
+/* Reset */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{font-family:var(--f-body);background:var(--bg-base);color:var(--text-body);line-height:1.65}
+img,svg,video{display:block;max-width:100%;height:auto}
+button{background:none;border:none;color:inherit;cursor:pointer;font:inherit}
+a{color:var(--gold-300);text-decoration:none;transition:color var(--t-fast) var(--ease-out)}
+a:hover{color:var(--gold-200)}
+::selection{background:var(--gold-400);color:var(--bg-deep)}
+
+/* Accessibility: reduced motion */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
+
+/* Utility: visually hidden */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}

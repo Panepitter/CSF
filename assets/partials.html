@@ -1,0 +1,54 @@
+<!-- Shared nav + footer partial fragments used by include.js -->
+<nav class="nav" data-partial="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="mark"></span>CSF <em>Consulting</em></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="chi-siamo.html" data-nav="chi-siamo">Chi siamo</a></li>
+      <li><a href="servizi.html" data-nav="servizi">Servizi</a></li>
+      <li><a href="innova.html" data-nav="innova">Innova</a></li>
+      <li><a href="partnership.html" data-nav="partnership">Partnership</a></li>
+      <li><a href="contatti.html" data-nav="contatti">Contatti</a></li>
+      <li><a class="nav-cta" href="contatti.html">Prenota un incontro</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Apri menu" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+  </div>
+</nav>
+
+<footer class="site" data-partial="footer">
+  <div class="foot-grid">
+    <div class="foot-col">
+      <p class="foot-brand">CSF <em>Consulting</em></p>
+      <p>Boutique di consulenza strategica, fiscale e tecnologica.<br>Territorio Pontino, dal 1978.</p>
+    </div>
+    <div class="foot-col">
+      <h5>Sede</h5>
+      <address>
+        Via Aldo Moro 12<br>
+        04100 Latina (LT)<br>
+        <a href="tel:+390773000000">+39 0773 000 000</a><br>
+        <a href="mailto:info@csf-consulting.it">info@csf-consulting.it</a>
+      </address>
+    </div>
+    <div class="foot-col">
+      <h5>Studio</h5>
+      <ul>
+        <li><a href="chi-siamo.html">Chi siamo</a></li>
+        <li><a href="servizi.html">Servizi</a></li>
+        <li><a href="innova.html">Innova</a></li>
+        <li><a href="partnership.html">Partnership</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h5>Risorse</h5>
+      <ul>
+        <li><a href="contatti.html">Contatti</a></li>
+        <li><a href="privacy.html">Privacy policy</a></li>
+        <li><a href="cookie.html">Cookie policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 1978—2026 CSF Consulting · P.IVA 01234567890</span>
+    <span>Redesign <span class="diamond"></span> v3.0</span>
+  </div>
+</footer>

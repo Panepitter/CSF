@@ -1,636 +1,431 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
-    <link rel="icon" href="favicon.ico" sizes="32x32">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <title>Servizi — CSF Consulting | Eccellenza Multidisciplinare</title>
-    <meta name="description" content="Scopri i servizi core di CSF Consulting: Fiscale, Contabilità, Societario e Lavoro. La solidità della tradizione potenziata dall'innovazione.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* ===== Servizi Page — Premium Redesign ===== */
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Servizi — CSF Consulting</title>
+<meta name="description" content="Quattro pilastri e due percorsi a pacchetto: fiscalità, finanza agevolata, controllo di gestione, lavoro. E i percorsi Startup e Transform.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/app.css">
+<link rel="stylesheet" href="assets/reveal.css">
+<style>
+/* Page: servizi */
+.page-hero{padding:clamp(80px,10vw,140px) 0 clamp(60px,6vw,90px);border-bottom:1px solid var(--rule);text-align:center}
+.page-hero .folio{justify-content:center;margin-bottom:var(--sp-8)}
+.page-hero h1{font-size:var(--fs-120);margin-bottom:var(--sp-6)}
+.page-hero .lede{margin:0 auto}
 
-        .services-hero {
-            padding: 200px 0 120px;
-            background: var(--bg-deep);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
+/* In-page tabs (anchor index) */
+.svc-index{padding:var(--sp-10) 0;border-bottom:1px solid var(--rule);background:var(--bg-deep);position:sticky;top:73px;z-index:40;backdrop-filter:blur(18px);background:rgba(4,10,20,.85)}
+.svc-index-inner{display:flex;gap:48px;justify-content:center;flex-wrap:wrap;font-family:var(--f-mono);font-size:var(--fs-12);letter-spacing:.18em;text-transform:uppercase}
+.svc-index a{color:var(--text-muted);position:relative;padding:8px 0}
+.svc-index a:hover{color:var(--gold-300)}
+.svc-index a .i{color:var(--gold-400);margin-right:8px;opacity:.7}
 
-        .services-hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse 70% 50% at 50% 40%, rgba(212, 173, 66, 0.05) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 40% at 70% 60%, rgba(59, 124, 245, 0.04) 0%, transparent 55%);
-            z-index: 1;
-        }
+/* Pillar section */
+.pillar-row{padding:clamp(80px,8vw,120px) 0;border-bottom:1px solid var(--rule)}
+.pillar-row:nth-child(even){background:var(--bg-deep)}
+.pillar-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.pillar-row.reverse .pillar-inner{direction:rtl}
+.pillar-row.reverse .pillar-inner>*{direction:ltr}
+.pillar-head{display:flex;gap:24px;align-items:baseline;margin-bottom:var(--sp-8)}
+.pillar-head .n{font-family:var(--f-display);font-size:var(--fs-80);color:var(--gold-400);opacity:.45;line-height:.9;font-weight:300;letter-spacing:-.03em;flex-shrink:0}
+.pillar-content h2{font-size:var(--fs-56);margin-bottom:var(--sp-6)}
+.pillar-content .desc{font-family:var(--f-display);font-weight:300;font-size:var(--fs-24);line-height:1.5;color:var(--text-body);margin-bottom:var(--sp-10)}
+.pillar-content .desc em{color:var(--gold-200);font-style:italic}
 
-        .services-hero .container { position: relative; z-index: 2; }
+.comp-list{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-4) var(--sp-8);list-style:none;border-top:1px solid var(--rule);padding-top:var(--sp-6);margin-top:var(--sp-6)}
+.comp-list li{font-family:var(--f-body);font-size:var(--fs-14);color:var(--text-body);padding:10px 0;display:flex;align-items:baseline;gap:12px}
+.comp-list li::before{content:'';width:4px;height:4px;background:var(--gold-400);flex-shrink:0;margin-top:8px}
 
-        .hero-title-main {
-            font-family: var(--font-display);
-            font-size: clamp(3rem, 7vw, 5.5rem);
-            line-height: 0.95;
-            margin-top: 20px;
-            color: var(--text-heading);
-            letter-spacing: -0.02em;
-        }
+.innesto{margin-top:var(--sp-10);padding:var(--sp-6) var(--sp-8);border-left:2px solid var(--blue-500);background:rgba(59,124,245,.04)}
+.innesto .k{font-family:var(--f-mono);font-size:var(--fs-12);letter-spacing:.2em;text-transform:uppercase;color:var(--blue-300);margin-bottom:var(--sp-2);display:flex;align-items:center;gap:10px}
+.innesto .k::before{content:'◆';font-size:.6rem;color:var(--blue-400)}
+.innesto p{font-size:var(--fs-14);color:var(--text-muted);line-height:1.65}
 
-        .hero-title-main .outline {
-            color: var(--gold-300);
-            font-style: italic;
-            font-weight: 400;
-        }
+.pillar-aside{position:sticky;top:140px}
+.pillar-aside .ph{aspect-ratio:3/4}
+.pillar-aside .price{margin-top:var(--sp-6);padding:var(--sp-6) var(--sp-8);border:1px solid var(--rule);background:var(--bg-surface);display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap}
+.pillar-aside .price .lbl{font-family:var(--f-mono);font-size:var(--fs-12);letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim)}
+.pillar-aside .price .val{font-family:var(--f-display);font-size:var(--fs-32);color:var(--gold-300);font-weight:400}
+.pillar-aside .price small{font-size:var(--fs-12);color:var(--text-muted);display:block;margin-top:4px;letter-spacing:.05em}
+@media (max-width:900px){.pillar-inner,.pillar-row.reverse .pillar-inner{grid-template-columns:1fr;gap:40px;direction:ltr}.pillar-aside{position:static}.comp-list{grid-template-columns:1fr}}
 
-        /* ===== Service Section ===== */
-        .service-section {
-            padding: 0;
-            position: relative;
-        }
+/* Percorsi */
+.percorsi{padding:var(--section-py) 0;border-bottom:1px solid var(--rule);background:var(--bg-deep)}
+.percorsi-intro{text-align:center;max-width:720px;margin:0 auto var(--sp-16)}
+.perc-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.perc-card{border:1px solid var(--rule);padding:var(--sp-12) var(--sp-10);background:var(--bg-base);display:flex;flex-direction:column;gap:var(--sp-6);transition:all var(--t-mid) var(--ease-out);position:relative;overflow:hidden}
+.perc-card:hover{border-color:var(--gold-400);background:var(--bg-surface)}
+.perc-card.blue:hover{border-color:var(--blue-400)}
+.perc-card .tag{font-family:var(--f-mono);font-size:var(--fs-12);letter-spacing:.2em;text-transform:uppercase;color:var(--gold-400)}
+.perc-card.blue .tag{color:var(--blue-300)}
+.perc-card h3{font-size:var(--fs-40);font-weight:400;line-height:1.05}
+.perc-card h3 em{color:var(--gold-300)}
+.perc-card.blue h3 em{color:var(--blue-300)}
+.perc-card .for{font-family:var(--f-mono);font-size:var(--fs-12);letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);padding-top:var(--sp-4);border-top:1px solid var(--rule)}
+.perc-card .for strong{color:var(--text-heading);font-weight:500;display:block;margin-top:4px;font-size:var(--fs-14);letter-spacing:.02em;font-family:var(--f-body);text-transform:none}
+.perc-card p{color:var(--text-muted);font-size:var(--fs-16);line-height:1.65}
+.perc-card ol{list-style:none;counter-reset:step;padding-top:var(--sp-4);border-top:1px solid var(--rule)}
+.perc-card ol li{counter-increment:step;padding:10px 0;font-size:var(--fs-14);color:var(--text-body);display:flex;gap:14px;align-items:baseline}
+.perc-card ol li::before{content:counter(step,decimal-leading-zero);font-family:var(--f-mono);font-size:var(--fs-12);color:var(--gold-400);letter-spacing:.1em;min-width:28px;font-weight:500}
+.perc-card.blue ol li::before{color:var(--blue-300)}
+.perc-card .cta-row{margin-top:auto;padding-top:var(--sp-6)}
+@media (max-width:820px){.perc-grid{grid-template-columns:1fr}}
 
-        .service-card-wrap {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            min-height: 600px;
-        }
-
-        .service-card-wrap.reverse {
-            direction: rtl;
-        }
-        .service-card-wrap.reverse > * {
-            direction: ltr;
-        }
-
-        /* --- Image side --- */
-        .service-img-side {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-img-side img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            filter: grayscale(0.3) brightness(0.65) saturate(0.9);
-            transition: filter 1s ease, transform 1.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .service-card-wrap:hover .service-img-side img {
-            filter: grayscale(0.1) brightness(0.75) saturate(1);
-            transform: scale(1.04);
-        }
-
-        .service-img-overlay {
-            position: absolute;
-            inset: 0;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        /* Gradient overlay direction depends on image side */
-        .service-card-wrap:not(.reverse) .service-img-overlay {
-            background: linear-gradient(90deg, transparent 40%, var(--bg-deep) 100%);
-        }
-        .service-card-wrap.reverse .service-img-overlay {
-            background: linear-gradient(270deg, transparent 40%, var(--bg-deep) 100%);
-        }
-
-        .service-img-number {
-            position: absolute;
-            bottom: 32px;
-            left: 36px;
-            z-index: 3;
-            font-family: var(--font-display);
-            font-size: 8rem;
-            font-weight: 700;
-            line-height: 1;
-            color: var(--gold-400);
-            opacity: 0.15;
-        }
-
-        .service-card-wrap.reverse .service-img-number {
-            left: auto;
-            right: 36px;
-        }
-
-        /* --- Content side --- */
-        .service-content-side {
-            display: flex;
-            align-items: center;
-            padding: 80px 72px;
-            background: var(--bg-deep);
-            position: relative;
-        }
-
-        .service-section:nth-child(even) .service-content-side {
-            background: var(--bg-base);
-        }
-        .service-section:nth-child(even) .service-card-wrap:not(.reverse) .service-img-overlay {
-            background: linear-gradient(90deg, transparent 40%, var(--bg-base) 100%);
-        }
-        .service-section:nth-child(even) .service-card-wrap.reverse .service-img-overlay {
-            background: linear-gradient(270deg, transparent 40%, var(--bg-base) 100%);
-        }
-
-        .service-content-inner {
-            max-width: 560px;
-        }
-
-        .service-tag {
-            display: inline-block;
-            font-family: var(--font-body);
-            font-size: 0.68rem;
-            font-weight: 600;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--gold-400);
-            margin-bottom: 20px;
-        }
-
-        .service-tag::before {
-            content: '';
-            display: inline-block;
-            width: 24px;
-            height: 1px;
-            background: var(--gold-500);
-            vertical-align: middle;
-            margin-right: 12px;
-            opacity: 0.5;
-        }
-
-        .service-title-lg {
-            font-family: var(--font-display);
-            font-size: clamp(2.2rem, 3.5vw, 3.2rem);
-            color: var(--text-heading);
-            margin-bottom: 20px;
-            line-height: 1.1;
-        }
-
-        .service-lead {
-            font-size: 1.05rem;
-            color: var(--text-body);
-            line-height: 1.75;
-            margin-bottom: 36px;
-        }
-
-        /* Competence pills */
-        .competence-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 36px;
-        }
-
-        .competence-pill {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 18px;
-            background: rgba(212, 173, 66, 0.05);
-            border: 1px solid rgba(212, 173, 66, 0.1);
-            border-radius: 100px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: var(--text-body);
-            transition: all 0.35s ease;
-        }
-
-        .competence-pill:hover {
-            background: rgba(212, 173, 66, 0.1);
-            border-color: rgba(212, 173, 66, 0.22);
-            color: var(--gold-200);
-        }
-
-        .competence-pill::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--gold-400);
-            flex-shrink: 0;
-            opacity: 0.6;
-        }
-
-        /* Innovation bridge */
-        .service-innovation {
-            padding: 20px 24px;
-            background: rgba(59, 124, 245, 0.04);
-            border: 1px solid rgba(59, 124, 245, 0.1);
-            border-radius: 14px;
-            transition: all 0.4s ease;
-        }
-
-        .service-innovation:hover {
-            background: rgba(59, 124, 245, 0.07);
-            border-color: rgba(59, 124, 245, 0.2);
-        }
-
-        .service-innovation-label {
-            font-size: 0.65rem;
-            font-weight: 600;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--blue-400);
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .service-innovation-label::after {
-            content: '';
-            height: 1px;
-            flex: 1;
-            background: var(--blue-500);
-            opacity: 0.2;
-        }
-
-        .service-innovation p {
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            line-height: 1.65;
-        }
-
-        /* ===== CTA Block ===== */
-        .innovation-cta-block {
-            padding: 140px 0;
-            background: var(--bg-deep);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-glow {
-            position: absolute;
-            bottom: -20%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 70%;
-            height: 40%;
-            background: radial-gradient(ellipse at center, rgba(59, 124, 245, 0.15) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .cta-title {
-            font-family: var(--font-display);
-            font-size: clamp(2rem, 4vw, 3.2rem);
-            color: var(--text-heading);
-            margin-bottom: 20px;
-            line-height: 1.1;
-        }
-
-        /* ===== Responsive — Tablet ===== */
-        @media (max-width: 1024px) {
-            .services-hero { padding: 160px 0 100px; }
-            .service-content-side { padding: 60px 48px; }
-            .service-img-number { font-size: 6rem; }
-        }
-
-        /* ===== Responsive — Mobile ===== */
-        @media (max-width: 768px) {
-            .services-hero { padding: 140px 0 72px; }
-            .hero-title-main { line-height: 1; }
-
-            .service-card-wrap,
-            .service-card-wrap.reverse {
-                grid-template-columns: 1fr;
-                direction: ltr;
-                min-height: 0;
-            }
-            .service-card-wrap.reverse > * { direction: ltr; }
-
-            .service-img-side {
-                height: 220px;
-            }
-
-            .service-img-side img {
-                height: 100%;
-                object-fit: cover;
-                object-position: center 30%;
-            }
-
-            /* Override overlay to fade downward on mobile */
-            .service-card-wrap:not(.reverse) .service-img-overlay,
-            .service-card-wrap.reverse .service-img-overlay {
-                background: linear-gradient(180deg, transparent 30%, var(--bg-deep) 100%);
-            }
-            .service-section:nth-child(even) .service-card-wrap:not(.reverse) .service-img-overlay,
-            .service-section:nth-child(even) .service-card-wrap.reverse .service-img-overlay {
-                background: linear-gradient(180deg, transparent 30%, var(--bg-base) 100%);
-            }
-
-            .service-img-number {
-                font-size: 5rem;
-                bottom: 16px;
-                left: 20px;
-                opacity: 0.12;
-            }
-            .service-card-wrap.reverse .service-img-number {
-                left: 20px;
-                right: auto;
-            }
-
-            .service-content-side {
-                padding: 32px 20px 52px;
-            }
-
-            .service-content-inner {
-                max-width: 100%;
-            }
-
-            .service-title-lg {
-                font-size: 1.8rem;
-                margin-bottom: 14px;
-            }
-
-            .service-lead {
-                font-size: 0.92rem;
-                margin-bottom: 24px;
-            }
-
-            .competence-list { gap: 8px; margin-bottom: 24px; }
-            .competence-pill {
-                padding: 8px 14px;
-                font-size: 0.74rem;
-            }
-
-            .service-innovation {
-                padding: 16px 18px;
-                border-radius: 12px;
-            }
-            .service-innovation p { font-size: 0.82rem; }
-
-            .innovation-cta-block { padding: 80px 0; }
-            .cta-title { font-size: 1.6rem; }
-        }
-
-        @media (max-width: 480px) {
-            .services-hero { padding: 120px 0 56px; }
-            .service-img-side { height: 180px; }
-            .service-content-side { padding: 24px 16px 44px; }
-            .service-title-lg { font-size: 1.55rem; }
-        }
-    </style>
-
+/* FAQ */
+.faq-section{padding:var(--section-py) 0;border-bottom:1px solid var(--rule)}
+.faq-list{max-width:780px;margin:var(--sp-16) auto 0}
+.faq{border-top:1px solid var(--rule);padding:var(--sp-6) 0}
+.faq:last-child{border-bottom:1px solid var(--rule)}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:baseline;gap:20px;font-family:var(--f-display);font-size:var(--fs-24);color:var(--text-heading);font-weight:400;line-height:1.3}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';font-family:var(--f-display);font-weight:300;font-size:var(--fs-32);color:var(--gold-400);transition:transform var(--t-fast);flex-shrink:0}
+.faq[open] summary::after{transform:rotate(45deg)}
+.faq p{color:var(--text-muted);font-size:var(--fs-16);line-height:1.75;max-width:60ch;margin-top:var(--sp-4)}
+</style>
 </head>
-<body class="page-servizi">
+<body data-page="servizi">
 
-    <div id="preloader">
-        <div class="preloader-inner">
-            <div class="preloader-logo">CSF</div>
-            <div class="preloader-line"></div>
-            <div class="preloader-text">CONSULTING</div>
-        </div>
+<a class="skip" href="#main">Vai al contenuto</a>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="mark"></span>CSF <em>Consulting</em></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="chi-siamo.html" data-nav="chi-siamo">Chi siamo</a></li>
+      <li><a href="servizi.html" data-nav="servizi">Servizi</a></li>
+      <li><a href="innova.html" data-nav="innova">Innova</a></li>
+      <li><a href="partnership.html" data-nav="partnership">Partnership</a></li>
+      <li><a href="contatti.html" data-nav="contatti">Contatti</a></li>
+      <li><a class="nav-cta" href="contatti.html">Prenota un incontro</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Apri menu" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+  </div>
+</nav>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <p class="folio reveal">L'offerta</p>
+      <h1 class="display reveal delay-1">Quattro <em>pilastri</em>,<br>due <em>percorsi</em>.</h1>
+      <p class="lede reveal delay-2">Il nostro lavoro è suddiviso in quattro aree ricorrenti e in due percorsi a pacchetto. Le prime sono servizi continuativi, i secondi progetti con un inizio e una fine.</p>
     </div>
+  </section>
 
-    <div class="cursor-dot" aria-hidden="true"></div>
-    <div class="cursor-outline" aria-hidden="true"></div>
-
-    <nav id="navbar" class="scrolled">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo">
-                <span class="logo-csf">CSF</span>
-                <span class="logo-divider"></span>
-                <span class="logo-consulting">CONSULTING</span>
-            </a>
-            <div class="nav-links" id="navLinks">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="chi-siamo.html" class="nav-link">Chi Siamo</a>
-                <a href="servizi.html" class="nav-link active">Servizi</a>
-                <a href="percorsi.html" class="nav-link">Percorsi</a>
-                <a href="innova.html" class="nav-link">Innova</a>
-                <a href="contatti.html" class="nav-link nav-link-cta">Contatti</a>
-            </div>
-            <button class="nav-toggle" id="navToggle" aria-label="Apri menu">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-    </nav>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="mobile-menu-inner">
-            <a href="index.html" class="mobile-link">Home</a>
-            <a href="chi-siamo.html" class="mobile-link">Chi Siamo</a>
-            <a href="servizi.html" class="mobile-link">Servizi</a>
-            <a href="percorsi.html" class="mobile-link">Percorsi</a>
-            <a href="innova.html" class="mobile-link">Innova</a>
-            <a href="contatti.html" class="mobile-link">Contatti</a>
-        </div>
-        <div class="mobile-menu-footer">
-            <p>info@csfconsulting.it</p>
-            <p>Territorio Pontino, Italia</p>
-        </div>
+  <!-- INDEX -->
+  <nav class="svc-index" aria-label="Indice servizi">
+    <div class="svc-index-inner">
+      <a href="#fiscalita"><span class="i">I</span>Fiscalità</a>
+      <a href="#finanza"><span class="i">II</span>Finanza</a>
+      <a href="#controllo"><span class="i">III</span>Controllo</a>
+      <a href="#lavoro"><span class="i">IV</span>Lavoro</a>
+      <a href="#percorsi"><span class="i">✦</span>Percorsi</a>
     </div>
+  </nav>
 
-    <main>
-        <!-- Hero -->
-        <section class="services-hero">
-            <div class="container">
-                <div class="hero-badge reveal">
-                    <span class="hero-badge-line"></span>
-                    <span class="hero-badge-text">L'Offerta Core</span>
-                    <span class="hero-badge-line"></span>
-                </div>
-                <h1 class="hero-title-main reveal">
-                    Eccellenza e <br><span class="outline">Strategia</span>
-                </h1>
-                <p class="section-subtitle reveal" style="margin-top: 28px; max-width: 660px; margin-left: auto; margin-right: auto;">
-                    Quattro pilastri fondamentali, oltre cinquantacinque anni di autorità nel territorio pontino. Trasformiamo la complessità normativa in vantaggio competitivo.
-                </p>
+  <!-- PILLAR 01 — FISCALITÀ -->
+  <section class="pillar-row" id="fiscalita">
+    <div class="container">
+      <div class="pillar-inner">
+        <div class="pillar-content reveal">
+          <div class="pillar-head">
+            <span class="n">I</span>
+            <div>
+              <p class="folio">Pilastro · Continuativo</p>
+              <h2 class="h2" style="margin-top:12px">Contabilità<br>e <em>fiscalità</em><br>d'impresa</h2>
             </div>
-        </section>
+          </div>
+          <p class="desc">Il cuore storico dello studio. Teniamo i libri, redigiamo i bilanci, gestiamo gli adempimenti. Con una regola: <em>zero sorprese</em> a fine anno.</p>
+          <ul class="comp-list">
+            <li>Tenuta contabile ordinaria e semplificata</li>
+            <li>Bilanci civilistici e fiscali</li>
+            <li>Dichiarativi (UNICO, IRAP, IVA)</li>
+            <li>Pianificazione fiscale d'esercizio</li>
+            <li>Gestione contenzioso tributario</li>
+            <li>Revisione legale per enti obbligati</li>
+          </ul>
+          <div class="innesto">
+            <p class="k">Innesto tecnologico</p>
+            <p>Gestionale cloud condiviso con il cliente: le fatture entrano in contabilità in automatico. Il commercialista controlla; non digita.</p>
+          </div>
+        </div>
+        <aside class="pillar-aside reveal delay-1">
+          <div class="ph portrait"><span>Foto archivio<br>bilanci · placeholder</span></div>
+          <div class="price">
+            <div><p class="lbl">A partire da</p><small>Forfait annuale · IVA esclusa</small></div>
+            <p class="val">€2.400<small style="color:var(--text-dim);font-size:.7rem">/anno</small></p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
 
-        <div class="inner-carousel-hint inner-mobile-only" style="padding: 0 24px 8px;">Scorri i quattro pilastri</div>
-
-        <div class="services-carousel" role="region" aria-label="I quattro pilastri — scorri orizzontalmente">
-        <!-- 01 Fiscale -->
-        <div class="service-section" id="fiscale">
-            <div class="service-card-wrap reveal">
-                <div class="service-img-side">
-                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1200" alt="Consulenza fiscale" loading="lazy">
-                    <div class="service-img-overlay"></div>
-                    <div class="service-img-number">01</div>
-                </div>
-                <div class="service-content-side">
-                    <div class="service-content-inner">
-                        <span class="service-tag">Pilastro I</span>
-                        <h2 class="service-title-lg">Fiscale &<br>Dichiarativi</h2>
-                        <p class="service-lead">La navigazione nel panorama tributario richiede una bussola precisa. CSF Consulting offre una visione strategica che trasforma gli adempimenti in opportunità di pianificazione.</p>
-                        <div class="competence-list">
-                            <span class="competence-pill">Pianificazione Fiscale</span>
-                            <span class="competence-pill">Modelli Dichiarativi</span>
-                            <span class="competence-pill">Contenzioso Tributario</span>
-                            <span class="competence-pill">IVA & Dogane</span>
-                        </div>
-                        <div class="service-innovation">
-                            <div class="service-innovation-label">L'Innesto Tecnologico</div>
-                            <p>Algoritmi di controllo incrociato per eliminare l'errore umano e garantire sicurezza documentale totale.</p>
-                        </div>
-                    </div>
-                </div>
+  <!-- PILLAR 02 — FINANZA -->
+  <section class="pillar-row reverse" id="finanza">
+    <div class="container">
+      <div class="pillar-inner">
+        <div class="pillar-content reveal">
+          <div class="pillar-head">
+            <span class="n">II</span>
+            <div>
+              <p class="folio">Pilastro · A progetto</p>
+              <h2 class="h2" style="margin-top:12px">Finanza<br><em>agevolata</em><br>e bandi</h2>
             </div>
+          </div>
+          <p class="desc">Individuiamo e gestiamo i contributi su cui la tua impresa ha diritto. <em>Niente promesse</em>: analisi di fattibilità prima del preventivo.</p>
+          <ul class="comp-list">
+            <li>Crediti d'imposta 4.0 e 5.0</li>
+            <li>Finanziamenti SIMEST e export</li>
+            <li>Bandi regionali Lazio e nazionali</li>
+            <li>Fondo Centrale di Garanzia</li>
+            <li>Voucher Digitalizzazione</li>
+            <li>Rendicontazione PNRR</li>
+          </ul>
+          <div class="innesto">
+            <p class="k">Innesto tecnologico</p>
+            <p>Un database interno dei bandi attivi monitorato dalla divisione Innova: ti segnaliamo l'opportunità prima che tu la chieda.</p>
+          </div>
+        </div>
+        <aside class="pillar-aside reveal delay-1">
+          <div class="ph portrait"><span>Foto documenti<br>bandi · placeholder</span></div>
+          <div class="price">
+            <div><p class="lbl">Success fee</p><small>Success fee + retainer analisi</small></div>
+            <p class="val">3—8%<small style="color:var(--text-dim);font-size:.7rem">sul contributo ottenuto</small></p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILLAR 03 — CONTROLLO -->
+  <section class="pillar-row" id="controllo">
+    <div class="container">
+      <div class="pillar-inner">
+        <div class="pillar-content reveal">
+          <div class="pillar-head">
+            <span class="n">III</span>
+            <div>
+              <p class="folio">Pilastro · Continuativo</p>
+              <h2 class="h2" style="margin-top:12px">Controllo<br>di <em>gestione</em></h2>
+            </div>
+          </div>
+          <p class="desc">Il pilastro che trasforma i dati contabili in <em>decisioni operative</em>. Non bastano i bilanci: servono cruscotti mensili che l'imprenditore capisca.</p>
+          <ul class="comp-list">
+            <li>Budget annuale e forecast trimestrali</li>
+            <li>Cruscotti direzionali KPI</li>
+            <li>Analisi marginalità per linea</li>
+            <li>Controllo costi industriali</li>
+            <li>Cash flow e tesoreria</li>
+            <li>Reporting per banche e investitori</li>
+          </ul>
+          <div class="innesto">
+            <p class="k">Innesto tecnologico</p>
+            <p>Dashboard in tempo reale costruita da Innova: il cruscotto non è uno slide su PDF, è una pagina web che l'imprenditore consulta dal telefono.</p>
+          </div>
+        </div>
+        <aside class="pillar-aside reveal delay-1">
+          <div class="ph portrait"><span>Mockup dashboard<br>controllo gestione</span></div>
+          <div class="price">
+            <div><p class="lbl">A partire da</p><small>Retainer mensile · IVA esclusa</small></div>
+            <p class="val">€800<small style="color:var(--text-dim);font-size:.7rem">/mese</small></p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILLAR 04 — LAVORO -->
+  <section class="pillar-row reverse" id="lavoro">
+    <div class="container">
+      <div class="pillar-inner">
+        <div class="pillar-content reveal">
+          <div class="pillar-head">
+            <span class="n">IV</span>
+            <div>
+              <p class="folio">Pilastro · Continuativo</p>
+              <h2 class="h2" style="margin-top:12px">Consulenza<br>del <em>lavoro</em></h2>
+            </div>
+          </div>
+          <p class="desc">Buste paga, contratti, welfare. Gestiamo il personale con la stessa cura dei bilanci, perché <em>le persone</em> sono il primo asset dell'impresa.</p>
+          <ul class="comp-list">
+            <li>Elaborazione buste paga mensili</li>
+            <li>Assunzioni, cessazioni, contrattualistica</li>
+            <li>Gestione CIG, CIGS, ammortizzatori</li>
+            <li>Welfare aziendale e fringe benefit</li>
+            <li>Audit giuslavoristico</li>
+            <li>Relazioni sindacali e CCNL</li>
+          </ul>
+          <div class="innesto">
+            <p class="k">Innesto tecnologico</p>
+            <p>Portale dipendente self-service: cedolini, ferie, note spese in un'unica app. Il consulente interviene solo sulle eccezioni.</p>
+          </div>
+        </div>
+        <aside class="pillar-aside reveal delay-1">
+          <div class="ph portrait"><span>Foto team HR<br>placeholder</span></div>
+          <div class="price">
+            <div><p class="lbl">A partire da</p><small>Per dipendente · IVA esclusa</small></div>
+            <p class="val">€18<small style="color:var(--text-dim);font-size:.7rem">/mese · cedolino</small></p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERCORSI -->
+  <section class="percorsi" id="percorsi">
+    <div class="container">
+      <div class="percorsi-intro">
+        <p class="folio reveal" style="justify-content:center">I percorsi a pacchetto</p>
+        <h2 class="h2 reveal delay-1" style="margin-top:24px">Due progetti <em>chiavi in mano</em>,<br>nove tappe <em>definite</em>.</h2>
+        <p class="lede reveal delay-2" style="margin:24px auto 0">Oltre ai pilastri ricorrenti offriamo due percorsi strutturati: uno per chi parte da zero, uno per chi vuole rifondare. Entrambi con tappe, scadenze e un prezzo forfettario.</p>
+      </div>
+
+      <div class="perc-grid">
+        <!-- STARTUP -->
+        <div class="perc-card reveal">
+          <span class="tag">Percorso I · Startup</span>
+          <h3 class="h3">Da <em>zero</em><br>al primo bilancio.</h3>
+          <p>Per chi sta fondando un'impresa. Novanta giorni per costituire la società, aprire i conti, impostare la contabilità, chiudere il primo esercizio.</p>
+          <ol>
+            <li>Business plan e forma giuridica</li>
+            <li>Costituzione della società</li>
+            <li>Apertura P.IVA e codici attività</li>
+            <li>Set-up gestionale e fatturazione</li>
+            <li>Impostazione contabile</li>
+            <li>Prima dichiarazione IVA</li>
+            <li>Primo budget</li>
+            <li>Primo bilancio di esercizio</li>
+            <li>Piano fiscale anno 2</li>
+          </ol>
+          <div class="for">
+            Pensato per<strong>Startup innovative, nuove SRL, nuovi professionisti</strong>
+          </div>
+          <div class="cta-row">
+            <a href="contatti.html?tipo=startup" class="btn primary">Richiedi il percorso Startup <span class="arr">→</span></a>
+          </div>
         </div>
 
-        <!-- 02 Contabilità -->
-        <div class="service-section" id="contabilita">
-            <div class="service-card-wrap reverse reveal">
-                <div class="service-img-side">
-                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200" alt="Contabilità e bilancio" loading="lazy">
-                    <div class="service-img-overlay"></div>
-                    <div class="service-img-number">02</div>
-                </div>
-                <div class="service-content-side">
-                    <div class="service-content-inner">
-                        <span class="service-tag">Pilastro II</span>
-                        <h2 class="service-title-lg">Contabilità &<br>Bilancio</h2>
-                        <p class="service-lead">I numeri raccontano una storia. Noi ti insegniamo a leggerla. La nostra gestione contabile è il cuore pulsante del tuo controllo di gestione.</p>
-                        <div class="competence-list">
-                            <span class="competence-pill">Tenuta Contabile</span>
-                            <span class="competence-pill">Bilanci UE</span>
-                            <span class="competence-pill">Reporting Periodico</span>
-                            <span class="competence-pill">Revisione & Audit</span>
-                        </div>
-                        <div class="service-innovation">
-                            <div class="service-innovation-label">L'Innesto Tecnologico</div>
-                            <p>Integrazione diretta dei flussi bancari e gestionali per dati sempre aggiornati in tempo reale.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- TRANSFORM -->
+        <div class="perc-card blue reveal delay-1">
+          <span class="tag">Percorso II · Transform</span>
+          <h3 class="h3">Rifondare<br>un'impresa <em>esistente</em>.</h3>
+          <p>Per aziende attive da anni che vogliono rimettere mano alla struttura. Un audit, una ristrutturazione societaria, un nuovo piano finanziario e digitale.</p>
+          <ol>
+            <li>Audit 360° dell'impresa</li>
+            <li>Analisi struttura societaria</li>
+            <li>Riorganizzazione (scissione/fusione)</li>
+            <li>Ristrutturazione debito</li>
+            <li>Nuovo piano industriale</li>
+            <li>Digitalizzazione processi</li>
+            <li>Implementazione dashboard</li>
+            <li>Formazione team interno</li>
+            <li>Review annuale</li>
+          </ol>
+          <div class="for">
+            Pensato per<strong>PMI consolidate, passaggi generazionali, M&A</strong>
+          </div>
+          <div class="cta-row">
+            <a href="contatti.html?tipo=transform" class="btn" style="color:var(--blue-300);border-color:var(--blue-400)">Richiedi il percorso Transform <span class="arr">→</span></a>
+          </div>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <!-- 03 Societario -->
-        <div class="service-section" id="societario">
-            <div class="service-card-wrap reveal">
-                <div class="service-img-side">
-                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=1200" alt="Consulenza societaria" loading="lazy">
-                    <div class="service-img-overlay"></div>
-                    <div class="service-img-number">03</div>
-                </div>
-                <div class="service-content-side">
-                    <div class="service-content-inner">
-                        <span class="service-tag">Pilastro III</span>
-                        <h2 class="service-title-lg">Consulenza<br>Societaria</h2>
-                        <p class="service-lead">Dalla nascita all'espansione, proteggiamo la struttura della tua impresa. Supportiamo i soci nelle scelte che definiscono il futuro dell'organizzazione.</p>
-                        <div class="competence-list">
-                            <span class="competence-pill">Costituzioni & Statuti</span>
-                            <span class="competence-pill">M&A</span>
-                            <span class="competence-pill">Passaggi Generazionali</span>
-                            <span class="competence-pill">Liquidazioni</span>
-                        </div>
-                        <div class="service-innovation">
-                            <div class="service-innovation-label">L'Innesto Tecnologico</div>
-                            <p>Data Room virtuali e Business Intelligence per valutazioni d'azienda rapide e oggettive.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="section-head">
+        <span class="num">05</span>
+        <div>
+          <h2 class="h2 reveal">Domande <em>ricorrenti</em>.</h2>
+          <p class="intro reveal delay-1">Quello che ci chiedono sempre, con risposte brevi.</p>
         </div>
+      </div>
 
-        <!-- 04 Lavoro -->
-        <div class="service-section" id="lavoro">
-            <div class="service-card-wrap reverse reveal">
-                <div class="service-img-side">
-                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200" alt="Consulenza del lavoro" loading="lazy">
-                    <div class="service-img-overlay"></div>
-                    <div class="service-img-number">04</div>
-                </div>
-                <div class="service-content-side">
-                    <div class="service-content-inner">
-                        <span class="service-tag">Pilastro IV</span>
-                        <h2 class="service-title-lg">Consulenza<br>del Lavoro</h2>
-                        <p class="service-lead">Le persone sono l'asset più prezioso. Gestiamo la complessità normativa del lavoro per permetterti di concentrarti sulla crescita del tuo team.</p>
-                        <div class="competence-list">
-                            <span class="competence-pill">Amministrazione HR</span>
-                            <span class="competence-pill">Relazioni Industriali</span>
-                            <span class="competence-pill">Welfare Aziendale</span>
-                            <span class="competence-pill">Audit Giuslavoristico</span>
-                        </div>
-                        <div class="service-innovation">
-                            <div class="service-innovation-label">L'Innesto Tecnologico</div>
-                            <p>Portali dipendente self-service e automazione presenze per una gestione HR snella e moderna.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      <div class="faq-list">
+        <details class="faq reveal">
+          <summary>Posso attivare un solo pilastro o è un pacchetto unico?</summary>
+          <p>Ogni pilastro è autonomo. Puoi attivarne uno, due o tutti e quattro. Il vantaggio di averli tutti con noi è che i dati circolano fra i reparti senza tue azioni intermedie.</p>
+        </details>
+        <details class="faq reveal">
+          <summary>I prezzi indicati sono definitivi o sono "a partire da"?</summary>
+          <p>Sono soglie di ingresso. Ogni preventivo viene costruito sul volume reale (numero di fatture, dipendenti, complessità societaria). Arriva via mail, scritto, prima di qualsiasi firma.</p>
+        </details>
+        <details class="faq reveal">
+          <summary>Lavorate solo a Latina o in tutta Italia?</summary>
+          <p>La sede è a Latina, ma i processi digitali permettono di seguire clienti in tutta Italia. Il 60% dei nostri clienti è nel Lazio, il resto è distribuito fra Roma, Milano e alcune aziende estere.</p>
+        </details>
+        <details class="faq reveal">
+          <summary>Che differenza c'è fra i pilastri e i percorsi?</summary>
+          <p>I pilastri sono continuativi (mensili o annuali). I percorsi sono progetti con un inizio, una fine e un prezzo forfettario. Molti clienti partono con un percorso e continuano con uno o più pilastri.</p>
+        </details>
+        <details class="faq reveal">
+          <summary>Innova è compresa o va richiesta a parte?</summary>
+          <p>Gli innesti tecnologici descritti sopra sono inclusi nei pilastri. I servizi più avanzati della divisione (sviluppo software custom, AI, branding) sono quotati separatamente. Vedi la <a href="innova.html">pagina Innova</a>.</p>
+        </details>
+      </div>
+    </div>
+  </section>
 
-        </div><!-- /services-carousel -->
+  <!-- CTA -->
+  <section class="section" style="text-align:center">
+    <div class="container container-narrow">
+      <div class="reveal">
+        <h2 class="h2">Vediamoci in <em>studio</em>.</h2>
+        <p class="lede" style="margin:24px auto 40px">Trenta minuti per capire di cosa hai bisogno. Poi un preventivo scritto e dettagliato, entro 48 ore.</p>
+        <a href="contatti.html" class="btn primary">Prenota un incontro <span class="arr">→</span></a>
+      </div>
+    </div>
+  </section>
 
-        <div class="inner-carousel-progress inner-mobile-only" aria-hidden="true">
-            <button class="dot is-active" type="button" aria-label="Fiscale"></button>
-            <button class="dot" type="button" aria-label="Contabilità"></button>
-            <button class="dot" type="button" aria-label="Societario"></button>
-            <button class="dot" type="button" aria-label="Lavoro"></button>
-        </div>
+</main>
 
-        <!-- RESPIRO: tra pilastri e CTA -->
-        <section class="inner-respiro inner-mobile-only" aria-hidden="true">
-            <div class="inner-respiro-quote">Quattro <em>pilastri</em>.<br>Un'unica <em>missione</em>.</div>
-            <span class="inner-respiro-tag">L'offerta · CSF</span>
-        </section>
+<footer class="site">
+  <div class="foot-grid">
+    <div class="foot-col">
+      <p class="foot-brand">CSF <em>Consulting</em></p>
+      <p>Boutique di consulenza strategica, fiscale e tecnologica.<br>Territorio Pontino, dal 1978.</p>
+    </div>
+    <div class="foot-col">
+      <h5>Sede</h5>
+      <address>
+        Via Aldo Moro 12<br>
+        04100 Latina (LT)<br>
+        <a href="tel:+390773000000">+39 0773 000 000</a><br>
+        <a href="mailto:info@csf-consulting.it">info@csf-consulting.it</a>
+      </address>
+    </div>
+    <div class="foot-col">
+      <h5>Studio</h5>
+      <ul>
+        <li><a href="chi-siamo.html">Chi siamo</a></li>
+        <li><a href="servizi.html">Servizi</a></li>
+        <li><a href="innova.html">Innova</a></li>
+        <li><a href="partnership.html">Partnership</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h5>Risorse</h5>
+      <ul>
+        <li><a href="contatti.html">Contatti</a></li>
+        <li><a href="privacy.html">Privacy policy</a></li>
+        <li><a href="cookie.html">Cookie policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 1978—2026 CSF Consulting · P.IVA 01234567890</span>
+    <span>Redesign <span class="diamond"></span> v3.0</span>
+  </div>
+</footer>
 
-        <!-- Innovation CTA -->
-        <section class="innovation-cta-block reveal">
-            <div class="cta-glow"></div>
-            <div class="container" style="position: relative; z-index: 2;">
-                <span class="section-label section-label-electric">Oltre la Tradizione</span>
-                <h2 class="cta-title">Pronto per il <span class="text-electric">Prossimo Livello?</span></h2>
-                <p class="section-subtitle" style="margin-bottom: 44px; max-width: 680px; margin-left: auto; margin-right: auto;">
-                    La nostra divisione ibrida fonde l'esperienza contabile con l'intelligenza artificiale e il digital management.
-                </p>
-                <a href="innova.html" class="btn btn-electric" style="padding: 18px 36px; font-size: 0.95rem;">
-                    <span>Esplora Innovation Management</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="margin-left: 8px;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                </a>
-            </div>
-        </section>
-
-    </main>
-
-    <footer id="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-info">
-                    <div class="footer-logo">
-                        <span class="logo-csf">CSF</span>
-                        <span class="logo-consulting">CONSULTING</span>
-                    </div>
-                    <p class="footer-tagline">Tradizione e Innovazione dal 1970. La tua impresa, la nostra missione.</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Studio</h4>
-                    <a href="index.html">Home</a>
-                    <a href="chi-siamo.html">Chi Siamo</a>
-                    <a href="contatti.html">Contatti</a>
-                </div>
-                <div class="footer-links">
-                    <h4>Servizi</h4>
-                    <a href="servizi.html">Consulenza Core</a>
-                    <a href="innova.html">Innovation Management</a>
-                </div>
-                <div class="footer-links">
-                    <h4>Contatti</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-muted);">Territorio Pontino, Italia<br>info@csfconsulting.it</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 CSF Consulting. Tutti i diritti riservati.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+<script src="assets/app.js"></script>
 </body>
 </html>

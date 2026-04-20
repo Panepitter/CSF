@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analisi CSF Consulting — Report A+B</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-deep:#040a14; --bg-base:#0b1424; --bg-surface:#121e32; --bg-raised:#1a293e;
+  --gold-500:#b8942e; --gold-400:#d4ad42; --gold-300:#e4c466; --gold-200:#efd68e;
+  --blue-500:#3b7cf5; --blue-400:#5b94f7; --blue-300:#82b1fa;
+  --red-400:#e25c5c; --amber-400:#e8a63a; --green-400:#4fbf8f;
+  --text-heading:#f5f1e9; --text-body:#dce0e6; --text-muted:#a4adb8; --text-dim:#6b7588;
+  --f-display:'Fraunces',Georgia,serif; --f-body:'Inter',sans-serif; --f-mono:'JetBrains Mono',monospace;
+  --rule:rgba(212,173,66,0.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--f-body);background:var(--bg-base);color:var(--text-body);line-height:1.7;-webkit-font-smoothing:antialiased}
+::selection{background:var(--gold-400);color:var(--bg-deep)}
+a{color:var(--gold-300);text-decoration:none;border-bottom:1px solid rgba(228,196,102,0.25);transition:border .2s}
+a:hover{border-bottom-color:var(--gold-300)}
+
+/* Masthead */
+.mast{border-bottom:1px solid var(--rule);padding:28px clamp(20px,4vw,56px);display:flex;justify-content:space-between;align-items:baseline;gap:24px;flex-wrap:wrap;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-dim);position:sticky;top:0;background:rgba(11,20,36,.9);backdrop-filter:blur(14px);z-index:50}
+.mast strong{color:var(--gold-300);font-weight:500}
+.mast nav{display:flex;gap:20px;flex-wrap:wrap}
+.mast nav a{border:none;color:var(--text-muted)}
+.mast nav a:hover{color:var(--gold-300)}
+
+/* Hero */
+.hero{padding:120px clamp(20px,4vw,56px) 100px;border-bottom:1px solid var(--rule);max-width:1440px;margin:0 auto}
+.folio{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-400);margin-bottom:40px;display:flex;gap:14px;align-items:center}
+.folio::before{content:'';width:40px;height:1px;background:var(--gold-500);opacity:.5}
+h1.display{font-family:var(--f-display);font-weight:300;font-size:clamp(2.8rem,7vw,6rem);line-height:.95;letter-spacing:-.035em;color:var(--text-heading);text-wrap:balance;margin-bottom:32px;font-variation-settings:"opsz" 144,"SOFT" 40}
+h1.display em{font-style:italic;color:var(--gold-300);font-weight:400;font-variation-settings:"opsz" 144,"SOFT" 100}
+.lede{font-family:var(--f-display);font-weight:300;font-size:clamp(1.15rem,1.6vw,1.45rem);color:var(--text-body);max-width:760px;line-height:1.55;margin-bottom:48px}
+.lede em{color:var(--gold-200);font-style:italic}
+
+/* Meta strip */
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:32px;padding-top:40px;border-top:1px solid var(--rule);font-family:var(--f-mono);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase}
+.meta div label{display:block;color:var(--text-dim);margin-bottom:8px}
+.meta div span{color:var(--gold-300);font-size:.9rem;letter-spacing:.08em;font-family:var(--f-body);text-transform:none;font-weight:500}
+
+/* Sections */
+section.part{padding:100px clamp(20px,4vw,56px);max-width:1440px;margin:0 auto;border-bottom:1px solid var(--rule)}
+.part-head{display:grid;grid-template-columns:220px 1fr;gap:60px;margin-bottom:60px;align-items:baseline}
+.part-head .num{font-family:var(--f-display);font-size:4rem;color:var(--gold-400);opacity:.35;line-height:.9;font-weight:300}
+h2{font-family:var(--f-display);font-weight:400;font-size:clamp(2rem,4vw,3.2rem);line-height:1.05;letter-spacing:-.02em;color:var(--text-heading);margin-bottom:18px;font-variation-settings:"opsz" 144}
+h2 em{font-style:italic;color:var(--gold-300);font-variation-settings:"opsz" 144,"SOFT" 100}
+.part-head p{color:var(--text-muted);font-size:1.02rem;max-width:640px}
+
+h3{font-family:var(--f-display);font-weight:500;font-size:1.55rem;line-height:1.2;color:var(--text-heading);margin:48px 0 16px}
+h3:first-child{margin-top:0}
+h3 .tag{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-400);display:block;margin-bottom:8px;font-weight:500}
+h4{font-family:var(--f-body);font-weight:600;font-size:.95rem;color:var(--text-heading);margin:28px 0 10px;letter-spacing:.01em}
+
+p{font-size:1rem;margin-bottom:16px;max-width:78ch}
+p strong{color:var(--text-heading);font-weight:600}
+p em{color:var(--gold-200);font-style:italic}
+
+ul.editorial{list-style:none;padding:0;margin:20px 0 28px}
+ul.editorial li{padding:14px 0 14px 28px;border-bottom:1px solid rgba(164,173,184,.08);position:relative;max-width:78ch}
+ul.editorial li::before{content:'';position:absolute;left:0;top:24px;width:14px;height:1px;background:var(--gold-500)}
+ul.editorial li strong{color:var(--text-heading);display:inline-block;margin-right:8px}
+
+/* Two-column flow */
+.twocol{display:grid;grid-template-columns:220px 1fr;gap:60px;margin-bottom:48px;align-items:start}
+.twocol .side{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);line-height:1.7;padding-top:6px;border-top:1px solid var(--rule)}
+.twocol .side strong{color:var(--gold-300);display:block;font-weight:500;margin-bottom:4px}
+
+/* Findings (UX/UI issues) */
+.findings{display:grid;gap:1px;background:var(--rule);border:1px solid var(--rule);margin:40px 0}
+.finding{background:var(--bg-base);padding:32px clamp(20px,3vw,40px);display:grid;grid-template-columns:90px 1fr 160px;gap:32px;align-items:start;transition:background .3s}
+.finding:hover{background:var(--bg-surface)}
+.finding .sev{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;padding:6px 10px;border:1px solid currentColor;display:inline-block;width:max-content;height:max-content}
+.finding.high .sev{color:var(--red-400)}
+.finding.med .sev{color:var(--amber-400)}
+.finding.low .sev{color:var(--blue-300)}
+.finding h4{margin:0 0 8px;font-size:1.05rem;color:var(--text-heading)}
+.finding p{font-size:.92rem;color:var(--text-muted);margin-bottom:10px;max-width:none}
+.finding .impact{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);line-height:1.7}
+.finding .impact strong{color:var(--gold-300);display:block;font-weight:500;margin-bottom:2px}
+.finding code{font-family:var(--f-mono);font-size:.78rem;background:rgba(212,173,66,.06);color:var(--gold-200);padding:2px 6px;border-radius:2px}
+
+/* Page cards */
+.pages{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin:40px 0 20px}
+.page-card{background:var(--bg-base);padding:32px}
+.page-card .idx{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.2em;color:var(--gold-400);margin-bottom:12px}
+.page-card h4{font-family:var(--f-display);font-weight:500;font-size:1.35rem;color:var(--text-heading);margin:0 0 8px}
+.page-card h4 em{color:var(--gold-300);font-style:italic}
+.page-card .role{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);margin-bottom:16px}
+.page-card p{font-size:.9rem;color:var(--text-muted);max-width:none;margin-bottom:14px}
+.page-card .pros, .page-card .cons{font-size:.85rem;line-height:1.6}
+.page-card .pros{color:var(--green-400);margin-bottom:6px}
+.page-card .cons{color:var(--red-400)}
+.page-card .pros::before{content:'+ '}
+.page-card .cons::before{content:'– '}
+
+/* Swatches (design tokens) */
+.swatches{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--rule);margin:24px 0 36px;border:1px solid var(--rule)}
+.sw{background:var(--bg-base);padding:20px}
+.sw .chip{height:70px;margin-bottom:14px;border:1px solid rgba(255,255,255,.04)}
+.sw .name{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.1em;color:var(--text-heading)}
+.sw .hex{font-family:var(--f-mono);font-size:.68rem;color:var(--text-dim);margin-top:2px}
+
+/* Type specimens */
+.type-row{display:grid;grid-template-columns:140px 1fr;gap:24px;padding:18px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.type-row .label{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim)}
+.type-row .spec{color:var(--text-heading)}
+
+/* Pullquote */
+.pull{margin:60px 0;padding:48px clamp(20px,4vw,60px);border-left:2px solid var(--gold-400);background:linear-gradient(90deg,rgba(212,173,66,.04),transparent)}
+.pull p{font-family:var(--f-display);font-weight:300;font-size:clamp(1.3rem,2vw,1.8rem);line-height:1.4;color:var(--text-heading);font-style:italic;max-width:none;margin:0}
+.pull cite{display:block;margin-top:20px;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-400);font-style:normal}
+
+/* Recommendation blocks */
+.reco{border:1px solid var(--rule);padding:32px clamp(20px,3vw,40px);margin:24px 0;background:linear-gradient(180deg,rgba(59,124,245,.03),transparent)}
+.reco h4{font-family:var(--f-display);font-weight:500;font-size:1.25rem;color:var(--blue-300);margin:0 0 14px}
+.reco h4::before{content:'→ ';color:var(--blue-400)}
+.reco ol{margin:12px 0 0 20px;color:var(--text-body);font-size:.95rem}
+.reco ol li{padding:6px 0 6px 8px;max-width:78ch}
+.reco ol li strong{color:var(--text-heading)}
+
+/* Scorecard */
+.scorecard{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin:32px 0}
+.score{background:var(--bg-base);padding:28px}
+.score .n{font-family:var(--f-display);font-size:3rem;color:var(--gold-400);line-height:1;font-weight:300;letter-spacing:-.02em}
+.score .n small{font-size:1rem;color:var(--text-dim);letter-spacing:0}
+.score .cat{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);margin:12px 0 8px}
+.score p{font-size:.88rem;color:var(--text-muted);margin:0;max-width:none}
+.score .bar{height:2px;background:var(--bg-raised);margin:14px 0 12px;position:relative}
+.score .bar::after{content:'';position:absolute;inset:0;width:var(--w,50%);background:var(--grad,linear-gradient(90deg,var(--gold-500),var(--gold-300)))}
+
+/* Priority matrix */
+.matrix{border:1px solid var(--rule);display:grid;grid-template-columns:180px 1fr 1fr 1fr;margin:32px 0;font-size:.9rem}
+.matrix>div{padding:18px 20px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.matrix>div:nth-child(4n){border-right:none}
+.matrix .head{background:var(--bg-surface);font-family:var(--f-mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-300)}
+.matrix .row-lbl{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);background:rgba(255,255,255,.015)}
+.matrix ul{list-style:none;padding:0;margin:0;font-size:.86rem;line-height:1.6}
+.matrix ul li{padding:3px 0;color:var(--text-body)}
+.matrix ul li::before{content:'· ';color:var(--gold-400)}
+
+/* Footer */
+footer{padding:80px clamp(20px,4vw,56px);text-align:center;border-top:1px solid var(--rule);font-family:var(--f-mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);max-width:1440px;margin:0 auto}
+footer strong{color:var(--gold-300);font-weight:500;display:block;margin-bottom:8px}
+
+/* Responsive */
+@media (max-width:900px){
+  .part-head,.twocol{grid-template-columns:1fr;gap:24px}
+  .finding{grid-template-columns:1fr;gap:16px}
+  .matrix{grid-template-columns:1fr;font-size:.85rem}
+  .matrix>div{border-right:none}
+}
+@media (max-width:600px){
+  .hero{padding:80px 20px 60px}
+  section.part{padding:64px 20px}
+  .mast{padding:18px 20px;font-size:.62rem}
+}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <strong>CSF Consulting · Audit Report</strong>
+  <nav>
+    <a href="#sommario">00 Sommario</a>
+    <a href="#architettura">01 Arch.</a>
+    <a href="#design-system">02 Design</a>
+    <a href="#pagine">03 Pagine</a>
+    <a href="#problemi">04 Problemi</a>
+    <a href="#raccomandazioni">05 Reco</a>
+  </nav>
+  <span>20.04.2026</span>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="folio">Analisi approfondita &mdash; Report A+B</p>
+  <h1 class="display">Tradizione, <em>innovazione</em><br>e i nodi da sciogliere.</h1>
+  <p class="lede">Il sito CSF Consulting costruisce un'<em>identità editoriale</em> rara per il settore della consulenza: navy profondo, oro champagne, Fraunces in corsivo. L'ambizione è chiara — <em>boutique ibrida</em>, non studio generalista. Ma dietro l'impianto estetico si nascondono debiti tecnici, incoerenze di sistema e attriti UX che, oggi, erodono la promessa di <em>eccellenza</em> che il marchio si è dato.</p>
+
+  <div class="meta">
+    <div><label>Perimetro</label><span>7 pagine HTML · 1 foglio CSS · 1 engine JS</span></div>
+    <div><label>Stack</label><span>HTML statico, GSAP, Lenis, Split-Type</span></div>
+    <div><label>Peso CSS</label><span>~161 KB (5725 righe)</span></div>
+    <div><label>Peso JS</label><span>script.js ~62 KB + librerie ~140 KB</span></div>
+    <div><label>Font</label><span>Fraunces · Inter · Cormorant · JetBrains Mono</span></div>
+    <div><label>Palette</label><span>Navy #040a14 · Gold #d4ad42 · Blue #3b7cf5</span></div>
+  </div>
+</section>
+
+<!-- 00 SOMMARIO -->
+<section class="part" id="sommario">
+  <div class="part-head">
+    <span class="num">00</span>
+    <div>
+      <h2>Sommario <em>esecutivo</em>.</h2>
+      <p>Lo stile è un asset. L'architettura dell'informazione e la manutenibilità del codice sono i fronti più urgenti. Di seguito la valutazione sintetica per categoria.</p>
+    </div>
+  </div>
+
+  <div class="scorecard">
+    <div class="score">
+      <p class="n">8.5<small>/10</small></p>
+      <p class="cat">Identità visiva</p>
+      <div class="bar" style="--w:85%"></div>
+      <p>Palette, tipografia e tono editoriale sono distintivi e coerenti. Forte personalità per il settore.</p>
+    </div>
+    <div class="score">
+      <p class="n">6.0<small>/10</small></p>
+      <p class="cat">Architettura informazione</p>
+      <div class="bar" style="--w:60%;--grad:linear-gradient(90deg,#e8a63a,#d4ad42)"></div>
+      <p>Navigazione incoerente: "Partnership" è nel TOC homepage ma manca dalla navbar. 7 capitoli/6 voci.</p>
+    </div>
+    <div class="score">
+      <p class="n">5.5<small>/10</small></p>
+      <p class="cat">Qualità codice</p>
+      <div class="bar" style="--w:55%;--grad:linear-gradient(90deg,#e8a63a,#e4c466)"></div>
+      <p>CSS monolitico (5725 righe), stili inline ovunque, token duplicati legacy/v2, !important diffusi.</p>
+    </div>
+    <div class="score">
+      <p class="n">4.5<small>/10</small></p>
+      <p class="cat">Performance</p>
+      <div class="bar" style="--w:45%;--grad:linear-gradient(90deg,#e25c5c,#e8a63a)"></div>
+      <p>Preloader 3s + canvas continuo + Lenis + GSAP + immagini Unsplash full-res grayscale.</p>
+    </div>
+    <div class="score">
+      <p class="n">4.0<small>/10</small></p>
+      <p class="cat">Accessibilità</p>
+      <div class="bar" style="--w:40%;--grad:linear-gradient(90deg,#e25c5c,#e8a63a)"></div>
+      <p>Pochi <code>alt</code> descrittivi, cursore custom che scompare su elementi interattivi, contrasti non verificati.</p>
+    </div>
+    <div class="score">
+      <p class="n">6.5<small>/10</small></p>
+      <p class="cat">Copy &amp; tono</p>
+      <div class="bar" style="--w:65%;--grad:linear-gradient(90deg,#d4ad42,#e4c466)"></div>
+      <p>Tono editoriale ricercato e coerente, ma abuso di superlativi ("eccellenza", "magistrale", "autorità").</p>
+    </div>
+    <div class="score">
+      <p class="n">7.0<small>/10</small></p>
+      <p class="cat">Interazioni &amp; motion</p>
+      <div class="bar" style="--w:70%"></div>
+      <p>Belle animazioni ma troppe: canvas particellare, Lenis smooth, cursore custom, marquee, preloader.</p>
+    </div>
+    <div class="score">
+      <p class="n">3.5<small>/10</small></p>
+      <p class="cat">SEO &amp; metadati</p>
+      <div class="bar" style="--w:35%;--grad:linear-gradient(90deg,#e25c5c,#e8a63a)"></div>
+      <p>Meta base presenti, ma niente Schema.org, OG images, sitemap, canonical, indirizzo reale (NAP).</p>
+    </div>
+  </div>
+</section>
+
+<!-- 01 ARCHITETTURA -->
+<section class="part" id="architettura">
+  <div class="part-head">
+    <span class="num">01</span>
+    <div>
+      <h2>Architettura dell'<em>informazione</em>.</h2>
+      <p>Il sito si presenta come un "volume editoriale" diviso in capitoli numerati (I→VIII). Un'idea forte, ma la mappa navigabile non corrisponde alla mappa narrativa.</p>
+    </div>
+  </div>
+
+  <div class="twocol">
+    <div class="side"><strong>§ Osservazione</strong>Capitoli dichiarati nella homepage</div>
+    <div>
+      <p>La homepage elenca <strong>8 capitoli</strong> (I Homepage, II Chi siamo, III Servizi, IV Innova, V Finanza, VI Percorsi, VII Partnership, VIII Contatti). Ma la navbar principale espone solo <strong>6 voci</strong>: Home, Chi Siamo, Servizi, Percorsi, Innova, Contatti.</p>
+      <ul class="editorial">
+        <li><strong>"Finanza agevolata"</strong> è solo un'ancora (<code>#finanza</code>) dentro la homepage: non ha pagina propria, nonostante sia numerata come capitolo V.</li>
+        <li><strong>"Partnership"</strong> ha una pagina dedicata (<code>partnership.html</code>, 1354 righe) ma <strong>non compare nella navbar</strong>. Raggiungibile solo dal TOC della homepage e dal footer di alcune pagine.</li>
+        <li>Il <strong>footer</strong> è incoerente fra pagine: la homepage elenca anche "Privacy Policy" e "Cookie Policy" (link a <code>#</code> vuoti); le altre pagine hanno un layout a 4 colonne differente.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="twocol">
+    <div class="side"><strong>§ Osservazione</strong>Ridondanza narrativa</div>
+    <div>
+      <p>La homepage funziona come "teaser" di ogni sezione interna — comportamento legittimo. Ma la soglia di <strong>ridondanza è alta</strong>: le stesse tre colonne di Innova (Data, AI, Brand) compaiono in homepage, in <code>innova.html</code> e vengono rievocate in <code>servizi.html</code> nel box "L'Innesto Tecnologico". Un utente che scorre la home ha già "letto" il 60% di Innova senza saperlo.</p>
+      <p>Stesso pattern per i 4 pilastri servizi, ripetuti 3 volte (home, TOC, pagina Servizi, cards Chi Siamo).</p>
+    </div>
+  </div>
+
+  <div class="twocol">
+    <div class="side"><strong>§ Osservazione</strong>Gerarchia confusa Percorsi ↔ Servizi</div>
+    <div>
+      <p>"Servizi" e "Percorsi" convivono come voci paritarie in navbar, ma sono <em>piani diversi</em>:</p>
+      <ul class="editorial">
+        <li><strong>Servizi</strong> = cosa sappiamo fare (4 pilastri tecnici).</li>
+        <li><strong>Percorsi</strong> = come lo pacchettizziamo (Startup / Transform, 9 tappe).</li>
+      </ul>
+      <p>Dal punto di vista del cliente, "percorsi" è una sotto-offerta derivata dai servizi — non un fratello paritario. L'utente finisce per chiedersi: <em>se ho un'azienda attiva e mi serve bilancio, devo cliccare Servizi o Percorsi?</em></p>
+    </div>
+  </div>
+
+  <div class="pull">
+    <p>Il sito si vende come un volume editoriale in otto capitoli, ma due dei capitoli dichiarati non hanno un proprio scaffale in libreria. La mappa narrativa e la mappa navigabile vanno riallineate.</p>
+    <cite>— Osservazione 01 · AI</cite>
+  </div>
+</section>
+
+<!-- 02 DESIGN SYSTEM -->
+<section class="part" id="design-system">
+  <div class="part-head">
+    <span class="num">02</span>
+    <div>
+      <h2>Design <em>system</em>.</h2>
+      <p>Il sistema è l'aspetto più solido del progetto. Il problema è la sua <em>applicazione</em>: convivono due versioni di token (v1 "legacy" e v2 "refined"), entrambe ancora referenziate nel codice.</p>
+    </div>
+  </div>
+
+  <h3><span class="tag">Palette</span>Navy &amp; gold champagne</h3>
+  <div class="swatches">
+    <div class="sw"><div class="chip" style="background:#040a14;border-color:rgba(255,255,255,.08)"></div><div class="name">bg-deep</div><div class="hex">#040a14</div></div>
+    <div class="sw"><div class="chip" style="background:#0b1424"></div><div class="name">bg-base</div><div class="hex">#0b1424</div></div>
+    <div class="sw"><div class="chip" style="background:#121e32"></div><div class="name">bg-surface</div><div class="hex">#121e32</div></div>
+    <div class="sw"><div class="chip" style="background:#b8942e"></div><div class="name">gold-500</div><div class="hex">#b8942e</div></div>
+    <div class="sw"><div class="chip" style="background:#d4ad42"></div><div class="name">gold-400</div><div class="hex">#d4ad42</div></div>
+    <div class="sw"><div class="chip" style="background:#e4c466"></div><div class="name">gold-300</div><div class="hex">#e4c466</div></div>
+    <div class="sw"><div class="chip" style="background:#3b7cf5"></div><div class="name">blue-500</div><div class="hex">#3b7cf5</div></div>
+    <div class="sw"><div class="chip" style="background:#82b1fa"></div><div class="name">blue-300</div><div class="hex">#82b1fa</div></div>
+  </div>
+
+  <p>La direzione è inequivocabile: <strong>boutique di alta consulenza notturna</strong>, con l'oro come segno di fiducia e il blu elettrico come segno di tecnologia. Pochissime aziende del settore osano questo contrasto — è un vero asset.</p>
+
+  <h4>Criticità dei token</h4>
+  <ul class="editorial">
+    <li><strong>Doppio sistema di naming.</strong> Dentro <code>:root</code> convivono <code>--bg-deep</code>, <code>--bg-base</code>, <code>--bg-surface</code> (v2) e <code>--navy-950</code>, <code>--navy-900</code>, <code>--navy-800</code> (v1 legacy). Le pagine usano entrambi in modo misto. Un refactor da <em>scrivere nel CSS, fare una volta, dimenticare</em>.</li>
+    <li><strong>Violet introdotto solo in innova.html.</strong> <code>--violet-500: #8b5cf6</code> è dichiarato localmente dentro <code>innova.html</code>, fuori dal design system globale. È usato nell'aurora, nei progress bar, nei gradient. Va promosso a token globale o tolto.</li>
+    <li><strong>Nessuna semantica di stato.</strong> Manca un set di colori per <em>error/success/info/warning</em> dichiarati in UI (form, validation). C'è solo <code>--success: #34d399</code>, orfano.</li>
+  </ul>
+
+  <h3><span class="tag">Tipografia</span>Fraunces + Inter + Cormorant + JetBrains Mono</h3>
+  <div class="type-row"><span class="label">Display</span><span class="spec" style="font-family:var(--f-display);font-size:2.2rem;font-weight:400;font-style:italic">Fraunces — <em>l'anima editoriale</em></span></div>
+  <div class="type-row"><span class="label">Body</span><span class="spec" style="font-family:var(--f-body);font-size:1rem">Inter — il ponte neutro, pulito, leggibile</span></div>
+  <div class="type-row"><span class="label">Mono</span><span class="spec" style="font-family:var(--f-mono);font-size:.85rem;letter-spacing:.15em;text-transform:uppercase">JetBrains Mono &mdash; folio &amp; tag</span></div>
+
+  <p style="margin-top:24px"><strong>4 famiglie font</strong> caricate da Google Fonts in ogni pagina. Cormorant Garamond è dichiarato ma, nel CSS, appare solo come <em>fallback</em> di Fraunces (<code>--font-display: 'Fraunces', 'Cormorant Garamond', ...</code>). Viene quindi scaricato ma non usato mai effettivamente. <strong>Payload inutile: stimato ~50-80 KB di font eliminabili.</strong></p>
+
+  <h4>Forze</h4>
+  <ul class="editorial">
+    <li>L'uso di Fraunces con variazione <code>opsz</code> e <code>SOFT</code> è raffinato — un segno di competenza tipografica.</li>
+    <li>La gerarchia <em>display italic + body sans + mono folio</em> è il trio giusto per editorial sites.</li>
+  </ul>
+
+  <h4>Fragilità</h4>
+  <ul class="editorial">
+    <li><strong>Il corsivo oro come unico accento</strong> diventa prevedibile. Tutti i titoli di tutte le pagine hanno la stessa formula: <em>"Parola normale &amp; parola-oro-corsivo"</em>. Dopo 3 pagine il lettore ha già decodificato il pattern.</li>
+    <li><strong>Peso eccessivo.</strong> Fraunces + Cormorant + Inter (6 pesi) + JetBrains = ~400 KB di font. Un editorial moderno standalone può stare sotto i 180 KB.</li>
+  </ul>
+
+  <h3><span class="tag">Layout &amp; spacing</span>Griglia &amp; modulare</h3>
+  <p>Container a <code>1280px</code>, sezioni con <code>padding: 140px</code> verticale (<code>--section-py</code>). Coerente. Il responsive usa 4 breakpoint (1024, 768, 480 + qualche 900). Nel complesso <em>controllato</em> ma ci sono molti <code>!important</code> nel responsive che indicano conflitti non risolti a monte (vedi sezione 04).</p>
+</section>
+
+<!-- 03 PAGINE -->
+<section class="part" id="pagine">
+  <div class="part-head">
+    <span class="num">03</span>
+    <div>
+      <h2>Analisi <em>pagina per pagina</em>.</h2>
+      <p>Ogni pagina ha una personalità — il che è un pregio editoriale e un rischio tecnico. Ecco la valutazione sintetica.</p>
+    </div>
+  </div>
+
+  <div class="pages">
+    <div class="page-card">
+      <p class="idx">I — index.html (920 righe)</p>
+      <h4>Homepage <em>&amp; sommario</em></h4>
+      <p class="role">Landing editoriale / TOC</p>
+      <p>Denso, ambizioso: hero particellare, manifesto, TOC a 7 voci, monumenti servizi, finanza agevolata, percorsi, partnership, lettera del fondatore, statistiche, contatti.</p>
+      <p class="pros">Forte senso editoriale, rhythm di sezioni ben curato.</p>
+      <p class="cons">Troppo lungo: ~8 scroll completi. Ridondante con le pagine interne.</p>
+    </div>
+
+    <div class="page-card">
+      <p class="idx">II — chi-siamo.html (501 righe)</p>
+      <h4>Chi siamo <em>&amp; metodo</em></h4>
+      <p class="role">Storytelling &amp; team</p>
+      <p>Split hero (Eredità / Futuro), 3 ere temporali (1970 / 2000 / Oggi), reparto produttivo digitale, 4 volti del team, citazione Frasca.</p>
+      <p class="pros">Split hero molto efficace come metafora visiva.</p>
+      <p class="cons">Foto team sono stock Unsplash non credibili. Animazione fade alternato su mobile è confusionaria.</p>
+    </div>
+
+    <div class="page-card">
+      <p class="idx">III — servizi.html (637 righe)</p>
+      <h4>Servizi <em>tradizionali</em></h4>
+      <p class="role">I 4 pilastri</p>
+      <p>Card alternate sinistra/destra, pills "competenze", box blu "L'Innesto Tecnologico" per ogni pilastro.</p>
+      <p class="pros">Pattern di lettura chiarissimo. Il ponte tradizione→tech funziona.</p>
+      <p class="cons">Le 4 card sono quasi identiche: il pattern ripetuto perde tensione alla terza.</p>
+    </div>
+
+    <div class="page-card">
+      <p class="idx">IV — innova.html (2095 righe)</p>
+      <h4>Innova <em>&amp; tecnologia</em></h4>
+      <p class="role">Manifesto digitale</p>
+      <p>La pagina più ambiziosa: aurora animata, mouse glow, progress bar, GSAP+ScrollTrigger+SplitType+Lenis, tre reparti (Data/AI/Brand) e molto altro.</p>
+      <p class="pros">Wow-effect reale. Gli orbs auroriali sono iconici.</p>
+      <p class="cons">2095 righe in un singolo file, ~400 KB di JS libs caricate solo qui, peso sproporzionato.</p>
+    </div>
+
+    <div class="page-card">
+      <p class="idx">V — percorsi.html (867 righe)</p>
+      <h4>Percorsi <em>a pacchetto</em></h4>
+      <p class="role">Scelta bivalente</p>
+      <p>Overlay iniziale "Startup / Transform" a schermo intero, poi scroll orizzontale di 600vh per 9 step.</p>
+      <p class="pros">L'overlay di scelta è un'esperienza memorabile.</p>
+      <p class="cons">L'overlay blocca l'accesso al contenuto — problema grave per accessibilità, SEO e bounce rate.</p>
+    </div>
+
+    <div class="page-card">
+      <p class="idx">VI — partnership.html (1354 righe)</p>
+      <h4>Partnership <em>&amp; ecosistema</em></h4>
+      <p class="role">Network &amp; alleanze</p>
+      <p>Canvas gravitazionale nell'hero, diagramma orbitale interattivo, 3 tipi di partner.</p>
+      <p class="pros">Il canvas è elegante; il diagramma orbitale racconta bene l'idea "ecosistema".</p>
+      <p class="cons"><strong>Non è in navbar</strong>. Pagina invisibile.</p>
+    </div>
+
+    <div class="page-card">
+      <p class="idx">VII — contatti.html (276 righe)</p>
+      <h4>Contatti <em>&amp; FAQ</em></h4>
+      <p class="role">Conversion</p>
+      <p>Hero semplice, form con select area interesse, 5 domande FAQ ad accordion.</p>
+      <p class="pros">Form pulito, FAQ utili e ben scritte.</p>
+      <p class="cons">Nessun indirizzo fisico (solo "Territorio Pontino"), nessuna mappa, nessun telefono. Form senza action backend.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 04 PROBLEMI -->
+<section class="part" id="problemi">
+  <div class="part-head">
+    <span class="num">04</span>
+    <div>
+      <h2>Problematiche <em>identificate</em>.</h2>
+      <p>Elenco per severità. HIGH = impatta business / utenti reali. MED = attrito evidente, da risolvere. LOW = polish e debito di pulizia.</p>
+    </div>
+  </div>
+
+  <div class="findings">
+
+    <div class="finding high">
+      <span class="sev">High · 01</span>
+      <div>
+        <h4>"Territorio Pontino" come unico indirizzo</h4>
+        <p>In contatti, footer e meta description compare solo la dicitura generica. Nessun indirizzo civico, nessuna città, nessun numero di telefono, nessuna mappa. Per uno studio professionale italiano questa è una lacuna grave: <strong>blocca il trust</strong> (chi è davvero CSF? dove ha sede?) e affossa la SEO locale (il cliente cerca "commercialista Latina" o "consulente Aprilia").</p>
+        <code>contatti.html · index.html · footer</code>
+      </div>
+      <div class="impact"><strong>Impatto</strong>Trust, SEO local, conversion</div>
+    </div>
+
+    <div class="finding high">
+      <span class="sev">High · 02</span>
+      <div>
+        <h4>Preloader forzato fino a 3 secondi</h4>
+        <p>In <code>script.js</code>, <code>preloader()</code> tiene la pagina in <code>body.loading</code> finché non scatta <code>document.fonts.ready</code>, con un timeout massimo di <strong>3000ms</strong>. In rete lenta o su dispositivi scadenti l'utente vede 3 secondi di logo prima di qualsiasi contenuto. <strong>Per un sito di consulenza è una scelta sbagliata</strong>: i visitatori non vengono per l'esperienza, vengono per informazioni, e il bounce rate mobile a 3s di attesa è documentato intorno al 30-40%.</p>
+        <code>script.js:42 · preloader()</code>
+      </div>
+      <div class="impact"><strong>Impatto</strong>Bounce, conversion, LCP</div>
+    </div>
+
+    <div class="finding high">
+      <span class="sev">High · 03</span>
+      <div>
+        <h4>Overlay "Startup / Transform" blocca Percorsi</h4>
+        <p>La pagina <code>percorsi.html</code> apre con un overlay a schermo intero che forza l'utente a scegliere fra due bottoni. Finché non si clicca, il contenuto è <code>overflow:hidden</code> e invisibile. Effetto collaterale: i crawler SEO vedono una pagina vuota, gli utenti che arrivano da un deep-link si trovano bloccati, <strong>non esiste opzione "mostrami entrambi"</strong> o "prosegui senza scegliere".</p>
+        <code>percorsi.html · body.percorsi-page</code>
+      </div>
+      <div class="impact"><strong>Impatto</strong>SEO, accessibilità, bounce</div>
+    </div>
+
+    <div class="finding high">
+      <span class="sev">High · 04</span>
+      <div>
+        <h4>Partnership fuori dalla navigazione</h4>
+        <p>La pagina Partnership conta 1354 righe di codice e un canvas WebGL nell'hero: è un investimento di lavoro significativo. Ma non compare in navbar né in mobile menu. È raggiungibile solo dal TOC della homepage (come "capitolo VII") e da alcuni link nel footer. Per la maggior parte degli utenti, <strong>questa pagina non esiste</strong>.</p>
+        <code>navbar · nav-links · tutte le pagine</code>
+      </div>
+      <div class="impact"><strong>Impatto</strong>Discoverability, ROI del codice</div>
+    </div>
+
+    <div class="finding high">
+      <span class="sev">High · 05</span>
+      <div>
+        <h4>Accessibilità — <code>alt</code> mancanti o generici, cursore custom invasivo</h4>
+        <p>Molte immagini hanno <code>alt</code> generico ("Team Member", "Data Analysis") o mancante sulle immagini di sfondo <code>background-image</code> (che per definizione non hanno alt, ma non hanno neanche un ruolo semantico dichiarato). Il cursore personalizzato (<code>.cursor-dot</code> + <code>.cursor-outline</code>) riduce il focus ring degli elementi interattivi e confonde gli utenti con <em>tremor</em> o problemi motori. Non c'è un <code>prefers-reduced-motion</code> global che lo disattivi.</p>
+        <code>cursor-dot · aria-hidden sulle hero · alt stock</code>
+      </div>
+      <div class="impact"><strong>Impatto</strong>WCAG, inclusività</div>
+    </div>
+
+    <div class="finding med">
+      <span class="sev">Med · 06</span>
+      <div>
+        <h4>Stili inline massivi nell'HTML</h4>
+        <p>Le pagine contengono centinaia di <code>style="..."</code> inline: posizionamento, colori, tipografia. Esempio in <code>chi-siamo.html</code>: <code>style="color: var(--gold-400); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;"</code> ripetuto 4 volte. Questo rompe la promessa del design system: <strong>la stessa regola viene riscritta ogni volta</strong>. Conseguenza: se domani si cambia il colore dei ruoli nel team, bisogna modificare 4+ stringhe in un file HTML (e farlo anche in futuro per ogni nuovo membro).</p>
+        <code>chi-siamo.html · index.html · tutti</code>
+      </div>
+      <div class="impact"><strong>Impatto</strong>Manutenibilità</div>
+    </div>
+
+    <div class="finding med">
+      <span class="sev">Med · 07</span>
+      <div>
+        <h4>CSS da 5725 righe in un file solo</h4>
+        <p><code>style.css</code> pesa ~161 KB non minificato. Contiene tutti gli stili di tutte le pagine più i fix responsive specifici. Un refactor in moduli (<code>tokens.css</code>, <code>layout.css</code>, <code>components.css</code>, poi per pagina <code>page-innova.css</code> ecc.) ridurrebbe il peso iniziale e farebbe entrare il sito nel <em>below the fold</em> molto più rapidamente.</p>
+        <code>style.css</code>
+      </div>
+      <div class="impact"><strong>Impatto</strong>Performance, DX</div>
+    </div>
+
+    <div class="finding med">
+      <span class="sev">Med · 08</span>
+      <div>
+        <h4>Doppio set di token (v1 legacy + v2)</h4>
+        <p>Nel <code>:root</code> convivono <code>--navy-950</code> (v1) e <code>--bg-deep</code> (v2), con <code>--navy-950: var(--bg-deep)</code> come alias. Funziona, ma significa che il codice è <em>a metà della migrazione</em>. Gli stili inline della homepage usano i nomi vecchi (<code>var(--navy-900)</code>), il CSS principale quelli nuovi. Completare la migrazione o documentare ufficialmente entrambi come livelli.</p>
+        <code>style.css:75-85</code>
+      </div>
+      <div class="impact"><strong>Impatto</strong>DX, coerenza</div>
+    </div>
+
+    <div class="finding med">
+      <span class="sev">Med · 09</span>
+      <div>
+        <h4>Superlativi ripetuti nel copy</h4>
+        <p>Il copy è ricercato ma abusa di: "eccellenza", "magistrale", "prestigio", "autorità", "ai massimi livelli", "totale", "assoluto", "senza precedenti". Conta: <strong>28 occorrenze di "eccellenza/prestigio/autorità"</strong> fra le 7 pagine. Una buona editoriale si fida dei fatti; il lettore professionale (imprenditore medio-alto) diffida dei superlativi. Il tono "da brochure" stride con l'ambizione "da magazine".</p>
+        <code>copy · tutte le pagine</code>
+      </div>
+      <div class="impact"><strong>Impatto</strong>Credibilità, tono</div>
+    </div>
+
+    <div class="finding med">
+      <span class="sev">Med · 10</span>
+      <div>
+        <h4>Immagini stock Unsplash per il team</h4>
+        <p>In <code>chi-siamo.html</code> i 4 volti del team sono stock Unsplash con nomi inventati (Elena Rossi, Marco Bianchi...). Un utente esperto lo riconosce in pochi secondi, e il trust crolla di netto. Meglio <strong>nessun volto che volti falsi</strong>: si possono usare placeholder monogrammi o silhouette grigie finché non si hanno le foto reali.</p>
+        <code>chi-siamo.html · step-container</code>
+      </div>
+      <div class="impact"><strong>Impatto</strong>Trust, etica</div>
+    </div>
+
+    <div class="finding med">
+      <span class="sev">Med · 11</span>
+      <div>
+        <h4>4 font × 6 pesi ciascuno</h4>
+        <p>Caricati in ogni pagina: Fraunces (6 axes), Cormorant Garamond (7 pesi), Inter (5 pesi), JetBrains Mono (2 pesi). Cormorant è solo fallback. Riduzione suggerita: solo Fraunces variable (1 request) + Inter (3 pesi) + JetBrains Mono (1 peso). Taglio stimato: <strong>~200 KB di font</strong>.</p>
+        <code>font Google · preload in head</code>
+      </div>
+      <div class="impact"><strong>Impatto</strong>Performance</div>
+    </div>
+
+    <div class="finding med">
+      <span class="sev">Med · 12</span>
+      <div>
+        <h4>Mobile menu sovrascrive <code>body.loading</code></h4>
+        <p>In <code>script.js</code> il toggle del mobile menu fa <code>document.body.classList.toggle('loading')</code> per bloccare lo scroll del body. Ma <code>loading</code> è <strong>la stessa classe usata dal preloader</strong>. Se un utente apre il menu mobile durante una navigazione con preloader attivo, le classi si scontrano. Usare una classe dedicata come <code>menu-open</code>.</p>
+        <code>script.js · setupMobileMenu</code>
+      </div>
+      <div class="impact"><strong>Impatto</strong>Bug latente</div>
+    </div>
+
+    <div class="finding med">
+      <span class="sev">Med · 13</span>
+      <div>
+        <h4>Form contatti senza backend dichiarato</h4>
+        <p><code>contactForm</code> non ha <code>action</code> né <code>method</code>. In <code>script.js</code> esiste <code>setupContactForm()</code> ma non viene mostrato nei primi 400 caratteri del file. Se è solo un <code>preventDefault</code> con alert, il form è decorativo — una pagina Contatti con form finto è peggio di una senza form.</p>
+        <code>contatti.html · index.html</code>
+      </div>
+      <div class="impact"><strong>Impatto</strong>Conversion</div>
+    </div>
+
+    <div class="finding med">
+      <span class="sev">Med · 14</span>
+      <div>
+        <h4>Agent API fantasma</h4>
+        <p>In cima a <code>script.js</code>: <code>var AGENT_API = '/api/agents'; var AGENT_ID = 'agent_csf_consultant';</code> + <code>setupAgentChat()</code>. È stato <strong>previsto un agente conversazionale</strong>, ma nel sito statico non c'è un backend a <code>/api/agents</code>. Il codice chiama un endpoint che risponderà 404, con potenziali errori console visibili ai dev tools. Rimuovere o renderlo condizionale.</p>
+        <code>script.js:10-12</code>
+      </div>
+      <div class="impact"><strong>Impatto</strong>Debito tecnico</div>
+    </div>
+
+    <div class="finding low">
+      <span class="sev">Low · 15</span>
+      <div>
+        <h4>SEO: meta identiche fra pagine, zero Schema.org</h4>
+        <p>Le <code>description</code> delle pagine sono tutte varianti della stessa. Nessun markup Schema.org per <code>LocalBusiness</code> / <code>ProfessionalService</code>. Nessun <code>canonical</code>, nessuna <code>sitemap.xml</code>, nessun og:image (solo og:title/description). Per uno studio che vuole essere trovato "commercialista Latina" il gap è importante.</p>
+        <code>head · tutte le pagine</code>
+      </div>
+      <div class="impact"><strong>Impatto</strong>SEO</div>
+    </div>
+
+    <div class="finding low">
+      <span class="sev">Low · 16</span>
+      <div>
+        <h4>Canvas hero sempre attivo</h4>
+        <p>Il <code>heroCanvas</code> della homepage anima 75 particelle + linee di connessione <em>continuamente</em>, anche quando l'hero non è più in viewport. C'è un <code>visibilitychange</code> che ferma l'animazione se la tab è nascosta, ma non un <code>IntersectionObserver</code> sull'hero stesso. Batteria mobile penalizzata.</p>
+        <code>script.js · setupHeroCanvas</code>
+      </div>
+      <div class="impact"><strong>Impatto</strong>Performance</div>
+    </div>
+
+    <div class="finding low">
+      <span class="sev">Low · 17</span>
+      <div>
+        <h4>Trascinamento orizzontale servizi non indicato</h4>
+        <p>Sia homepage (monumenti servizi) che <code>servizi.html</code> diventano <em>carousel orizzontali</em> su mobile, ma l'hint testuale ("Scorri i pilastri") è piccolo e facile da perdere. Aggiungere un indicator grafico (freccia pulsante, peek del card successivo) aiuterebbe la scopribilità del gesto.</p>
+        <code>monumental-grid · services-carousel</code>
+      </div>
+      <div class="impact"><strong>Impatto</strong>UX mobile</div>
+    </div>
+
+    <div class="finding low">
+      <span class="sev">Low · 18</span>
+      <div>
+        <h4>Privacy / Cookie policy link vuoti</h4>
+        <p>Nel footer della homepage: <code>&lt;a href="#"&gt;Privacy Policy&lt;/a&gt;</code>. Legalmente (GDPR) serve una policy reale raggiungibile. Va creata la pagina o rimosso il link.</p>
+        <code>index.html · footer</code>
+      </div>
+      <div class="impact"><strong>Impatto</strong>Compliance</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 05 RACCOMANDAZIONI -->
+<section class="part" id="raccomandazioni">
+  <div class="part-head">
+    <span class="num">05</span>
+    <div>
+      <h2>Raccomandazioni <em>&amp; roadmap</em>.</h2>
+      <p>Tre blocchi di intervento per orizzonte temporale. L'obiettivo: <strong>preservare l'anima editoriale</strong>, ripulire il sistema, riallineare la navigazione al vero valore dello studio.</p>
+    </div>
+  </div>
+
+  <div class="matrix">
+    <div class="head">Orizzonte</div>
+    <div class="head">UX / IA</div>
+    <div class="head">Codice / Performance</div>
+    <div class="head">Contenuto / Business</div>
+
+    <div class="row-lbl">Quick wins<br>1-2 settimane</div>
+    <div><ul><li>Aggiungere Partnership alla navbar</li><li>Rimuovere Privacy/Cookie link vuoti</li><li>Aggiungere alternativa "Vedi entrambi" all'overlay Percorsi</li></ul></div>
+    <div><ul><li>Rimuovere Cormorant dal caricamento font</li><li>Ridurre timeout preloader a 800ms</li><li>IntersectionObserver sul canvas hero</li><li>Rimuovere o commentare AGENT_API</li></ul></div>
+    <div><ul><li>Inserire indirizzo civico reale + telefono</li><li>Sostituire foto team con placeholder o foto vere</li><li>Unificare footer su tutte le pagine</li></ul></div>
+
+    <div class="row-lbl">Medio termine<br>1-2 mesi</div>
+    <div><ul><li>Ripensare gerarchia Servizi ↔ Percorsi (percorsi come figli)</li><li>Creare una pagina Finanza agevolata autonoma</li><li>Aggiungere indicatore di scorrimento orizzontale su mobile</li></ul></div>
+    <div><ul><li>Refactor CSS in moduli (tokens, layout, components, pages)</li><li>Eliminare gli style inline ricorrenti → classi utility</li><li>Unificare i token legacy v1 con v2</li><li>prefers-reduced-motion globale</li></ul></div>
+    <div><ul><li>Riscrittura copy: tagliare superlativi, aggiungere fatti verificabili</li><li>Form con backend (Formspree / Netlify Forms / ConvertKit)</li><li>Piano immagini reali: sede, team, incontri</li></ul></div>
+
+    <div class="row-lbl">Lungo termine<br>3-6 mesi</div>
+    <div><ul><li>Audit WCAG completo (contrasto, tastiera, screen reader)</li><li>Riprogettare homepage: ridurre da 8 scroll a 5, delegare ai capitoli</li><li>Sistema di case study/progetti reali</li></ul></div>
+    <div><ul><li>Migrazione a stack moderno (Astro / 11ty) per page-level code-splitting</li><li>Image CDN con WebP/AVIF e lazy-loading nativo</li><li>Lighthouse target: >90 su tutte le pagine</li></ul></div>
+    <div><ul><li>Schema.org ProfessionalService + LocalBusiness</li><li>Strategia SEO locale ("commercialista Latina / Aprilia / Terracina")</li><li>Blog editoriale — il tono lo chiede</li></ul></div>
+  </div>
+
+  <div class="reco">
+    <h4>Priorità n° 1 — Ripensare la navigazione come promessa editoriale mantenuta</h4>
+    <ol>
+      <li><strong>Navbar a 5 voci:</strong> Chi Siamo · Servizi (contiene Percorsi come drop-down o sotto-pagina) · Innova · Partnership · Contatti.</li>
+      <li><strong>TOC homepage coerente</strong> con navbar (oggi ha 7 voci, vs 5 in navbar).</li>
+      <li><strong>Finanza agevolata:</strong> o diventa una sezione dentro Servizi, o diventa una pagina propria. Oggi è in limbo.</li>
+    </ol>
+  </div>
+
+  <div class="reco">
+    <h4>Priorità n° 2 — Ricreare trust con fatti, non con superlativi</h4>
+    <ol>
+      <li><strong>Pagina Contatti:</strong> indirizzo reale + foto della sede + numero di telefono + mappa embed (Google Maps o OpenStreetMap).</li>
+      <li><strong>Chi Siamo:</strong> se le foto del team non sono pronte, sostituire con <em>card-silhouette</em> con iniziali sul fondo navy. Più onesto.</li>
+      <li><strong>Case study:</strong> anche anonimizzati, raccontano più di cento aggettivi. Es. <em>"PMI manifatturiera, 12M€ fatturato: abbiamo ristrutturato il debito e recuperato 180K€ di credito d'imposta 4.0."</em></li>
+      <li><strong>Copy:</strong> ridurre "eccellenza/prestigio/autorità" del 70%. Mantenere l'italico editoriale.</li>
+    </ol>
+  </div>
+
+  <div class="reco">
+    <h4>Priorità n° 3 — Performance &amp; accessibilità</h4>
+    <ol>
+      <li><strong>Preloader:</strong> togliere il timeout fisso di 3s. Far scomparire al <code>DOMContentLoaded</code> + 300ms, o ancora meglio eliminarlo del tutto su pagine interne.</li>
+      <li><strong>Font:</strong> solo Fraunces variable + Inter + JetBrains Mono. Taglio stimato: 200 KB.</li>
+      <li><strong>Canvas:</strong> stop quando hero è fuori viewport. Desaturare particelle con <code>prefers-reduced-motion</code>.</li>
+      <li><strong>Cursore custom:</strong> disattivabile via preference utente + nessuna interferenza con il focus-ring nativo.</li>
+      <li><strong>Immagini:</strong> self-host le 6-8 immagini ricorrenti, WebP/AVIF, <code>loading="lazy"</code>, dimensioni esplicite per evitare CLS.</li>
+    </ol>
+  </div>
+
+  <div class="reco">
+    <h4>Priorità n° 4 — Pulizia del design system</h4>
+    <ol>
+      <li><strong>Tokens:</strong> decidere v1 o v2. Fare una <em>find &amp; replace</em> su tutte le pagine + CSS. Eliminare gli alias.</li>
+      <li><strong>Violet:</strong> promuovere <code>--violet-*</code> a token globale, dato che è usato in innova. O rimuoverlo.</li>
+      <li><strong>Style inline:</strong> promuovere a classi utility (es. <code>.text-mono-tag</code>, <code>.team-role</code>, <code>.flex-gap-lg</code>).</li>
+      <li><strong>CSS modulare:</strong> split in files per pagina. <code>style.css</code> resta solo per tokens + globali.</li>
+    </ol>
+  </div>
+
+  <div class="pull">
+    <p>La forza del sito CSF non è l'effetto speciale: è l'<em>idea</em> che una boutique di consulenza possa avere la dignità tipografica di un magazine di culto. Questa idea va difesa dai suoi stessi eccessi: meno animazioni, più sostanza; meno superlativi, più fatti; meno capitoli promessi, più capitoli scritti.</p>
+    <cite>— Conclusione del report</cite>
+  </div>
+</section>
+
+<footer>
+  <strong>Report A+B · CSF Consulting</strong>
+  Analisi approfondita · 20 aprile 2026 · Copy e immagini del sito analizzato sono mockup
+</footer>
+
+</body>
+</html>

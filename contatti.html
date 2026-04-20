@@ -1,276 +1,317 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
-    <link rel="icon" href="favicon.ico" sizes="32x32">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <title>Contatti — CSF Consulting | Latina e Territorio Pontino</title>
-    <meta name="description" content="Contatta CSF Consulting per una consulenza d'impresa d'eccellenza. Sede nel territorio pontino, supporto fiscale, societario e innovazione.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        .internal-hero {
-            padding: 180px 0 100px;
-            background: var(--navy-900);
-            text-align: center;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contatti — CSF Consulting</title>
+<meta name="description" content="Contatta CSF Consulting: sede a Latina, telefono, email, modulo. Prima consulenza gratuita.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/app.css">
+<link rel="stylesheet" href="assets/reveal.css">
+<style>
+.page-hero{padding:clamp(80px,10vw,140px) 0 clamp(60px,6vw,90px);border-bottom:1px solid var(--rule);text-align:center}
+.page-hero .folio{justify-content:center;margin-bottom:var(--sp-8)}
+.page-hero h1{font-size:var(--fs-120)}
+.page-hero .lede{margin:var(--sp-8) auto 0}
 
-        @media (max-width: 768px) {
-            .internal-hero { padding: 140px 0 70px; }
-        }
+/* Contact grid */
+.contact-block{padding:var(--section-py) 0;border-bottom:1px solid var(--rule)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:start}
 
-        @media (max-width: 480px) {
-            .internal-hero { padding: 120px 0 56px; }
-        }
-    </style>
+/* NAP card */
+.nap{padding:var(--sp-10);border:1px solid var(--rule);background:var(--bg-surface)}
+.nap h3{font-size:var(--fs-32);margin-bottom:var(--sp-8)}
+.nap-row{display:flex;gap:20px;padding:var(--sp-6) 0;border-top:1px solid var(--rule);align-items:flex-start}
+.nap-row:last-child{border-bottom:1px solid var(--rule)}
+.nap-row .ico{width:36px;height:36px;border:1px solid var(--gold-400);display:flex;align-items:center;justify-content:center;color:var(--gold-300);flex-shrink:0;font-family:var(--f-display);font-weight:500}
+.nap-row .ct{flex:1}
+.nap-row .ct h5{font-family:var(--f-mono);font-size:var(--fs-12);letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);margin-bottom:var(--sp-2)}
+.nap-row .ct p,.nap-row .ct address{color:var(--text-body);font-size:var(--fs-16);line-height:1.65;font-style:normal}
+.nap-row .ct a{color:var(--gold-300)}
+.nap-hours{margin-top:var(--sp-8);padding-top:var(--sp-6);border-top:1px solid var(--rule)}
+.nap-hours h5{font-family:var(--f-mono);font-size:var(--fs-12);letter-spacing:.18em;text-transform:uppercase;color:var(--gold-400);margin-bottom:var(--sp-4)}
+.nap-hours dl{display:grid;grid-template-columns:1fr auto;gap:8px 24px;font-family:var(--f-mono);font-size:var(--fs-14)}
+.nap-hours dt{color:var(--text-muted)}
+.nap-hours dd{color:var(--text-heading);font-weight:500}
+
+/* Form */
+.form-card{padding:var(--sp-10);border:1px solid var(--rule);background:var(--bg-surface)}
+.form-card h3{font-size:var(--fs-32);margin-bottom:var(--sp-6)}
+.form-card>p.intro{color:var(--text-muted);font-size:var(--fs-14);margin-bottom:var(--sp-8);line-height:1.65}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+.fg{display:flex;flex-direction:column;gap:6px}
+.fg label{font-family:var(--f-mono);font-size:var(--fs-12);letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim)}
+.fg input,.fg select,.fg textarea{background:var(--bg-base);border:1px solid var(--rule);color:var(--text-heading);padding:14px 16px;font-family:var(--f-body);font-size:var(--fs-14);transition:border var(--t-fast)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--gold-400)}
+.fg textarea{min-height:140px;resize:vertical;font-family:var(--f-body)}
+.form-single{margin-bottom:20px}
+.form-check{display:flex;gap:12px;align-items:flex-start;font-size:var(--fs-14);color:var(--text-muted);margin-bottom:var(--sp-6);line-height:1.5}
+.form-check input{flex-shrink:0;margin-top:3px;accent-color:var(--gold-400)}
+.form-check a{color:var(--gold-300)}
+.form-submit{width:100%}
+@media (max-width:900px){.contact-grid{grid-template-columns:1fr;gap:40px}.form-row{grid-template-columns:1fr}}
+
+/* Map placeholder */
+.map-section{padding:0;border-bottom:1px solid var(--rule)}
+.map-ph{width:100%;height:420px;background:
+  repeating-linear-gradient(135deg,rgba(212,173,66,.04) 0 14px,transparent 14px 28px),
+  linear-gradient(180deg,var(--bg-deep),var(--bg-surface));
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;font-family:var(--f-mono);font-size:var(--fs-12);letter-spacing:.18em;text-transform:uppercase;color:var(--gold-300);position:relative}
+.map-ph .pin{width:14px;height:14px;background:var(--gold-400);border-radius:50%;position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 8px rgba(212,173,66,.2),0 0 0 22px rgba(212,173,66,.08)}
+.map-ph .badge{background:var(--bg-deep);padding:10px 18px;border:1px solid var(--gold-400);color:var(--gold-300);position:relative;z-index:2}
+
+/* FAQ */
+.faq-section{padding:var(--section-py) 0;border-bottom:1px solid var(--rule);background:var(--bg-deep)}
+.faq-list{max-width:780px;margin:var(--sp-16) auto 0}
+.faq{border-top:1px solid var(--rule);padding:var(--sp-6) 0}
+.faq:last-child{border-bottom:1px solid var(--rule)}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:baseline;gap:20px;font-family:var(--f-display);font-size:var(--fs-24);color:var(--text-heading);font-weight:400;line-height:1.3}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';font-family:var(--f-display);font-weight:300;font-size:var(--fs-32);color:var(--gold-400);transition:transform var(--t-fast);flex-shrink:0}
+.faq[open] summary::after{transform:rotate(45deg)}
+.faq p{color:var(--text-muted);font-size:var(--fs-16);line-height:1.75;max-width:60ch;margin-top:var(--sp-4)}
+</style>
 </head>
-<body class="page-contatti">
+<body data-page="contatti">
 
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="preloader-inner">
-            <div class="preloader-logo">CSF</div>
-            <div class="preloader-line"></div>
-            <div class="preloader-text">CONSULTING</div>
-        </div>
+<a class="skip" href="#main">Vai al contenuto</a>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="mark"></span>CSF <em>Consulting</em></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="chi-siamo.html" data-nav="chi-siamo">Chi siamo</a></li>
+      <li><a href="servizi.html" data-nav="servizi">Servizi</a></li>
+      <li><a href="innova.html" data-nav="innova">Innova</a></li>
+      <li><a href="partnership.html" data-nav="partnership">Partnership</a></li>
+      <li><a href="contatti.html" data-nav="contatti">Contatti</a></li>
+      <li><a class="nav-cta" href="contatti.html">Prenota un incontro</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Apri menu" onclick="document.getElementById('navLinks').classList.toggle('open')">☰</button>
+  </div>
+</nav>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <p class="folio reveal">Scrivici</p>
+      <h1 class="display reveal delay-1">Inizia<br>una <em>conversazione</em>.</h1>
+      <p class="lede reveal delay-2">Trenta minuti per capirci, senza impegno. In studio a Latina, in videocall o al telefono: scegli tu.</p>
     </div>
+  </section>
 
-    <!-- Custom Cursor -->
-    <div class="cursor-dot" aria-hidden="true"></div>
-    <div class="cursor-outline" aria-hidden="true"></div>
-
-    <!-- Navigation -->
-    <nav id="navbar" class="scrolled">
-        <div class="nav-container">
-            <a href="index.html" class="nav-logo">
-                <span class="logo-csf">CSF</span>
-                <span class="logo-divider"></span>
-                <span class="logo-consulting">CONSULTING</span>
-            </a>
-            <div class="nav-links" id="navLinks">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="chi-siamo.html" class="nav-link">Chi Siamo</a>
-                <a href="servizi.html" class="nav-link">Servizi</a>
-                <a href="percorsi.html" class="nav-link">Percorsi</a>
-                <a href="innova.html" class="nav-link">Innova</a>
-                <a href="contatti.html" class="nav-link nav-link-cta active">Contatti</a>
+  <!-- CONTACT GRID -->
+  <section class="contact-block">
+    <div class="container">
+      <div class="contact-grid">
+        <!-- NAP -->
+        <aside class="nap reveal">
+          <h3 class="h3"><em>Come</em> raggiungerci.</h3>
+          <div class="nap-row">
+            <div class="ico">◆</div>
+            <div class="ct">
+              <h5>Sede</h5>
+              <address>
+                Via Aldo Moro 12<br>
+                04100 Latina (LT)<br>
+                <a href="https://maps.google.com/?q=Via+Aldo+Moro+12+Latina" target="_blank" rel="noopener">Apri su Google Maps →</a>
+              </address>
             </div>
-            <button class="nav-toggle" id="navToggle" aria-label="Apri menu">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-    </nav>
+          </div>
+          <div class="nap-row">
+            <div class="ico">☎</div>
+            <div class="ct">
+              <h5>Telefono</h5>
+              <p><a href="tel:+390773000000">+39 0773 000 000</a></p>
+            </div>
+          </div>
+          <div class="nap-row">
+            <div class="ico">@</div>
+            <div class="ct">
+              <h5>Email</h5>
+              <p>
+                <a href="mailto:info@csf-consulting.it">info@csf-consulting.it</a><br>
+                <a href="mailto:partner@csf-consulting.it" style="color:var(--text-muted);font-size:var(--fs-14)">partner@csf-consulting.it</a>
+              </p>
+            </div>
+          </div>
+          <div class="nap-row">
+            <div class="ico">✉</div>
+            <div class="ct">
+              <h5>PEC</h5>
+              <p><a href="mailto:csf@pec.commercialisti.it">csf@pec.commercialisti.it</a></p>
+            </div>
+          </div>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="mobile-menu-inner">
-            <a href="index.html" class="mobile-link">Home</a>
-            <a href="chi-siamo.html" class="mobile-link">Chi Siamo</a>
-            <a href="servizi.html" class="mobile-link">Servizi</a>
-            <a href="percorsi.html" class="mobile-link">Percorsi</a>
-            <a href="innova.html" class="mobile-link">Innova</a>
-            <a href="contatti.html" class="mobile-link">Contatti</a>
+          <div class="nap-hours">
+            <h5>Orari studio</h5>
+            <dl>
+              <dt>Lunedì — Giovedì</dt><dd>9:00 — 18:30</dd>
+              <dt>Venerdì</dt><dd>9:00 — 16:00</dd>
+              <dt>Sabato — Domenica</dt><dd>Chiuso</dd>
+            </dl>
+          </div>
+        </aside>
+
+        <!-- FORM -->
+        <div class="form-card reveal delay-1">
+          <h3 class="h3">Scrivici <em>in due minuti</em>.</h3>
+          <p class="intro">Compila il modulo. Risposta garantita entro 24 ore lavorative, di norma entro la mattinata del giorno dopo.</p>
+
+          <form id="csfForm" novalidate>
+            <div class="form-row">
+              <div class="fg">
+                <label for="nome">Nome e cognome *</label>
+                <input id="nome" type="text" required>
+              </div>
+              <div class="fg">
+                <label for="azienda">Azienda / Studio</label>
+                <input id="azienda" type="text">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="fg">
+                <label for="email">Email *</label>
+                <input id="email" type="email" required>
+              </div>
+              <div class="fg">
+                <label for="tel">Telefono</label>
+                <input id="tel" type="tel">
+              </div>
+            </div>
+            <div class="form-single">
+              <div class="fg">
+                <label for="tipo">Di cosa parliamo?</label>
+                <select id="tipo">
+                  <option value="">— Scegli un'opzione —</option>
+                  <option value="fiscalita">Fiscalità &amp; contabilità</option>
+                  <option value="finanza">Finanza agevolata e bandi</option>
+                  <option value="controllo">Controllo di gestione</option>
+                  <option value="lavoro">Consulenza del lavoro</option>
+                  <option value="startup">Percorso Startup</option>
+                  <option value="transform">Percorso Transform</option>
+                  <option value="innova">Innova (dati / AI / brand)</option>
+                  <option value="partnership">Partnership</option>
+                  <option value="altro">Altro</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-single">
+              <div class="fg">
+                <label for="msg">Messaggio *</label>
+                <textarea id="msg" required placeholder="Racconta brevemente il contesto e cosa ti serve."></textarea>
+              </div>
+            </div>
+
+            <label class="form-check">
+              <input type="checkbox" required>
+              <span>Ho letto la <a href="privacy.html">privacy policy</a> e acconsento al trattamento dei dati personali per essere ricontattato. *</span>
+            </label>
+
+            <button type="submit" class="btn primary form-submit" style="justify-content:center">Invia messaggio <span class="arr">→</span></button>
+
+            <p style="font-family:var(--f-mono);font-size:var(--fs-12);letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);margin-top:var(--sp-6);text-align:center">✦ Risposta entro 24h lavorative ✦</p>
+          </form>
         </div>
-        <div class="mobile-menu-footer">
-            <p>info@csfconsulting.it</p>
-            <p>Territorio Pontino, Italia</p>
-        </div>
+      </div>
     </div>
+  </section>
 
-    <main>
-        <!-- Hero Contatti -->
-        <section class="internal-hero">
-            <div class="container">
-                <div class="hero-badge reveal">
-                    <span class="hero-badge-line"></span>
-                    <span class="hero-badge-text">Connettiamoci</span>
-                    <span class="hero-badge-line"></span>
-                </div>
-                <h1 class="reveal">Inizia la tua <span class="text-gold">Evoluzione</span></h1>
-                <p class="section-subtitle reveal" style="margin-top: 24px;">Siamo pronti ad ascoltare le tue esigenze e a costruire insieme il futuro della tua impresa.</p>
-            </div>
-        </section>
+  <!-- MAP -->
+  <section class="map-section">
+    <div class="map-ph">
+      <div class="pin"></div>
+      <span class="badge">CSF · Via Aldo Moro 12, Latina</span>
+      <p style="color:var(--text-dim);font-family:var(--f-mono);font-size:var(--fs-12);letter-spacing:.15em;margin-top:60px;position:relative;z-index:2">Mappa · placeholder da sostituire con Google Maps embed</p>
+    </div>
+  </section>
 
-        <!-- Form & Info -->
-        <section style="padding: 100px 0; background: var(--navy-800);">
-            <div class="container">
-                <div class="contact-grid">
-                    <div class="contact-info reveal">
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                            </div>
-                            <div>
-                                <h4>Sede</h4>
-                                <p>Territorio Pontino, Italia</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                            </div>
-                            <div>
-                                <h4>Email</h4>
-                                <p>info@csfconsulting.it</p>
-                            </div>
-                        </div>
-                        <div class="contact-quote">
-                            <span class="quote-mark">“</span>
-                            <blockquote>La nostra forza è la vicinanza al cliente, supportata da una visione globale e tecnologica.</blockquote>
-                        </div>
-                    </div>
-
-                    <div class="contact-form reveal">
-                        <form id="mainContactForm">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <input type="text" id="name" placeholder=" " required>
-                                    <label for="name">Nome e Cognome</label>
-                                    <div class="form-line"></div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" id="email" placeholder=" " required>
-                                    <label for="email">Email</label>
-                                    <div class="form-line"></div>
-                                </div>
-                            </div>
-                            <div class="form-group" style="margin-top: 20px;">
-                                <div class="select-wrapper">
-                                    <select id="interest" required>
-                                        <option value="" disabled selected>Area di Interesse</option>
-                                        <option value="fiscale">Consulenza Fiscale & Contabile</option>
-                                        <option value="societaria">Consulenza Societaria</option>
-                                        <option value="lavoro">Consulenza del Lavoro</option>
-                                        <option value="innova">Innova (Innovation Management)</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group" style="margin-top: 20px;">
-                                <textarea id="message" placeholder=" " required></textarea>
-                                <label for="message">Come possiamo aiutarti?</label>
-                                <div class="form-line"></div>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-submit" style="margin-top: 30px;">
-                                <span>Invia Messaggio</span>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- RESPIRO: transition -->
-        <section class="inner-respiro inner-mobile-only" aria-hidden="true">
-            <div class="inner-respiro-quote">Ogni grande percorso<br>inizia con una <em>conversazione</em>.</div>
-            <span class="inner-respiro-tag">Primo passo · CSF</span>
-        </section>
-
-        <!-- FAQ SECTION -->
-        <section class="contatti-faq-section">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-label">Domande Frequenti</span>
-                    <h2 class="section-title">Prima di <span class="text-gold">iniziare</span></h2>
-                    <p class="section-subtitle">Le domande che riceviamo più spesso, con risposte dirette.</p>
-                </div>
-                <div class="contatti-faq-list">
-                    <div class="inner-accordion-item">
-                        <button class="inner-accordion-trigger" type="button" aria-expanded="false" aria-controls="faq-1">
-                            <span>Quanto costa una prima consulenza?</span>
-                            <span class="inner-accordion-chevron" aria-hidden="true"></span>
-                        </button>
-                        <div class="inner-accordion-panel" id="faq-1" role="region">
-                            <div class="inner-accordion-body">
-                                La prima conversazione è sempre gratuita e senza impegno. Un'ora per ascoltare la tua situazione, capire gli obiettivi e proporre un percorso. I preventivi sono dettagliati e forfettari, senza sorprese.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="inner-accordion-item">
-                        <button class="inner-accordion-trigger" type="button" aria-expanded="false" aria-controls="faq-2">
-                            <span>Lavorate solo nel territorio pontino?</span>
-                            <span class="inner-accordion-chevron" aria-hidden="true"></span>
-                        </button>
-                        <div class="inner-accordion-panel" id="faq-2" role="region">
-                            <div class="inner-accordion-body">
-                                Il territorio pontino è la nostra casa dal 1970, ma serviamo clienti in tutta Italia. Grazie alla digitalizzazione dei flussi, la vicinanza fisica non è più un vincolo: è un valore aggiunto per chi lo desidera.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="inner-accordion-item">
-                        <button class="inner-accordion-trigger" type="button" aria-expanded="false" aria-controls="faq-3">
-                            <span>In quanto tempo rispondete a una richiesta?</span>
-                            <span class="inner-accordion-chevron" aria-hidden="true"></span>
-                        </button>
-                        <div class="inner-accordion-panel" id="faq-3" role="region">
-                            <div class="inner-accordion-body">
-                                Garantiamo una prima risposta entro 24 ore lavorative. Per le partnership strategiche, un nostro responsabile ti contatta direttamente entro 48 ore per concordare un primo incontro.
-                            </div>
-                        </div>
-                    </div>
-                    <div class="inner-accordion-item">
-                        <button class="inner-accordion-trigger" type="button" aria-expanded="false" aria-controls="faq-4">
-                            <span>Cosa include il servizio Innova?</span>
-                            <span class="inner-accordion-chevron" aria-hidden="true"></span>
-                        </button>
-                        <div class="inner-accordion-panel" id="faq-4" role="region">
-                            <div class="inner-accordion-body">
-                                Innova è la nostra divisione digitale: Data Management &amp; Business Intelligence, sviluppo software con AI, Branding e comunicazione. Può essere acquistato come servizio singolo, modulo integrato o programma completo "Transizione Digitale 360°".
-                            </div>
-                        </div>
-                    </div>
-                    <div class="inner-accordion-item">
-                        <button class="inner-accordion-trigger" type="button" aria-expanded="false" aria-controls="faq-5">
-                            <span>Posso cambiare consulente nel corso del rapporto?</span>
-                            <span class="inner-accordion-chevron" aria-hidden="true"></span>
-                        </button>
-                        <div class="inner-accordion-panel" id="faq-5" role="region">
-                            <div class="inner-accordion-body">
-                                Il tuo riferimento principale è sempre un Senior Partner, ma ogni cliente ha un team multidisciplinare dedicato. Puoi richiedere in qualsiasi momento di parlare con uno specialista specifico o di ridiscutere l'assegnazione del team.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer id="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-info">
-                    <div class="footer-logo">
-                        <span class="logo-csf">CSF</span>
-                        <span class="logo-consulting">CONSULTING</span>
-                    </div>
-                    <p class="footer-tagline">Tradizione e Innovazione dal 1970. La tua impresa, la nostra missione.</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Studio</h4>
-                    <a href="index.html">Home</a>
-                    <a href="chi-siamo.html">Chi Siamo</a>
-                    <a href="contatti.html">Contatti</a>
-                </div>
-                <div class="footer-links">
-                    <h4>Servizi</h4>
-                    <a href="servizi.html">Consulenza Core</a>
-                    <a href="innova.html">Innovation Management</a>
-                </div>
-                <div class="footer-links">
-                    <h4>Contatti</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-secondary);">Territorio Pontino, Italia<br>info@csfconsulting.it</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 CSF Consulting. Tutti i diritti riservati.</p>
-            </div>
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="section-head">
+        <span class="num">01</span>
+        <div>
+          <h2 class="h2 reveal">Prima di <em>scriverci</em>.</h2>
+          <p class="intro reveal delay-1">Le domande che riceviamo più spesso prima del primo incontro.</p>
         </div>
-    </footer>
+      </div>
 
-    <script src="script.js"></script>
+      <div class="faq-list">
+        <details class="faq reveal">
+          <summary>Quanto costa la prima consulenza?</summary>
+          <p>La prima conversazione è gratuita e dura un'ora. La usiamo per ascoltare il contesto, leggere un paio di documenti e restituire una prima mappa. Nessun impegno successivo.</p>
+        </details>
+        <details class="faq reveal">
+          <summary>Lavorate solo con clienti di Latina?</summary>
+          <p>La sede è a Latina, ma seguiamo clienti in tutta Italia. Incontri in videocall quando serve, trasferte quando l'azienda è grande. Il 40% dei clienti Innova è fuori dal Lazio.</p>
+        </details>
+        <details class="faq reveal">
+          <summary>Posso cambiare commercialista a metà anno?</summary>
+          <p>Sì. Gestiamo il subentro in modo ordinato: leggiamo i documenti del tuo attuale consulente, ricostruiamo la contabilità corrente e prendiamo in carico gli adempimenti residui. Nessun blocco operativo.</p>
+        </details>
+        <details class="faq reveal">
+          <summary>Rispondete anche via WhatsApp?</summary>
+          <p>Sì, per i clienti attivi. Il primo contatto preferiamo sia via mail o telefono, così possiamo assegnarti al professionista giusto. WhatsApp resta per aggiornamenti veloci sulle pratiche in corso.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="foot-grid">
+    <div class="foot-col">
+      <p class="foot-brand">CSF <em>Consulting</em></p>
+      <p>Boutique di consulenza strategica, fiscale e tecnologica.<br>Territorio Pontino, dal 1978.</p>
+    </div>
+    <div class="foot-col">
+      <h5>Sede</h5>
+      <address>
+        Via Aldo Moro 12<br>
+        04100 Latina (LT)<br>
+        <a href="tel:+390773000000">+39 0773 000 000</a><br>
+        <a href="mailto:info@csf-consulting.it">info@csf-consulting.it</a>
+      </address>
+    </div>
+    <div class="foot-col">
+      <h5>Studio</h5>
+      <ul>
+        <li><a href="chi-siamo.html">Chi siamo</a></li>
+        <li><a href="servizi.html">Servizi</a></li>
+        <li><a href="innova.html">Innova</a></li>
+        <li><a href="partnership.html">Partnership</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h5>Risorse</h5>
+      <ul>
+        <li><a href="contatti.html">Contatti</a></li>
+        <li><a href="privacy.html">Privacy policy</a></li>
+        <li><a href="cookie.html">Cookie policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 1978—2026 CSF Consulting · P.IVA 01234567890</span>
+    <span>Redesign <span class="diamond"></span> v3.0</span>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+<script>
+// Prefill "tipo" from ?tipo= param (compatibility with CTAs)
+(()=>{const p=new URLSearchParams(location.search).get('tipo');if(p){const s=document.getElementById('tipo');if(s)s.value=p}})();
+// Handle submit (no backend: show success state)
+document.getElementById('csfForm').addEventListener('submit',e=>{
+  e.preventDefault();const f=e.target;f.innerHTML=`<div style="text-align:center;padding:var(--sp-12) 0"><p style="font-family:var(--f-display);font-size:var(--fs-32);color:var(--gold-300);margin-bottom:var(--sp-4)"><em>Grazie.</em></p><p style="color:var(--text-muted)">Abbiamo ricevuto il messaggio. Ti rispondiamo entro 24 ore lavorative.</p></div>`;
+});
+</script>
 </body>
 </html>
