@@ -10,8 +10,8 @@
     <meta name="description" content="Il reparto di transizione digitale di CSF Consulting: Data Management, Software & AI, Branding. Tre competenze integrate per trasformare la tua impresa.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
     <script src="gsap.min.js"></script>
@@ -105,58 +105,83 @@
 
 
         /* ═══════════════════════════════════════════════════════════════
-           HERO
+           HERO — Editorial (homepage-aligned)
            ═══════════════════════════════════════════════════════════════ */
         .ix-hero {
             position: relative; min-height: 100vh;
             display: flex; flex-direction: column;
-            justify-content: center; padding: 0 6vw;
+            justify-content: flex-end;
+            padding: 0;
             overflow: hidden;
+            background:
+                radial-gradient(ellipse 60% 50% at 30% 20%, rgba(212, 173, 66, 0.07) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 80% 80%, rgba(59, 124, 245, 0.05) 0%, transparent 55%),
+                var(--bg-base);
         }
 
-        /* Decorative geometric shapes */
+        /* Decorative geometric shapes — subtler, further from content */
         .ix-hero-deco {
             position: absolute; inset: 0; z-index: 0;
             pointer-events: none; overflow: hidden;
         }
-        .ix-deco {
-            position: absolute; opacity: 0;
-        }
+        .ix-deco { position: absolute; opacity: 0; }
         .ix-deco--circle {
-            width: 320px; height: 320px; border-radius: 50%;
-            border: 1px solid rgba(59,124,245,0.06);
-            top: 10%; right: 6%;
+            width: 420px; height: 420px; border-radius: 50%;
+            border: 1px solid rgba(59,124,245,0.05);
+            top: 8%; right: 4%;
         }
         .ix-deco--square {
             width: 80px; height: 80px;
-            border: 1px solid rgba(212,173,66,0.05);
-            bottom: 25%; right: 22%;
+            border: 1px solid rgba(212,173,66,0.04);
+            bottom: 28%; right: 22%;
             transform: rotate(45deg);
         }
         .ix-deco--dot {
             width: 6px; height: 6px; border-radius: 50%;
-            background: rgba(139,92,246,0.2);
-            top: 35%; right: 32%;
+            background: rgba(139,92,246,0.18);
+            top: 34%; right: 30%;
         }
         .ix-deco--line {
-            width: 120px; height: 1px;
+            width: 160px; height: 1px;
             background: linear-gradient(90deg, transparent, rgba(59,124,245,0.1), transparent);
-            top: 55%; right: 12%;
+            top: 55%; right: 10%;
             transform: rotate(-15deg);
         }
 
+        /* Top folio strip — mono spec line, ritmo magazine */
+        .ix-folio {
+            position: absolute; top: 96px; left: 0; right: 0;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 14px clamp(20px, 4vw, 40px);
+            font-family: var(--font-mono);
+            font-size: 0.68rem; letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(212, 173, 66, 0.12);
+            border-bottom: 1px solid rgba(212, 173, 66, 0.05);
+            z-index: 3;
+            opacity: 0; transform: translateY(-8px);
+            transition: opacity 1s cubic-bezier(0.22,1,0.36,1) 0.4s,
+                        transform 1s cubic-bezier(0.22,1,0.36,1) 0.4s;
+        }
+        .ix-hero.is-loaded .ix-folio { opacity: 1; transform: none; }
+        .ix-folio > div { display: flex; gap: 16px; align-items: center; }
+        .ix-folio > div > span + span { color: var(--text-dim); }
+
         .ix-hero-content {
             position: relative; z-index: 2;
-            max-width: 1100px;
+            max-width: none;
+            padding: 0 clamp(20px, 4vw, 40px);
+            margin-top: auto;
         }
 
         .ix-hero-label {
             display: inline-flex; align-items: center; gap: 16px;
-            font-family: var(--font-body);
-            font-size: 0.6rem; font-weight: 600;
-            letter-spacing: 0.3em; text-transform: uppercase;
+            font-family: var(--font-mono);
+            font-size: 0.7rem; font-weight: 500;
+            letter-spacing: 0.22em; text-transform: uppercase;
             color: var(--blue-400);
-            margin-bottom: 32px;
+            margin-bottom: 28px;
             opacity: 0; transform: translateY(20px);
         }
         .ix-hero-label::before {
@@ -166,10 +191,15 @@
 
         .ix-hero-title {
             font-family: var(--font-display);
-            font-size: clamp(3.8rem, 9vw, 9rem);
-            font-weight: 400; line-height: 0.9;
-            letter-spacing: -0.035em;
-            margin-bottom: 0;
+            font-size: clamp(2.8rem, 11vw, 10rem);
+            font-weight: 300;
+            font-variation-settings: "opsz" 144, "SOFT" 40;
+            line-height: 0.88;
+            letter-spacing: -0.045em;
+            text-wrap: balance;
+            margin: 0;
+            color: var(--text-heading);
+            text-shadow: 0 0 80px rgba(212, 173, 66, 0.05);
         }
 
         .ix-mask {
@@ -189,42 +219,67 @@
         }
         .ix-italic {
             font-style: italic; font-weight: 300;
+            font-variation-settings: "opsz" 144, "SOFT" 100;
             color: var(--blue-300);
             -webkit-text-stroke: 0;
         }
         .ix-gold-accent {
             font-style: italic; font-weight: 300;
+            font-variation-settings: "opsz" 144, "SOFT" 100;
             color: var(--gold-300);
             -webkit-text-stroke: 0;
         }
 
+        /* Meta row: lede + CTA, 2-col editorial */
+        .ix-hero-meta {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 40px;
+            align-items: end;
+            padding: 48px 0 64px;
+            border-top: 1px solid rgba(212, 173, 66, 0.1);
+            margin-top: 48px;
+        }
         .ix-hero-sub {
-            font-size: clamp(0.9rem, 1.1vw, 1.05rem);
-            color: var(--text-muted); max-width: 480px;
-            line-height: 1.8; margin-top: 40px;
+            font-family: var(--font-body);
+            font-size: clamp(0.95rem, 1.05vw, 1.08rem);
+            color: var(--text-body);
+            max-width: 56ch;
+            line-height: 1.75;
+            margin: 0;
             opacity: 0; transform: translateY(24px);
         }
-
+        .ix-hero-sub::first-letter { color: var(--gold-400); }
+        .ix-hero-sub em {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-variation-settings: "opsz" 144, "SOFT" 100;
+            color: var(--gold-300);
+        }
         .ix-hero-cta {
-            display: flex; gap: 20px; align-items: center;
-            margin-top: 48px;
+            display: flex; gap: 12px; align-items: center;
+            justify-self: end;
             opacity: 0; transform: translateY(24px);
         }
 
         .ix-hero-bottom {
-            position: absolute; bottom: 48px; left: 6vw; right: 6vw;
-            display: flex; justify-content: space-between; align-items: flex-end;
+            position: absolute; bottom: 32px; left: clamp(20px, 4vw, 40px);
+            right: clamp(20px, 4vw, 40px);
+            display: flex; justify-content: flex-end; align-items: flex-end;
+            pointer-events: none;
         }
 
         .ix-hero-scroll {
             display: flex; flex-direction: column;
             align-items: center; gap: 10px;
-            font-size: 0.55rem; font-weight: 600;
+            font-family: var(--font-mono);
+            font-size: 0.58rem; font-weight: 500;
             letter-spacing: 0.35em; text-transform: uppercase;
             color: var(--blue-400); opacity: 0;
+            pointer-events: auto;
         }
         .ix-hero-scroll-line {
-            width: 1px; height: 64px;
+            width: 1px; height: 56px;
             background: rgba(59,124,245,0.08);
             position: relative; overflow: hidden;
         }
@@ -241,32 +296,59 @@
 
 
         /* ═══════════════════════════════════════════════════════════════
-           MARQUEE
+           RUNNING LINE — editorial second section (replaces marquee)
+           Mono side labels · italic display phrase · minimal rhythm
            ═══════════════════════════════════════════════════════════════ */
-        .ix-marquee {
-            padding: 28px 0; overflow: hidden;
-            border-top: 1px solid rgba(59,124,245,0.04);
-            border-bottom: 1px solid rgba(59,124,245,0.04);
-            background: rgba(59,124,245,0.01);
+        .ix-running {
+            position: relative;
+            padding: 22px clamp(20px, 4vw, 40px);
+            border-top: 1px solid rgba(212, 173, 66, 0.12);
+            border-bottom: 1px solid rgba(212, 173, 66, 0.06);
+            background: linear-gradient(180deg, rgba(4,10,20,0.3), rgba(4,10,20,0) 80%);
+            overflow: hidden;
         }
-        .ix-marquee-track {
-            display: flex; white-space: nowrap;
-            animation: marqueeScroll 40s linear infinite;
+        .ix-running__row {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 28px;
         }
-        .ix-marquee-item {
+        .ix-running__side {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            white-space: nowrap;
+        }
+        .ix-running__side.right { text-align: right; color: var(--gold-400); }
+        .ix-running__track {
+            display: flex; overflow: hidden;
+            mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
+            -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
+        }
+        .ix-running__lane {
+            display: flex; flex-shrink: 0;
+            animation: runningScroll 56s linear infinite;
+        }
+        .ix-running__item {
             font-family: var(--font-display);
-            font-size: clamp(1.1rem, 1.8vw, 1.5rem);
-            font-weight: 400; font-style: italic;
-            color: var(--text-dim); padding: 0 32px;
-            display: flex; align-items: center; gap: 32px;
+            font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+            font-weight: 300;
+            font-style: italic;
+            font-variation-settings: "opsz" 144, "SOFT" 100;
+            color: var(--text-muted);
+            padding: 0 28px;
+            display: flex; align-items: center; gap: 28px;
             flex-shrink: 0;
+            white-space: nowrap;
         }
-        .ix-marquee-item::after {
+        .ix-running__item::after {
             content: ''; width: 4px; height: 4px;
-            border-radius: 50%; background: var(--blue-500);
-            opacity: 0.3; flex-shrink: 0;
+            border-radius: 50%; background: var(--gold-400);
+            opacity: 0.4; flex-shrink: 0;
         }
-        @keyframes marqueeScroll {
+        @keyframes runningScroll {
             0%   { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
@@ -1061,13 +1143,35 @@
 
         @media (max-width: 768px) {
             .ix-hero {
-                min-height: auto; padding-top: 130px; padding-bottom: 100px;
+                min-height: auto; justify-content: flex-start;
             }
+            .ix-folio {
+                top: 78px;
+                font-size: 0.58rem; letter-spacing: 0.14em;
+                padding: 10px clamp(16px, 4vw, 20px);
+                flex-wrap: wrap; gap: 6px 12px;
+            }
+            .ix-folio > div { gap: 8px; }
+            .ix-hero-content {
+                padding: 160px clamp(16px, 4vw, 20px) 80px;
+                margin-top: 0;
+            }
+            .ix-hero-label { font-size: 0.6rem; margin-bottom: 24px; }
+            .ix-hero-title { font-size: clamp(2.8rem, 13vw, 5rem); line-height: 0.92; }
+            .ix-hero-meta {
+                grid-template-columns: 1fr;
+                gap: 28px;
+                padding: 32px 0 40px;
+                margin-top: 32px;
+            }
+            .ix-hero-cta { justify-self: start; flex-direction: column; align-items: stretch; gap: 12px; }
+            .ix-hero-cta .btn { width: 100%; justify-content: center; }
             .ix-hero-bottom {
-                position: relative; bottom: auto; margin-top: 48px;
+                position: relative; bottom: auto;
+                left: 0; right: 0;
                 justify-content: flex-start;
+                padding: 0 clamp(16px, 4vw, 20px) 40px;
             }
-            .ix-hero-title { font-size: clamp(2.8rem, 13vw, 5rem); }
             .ix-outline { -webkit-text-stroke-width: 0.7px; }
             .ix-hero-deco { display: none; }
 
@@ -1078,7 +1182,11 @@
             }
             .ix-manifesto-label { display: none; }
 
-            .ix-marquee-item { font-size: 1rem; padding: 0 20px; gap: 20px; }
+            .ix-running { padding: 18px clamp(16px, 4vw, 20px); }
+            .ix-running__row { grid-template-columns: 1fr; gap: 12px; }
+            .ix-running__side { font-size: 0.58rem; letter-spacing: 0.14em; }
+            .ix-running__side.right { text-align: left; }
+            .ix-running__item { font-size: 1rem; padding: 0 18px; gap: 18px; }
 
             .ix-areas-intro { padding: 120px 0 60px; }
             .ix-area { padding: 80px 0; }
@@ -1111,7 +1219,7 @@
         }
     </style>
 </head>
-<body>
+<body class="page-innova">
 
     <div class="ix-noise" aria-hidden="true"></div>
     <div class="ix-progress" aria-hidden="true"></div>
@@ -1179,7 +1287,7 @@
     <main>
 
         <!-- ════════════════════ HERO ════════════════════ -->
-        <section class="ix-hero">
+        <section class="ix-hero" id="ixHero">
             <div class="ix-hero-deco" aria-hidden="true">
                 <div class="ix-deco ix-deco--circle"></div>
                 <div class="ix-deco ix-deco--square"></div>
@@ -1187,27 +1295,39 @@
                 <div class="ix-deco ix-deco--line"></div>
             </div>
 
+            <div class="ix-folio" aria-hidden="true">
+                <div>
+                    <span>N.&deg; 04</span>
+                    <span>&mdash; Innova</span>
+                </div>
+                <div>
+                    <span>2025</span>
+                    <span>&mdash; Transizione Digitale</span>
+                </div>
+            </div>
+
             <div class="ix-hero-content">
                 <div class="ix-hero-label" id="ixHeroLabel">
-                    Transizione Digitale &mdash; CSF Consulting
+                    &sect; Transizione Digitale
                 </div>
                 <h1 class="ix-hero-title">
-                    <span class="ix-mask"><span class="ix-mask-in ix-filled">Il Reparto</span></span>
-                    <span class="ix-mask"><span class="ix-mask-in"><span class="ix-outline">che&nbsp;</span><span class="ix-italic">Innova</span></span></span>
-                    <span class="ix-mask"><span class="ix-mask-in ix-gold-accent">la Tua Impresa</span></span>
+                    <span class="ix-mask"><span class="ix-mask-in ix-filled">Il reparto</span></span>
+                    <span class="ix-mask"><span class="ix-mask-in"><span class="ix-outline">che&nbsp;</span><span class="ix-italic">innova</span></span></span>
+                    <span class="ix-mask"><span class="ix-mask-in ix-gold-accent">la tua impresa.</span></span>
                 </h1>
-                <p class="ix-hero-sub" id="ixHeroSub">Tre divisioni integrate. Un unico obiettivo: rendere la tua impresa pronta per il futuro attraverso dati, intelligenza artificiale e comunicazione strategica.</p>
-                <div class="ix-hero-cta" id="ixHeroCta">
-                    <a href="#livelli" class="btn btn-electric">
-                        <span>Scopri i Livelli</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-                    </a>
-                    <a href="contatti.html" class="btn btn-outline">Parliamone</a>
+                <div class="ix-hero-meta">
+                    <p class="ix-hero-sub" id="ixHeroSub">Tre divisioni integrate &mdash; dati, software &amp; AI, branding &mdash; sotto un'unica regia. Un <em>ecosistema</em> progettato per rendere la tua impresa pronta al futuro.</p>
+                    <div class="ix-hero-cta" id="ixHeroCta">
+                        <a href="#livelli" class="btn btn-electric">
+                            <span>Scopri i Livelli</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+                        </a>
+                        <a href="contatti.html" class="btn btn-outline">Parliamone</a>
+                    </div>
                 </div>
             </div>
 
             <div class="ix-hero-bottom">
-                <div></div>
                 <div class="ix-hero-scroll" id="ixScrollCue">
                     <span>Scroll</span>
                     <div class="ix-hero-scroll-line"></div>
@@ -1216,27 +1336,33 @@
         </section>
 
 
-        <!-- ════════════════════ MARQUEE ════════════════════ -->
-        <div class="ix-marquee" aria-hidden="true">
-            <div class="ix-marquee-track">
-                <span class="ix-marquee-item">Data Management</span>
-                <span class="ix-marquee-item">Business Intelligence</span>
-                <span class="ix-marquee-item">Software Development</span>
-                <span class="ix-marquee-item">Intelligenza Artificiale</span>
-                <span class="ix-marquee-item">Brand Identity</span>
-                <span class="ix-marquee-item">Web Design</span>
-                <span class="ix-marquee-item">Digital Strategy</span>
-                <span class="ix-marquee-item">Automazione</span>
-                <span class="ix-marquee-item">Data Management</span>
-                <span class="ix-marquee-item">Business Intelligence</span>
-                <span class="ix-marquee-item">Software Development</span>
-                <span class="ix-marquee-item">Intelligenza Artificiale</span>
-                <span class="ix-marquee-item">Brand Identity</span>
-                <span class="ix-marquee-item">Web Design</span>
-                <span class="ix-marquee-item">Digital Strategy</span>
-                <span class="ix-marquee-item">Automazione</span>
+        <!-- ════════════════════ RUNNING LINE — editorial ════════════════════ -->
+        <section class="ix-running" aria-hidden="true">
+            <div class="ix-running__row">
+                <span class="ix-running__side">Oggi lavoriamo su &mdash;</span>
+                <div class="ix-running__track">
+                    <div class="ix-running__lane">
+                        <span class="ix-running__item">Data management</span>
+                        <span class="ix-running__item">Business intelligence</span>
+                        <span class="ix-running__item">Software su misura</span>
+                        <span class="ix-running__item">Intelligenza artificiale</span>
+                        <span class="ix-running__item">Brand identity</span>
+                        <span class="ix-running__item">Web design</span>
+                        <span class="ix-running__item">Digital strategy</span>
+                        <span class="ix-running__item">Automazione</span>
+                        <span class="ix-running__item">Data management</span>
+                        <span class="ix-running__item">Business intelligence</span>
+                        <span class="ix-running__item">Software su misura</span>
+                        <span class="ix-running__item">Intelligenza artificiale</span>
+                        <span class="ix-running__item">Brand identity</span>
+                        <span class="ix-running__item">Web design</span>
+                        <span class="ix-running__item">Digital strategy</span>
+                        <span class="ix-running__item">Automazione</span>
+                    </div>
+                </div>
+                <span class="ix-running__side right">&mdash; 2025</span>
             </div>
-        </div>
+        </section>
 
 
         <!-- ════════════════════ MANIFESTO ════════════════════ -->
@@ -1256,10 +1382,11 @@
                     <h2 class="section-title">L'Architettura della <span class="text-electric">Trasformazione</span></h2>
                     <p class="section-subtitle">Ogni area &egrave; una competenza autonoma. Insieme, formano un sistema integrato capace di trasformare radicalmente il modo in cui la tua impresa opera, comunica e cresce.</p>
                 </div>
+                <div class="inner-carousel-hint inner-mobile-only">Scorri le tre aree</div>
             </div>
         </section>
 
-
+        <div class="ix-areas-carousel" role="region" aria-label="Le tre aree — scorri orizzontalmente">
         <!-- ════════════════════ AREA 1: DATA ════════════════════ -->
         <section class="ix-area ix-area--data" id="area-data">
             <div class="ix-area-num" aria-hidden="true">01</div>
@@ -1369,6 +1496,19 @@
         </section>
 
 
+        </div><!-- /ix-areas-carousel -->
+        <div class="inner-carousel-progress inner-mobile-only" aria-hidden="true">
+            <button class="dot is-active" type="button" aria-label="Area 1"></button>
+            <button class="dot" type="button" aria-label="Area 2"></button>
+            <button class="dot" type="button" aria-label="Area 3"></button>
+        </div>
+
+        <!-- ════════════════════ RESPIRO I ════════════════════ -->
+        <section class="inner-respiro inner-mobile-only" aria-hidden="true">
+            <div class="inner-respiro-quote">Non <em>integriamo</em> tecnologia.<br>La rendiamo <em>invisibile</em>.</div>
+            <span class="inner-respiro-tag">Filosofia · CSF Innova</span>
+        </section>
+
         <!-- ════════════════════ IMPACT NUMBERS ════════════════════ -->
         <section class="ix-impact">
             <div class="ix-impact-grid">
@@ -1432,6 +1572,8 @@
                     <p class="section-subtitle">La transizione digitale non &egrave; una taglia unica. Scegli il livello di profondit&agrave; pi&ugrave; adatto alla tua realt&agrave;.</p>
                 </div>
 
+                <div class="inner-carousel-hint inner-mobile-only">Scorri i tre livelli</div>
+
                 <div class="ix-levels-grid" id="ixLevelsGrid">
 
                     <div class="ix-lv">
@@ -1490,9 +1632,19 @@
                     </div>
 
                 </div>
+                <div class="inner-carousel-progress inner-mobile-only" data-progress="ix-levels-grid" aria-hidden="true">
+                    <button class="dot is-active" type="button" aria-label="Servizio singolo"></button>
+                    <button class="dot" type="button" aria-label="Modulo integrato"></button>
+                    <button class="dot" type="button" aria-label="Transizione 360"></button>
+                </div>
             </div>
         </section>
 
+        <!-- ════════════════════ RESPIRO II ════════════════════ -->
+        <section class="inner-respiro inner-mobile-only" aria-hidden="true">
+            <div class="inner-respiro-quote">La trasformazione<br>non <em>finisce</em>: si <em>perfeziona</em>.</div>
+            <span class="inner-respiro-tag">Il metodo · CSF</span>
+        </section>
 
         <!-- ════════════════════ PROCESS ════════════════════ -->
         <section class="ix-process">
@@ -1596,25 +1748,49 @@
         'use strict';
 
         /* ═══════════════════════════════════════════════════
-           LENIS SMOOTH SCROLL
+           LENIS SMOOTH SCROLL  ·  ScrollTrigger-integrated
            ═══════════════════════════════════════════════════ */
-        var lenis = new Lenis({
-            duration: 1.2,
-            easing: function(t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
-            smooth: true,
-            smoothTouch: false,
-        });
-
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-
         gsap.registerPlugin(ScrollTrigger);
+
+        var lenis = new Lenis({
+            lerp: 0.085,
+            smoothWheel: true,
+            wheelMultiplier: 1,
+            touchMultiplier: 1.5,
+            gestureOrientation: 'vertical',
+            normalizeWheel: true
+        });
+        window.__lenis = lenis;
+
+        /* Single rAF source (GSAP ticker). No duplicate loop. */
         lenis.on('scroll', ScrollTrigger.update);
         gsap.ticker.add(function(time) { lenis.raf(time * 1000); });
         gsap.ticker.lagSmoothing(0);
+
+        /* Keep ScrollTrigger measurements in sync when Lenis/pin reshuffle height. */
+        ScrollTrigger.addEventListener('refresh', function() { lenis.resize(); });
+
+        /* Keyboard scroll support (arrows / PageUp·Down / Space / Home / End) */
+        var kbStep = function () { return Math.round(window.innerHeight * 0.12); };
+        var kbPage = function () { return Math.round(window.innerHeight * 0.9); };
+        window.addEventListener('keydown', function (e) {
+            if (e.defaultPrevented) return;
+            var t = e.target;
+            if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+            var target = null;
+            switch (e.key) {
+                case 'ArrowDown': target = lenis.scroll + kbStep(); break;
+                case 'ArrowUp':   target = lenis.scroll - kbStep(); break;
+                case 'PageDown':  target = lenis.scroll + kbPage(); break;
+                case 'PageUp':    target = lenis.scroll - kbPage(); break;
+                case ' ':         target = lenis.scroll + (e.shiftKey ? -kbPage() : kbPage()); break;
+                case 'Home':      target = 0; break;
+                case 'End':       target = document.documentElement.scrollHeight; break;
+                default: return;
+            }
+            e.preventDefault();
+            lenis.scrollTo(target, { duration: 0.8 });
+        }, { passive: false });
 
 
         /* ═══════════════════════════════════════════════════
@@ -1659,6 +1835,15 @@
         /* ═══════════════════════════════════════════════════
            HERO — Entrance Choreography
            ═══════════════════════════════════════════════════ */
+        var heroEl = document.getElementById('ixHero');
+        var markHeroLoaded = function () { if (heroEl) heroEl.classList.add('is-loaded'); };
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(function () { requestAnimationFrame(markHeroLoaded); });
+        } else {
+            requestAnimationFrame(markHeroLoaded);
+        }
+        setTimeout(markHeroLoaded, 1200);
+
         var tlHero = gsap.timeline({ delay: 0.8 });
 
         tlHero

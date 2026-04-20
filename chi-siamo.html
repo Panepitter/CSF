@@ -10,8 +10,8 @@
     <meta name="description" content="Scopri la storia di CSF Consulting: 55 anni di esperienza che incontrano l'innovazione tecnologica.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
         /* Custom Styles for Chi Siamo - Boutique Ibrida Concept */
@@ -225,7 +225,7 @@
         }
     </style>
 </head>
-<body>
+<body class="page-chi-siamo">
 
     <div id="preloader">
         <div class="preloader-inner">
@@ -325,7 +325,9 @@
                     <h2 class="section-title">La nostra <span class="text-gold">Metamorfosi</span></h2>
                     <p class="section-subtitle">Tre ere, un'unica missione: il successo della tua impresa.</p>
                 </div>
-                
+
+                <div class="inner-carousel-hint inner-mobile-only">Scorri le tre ere</div>
+
                 <div class="step-container">
                     <div class="step-card reveal">
                         <div class="step-year">1970</div>
@@ -343,7 +345,19 @@
                         <p>CSF Consulting diventa una società di servizi avanzati. Tecnologia, AI e Data Management si fondono con la consulenza tradizionale per un'esperienza cliente senza precedenti.</p>
                     </div>
                 </div>
+
+                <div class="inner-carousel-progress inner-mobile-only" aria-hidden="true">
+                    <button class="dot is-active" type="button" aria-label="Era 1: La Genesi"></button>
+                    <button class="dot" type="button" aria-label="Era 2: L'Espansione"></button>
+                    <button class="dot" type="button" aria-label="Era 3: L'Ibrido"></button>
+                </div>
             </div>
+        </section>
+
+        <!-- RESPIRO: tra Metamorfosi e Reparto Digitale -->
+        <section class="inner-respiro inner-mobile-only" aria-hidden="true">
+            <div class="inner-respiro-quote">Tradizione che <em>non invecchia</em>.<br>Innovazione che <em>non tradisce</em>.</div>
+            <span class="inner-respiro-tag">DNA · CSF Consulting</span>
         </section>
 
         <!-- Sezione 4: Il Reparto Produttivo Digitale -->
@@ -377,7 +391,7 @@
                     </div>
                     <div class="reveal digital-image-container" style="position: relative;">
                         <div class="image-inner-wrap" style="background: linear-gradient(135deg, rgba(201, 168, 76, 0.1), transparent); border: 1px solid rgba(201, 168, 76, 0.1); padding: 60px; border-radius: 4px;">
-                            <img src="https://images.unsplash.com/photo-1551288049-bbbda546697a?auto=format&fit=crop&q=80&w=1000" alt="Data Analysis" style="width: 100%; filter: brightness(0.7) sepia(0.3);">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1000" alt="Data Analysis" loading="lazy" style="width: 100%; filter: brightness(0.7) sepia(0.3);">
                         </div>
                     </div>
                 </div>

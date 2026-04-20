@@ -30,6 +30,16 @@
         if (document.body.classList.contains('home')) {
             setupEditorialLayer();
         }
+
+        /* --- Inner pages masterclass (all non-home pages with page-* class) --- */
+        var isInnerPage = Array.prototype.some.call(document.body.classList, function (c) {
+            return c.indexOf('page-') === 0;
+        });
+        if (isInnerPage) {
+            var reduceIP = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            setupInnerCarouselDots(reduceIP);
+            setupInnerAccordion();
+        }
     }
 
     /* ----- Preloader ----- */
@@ -1148,16 +1158,303 @@
         /* Loaded via <script> tag in index.html; init conditionally */
         if (typeof Lenis !== 'undefined' && !reduce) {
             try {
+                var htmlEl = document.documentElement;
+                htmlEl.classList.add('lenis', 'lenis-smooth');
+
                 var lenis = new Lenis({
-                    duration: 1.1,
-                    easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+                    lerp: 0.085,
                     smoothWheel: true,
-                    lerp: 0.1
+                    wheelMultiplier: 1,
+                    touchMultiplier: 1.5,
+                    gestureOrientation: 'vertical',
+                    normalizeWheel: true
                 });
+                window.__lenis = lenis;
+
                 function lenisRaf(time) { lenis.raf(time); requestAnimationFrame(lenisRaf); }
                 requestAnimationFrame(lenisRaf);
+
+                /* Keyboard scroll support (arrows, PageUp/Down, Space, Home, End) */
+                var kbStep = function () { return Math.round(window.innerHeight * 0.12); };
+                var kbPage = function () { return Math.round(window.innerHeight * 0.9); };
+                window.addEventListener('keydown', function (e) {
+                    if (e.defaultPrevented) return;
+                    var t = e.target;
+                    if (t && (t.isContentEditable ||
+                              /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+                    var target = null;
+                    switch (e.key) {
+                        case 'ArrowDown': target = lenis.scroll + kbStep(); break;
+                        case 'ArrowUp':   target = lenis.scroll - kbStep(); break;
+                        case 'PageDown':  target = lenis.scroll + kbPage(); break;
+                        case 'PageUp':    target = lenis.scroll - kbPage(); break;
+                        case ' ':         target = lenis.scroll + (e.shiftKey ? -kbPage() : kbPage()); break;
+                        case 'Home':      target = 0; break;
+                        case 'End':       target = document.documentElement.scrollHeight; break;
+                        default: return;
+                    }
+                    e.preventDefault();
+                    lenis.scrollTo(target, { duration: 0.8 });
+                }, { passive: false });
             } catch (e) { /* ignore */ }
         }
+
+        /* ---- MOBILE INTERACTIONS (accordion · tabs · carousel) ---- */
+        setupMobileInteractions(reduce);
+    }
+
+    /* ============================================================
+       MOBILE INTERACTIONS — Applica la ricerca "Layout Web Design per Mobile":
+         · Manifesto  → Accordion (disclosure progressiva)
+         · Percorsi   → Tabs (Genesi / Evoluzione)
+         · Servizi    → Carousel progress dots
+       ============================================================ */
+    function setupMobileInteractions(reduce) {
+
+        /* ----- (1) MANIFESTO ACCORDION -----
+           Trasforma ogni .manifesto__cell in un disclosure a11y-first.
+           HTML resta semantico anche su desktop (il trigger è display:none
+           sopra i 768px; il folio originale resta visibile). */
+        var manifestoCells = document.querySelectorAll('.manifesto__cell');
+        manifestoCells.forEach(function (cell, idx) {
+            var folio = cell.querySelector(':scope > .folio');
+            var body = cell.querySelector('.manifesto__cell-body');
+            if (!folio || !body || cell.querySelector('.manifesto__trigger')) return;
+
+            var triggerId = 'manifesto-trigger-' + idx;
+            var panelId   = 'manifesto-panel-' + idx;
+            var label = folio.textContent.replace(/^\s*§\s*/, '').trim();
+
+            var trigger = document.createElement('button');
+            trigger.type = 'button';
+            trigger.id = triggerId;
+            trigger.className = 'manifesto__trigger';
+            trigger.setAttribute('aria-expanded', idx === 0 ? 'true' : 'false');
+            trigger.setAttribute('aria-controls', panelId);
+            trigger.innerHTML =
+                '<span class="manifesto__trigger-label">' + label + '</span>' +
+                '<span class="manifesto__chevron" aria-hidden="true"></span>';
+
+            var panel = document.createElement('div');
+            panel.className = 'manifesto__panel';
+            panel.id = panelId;
+            panel.setAttribute('role', 'region');
+            panel.setAttribute('aria-labelledby', triggerId);
+
+            body.parentNode.insertBefore(trigger, body);
+            body.parentNode.insertBefore(panel, body);
+            panel.appendChild(body);
+
+            if (idx === 0) cell.classList.add('is-open');
+
+            trigger.addEventListener('click', function () {
+                var nowOpen = !cell.classList.contains('is-open');
+                cell.classList.toggle('is-open', nowOpen);
+                trigger.setAttribute('aria-expanded', String(nowOpen));
+            });
+        });
+
+        /* ----- (2) PERCORSI TABS -----
+           Inietta nav tab sopra la pair; mobile mostra solo l'articolo attivo. */
+        var percorsiPair = document.querySelector('.percorsi__pair');
+        if (percorsiPair && !document.querySelector('.percorsi__tabs')) {
+            var percorsi = percorsiPair.querySelectorAll('.percorso');
+            if (percorsi.length >= 2) {
+                var tabsNav = document.createElement('div');
+                tabsNav.className = 'percorsi__tabs';
+                tabsNav.setAttribute('role', 'tablist');
+                tabsNav.setAttribute('aria-label', 'Scegli il percorso');
+
+                var labels = [
+                    { idx: 'I',  short: 'Genesi',     long: 'Startup' },
+                    { idx: 'II', short: 'Evoluzione', long: 'Transform' }
+                ];
+
+                percorsi.forEach(function (article, i) {
+                    var tabId   = 'percorso-tab-' + i;
+                    var panelId = 'percorso-panel-' + i;
+                    article.id = panelId;
+                    article.setAttribute('role', 'tabpanel');
+                    article.setAttribute('aria-labelledby', tabId);
+                    article.setAttribute('tabindex', '0');
+                    if (i === 0) article.classList.add('is-active');
+
+                    var l = labels[i] || { idx: String(i+1), short: 'Percorso', long: '' };
+                    var btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.id = tabId;
+                    btn.className = 'percorsi__tab';
+                    btn.setAttribute('role', 'tab');
+                    btn.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+                    btn.setAttribute('aria-controls', panelId);
+                    btn.setAttribute('tabindex', i === 0 ? '0' : '-1');
+                    btn.dataset.idx = String(i);
+                    btn.innerHTML =
+                        '<span class="percorsi__tab-index">Percorso ' + l.idx + '</span>' +
+                        '<span>' + l.short + ' — ' + l.long + '</span>';
+                    tabsNav.appendChild(btn);
+                });
+
+                percorsiPair.parentNode.insertBefore(tabsNav, percorsiPair);
+
+                var switchTab = function (idx) {
+                    tabsNav.querySelectorAll('.percorsi__tab').forEach(function (t) {
+                        var active = parseInt(t.dataset.idx, 10) === idx;
+                        t.setAttribute('aria-selected', active ? 'true' : 'false');
+                        t.setAttribute('tabindex', active ? '0' : '-1');
+                    });
+                    percorsi.forEach(function (p, i) {
+                        p.classList.toggle('is-active', i === idx);
+                    });
+                };
+
+                tabsNav.addEventListener('click', function (e) {
+                    var tab = e.target.closest('.percorsi__tab');
+                    if (!tab) return;
+                    switchTab(parseInt(tab.dataset.idx, 10));
+                });
+
+                /* Keyboard: ← → ciclare tra tab (ARIA best practice) */
+                tabsNav.addEventListener('keydown', function (e) {
+                    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft' &&
+                        e.key !== 'Home' && e.key !== 'End') return;
+                    var all = Array.prototype.slice.call(
+                        tabsNav.querySelectorAll('.percorsi__tab')
+                    );
+                    var current = all.indexOf(document.activeElement);
+                    if (current < 0) return;
+                    var next;
+                    if (e.key === 'ArrowRight')      next = (current + 1) % all.length;
+                    else if (e.key === 'ArrowLeft')  next = (current - 1 + all.length) % all.length;
+                    else if (e.key === 'Home')       next = 0;
+                    else                             next = all.length - 1;
+                    switchTab(parseInt(all[next].dataset.idx, 10));
+                    all[next].focus();
+                    e.preventDefault();
+                });
+            }
+        }
+
+        /* ----- (3) SERVICES CAROUSEL → PROGRESS DOTS -----
+           Aggiorna il dot attivo seguendo lo scroll orizzontale. */
+        var carousel = document.querySelector('#services .monumental-grid');
+        var progress = document.querySelector('#services .carousel-progress');
+        if (carousel && progress) {
+            var dots = progress.querySelectorAll('.dot');
+            var items = carousel.querySelectorAll('.monolith');
+            if (dots.length && items.length) {
+                var updateDot = function () {
+                    var first = items[0];
+                    if (!first) return;
+                    var gap = 14;
+                    var itemW = first.offsetWidth + gap;
+                    if (itemW <= 0) return;
+                    var idx = Math.round(carousel.scrollLeft / itemW);
+                    idx = Math.max(0, Math.min(dots.length - 1, idx));
+                    dots.forEach(function (d, i) {
+                        d.classList.toggle('is-active', i === idx);
+                    });
+                };
+                carousel.addEventListener('scroll', updateDot, { passive: true });
+                window.addEventListener('resize', updateDot, { passive: true });
+
+                /* Tap dot → scroll a quell'item */
+                dots.forEach(function (d, i) {
+                    d.style.cursor = 'pointer';
+                    d.addEventListener('click', function () {
+                        var first = items[0];
+                        if (!first) return;
+                        var itemW = first.offsetWidth + 14;
+                        carousel.scrollTo({
+                            left: itemW * i,
+                            behavior: reduce ? 'auto' : 'smooth'
+                        });
+                    });
+                });
+                /* init */
+                updateDot();
+            }
+        }
+
+        /* ---- INNER PAGES: generic carousel progress dots ----
+           Looks for any .inner-carousel-progress element, auto-discovers
+           the nearest scrollable carousel sibling, and wires dots. */
+        setupInnerCarouselDots(reduce);
+
+        /* ---- INNER PAGES: generic accordion ----
+           Wires click handlers on any .inner-accordion-trigger. */
+        setupInnerAccordion();
+    }
+
+    function setupInnerAccordion() {
+        var triggers = document.querySelectorAll('.inner-accordion-trigger');
+        triggers.forEach(function (trigger) {
+            if (trigger.dataset.wired) return;
+            trigger.dataset.wired = '1';
+            trigger.addEventListener('click', function () {
+                var item = trigger.closest('.inner-accordion-item');
+                if (!item) return;
+                var isOpen = item.classList.toggle('is-open');
+                trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            });
+        });
+    }
+
+    function setupInnerCarouselDots(reduce) {
+        var progresses = document.querySelectorAll('.inner-carousel-progress');
+        progresses.forEach(function (progress) {
+            // Find scrollable track: look at previous siblings up the tree
+            var track = null;
+            var target = progress.getAttribute('data-progress');
+            if (target) {
+                track = document.getElementById(target) || document.querySelector('.' + target);
+            }
+            if (!track) {
+                // Auto-discover: previous sibling or previous sibling's descendants
+                var prev = progress.previousElementSibling;
+                while (prev && !track) {
+                    if (prev.scrollWidth > prev.clientWidth) {
+                        track = prev;
+                    } else {
+                        track = prev.querySelector && prev.querySelector('[class*="carousel"], [class*="grid"]');
+                        if (track && track.scrollWidth <= track.clientWidth) track = null;
+                    }
+                    prev = prev.previousElementSibling;
+                }
+            }
+            if (!track) return;
+
+            var dots = Array.prototype.slice.call(progress.querySelectorAll('.dot'));
+            if (!dots.length) return;
+
+            function updateActive() {
+                var items = track.children;
+                if (!items.length) return;
+                var first = items[0];
+                var step = first.offsetWidth + 14; // assumed gap
+                var idx = Math.round(track.scrollLeft / step);
+                idx = Math.max(0, Math.min(dots.length - 1, idx));
+                dots.forEach(function (d, i) {
+                    d.classList.toggle('is-active', i === idx);
+                });
+            }
+
+            track.addEventListener('scroll', updateActive, { passive: true });
+
+            dots.forEach(function (d, i) {
+                d.addEventListener('click', function () {
+                    var items = track.children;
+                    if (!items[i]) return;
+                    var step = items[0].offsetWidth + 14;
+                    track.scrollTo({
+                        left: step * i,
+                        behavior: reduce ? 'auto' : 'smooth',
+                    });
+                });
+            });
+
+            updateActive();
+        });
     }
 
     /* ---- helper: wrap words in text nodes (preserving inline tags like <em>) ---- */

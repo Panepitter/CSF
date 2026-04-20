@@ -61,8 +61,10 @@
     --glow-blue:      0 0 24px rgba(59, 124, 245, 0.2);
 
     /* Typography */
-    --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --font-display: 'Fraunces', 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --font-display-soft: 'Fraunces', 'Cormorant Garamond', Georgia, serif;
     --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono:    'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
 
     /* Layout */
     --container: 1280px;
@@ -111,6 +113,22 @@ html {
     -moz-osx-font-smoothing: grayscale;
     scrollbar-width: thin;
     scrollbar-color: var(--gold-600) var(--bg-deep);
+}
+
+/* Lenis takes over — disable native smooth + let Lenis drive scroll */
+html.lenis { height: auto; }
+html.lenis.lenis-smooth { scroll-behavior: auto !important; }
+html.lenis.lenis-stopped { overflow: clip; }
+html.lenis.lenis-scrolling iframe { pointer-events: none; }
+
+/* Fraunces editorial defaults — applied globally, pages can override weight/size */
+h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 144, "SOFT" 40;
+    text-rendering: optimizeLegibility;
+}
+em {
+    font-variation-settings: "opsz" 144, "SOFT" 100;
 }
 
 ::-webkit-scrollbar { width: 6px; }
@@ -3988,3 +4006,1719 @@ body.home .partnership__foot .link:hover svg { transform: translateX(6px); }
         animation: none !important;
     }
 }
+
+/* ============================================================================
+   HOMEPAGE — MOBILE MASTERCLASS (≤ 768px)
+   ----------------------------------------------------------------------------
+   Applica la ricerca "Layout Web Design per Mobile" al sito CSF:
+     · Servizi (Monolith)  → Carousel orizzontale (scroll-snap, peek 85%)
+     · Manifesto           → Accordion (disclosure progressiva)
+     · Innovazione         → Stories-style swipe (scroll-snap-stop: always)
+     · Percorsi            → Tab switch (Genesi / Evoluzione)
+     · Partnership         → Bento Grid 2×2 (hero + 2 piccole)
+     · Ritmo               → Alternanza sfondi, sezioni "respiro", densità variabile
+     · Progressione        → Progress bar scroll-driven (CSS only)
+   Tutto scoped a body.home → altre pagine intatte.
+   Desktop ≥ 769px → layout editoriale originale preservato integralmente.
+   ============================================================================ */
+
+/* ---------- Helpers sempre presenti (desktop + mobile) ---------- */
+/* .mobile-only → visibile solo ≤ 768px (display-reset nel media query) */
+
+/* Trigger dell'accordion: sul desktop è INVISIBILE (il folio originale resta com'è) */
+body.home .manifesto__trigger {
+    display: none;
+}
+body.home .manifesto__panel {
+    display: contents; /* wrapper trasparente per desktop */
+}
+body.home .manifesto__chevron { display: none; }
+
+/* Tabs Percorsi: nascoste di default (desktop-first) */
+body.home .percorsi__tabs { display: none; }
+
+/* Carousel affordances: nascoste di default */
+body.home .carousel-hint,
+body.home .carousel-progress { display: none; }
+
+/* Progress bar scroll-driven (progressive enhancement) */
+@supports (animation-timeline: scroll()) {
+    body.home::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--gold-500), var(--gold-300));
+        transform-origin: 0 50%;
+        z-index: 2000;
+        pointer-events: none;
+        animation: csf-progress linear;
+        animation-timeline: scroll(root);
+    }
+}
+@keyframes csf-progress {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+}
+
+/* =================================================
+   MOBILE REDESIGN — ≤ 768px
+   ================================================= */
+@media (max-width: 768px) {
+
+    /* Cursor custom non necessario su touch */
+    body.home .cursor-dot,
+    body.home .cursor-outline { display: none !important; }
+
+    /* =====================================================
+       (A) SERVIZI — Monolith → Carousel orizzontale (peek)
+       Research §3.1 · §7.1 — scroll-snap + peek 85%
+       ===================================================== */
+
+    body.home #services {
+        background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-base) 100%) !important;
+        overflow: hidden;
+    }
+    body.home #services .section-header {
+        padding: 80px 24px 36px !important;
+        margin-bottom: 0 !important;
+        text-align: left;
+    }
+    body.home #services .section-title {
+        font-size: clamp(2.2rem, 8.2vw, 3rem) !important;
+        line-height: 1.02;
+    }
+
+    /* Carousel container: annulla il column mobile, torna row con scroll-snap */
+    body.home .monumental-grid {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 8px 16px 28px !important;
+        gap: 14px !important;
+        height: auto !important;
+        scroll-padding-inline: 16px;
+        scroll-behavior: smooth;
+        background: transparent !important;
+    }
+    body.home .monumental-grid::-webkit-scrollbar { display: none; }
+
+    /* Ogni monolith = una card del carousel, peek 85% */
+    body.home .monolith {
+        flex: 0 0 85% !important;
+        scroll-snap-align: center !important;
+        scroll-snap-stop: always !important;
+        height: 440px !important;
+        min-height: 0 !important;
+        padding: 0 !important;
+        border-radius: 22px !important;
+        border: 1px solid rgba(212, 173, 66, 0.18) !important;
+        overflow: hidden !important;
+        display: block !important;
+        position: relative !important;
+        transform: none !important;
+        opacity: 1 !important;
+        cursor: pointer;
+        align-items: stretch !important;
+    }
+    body.home .monolith-bg {
+        position: absolute !important;
+        inset: 0 !important;
+        top: 0 !important; left: 0 !important; right: 0 !important;
+        height: 100% !important;
+        filter: grayscale(0.15) brightness(0.55) !important;
+        transform: none !important;
+        transition: transform 0.9s var(--ease-edit) !important;
+    }
+    body.home .monolith:active .monolith-bg {
+        transform: scale(1.03) !important;
+    }
+    body.home .monolith-overlay {
+        position: absolute !important;
+        inset: 0 !important;
+        top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+        background: linear-gradient(180deg,
+            rgba(4, 10, 20, 0.1) 0%,
+            rgba(4, 10, 20, 0.65) 48%,
+            rgba(4, 10, 20, 0.96) 100%) !important;
+        opacity: 1 !important;
+    }
+    body.home .monolith-content {
+        position: relative !important;
+        z-index: 2;
+        height: 100%;
+        padding: 28px 26px !important;
+        display: flex !important;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+    body.home .monolith-number {
+        font-size: 2.8rem !important;
+        opacity: 0.35 !important;
+        transform: none !important;
+        margin-bottom: 10px !important;
+        line-height: 1;
+        color: var(--gold-400);
+    }
+    body.home .monolith-title {
+        font-size: 1.7rem !important;
+        margin-bottom: 14px !important;
+        line-height: 1.1;
+    }
+    body.home .monolith-details {
+        display: block !important;
+        grid-template-rows: none !important;
+        max-height: none !important;
+        opacity: 1 !important;
+        overflow: visible !important;
+        margin-top: 0 !important;
+    }
+    body.home .monolith-details > div {
+        overflow: visible !important;
+        min-height: auto !important;
+    }
+    body.home .monolith-details p {
+        font-size: 0.86rem !important;
+        line-height: 1.55 !important;
+        color: rgba(220, 224, 230, 0.88) !important;
+        margin-bottom: 0;
+    }
+    body.home .monolith-list {
+        margin-top: 14px !important;
+        padding: 0 !important;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    body.home .monolith-list li {
+        font-size: 0.62rem !important;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--gold-300) !important;
+        padding: 5px 9px !important;
+        border: 1px solid rgba(212, 173, 66, 0.28) !important;
+        border-radius: 2px;
+        margin-bottom: 0 !important;
+        background: transparent;
+        display: inline-block;
+    }
+    body.home .monolith-list li::before {
+        display: none !important;
+        content: none !important;
+        width: 0 !important;
+        height: 0 !important;
+    }
+
+    /* Hint "Scorri" sopra il carousel */
+    body.home #services .carousel-hint {
+        display: flex !important;
+        align-items: center;
+        gap: 10px;
+        padding: 0 24px 14px;
+        font-family: var(--font-mono);
+        font-size: 0.64rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--gold-400);
+        opacity: 0.75;
+    }
+    body.home #services .carousel-hint::before {
+        content: "";
+        width: 18px;
+        height: 1px;
+        background: currentColor;
+    }
+    body.home #services .carousel-hint::after {
+        content: "→";
+        margin-left: auto;
+        letter-spacing: 0;
+        animation: csf-hint 1.8s ease-in-out infinite;
+    }
+    @keyframes csf-hint {
+        0%, 100% { transform: translateX(0); opacity: 0.6; }
+        50%      { transform: translateX(4px); opacity: 1; }
+    }
+
+    /* Progress dots sotto il carousel */
+    body.home #services .carousel-progress {
+        display: flex !important;
+        justify-content: center;
+        gap: 8px;
+        padding: 0 0 56px;
+    }
+    body.home #services .carousel-progress .dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: rgba(212, 173, 66, 0.22);
+        transition: width 0.4s var(--ease-edit), background 0.4s var(--ease-edit);
+    }
+    body.home #services .carousel-progress .dot.is-active {
+        width: 26px;
+        border-radius: 3px;
+        background: var(--gold-400);
+    }
+
+    /* =====================================================
+       (B) MANIFESTO — 3 cells → Accordion disclosure
+       Research §3.6 · §7.3 — disclosure progressiva
+       ===================================================== */
+
+    body.home .manifesto {
+        padding-block: 72px !important;
+    }
+    body.home .manifesto__text {
+        font-size: clamp(2rem, 8.5vw, 2.8rem) !important;
+        max-width: 18ch;
+    }
+    body.home .manifesto__grid {
+        margin-top: 52px !important;
+        padding-top: 12px !important;
+        grid-template-columns: 1fr !important;
+        gap: 0 !important;
+        border-top: 1px solid var(--ink-line);
+    }
+    body.home .manifesto__cell {
+        padding: 0 !important;
+        border-bottom: 1px solid var(--ink-line);
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    body.home .manifesto__cell:last-child {
+        border-bottom: 0;
+    }
+
+    /* Folio originale (p tag) nascosto: lo sostituisce il button trigger */
+    body.home .manifesto__cell > .folio {
+        display: none;
+    }
+    /* Button header (iniettato da JS) */
+    body.home .manifesto__trigger {
+        display: flex !important;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 22px 4px 22px 0;
+        background: transparent;
+        border: 0;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--ink-fg-dim);
+        cursor: pointer;
+        text-align: left;
+        min-height: 48px;
+        transition: color 0.35s var(--ease-edit);
+    }
+    body.home .manifesto__cell.is-open .manifesto__trigger,
+    body.home .manifesto__trigger:hover,
+    body.home .manifesto__trigger:focus-visible {
+        color: var(--gold-300);
+        outline: none;
+    }
+    body.home .manifesto__trigger-label {
+        flex: 1;
+        min-width: 0;
+    }
+    body.home .manifesto__chevron {
+        display: inline-block !important;
+        width: 14px;
+        height: 14px;
+        position: relative;
+        flex-shrink: 0;
+        margin-left: 16px;
+    }
+    body.home .manifesto__chevron::before,
+    body.home .manifesto__chevron::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 14px;
+        height: 1px;
+        background: currentColor;
+        transform-origin: center;
+        transition: transform 0.45s var(--ease-edit);
+    }
+    body.home .manifesto__chevron::after {
+        transform: rotate(90deg);
+    }
+    body.home .manifesto__cell.is-open .manifesto__chevron::after {
+        transform: rotate(0);
+    }
+
+    /* Panel collapsibile — max-height trick (più affidabile di grid 0fr) */
+    body.home .manifesto__panel {
+        display: block !important;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.55s var(--ease-edit), opacity 0.35s var(--ease-edit);
+    }
+    body.home .manifesto__cell.is-open .manifesto__panel {
+        max-height: 480px;
+        opacity: 1;
+    }
+    body.home .manifesto__cell-body {
+        padding-bottom: 28px !important;
+        margin-top: 0 !important;
+        font-size: 0.95rem;
+        line-height: 1.7;
+        color: rgba(245, 239, 224, 0.78);
+        max-width: none !important;
+    }
+
+    /* =====================================================
+       (C) INNOVAZIONE — Stories-style swipe
+       Research §3.10 · §7.4 — scroll-snap-stop: always
+       ===================================================== */
+
+    body.home .innov-section {
+        padding-block: 72px !important;
+    }
+    body.home .innov__head { margin-bottom: 48px !important; }
+    body.home .innov__head h2 {
+        font-size: clamp(2.2rem, 9vw, 3.2rem) !important;
+    }
+    body.home .innov-schema {
+        display: flex !important;
+        grid-template-columns: none !important;
+        flex-direction: row;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 20px 16px 20px;
+        gap: 14px;
+        margin: 0 calc(var(--edit-gutter) * -1);
+        border-top: 1px solid rgba(212, 173, 66, 0.1);
+        border-bottom: 1px solid rgba(212, 173, 66, 0.1);
+        scroll-padding-inline: 16px;
+        scroll-behavior: smooth;
+    }
+    body.home .innov-schema::-webkit-scrollbar { display: none; }
+
+    body.home .innov-mod {
+        flex: 0 0 85% !important;
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+        padding: 32px 26px !important;
+        border: 1px solid rgba(59, 124, 245, 0.18) !important;
+        border-bottom: 1px solid rgba(59, 124, 245, 0.18) !important;
+        background: linear-gradient(180deg, rgba(59, 124, 245, 0.06) 0%, rgba(17, 28, 45, 0.2) 100%);
+        border-radius: 18px;
+        opacity: 1 !important;
+        transform: none !important;
+        display: flex;
+        flex-direction: column;
+    }
+    body.home .innov-mod:hover { background: linear-gradient(180deg, rgba(59, 124, 245, 0.06) 0%, rgba(17, 28, 45, 0.2) 100%); }
+    body.home .innov-mod__n {
+        color: var(--blue-300) !important;
+        margin-bottom: 16px !important;
+        font-size: 0.74rem;
+        letter-spacing: 0.2em;
+    }
+    body.home .innov-mod__title {
+        font-size: clamp(1.35rem, 5.5vw, 1.7rem) !important;
+        margin-bottom: 16px !important;
+    }
+    body.home .innov-mod__body {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        max-width: none !important;
+        flex: 1;
+    }
+    body.home .innov-mod__quote {
+        margin-top: auto;
+        font-size: 0.92rem !important;
+    }
+
+    /* =====================================================
+       (D) PARTNERSHIP — Bento Grid 2×2
+       Research §2.4 · §7.2 — 1 hero + 2 piccole
+       ===================================================== */
+
+    body.home .partnership-section {
+        padding-block: 72px !important;
+        background:
+            radial-gradient(ellipse 80% 50% at 50% 0%, rgba(212, 173, 66, 0.04) 0%, transparent 70%),
+            var(--bg-base) !important;
+    }
+    body.home .partnership__head {
+        margin-bottom: 44px !important;
+    }
+    body.home .partnership__head h2 {
+        font-size: clamp(2.2rem, 9vw, 3.2rem) !important;
+    }
+
+    body.home .partnership__grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        grid-auto-rows: minmax(180px, auto);
+        gap: 12px !important;
+        border: 0 !important;
+        padding: 0 !important;
+    }
+
+    body.home .partner-cell {
+        padding: 22px 20px !important;
+        border: 1px solid rgba(212, 173, 66, 0.16) !important;
+        border-radius: 16px;
+        background: rgba(17, 28, 45, 0.55);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        opacity: 1 !important;
+        transform: none !important;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        position: relative;
+    }
+
+    /* Prima cella = hero: span intera larghezza */
+    body.home .partner-cell:first-child {
+        grid-column: 1 / -1;
+        min-height: 220px;
+        background:
+            radial-gradient(ellipse 120% 80% at 100% 0%, rgba(212, 173, 66, 0.1) 0%, transparent 60%),
+            rgba(17, 28, 45, 0.65) !important;
+        border-color: rgba(212, 173, 66, 0.28) !important;
+        padding: 28px 24px !important;
+    }
+    body.home .partner-cell:first-child::before {
+        content: "";
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 44px;
+        height: 44px;
+        border: 1px solid rgba(212, 173, 66, 0.35);
+        border-radius: 50%;
+        background: radial-gradient(circle at center, rgba(212, 173, 66, 0.18) 0%, transparent 65%);
+        pointer-events: none;
+    }
+
+    body.home .partner-cell .folio {
+        font-size: 0.6rem !important;
+        margin-bottom: 12px !important;
+        letter-spacing: 0.16em !important;
+    }
+    body.home .partner-cell__title {
+        font-size: 1.15rem !important;
+        margin-bottom: 10px !important;
+        line-height: 1.1;
+    }
+    body.home .partner-cell:first-child .partner-cell__title {
+        font-size: 1.55rem !important;
+        margin-bottom: 12px !important;
+    }
+    body.home .partner-cell .body {
+        font-size: 0.8rem !important;
+        margin-bottom: 14px !important;
+        line-height: 1.5;
+        max-width: none !important;
+    }
+    body.home .partner-cell:first-child .body {
+        font-size: 0.92rem !important;
+    }
+    body.home .partner-cell__tags {
+        gap: 4px !important;
+        margin-top: auto;
+    }
+    body.home .partner-cell__tags li {
+        font-size: 0.56rem !important;
+        padding: 4px 7px !important;
+        letter-spacing: 0.08em !important;
+    }
+    body.home .partner-cell:not(:first-child) .partner-cell__tags li:nth-child(n+4) {
+        display: none;
+    }
+
+    /* Stats partnership: in-linea 3 colonne orizzontali (più compatto del 1fr) */
+    body.home .partnership__stats {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 14px !important;
+        padding: 28px 0 !important;
+    }
+    body.home .pstat__n { font-size: 2rem !important; }
+    body.home .pstat__l { font-size: 0.56rem !important; letter-spacing: 0.18em; }
+
+    /* =====================================================
+       (E) PERCORSI — Tabs (Genesi / Evoluzione)
+       Research §3.7 · §7.5 — tab switching
+       ===================================================== */
+
+    body.home .percorsi-section {
+        padding-block: 72px !important;
+    }
+    body.home .percorsi__head { margin-bottom: 40px !important; }
+    body.home .percorsi__head h2 {
+        font-size: clamp(2.2rem, 9vw, 3.2rem) !important;
+    }
+
+    body.home .percorsi__pair {
+        display: block !important;
+        grid-template-columns: none !important;
+        gap: 0 !important;
+    }
+    body.home .percorsi__divider {
+        display: none !important;
+    }
+
+    body.home .percorsi__tabs {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        border-bottom: 1px solid rgba(212, 173, 66, 0.14);
+        margin-bottom: 0;
+    }
+    body.home .percorsi__tab {
+        padding: 16px 12px;
+        background: transparent;
+        border: 0;
+        border-bottom: 2px solid transparent;
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        cursor: pointer;
+        position: relative;
+        transition: color 0.35s var(--ease-edit), border-color 0.35s var(--ease-edit);
+        min-height: 48px;
+        text-align: center;
+        margin-bottom: -1px;
+    }
+    body.home .percorsi__tab[aria-selected="true"] {
+        color: var(--gold-300);
+        border-bottom-color: var(--gold-400);
+    }
+    body.home .percorsi__tab-index {
+        display: block;
+        font-size: 0.52rem;
+        opacity: 0.6;
+        margin-bottom: 2px;
+    }
+
+    body.home .percorso {
+        padding: 28px 4px !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        display: none;
+    }
+    body.home .percorso.is-active {
+        display: flex !important;
+        animation: csf-tab-fade 0.45s var(--ease-edit);
+    }
+    @keyframes csf-tab-fade {
+        from { opacity: 0; transform: translateY(8px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+    body.home .percorso__title {
+        font-size: 1.6rem !important;
+    }
+    body.home .percorso__list li {
+        padding: 11px 0 !important;
+        font-size: 0.88rem;
+    }
+    body.home .percorsi__closing {
+        font-size: 1.15rem !important;
+        margin-top: 40px !important;
+    }
+
+    /* =====================================================
+       (F) FINANZA — refinement bollettino mobile
+       ===================================================== */
+
+    body.home .finanza-section {
+        padding-block: 72px !important;
+    }
+    body.home .bulletin__heading {
+        font-size: clamp(2.6rem, 13vw, 4rem) !important;
+        margin-bottom: 48px !important;
+    }
+    body.home .finanza__cols {
+        font-size: 0.95rem !important;
+        line-height: 1.65 !important;
+    }
+    body.home .finanza__cols p:first-child::first-letter {
+        font-size: 3.4em;
+    }
+    body.home .finanza__pull {
+        border-top: 1px solid var(--ink-line);
+        padding-top: 28px;
+        margin-top: 16px;
+    }
+    body.home .finanza__pull .pullquote {
+        font-size: clamp(1.4rem, 6vw, 1.8rem) !important;
+    }
+    body.home .ledger-row {
+        padding: 14px 0 !important;
+        gap: 10px !important;
+        grid-template-columns: 28px 1fr !important;
+    }
+    body.home .ledger-row__t {
+        font-size: 1.1rem !important;
+    }
+    body.home .ledger-row__d {
+        font-size: 0.78rem !important;
+        line-height: 1.45;
+    }
+
+    /* =====================================================
+       (G) CAPITOLI / TOC — tactile mobile polish
+       ===================================================== */
+
+    body.home .capitoli-section {
+        padding-block: 72px !important;
+    }
+    body.home .capitoli__header {
+        padding-bottom: 28px !important;
+    }
+    body.home .capitoli__header h2 {
+        font-size: clamp(2.6rem, 12vw, 4rem) !important;
+    }
+    body.home .toc__item {
+        padding: 20px 0 !important;
+        grid-template-columns: 40px 1fr !important;
+        gap: 16px !important;
+    }
+    body.home .toc__n {
+        font-size: 0.7rem !important;
+    }
+    body.home .toc__title {
+        font-size: clamp(1.4rem, 6vw, 2rem) !important;
+    }
+    body.home .toc__title em {
+        display: block;
+        margin-left: 0 !important;
+        margin-top: 4px;
+        font-size: 0.5em !important;
+    }
+    body.home .toc__go {
+        grid-column: 2 !important;
+        margin-top: 10px !important;
+        font-size: 0.62rem !important;
+    }
+
+    /* =====================================================
+       (H) LETTER / CHI SIAMO — compact
+       ===================================================== */
+
+    body.home .letter-section {
+        padding-block: 72px !important;
+    }
+    body.home .letter__body h2 {
+        font-size: clamp(1.8rem, 8vw, 2.4rem) !important;
+    }
+    body.home .chron {
+        margin-top: 48px !important;
+    }
+
+    /* =====================================================
+       (I) STATS — 2×2 grid con divider interni
+       ===================================================== */
+
+    body.home #stats {
+        padding: 60px 0 !important;
+        background: linear-gradient(180deg, var(--bg-base) 0%, var(--bg-deep) 100%) !important;
+    }
+    body.home #stats .stats-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        max-width: 420px;
+        margin: 0 auto;
+        padding: 0 16px;
+    }
+    body.home #stats .stat-item {
+        padding: 28px 16px !important;
+        position: relative;
+    }
+    body.home #stats .stat-item:nth-child(1),
+    body.home #stats .stat-item:nth-child(3) {
+        border-right: 1px solid rgba(212, 173, 66, 0.08);
+    }
+    body.home #stats .stat-item:nth-child(1),
+    body.home #stats .stat-item:nth-child(3),
+    body.home #stats .stat-item:nth-child(5) {
+        border-bottom: 1px solid rgba(212, 173, 66, 0.08);
+    }
+    body.home #stats .stat-item:nth-child(2) {
+        border-bottom: 1px solid rgba(212, 173, 66, 0.08);
+    }
+    body.home #stats .stat-divider { display: none !important; }
+    body.home #stats .stat-number {
+        font-size: clamp(2.2rem, 10vw, 2.8rem) !important;
+    }
+    body.home #stats .stat-label {
+        font-size: 0.6rem !important;
+        letter-spacing: 0.18em;
+    }
+
+    /* =====================================================
+       (J) CLOSING CTA — respiro finale
+       ===================================================== */
+
+    body.home .closing-section {
+        padding-block: 64px !important;
+    }
+    body.home .closing__grid h2 {
+        font-size: clamp(2.2rem, 10vw, 3.2rem) !important;
+    }
+    body.home .closing__actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* =====================================================
+       (K) RESPIRO — full-bleed quiet between dense blocks
+       (inserito in markup tra sezioni dense)
+       ===================================================== */
+
+    body.home .respiro {
+        padding: 88px 28px !important;
+        text-align: center;
+        background: var(--bg-deep);
+        position: relative;
+        overflow: hidden;
+        border-top: 1px solid rgba(212, 173, 66, 0.06);
+        border-bottom: 1px solid rgba(212, 173, 66, 0.06);
+    }
+    body.home .respiro::before,
+    body.home .respiro::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 32px;
+        height: 1px;
+        background: var(--gold-400);
+    }
+    body.home .respiro::before { top: 28px; }
+    body.home .respiro::after  { bottom: 28px; }
+    body.home .respiro__quote {
+        font-family: var(--font-display);
+        font-weight: 300;
+        font-style: italic;
+        font-variation-settings: "opsz" 144, "SOFT" 100;
+        font-size: clamp(1.55rem, 7.5vw, 2.2rem);
+        line-height: 1.22;
+        letter-spacing: -0.02em;
+        color: var(--text-heading);
+        text-wrap: balance;
+        margin: 0 auto;
+        max-width: 22ch;
+    }
+    body.home .respiro__quote em {
+        color: var(--gold-300);
+    }
+    body.home .respiro__author {
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-top: 32px;
+        display: block;
+    }
+
+    /* =====================================================
+       (L) HERO — mobile fine-tuning
+       ===================================================== */
+
+    body.home .hero-home__title .line {
+        padding-right: 0 !important;
+    }
+    body.home .hero-home__actions {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+    }
+    body.home .hero-home__actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Desktop ≥ 769 — nascondi tutto il markup mobile-only */
+@media (min-width: 769px) {
+    body.home .mobile-only,
+    body.home .respiro,
+    body.home .carousel-hint,
+    body.home .carousel-progress,
+    body.home .percorsi__tabs,
+    body.home .manifesto__trigger { display: none !important; }
+    body.home .manifesto__panel { display: contents; }
+    body.home .percorso.is-active { display: flex; }
+}
+
+/* ============================================================
+   INNER PAGES — MOBILE MASTERCLASS (≤ 768px)
+   Extends the home masterclass pattern language:
+   accordion · carousel · tabs · bento · respiro · alt-bg
+   Scoped per body.page-{slug} to avoid cross-contamination.
+   Desktop (≥ 769px) fully preserved — see final block.
+   ============================================================ */
+
+/* --- Shared inner-page utilities (all viewports) --- */
+body[class*="page-"] .inner-mobile-only { display: none; }
+body[class*="page-"] .inner-respiro {
+    display: none;
+    padding: 96px 24px;
+    text-align: center;
+    background: linear-gradient(180deg, var(--bg-base) 0%, var(--bg-deep) 100%);
+    position: relative;
+}
+body[class*="page-"] .inner-respiro::before,
+body[class*="page-"] .inner-respiro::after {
+    content: "";
+    display: block;
+    width: 48px;
+    height: 1px;
+    background: var(--gold-400);
+    opacity: 0.6;
+    margin: 0 auto 28px;
+}
+body[class*="page-"] .inner-respiro::after { margin: 28px auto 0; }
+body[class*="page-"] .inner-respiro-quote {
+    font-family: var(--font-display, 'Fraunces', serif);
+    font-size: clamp(1.5rem, 5.5vw, 2.1rem);
+    line-height: 1.25;
+    color: var(--ink-primary, #e8eaed);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+}
+body[class*="page-"] .inner-respiro-quote em {
+    color: var(--gold-400);
+    font-style: italic;
+    font-weight: 400;
+}
+body[class*="page-"] .inner-respiro-tag {
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    color: var(--gold-400);
+    opacity: 0.75;
+    text-transform: uppercase;
+    margin-top: 20px;
+    display: block;
+}
+
+/* Carousel progress dots — reusable on inner pages */
+body[class*="page-"] .inner-carousel-progress {
+    display: none;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+}
+body[class*="page-"] .inner-carousel-progress .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+}
+body[class*="page-"] .inner-carousel-progress .dot.is-active {
+    background: var(--gold-400);
+    width: 20px;
+    border-radius: 3px;
+}
+
+body[class*="page-"] .inner-carousel-hint {
+    display: none;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    color: var(--gold-400);
+    opacity: 0.7;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 18px;
+}
+body[class*="page-"] .inner-carousel-hint::after {
+    content: " →";
+    animation: csf-hint-nudge 2s ease-in-out infinite;
+    display: inline-block;
+}
+@keyframes csf-hint-nudge {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(6px); }
+}
+
+/* Scroll progress bar for inner pages */
+@supports (animation-timeline: scroll()) {
+    body[class*="page-"]::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--gold-400), var(--gold-300, #d4af37));
+        width: 100%;
+        transform-origin: 0 50%;
+        transform: scaleX(0);
+        z-index: 9999;
+        animation: csf-inner-progress linear;
+        animation-timeline: scroll();
+        pointer-events: none;
+    }
+    @keyframes csf-inner-progress {
+        to { transform: scaleX(1); }
+    }
+}
+
+/* Generic accordion pattern (inner pages) */
+body[class*="page-"] .inner-accordion-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+body[class*="page-"] .inner-accordion-trigger {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 22px 4px;
+    text-align: left;
+    font-family: var(--font-display, 'Fraunces', serif);
+    font-size: 1.15rem;
+    color: var(--ink-primary, #e8eaed);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    line-height: 1.3;
+    transition: color 0.3s ease;
+}
+body[class*="page-"] .inner-accordion-trigger:hover,
+body[class*="page-"] .inner-accordion-item.is-open .inner-accordion-trigger {
+    color: var(--gold-400);
+}
+body[class*="page-"] .inner-accordion-chevron {
+    flex: 0 0 20px;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    transition: transform 0.4s var(--ease-edit, cubic-bezier(0.65, 0, 0.35, 1));
+}
+body[class*="page-"] .inner-accordion-chevron::before,
+body[class*="page-"] .inner-accordion-chevron::after {
+    content: "";
+    position: absolute;
+    background: currentColor;
+    top: 50%;
+    left: 50%;
+    transition: transform 0.4s var(--ease-edit, cubic-bezier(0.65, 0, 0.35, 1));
+}
+body[class*="page-"] .inner-accordion-chevron::before {
+    width: 12px;
+    height: 1.5px;
+    transform: translate(-50%, -50%);
+}
+body[class*="page-"] .inner-accordion-chevron::after {
+    width: 1.5px;
+    height: 12px;
+    transform: translate(-50%, -50%);
+}
+body[class*="page-"] .inner-accordion-item.is-open .inner-accordion-chevron::after {
+    transform: translate(-50%, -50%) scaleY(0);
+}
+body[class*="page-"] .inner-accordion-panel {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s var(--ease-edit, cubic-bezier(0.65, 0, 0.35, 1)),
+                opacity 0.35s var(--ease-edit, cubic-bezier(0.65, 0, 0.35, 1));
+}
+body[class*="page-"] .inner-accordion-item.is-open .inner-accordion-panel {
+    max-height: 700px;
+    opacity: 1;
+}
+body[class*="page-"] .inner-accordion-body {
+    padding: 0 4px 22px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--ink-secondary, #a8abb5);
+}
+
+/* Generic tabs pattern (inner pages) */
+body[class*="page-"] .inner-tabs {
+    display: none;
+    gap: 8px;
+    margin-bottom: 24px;
+    padding: 4px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+body[class*="page-"] .inner-tabs-tab {
+    flex: 1;
+    padding: 10px 16px;
+    background: transparent;
+    border: none;
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-secondary, #a8abb5);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+body[class*="page-"] .inner-tabs-tab[aria-selected="true"] {
+    background: var(--gold-400);
+    color: var(--bg-deep, #0a0e14);
+    font-weight: 600;
+}
+
+/* Mobile activations: only below 768px */
+@media (max-width: 768px) {
+    body[class*="page-"] .inner-mobile-only { display: block; }
+    body[class*="page-"] .inner-respiro { display: block; }
+    body[class*="page-"] .inner-carousel-progress { display: flex; }
+    body[class*="page-"] .inner-carousel-hint { display: block; }
+    body[class*="page-"] .inner-tabs { display: flex; }
+}
+
+/* ============================================================
+   PAGE: INNOVA — Mobile Masterclass
+   - 3 ix-area sections → horizontal stories swipe
+   - 3 stats → scroll-snap carousel
+   - 3 ethos → scroll-snap carousel
+   - 3 levels → scroll-snap carousel with dots
+   - respiro blocks (already in HTML)
+   ============================================================ */
+@media (max-width: 768px) {
+    /* Wrap the three ix-area sections in a horizontal scroll-snap carousel */
+    body.page-innova .ix-areas-carousel {
+        display: flex !important;
+        flex-wrap: nowrap;
+        gap: 14px;
+        padding: 20px 24px 8px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 24px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    body.page-innova .ix-areas-carousel::-webkit-scrollbar { display: none; }
+    body.page-innova .ix-areas-carousel .ix-area {
+        flex: 0 0 85% !important;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        padding: 32px 24px !important;
+        margin: 0 !important;
+        min-height: auto !important;
+        border-radius: 16px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        position: relative;
+    }
+    body.page-innova .ix-areas-carousel .ix-area-inner {
+        display: block !important;
+        grid-template-columns: none !important;
+        gap: 0 !important;
+    }
+    body.page-innova .ix-areas-carousel .ix-area-visual {
+        display: none !important;
+    }
+    body.page-innova .ix-areas-carousel .ix-area-num {
+        position: absolute !important;
+        top: 16px;
+        right: 20px;
+        font-size: 3.5rem !important;
+        opacity: 0.2;
+        line-height: 1;
+    }
+    body.page-innova .ix-areas-carousel .ix-area-title {
+        font-size: 1.4rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 14px !important;
+    }
+    body.page-innova .ix-areas-carousel .ix-area-lead {
+        font-size: 0.92rem !important;
+        line-height: 1.55 !important;
+    }
+    body.page-innova .ix-areas-carousel .ix-area-pills {
+        gap: 6px !important;
+    }
+    body.page-innova .ix-areas-carousel .ix-pill {
+        font-size: 0.68rem !important;
+        padding: 5px 10px !important;
+    }
+    body.page-innova .ix-areas-carousel .ix-area-case {
+        margin-top: 16px !important;
+        padding: 14px !important;
+    }
+
+    /* IMPACT: 3 stats become a horizontal snap carousel */
+    body.page-innova .ix-impact { padding: 40px 0 !important; }
+    body.page-innova .ix-impact-grid {
+        display: flex !important;
+        grid-template-columns: none !important;
+        flex-wrap: nowrap;
+        gap: 14px;
+        padding: 0 24px 8px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 24px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    body.page-innova .ix-impact-grid::-webkit-scrollbar { display: none; }
+    body.page-innova .ix-impact-grid .ix-stat {
+        flex: 0 0 75%;
+        scroll-snap-align: start;
+        padding: 32px 20px !important;
+        text-align: center;
+    }
+
+    /* ETHOS: 3 principi → horizontal carousel */
+    body.page-innova .ix-ethos-grid {
+        display: flex !important;
+        grid-template-columns: none !important;
+        flex-wrap: nowrap;
+        gap: 14px;
+        padding: 0 24px 8px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 24px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    body.page-innova .ix-ethos-grid::-webkit-scrollbar { display: none; }
+    body.page-innova .ix-ethos-item {
+        flex: 0 0 80%;
+        scroll-snap-align: start;
+        padding: 28px 22px !important;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* LEVELS: 3 modalità → horizontal carousel */
+    body.page-innova .ix-levels-grid {
+        display: flex !important;
+        grid-template-columns: none !important;
+        flex-wrap: nowrap;
+        gap: 14px;
+        padding: 0 24px 8px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 24px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    body.page-innova .ix-levels-grid::-webkit-scrollbar { display: none; }
+    body.page-innova .ix-lv {
+        flex: 0 0 85%;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        margin: 0 !important;
+    }
+
+    /* QUOTE section: treat as respiro */
+    body.page-innova .ix-quote {
+        padding: 60px 24px !important;
+    }
+    body.page-innova .ix-quote-text {
+        font-size: clamp(1.5rem, 5.5vw, 2.1rem) !important;
+        line-height: 1.3 !important;
+    }
+
+    /* MARQUEE: reduce motion on mobile for a11y */
+    body.page-innova .ix-marquee-track {
+        animation-duration: 40s !important;
+    }
+
+    /* PROCESS timeline: compact vertical on mobile */
+    body.page-innova .ix-timeline {
+        padding: 20px 8px !important;
+    }
+    body.page-innova .ix-tl-step {
+        margin-bottom: 24px !important;
+    }
+
+    /* Alternating backgrounds on mobile for rhythm */
+    body.page-innova .ix-areas-intro { background: var(--bg-deep, #0a0e14); }
+    body.page-innova .ix-impact { background: var(--bg-base, #131821); }
+    body.page-innova .ix-ethos { background: var(--bg-deep, #0a0e14); }
+    body.page-innova .ix-levels { background: var(--bg-base, #131821); }
+    body.page-innova .ix-process { background: var(--bg-deep, #0a0e14); }
+}
+
+/* ============================================================
+   PAGE: CHI-SIAMO — Mobile Masterclass
+   - Hero split: fade cross-dissolve (slower, smoother)
+   - Metamorfosi 3 step → horizontal scroll-snap with connector
+   - 4 Volti → bento 2×2 mobile
+   - Vision quote → respiro treatment
+   ============================================================ */
+@media (max-width: 768px) {
+    /* HERO: replace aggressive flicker with gentle cross-dissolve */
+    body.page-chi-siamo .split-hero {
+        min-height: 80vh !important;
+    }
+
+    /* METAMORFOSI: 3 step-card → horizontal snap carousel with timeline line */
+    body.page-chi-siamo .metamorphosis .step-container {
+        display: flex !important;
+        grid-template-columns: none !important;
+        flex-wrap: nowrap;
+        gap: 14px;
+        padding: 20px 24px 8px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 24px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        position: relative;
+    }
+    body.page-chi-siamo .metamorphosis .step-container::-webkit-scrollbar { display: none; }
+    /* Connecting line between steps (visual timeline) */
+    body.page-chi-siamo .metamorphosis .step-container::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent 0%, var(--gold-400) 10%, var(--gold-400) 90%, transparent 100%);
+        opacity: 0.25;
+        z-index: 0;
+        pointer-events: none;
+    }
+    body.page-chi-siamo .metamorphosis .step-card {
+        flex: 0 0 82%;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        padding: 32px 24px !important;
+        margin: 0 !important;
+        border-radius: 14px;
+        background: linear-gradient(180deg, var(--navy-900, #131821) 0%, var(--navy-950, #0a0e14) 100%);
+        border: 1px solid rgba(212, 175, 55, 0.12);
+        position: relative;
+        z-index: 1;
+    }
+    body.page-chi-siamo .metamorphosis .step-card .step-year {
+        font-size: 2.5rem !important;
+        margin-bottom: 8px !important;
+    }
+    body.page-chi-siamo .metamorphosis .step-card .step-title {
+        font-size: 1.4rem !important;
+        margin-bottom: 14px !important;
+    }
+
+    /* 4 VOLTI: bento 2×2 mobile */
+    body.page-chi-siamo section[style*="navy-950"] .step-container {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 16px !important;
+    }
+    body.page-chi-siamo section[style*="navy-950"] .step-container > div {
+        margin: 0 !important;
+    }
+    body.page-chi-siamo section[style*="navy-950"] .step-container > div > div[style*="aspect-ratio"] {
+        aspect-ratio: 1 / 1 !important;
+        margin-bottom: 12px !important;
+    }
+    body.page-chi-siamo section[style*="navy-950"] h4 {
+        font-size: 0.95rem !important;
+        margin-bottom: 3px !important;
+    }
+    body.page-chi-siamo section[style*="navy-950"] p {
+        font-size: 0.8rem !important;
+        line-height: 1.4 !important;
+    }
+    body.page-chi-siamo section[style*="navy-950"] p[style*="gold-400"] {
+        font-size: 0.65rem !important;
+        margin-bottom: 6px !important;
+    }
+
+    /* VISION QUOTE: compact to respiro style */
+    body.page-chi-siamo section[style*="navy-900"]:has(svg[stroke*="gold"]) {
+        padding: 80px 24px !important;
+    }
+    body.page-chi-siamo section[style*="navy-900"] h2[style*="italic"] {
+        font-size: clamp(1.4rem, 5.5vw, 2rem) !important;
+    }
+
+    /* Legacy section: compact padding */
+    body.page-chi-siamo .legacy-section {
+        padding: 60px 0 !important;
+    }
+    body.page-chi-siamo .legacy-section .asymmetric-grid {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+    }
+    body.page-chi-siamo .legacy-image-wrap {
+        aspect-ratio: 4 / 3 !important;
+    }
+
+    /* Reparto Digitale: compact */
+    body.page-chi-siamo .digital-production-grid {
+        gap: 20px !important;
+    }
+}
+
+/* ============================================================
+   PAGE: SERVIZI — Mobile Masterclass
+   - 4 pilastri → horizontal scroll-snap carousel
+   - Compact card layout (image above content, not side-by-side)
+   - Gold full-bleed CTA
+   ============================================================ */
+@media (max-width: 768px) {
+    /* Compact hero */
+    body.page-servizi .services-hero {
+        padding: 80px 24px 40px !important;
+    }
+    body.page-servizi .services-hero .hero-title-main {
+        font-size: clamp(2.2rem, 9vw, 3rem) !important;
+    }
+
+    /* 4 service-section → horizontal snap carousel */
+    body.page-servizi .services-carousel {
+        display: flex !important;
+        flex-wrap: nowrap;
+        gap: 14px;
+        padding: 0 24px 20px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 24px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    body.page-servizi .services-carousel::-webkit-scrollbar { display: none; }
+    body.page-servizi .service-section {
+        flex: 0 0 88%;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        background: none !important;
+    }
+
+    /* Card layout: image stacked above content */
+    body.page-servizi .service-section .service-card-wrap,
+    body.page-servizi .service-section .service-card-wrap.reverse {
+        display: block !important;
+        grid-template-columns: none !important;
+        border-radius: 16px;
+        overflow: hidden;
+        background: linear-gradient(180deg, var(--navy-900, #131821) 0%, var(--navy-950, #0a0e14) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        min-height: auto !important;
+    }
+    body.page-servizi .service-section .service-card-wrap.reverse > * {
+        direction: ltr !important;
+    }
+    body.page-servizi .service-section .service-img-side {
+        aspect-ratio: 16 / 10 !important;
+        width: 100% !important;
+        height: auto !important;
+        position: relative;
+    }
+    body.page-servizi .service-section .service-img-side img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(0.3);
+    }
+    body.page-servizi .service-section .service-img-number {
+        font-size: 3rem !important;
+        opacity: 0.85 !important;
+    }
+    body.page-servizi .service-section .service-content-side {
+        padding: 24px 22px 28px !important;
+    }
+    body.page-servizi .service-section .service-content-inner {
+        padding: 0 !important;
+        max-width: none !important;
+    }
+    body.page-servizi .service-section .service-tag {
+        font-size: 0.65rem !important;
+        margin-bottom: 10px !important;
+    }
+    body.page-servizi .service-section .service-title-lg {
+        font-size: 1.4rem !important;
+        line-height: 1.15 !important;
+        margin-bottom: 12px !important;
+    }
+    body.page-servizi .service-section .service-lead {
+        font-size: 0.9rem !important;
+        line-height: 1.55 !important;
+        margin-bottom: 16px !important;
+    }
+    body.page-servizi .service-section .competence-list {
+        gap: 6px !important;
+        margin-bottom: 16px !important;
+    }
+    body.page-servizi .service-section .competence-pill {
+        font-size: 0.68rem !important;
+        padding: 5px 10px !important;
+    }
+    body.page-servizi .service-section .service-innovation {
+        padding: 12px 14px !important;
+        font-size: 0.82rem !important;
+    }
+    body.page-servizi .service-section .service-innovation-label {
+        font-size: 0.62rem !important;
+    }
+
+    /* Even sections alternating: respect mobile alt-bg */
+    body.page-servizi .service-section:nth-child(even) .service-content-side {
+        background: transparent !important;
+    }
+
+    /* Innovation CTA full-bleed */
+    body.page-servizi .innovation-cta-block {
+        padding: 60px 24px !important;
+    }
+    body.page-servizi .innovation-cta-block .cta-title {
+        font-size: clamp(1.8rem, 7vw, 2.4rem) !important;
+    }
+    body.page-servizi .innovation-cta-block .btn {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+}
+
+/* ============================================================
+   PAGE: PARTNERSHIP — Mobile polish
+   - Process-track 4 step → horizontal carousel
+   - Benefits grid → horizontal carousel (preserves bento intent)
+   - Testimonials 2 → carousel 1-up
+   - Marquee reduced motion
+   ============================================================ */
+@media (max-width: 768px) {
+    /* PROCESS TRACK: 4 step → horizontal snap carousel */
+    body.page-partnership .process-track {
+        display: flex !important;
+        grid-template-columns: none !important;
+        flex-wrap: nowrap !important;
+        gap: 14px !important;
+        padding: 20px 24px 8px !important;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 24px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    body.page-partnership .process-track::-webkit-scrollbar { display: none; }
+    body.page-partnership .process-track::before { display: none !important; }
+    body.page-partnership .process-step {
+        flex: 0 0 78% !important;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        padding: 28px 22px !important;
+        border-radius: 14px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+        border: 1px solid rgba(212, 175, 55, 0.12);
+        margin: 0 !important;
+    }
+
+    /* BENEFITS GRID: horizontal carousel (preserve asymmetric spans via order) */
+    body.page-partnership .benefits-grid {
+        display: flex !important;
+        grid-template-columns: none !important;
+        flex-wrap: nowrap !important;
+        gap: 14px !important;
+        padding: 0 24px 8px !important;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 24px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    body.page-partnership .benefits-grid::-webkit-scrollbar { display: none; }
+    body.page-partnership .benefit-card {
+        flex: 0 0 82% !important;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        padding: 28px 22px !important;
+        grid-column: auto !important;
+    }
+
+    /* TESTIMONIALS: 2 → 1-up horizontal carousel */
+    body.page-partnership .testimonial-grid {
+        display: flex !important;
+        grid-template-columns: none !important;
+        flex-wrap: nowrap !important;
+        gap: 14px !important;
+        padding: 0 24px 8px !important;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 24px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    body.page-partnership .testimonial-grid::-webkit-scrollbar { display: none; }
+    body.page-partnership .testimonial-card {
+        flex: 0 0 88% !important;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        padding: 32px 24px !important;
+    }
+
+    /* MARQUEE: slow down on mobile for a11y */
+    body.page-partnership .marquee-track {
+        animation-duration: 50s !important;
+    }
+
+    /* Compact heroes/sections */
+    body.page-partnership .partner-hero {
+        min-height: 80vh !important;
+    }
+    body.page-partnership .partner-cta-section {
+        padding: 60px 24px !important;
+    }
+    body.page-partnership .cta-big-heading {
+        font-size: clamp(1.8rem, 7vw, 2.6rem) !important;
+    }
+}
+
+/* ============================================================
+   PAGE: PERCORSI — Mobile polish
+   - Keep existing scrollytelling journey (by design)
+   - Compact partnership-convergence
+   - Bento vision-grid on mobile
+   ============================================================ */
+@media (max-width: 768px) {
+    /* Show percorsi respiro only when a path is selected */
+    body.page-percorsi .percorsi-respiro {
+        display: none !important;
+    }
+    body.page-percorsi.path-selected .percorsi-respiro {
+        display: block !important;
+    }
+
+    body.page-percorsi .partnership-convergence {
+        padding: 60px 24px !important;
+    }
+    body.page-percorsi .convergence-title {
+        font-size: clamp(1.8rem, 7vw, 2.4rem) !important;
+        margin-bottom: 16px !important;
+    }
+
+    /* Vision grid → bento 2-col + 1-full layout */
+    body.page-percorsi .vision-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 12px !important;
+    }
+    body.page-percorsi .vision-grid .vision-item {
+        padding: 20px 16px !important;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 12px;
+    }
+    /* First vision item spans full width (bento hero cell) */
+    body.page-percorsi .vision-grid .vision-item:first-child {
+        grid-column: 1 / -1;
+        padding: 24px 20px !important;
+    }
+    body.page-percorsi .vision-grid .vision-item h4 {
+        font-size: 0.9rem !important;
+        margin-bottom: 8px !important;
+    }
+    body.page-percorsi .vision-grid .vision-item p {
+        font-size: 0.8rem !important;
+        line-height: 1.5 !important;
+    }
+
+    /* Journey nav hint — more noticeable */
+    body.page-percorsi .journey-nav-hint {
+        font-size: 0.7rem !important;
+        letter-spacing: 0.2em !important;
+        opacity: 0.75 !important;
+    }
+
+    /* Path-intro compact */
+    body.page-percorsi .path-intro {
+        padding: 120px 24px 60px !important;
+    }
+    body.page-percorsi .path-intro-title {
+        font-size: clamp(2rem, 8vw, 2.8rem) !important;
+    }
+    body.page-percorsi .path-intro-subtitle {
+        font-size: 0.9rem !important;
+        line-height: 1.6 !important;
+    }
+}
+
+/* ============================================================
+   PAGE: CONTATTI — Add FAQ + polish
+   ============================================================ */
+body.page-contatti .contatti-faq-section {
+    padding: 80px 0 100px;
+    background: var(--navy-950, #0a0e14);
+}
+body.page-contatti .contatti-faq-section .section-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+body.page-contatti .contatti-faq-list {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+@media (max-width: 768px) {
+    body.page-contatti .internal-hero {
+        padding: 120px 24px 40px !important;
+    }
+    body.page-contatti .contact-grid {
+        gap: 32px !important;
+    }
+    body.page-contatti .contact-item {
+        padding: 14px 0 !important;
+    }
+    body.page-contatti .contact-quote {
+        padding: 20px !important;
+    }
+    body.page-contatti .contatti-faq-section {
+        padding: 60px 0 80px !important;
+    }
+    body.page-contatti .contatti-faq-section .section-title {
+        font-size: clamp(1.8rem, 7vw, 2.2rem) !important;
+    }
+}
+
+/* Desktop preservation: hide all mobile-only inner-page elements */
+@media (min-width: 769px) {
+    body[class*="page-"] .inner-mobile-only,
+    body[class*="page-"] .inner-respiro,
+    body[class*="page-"] .inner-carousel-hint,
+    body[class*="page-"] .inner-carousel-progress,
+    body[class*="page-"] .inner-tabs {
+        display: none !important;
+    }
+    /* Ensure wrappers are neutral on desktop (no flex) */
+    body.page-innova .ix-areas-carousel,
+    body.page-servizi .services-carousel {
+        display: block;
+    }
+}
+

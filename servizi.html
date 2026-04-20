@@ -10,8 +10,8 @@
     <meta name="description" content="Scopri i servizi core di CSF Consulting: Fiscale, Contabilità, Societario e Lavoro. La solidità della tradizione potenziata dall'innovazione.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,0..100;1,9..144,300..600,0..100&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
         /* ===== Servizi Page — Premium Redesign ===== */
@@ -383,7 +383,7 @@
     </style>
 
 </head>
-<body>
+<body class="page-servizi">
 
     <div id="preloader">
         <div class="preloader-inner">
@@ -451,6 +451,9 @@
             </div>
         </section>
 
+        <div class="inner-carousel-hint inner-mobile-only" style="padding: 0 24px 8px;">Scorri i quattro pilastri</div>
+
+        <div class="services-carousel" role="region" aria-label="I quattro pilastri — scorri orizzontalmente">
         <!-- 01 Fiscale -->
         <div class="service-section" id="fiscale">
             <div class="service-card-wrap reveal">
@@ -562,6 +565,21 @@
                 </div>
             </div>
         </div>
+
+        </div><!-- /services-carousel -->
+
+        <div class="inner-carousel-progress inner-mobile-only" aria-hidden="true">
+            <button class="dot is-active" type="button" aria-label="Fiscale"></button>
+            <button class="dot" type="button" aria-label="Contabilità"></button>
+            <button class="dot" type="button" aria-label="Societario"></button>
+            <button class="dot" type="button" aria-label="Lavoro"></button>
+        </div>
+
+        <!-- RESPIRO: tra pilastri e CTA -->
+        <section class="inner-respiro inner-mobile-only" aria-hidden="true">
+            <div class="inner-respiro-quote">Quattro <em>pilastri</em>.<br>Un'unica <em>missione</em>.</div>
+            <span class="inner-respiro-tag">L'offerta · CSF</span>
+        </section>
 
         <!-- Innovation CTA -->
         <section class="innovation-cta-block reveal">

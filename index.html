@@ -215,7 +215,7 @@
         </div>
     </section>
 
-    <!-- ===================== SERVICES SECTION (MONUMENTAL GRID) ===================== -->
+    <!-- ===================== SERVICES SECTION (MONUMENTAL GRID → MOBILE CAROUSEL) ===================== -->
     <section id="services" style="padding: 0; background: var(--navy-900); overflow: hidden;">
         <div class="section-header reveal" style="padding: 100px 24px 60px; margin-bottom: 0;">
             <span class="section-label">Consulenza Core</span>
@@ -223,7 +223,11 @@
             <p class="section-subtitle">Oltre mezzo secolo di autorità e sicurezza garantita dal metodo Studio Frasca.</p>
         </div>
 
-        <div class="monumental-grid">
+        <div class="carousel-hint mobile-only" aria-hidden="true">
+            <span>Scorri i pilastri</span>
+        </div>
+
+        <div class="monumental-grid" role="region" aria-label="Servizi CSF — scorri orizzontalmente">
             <!-- Service 1 -->
             <a href="servizi.html#fiscale" class="monolith reveal">
                 <div class="monolith-bg" style="background-image: url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=1000');"></div>
@@ -304,6 +308,19 @@
                 </div>
             </a>
         </div>
+
+        <div class="carousel-progress mobile-only" aria-hidden="true">
+            <span class="dot is-active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </section>
+
+    <!-- ===================== RESPIRO I — tra servizi e innovazione ===================== -->
+    <section class="respiro mobile-only" aria-hidden="true">
+        <p class="respiro__quote">Non <em>vendiamo</em> consulenza.<br>Costruiamo un <em>ecosistema</em>.</p>
+        <span class="respiro__author">Il metodo CSF</span>
     </section>
 
     <style>
@@ -414,110 +431,8 @@
             }
         }
 
-        /* Mobile — compact service cards */
-        @media (max-width: 768px) {
-            .monumental-grid {
-                flex-direction: column;
-                height: auto;
-                padding: 0 16px 24px;
-                gap: 16px;
-            }
-            .monolith {
-                flex: none;
-                height: auto;
-                min-height: 0;
-                border-radius: 20px;
-                border-right: none;
-                border: 1px solid rgba(201, 168, 76, 0.08);
-                opacity: 1 !important;
-                transform: none !important;
-                padding: 0;
-                align-items: stretch;
-                cursor: default;
-                overflow: hidden;
-            }
-            .monolith-bg {
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 200px;
-                filter: grayscale(0.3) brightness(0.55) !important;
-                transform: none !important;
-                transition: none !important;
-            }
-            .monolith-overlay {
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: linear-gradient(180deg, rgba(4, 10, 20, 0.05) 0%, rgba(4, 10, 20, 0.7) 160px, var(--bg-base) 200px);
-                opacity: 1 !important;
-                transition: none !important;
-            }
-            .monolith-content {
-                position: relative;
-                display: flex;
-                flex-direction: column;
-                padding: 140px 24px 32px;
-                z-index: 2;
-            }
-            .monolith-number {
-                font-size: 2.4rem;
-                opacity: 0.35;
-                transform: none !important;
-                margin-bottom: 6px;
-                line-height: 1;
-            }
-            .monolith-title {
-                font-size: 1.4rem;
-                margin-bottom: 10px;
-                line-height: 1.25;
-            }
-            .monolith-details {
-                display: block;
-                grid-template-rows: none;
-                max-height: none;
-                opacity: 1;
-                overflow: visible;
-                margin-top: 4px;
-            }
-            .monolith-details > div {
-                overflow: visible;
-                min-height: auto;
-            }
-            .monolith-details p {
-                font-size: 0.85rem;
-                line-height: 1.65;
-                color: var(--text-body);
-            }
-            .monolith-list {
-                margin-top: 12px;
-            }
-            .monolith-list li {
-                font-size: 0.82rem;
-                margin-bottom: 7px;
-            }
-            .monolith-list li::before {
-                width: 5px;
-                height: 5px;
-                border-radius: 50%;
-                background: var(--gold-400);
-            }
-        }
-
-        /* Smaller phones */
-        @media (max-width: 420px) {
-            .monumental-grid { padding: 0 12px 20px; gap: 14px; }
-            .monolith-bg { height: 170px; }
-            .monolith-overlay {
-                background: linear-gradient(180deg, rgba(4, 10, 20, 0.05) 0%, rgba(4, 10, 20, 0.7) 130px, var(--bg-base) 170px);
-            }
-            .monolith-content { padding: 115px 20px 28px; }
-            .monolith-number { font-size: 2rem; }
-            .monolith-title { font-size: 1.25rem; }
-        }
+        /* Mobile rules → spostate nel @media (max-width: 768px) di style.css
+           (sezione "HOMEPAGE — MOBILE MASTERCLASS") come carousel orizzontale. */
     </style>
 
     <!-- ===================== INNOVAZIONE — Respiro editoriale ===================== -->
@@ -785,6 +700,12 @@
                 </a>
             </div>
         </div>
+    </section>
+
+    <!-- ===================== RESPIRO II — tra partnership e letter ===================== -->
+    <section class="respiro mobile-only" aria-hidden="true">
+        <p class="respiro__quote">Da soli si va <em>veloci</em>.<br>Insieme si va <em>lontano</em>.</p>
+        <span class="respiro__author">Proverbio africano · filosofia CSF</span>
     </section>
 
     <!-- ===================== LETTER — Chi siamo / Founder's voice ===================== -->
